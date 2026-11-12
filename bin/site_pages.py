@@ -15,7 +15,7 @@ CSS = """
 --line:#2a2a30;--soft:#1f1f24;--acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;--chip:#24242a;--stage:#050506}}
 :root[data-theme="dark"]{--bg:#0f0f12;--panel:#17171b;--ink:#ececf0;--mut:#a0a0a8;--faint:#76767e;--line:#2a2a30;--soft:#1f1f24;
 --acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;--chip:#24242a;--stage:#050506}
-*{box-sizing:border-box}html,body{margin:0}
+*{box-sizing:border-box}html,body{margin:0}[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--acc)}.wrap{max-width:1440px;margin:0 auto;padding:0 20px}
 header.top{border-bottom:1px solid var(--line);background:var(--panel)}
@@ -162,7 +162,7 @@ No follow-up turns, no time limit. We publish what it made, live, with every tok
 <h2 id="tasks">Tasks · {SUITE}</h2><p class="sub">Pick a task to watch the results live and compare them side by side.</p>
 <div class="cards">{''.join(cards)}</div>
 <h2 id="results">Results by setup</h2><p class="sub">A setup is a model in one pack and quant on one engine. Click a result to open it, or a setup for everything it has run.</p>
-<div class="filters"><div class="seg" id="fWhere"><button data-v="" aria-pressed="true">All</button><button data-v="local" aria-pressed="false">Local</button><button data-v="hosted" aria-pressed="false">Hosted</button></div>
+<div class="filters"><div class="seg" id="fWhere"{'' if len({x['where'] for x in setups.values()}) > 1 else ' hidden'}><button data-v="" aria-pressed="true">All</button><button data-v="local" aria-pressed="false">Local</button><button data-v="hosted" aria-pressed="false">Hosted</button></div>
 <select id="fModel" aria-label="Model"><option value="">All models</option>{''.join(f'<option>{esc(m)}</option>' for m in models)}</select>
 <input id="fText" type="search" placeholder="Filter by quant, pack or engine" aria-label="Filter"></div>
 <div class="tablewrap"><table><thead><tr><th>Setup</th>{th}</tr></thead><tbody id="rows">{''.join(rows)}</tbody></table></div>

@@ -103,6 +103,10 @@ draft prompt is judged in minutes instead of a night of local runs.
 
 ## Setups (PoC)
 
+Published results are local packs only (decided 2026-11-13): hosted runs
+through OpenRouter do not state which pack or quantisation served them, so
+they are prompt-lab trials and are not shown on the site.
+
 | Setup | Engine | Notes |
 |---|---|---|
 | GLM-5.3-Flash oQ4e | oMLX | needs an engine swap on M3Ultra256 |
