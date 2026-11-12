@@ -38,5 +38,7 @@
   ],
   "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
   "base_url_env": "WC_M3_BASE_URL",
-  "host_header_env": "WC_M3_HOST_HEADER"
+  "host_header_env": "WC_M3_HOST_HEADER",
+  "quant": "oQ4e",
+  "pack_label": "Jundot oQ4e + MTP"
 }

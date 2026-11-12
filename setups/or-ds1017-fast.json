@@ -19,5 +19,7 @@
       "include": true
     }
   },
-  "notes": "Prompt lab only: provider varies by availability; the serving provider is recorded per run."
+  "notes": "Prompt lab only: provider varies by availability; the serving provider is recorded per run.",
+  "quant": null,
+  "pack_label": "Provider-served (OpenRouter picks the provider; precision not recorded per run)"
 }

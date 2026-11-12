@@ -1,6 +1,6 @@
 {
- "repo": "lmstudio-community/qwen3.8-27b-4bit",
- "revision": "kapitsa-catalog-qwen3.8-27b:4bit",
+ "repo": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+ "revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)",
  "source": "kapitsa manifest rdbell/command-center:ansible/files/kapitsa/qwen3.8-27b-4bit.json",
  "files": [
   {
@@ -96,5 +96,6 @@
  ],
  "total_bytes": 20169260357,
  "manifest_sha256": "cc2f18135da88678408e511278963228725f91b1ed8ac08aee7f566f6a95f02a",
- "verified_on": null
+ "verified_on": null,
+ "note": "Kapitsa-forged artifact: LM Studio's MLX 4-bit trunk (8-bit embed, lm_head, linear_attn.out_proj) plus Qwen's MTP head and nace-ai's DFlash2 drafter; hashes are of the files as Kapitsa stores them."
 }

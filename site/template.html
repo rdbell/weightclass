@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weightclass</title>
+<meta name="description" content="Open-weight models and their local packs, given one task and no follow-up in OpenCode. Live scenes, tokens, energy and full run details.">
+<style>
+:root{
+  --bg:#f6f5f2;--panel:#ffffff;--ink:#17171a;--mut:#64646b;--faint:#8d8d94;--line:#e2e0da;--soft:#efede8;
+  --acc:#2b59c3;--acc-ink:#ffffff;--warn:#9a5b00;--warn-bg:#fff4e0;--bad:#b3261e;--bad-bg:#fdecea;
+  --stage:#0d0d10;--chip:#eceae4;--shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06);
+  --r:14px;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f0f12;--panel:#17171b;--ink:#ececf0;--mut:#a0a0a8;--faint:#76767e;--line:#2a2a30;--soft:#1f1f24;
+  --acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;
+  --stage:#050506;--chip:#24242a;--shadow:none}}
+:root[data-theme="dark"]{
+  --bg:#0f0f12;--panel:#17171b;--ink:#ececf0;--mut:#a0a0a8;--faint:#76767e;--line:#2a2a30;--soft:#1f1f24;
+  --acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;
+  --stage:#050506;--chip:#24242a;--shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1440px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);background:var(--panel)}
+header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.brand{font-weight:700;font-size:18px;letter-spacing:-.01em}
+.brand small{display:block;font-weight:400;font-size:12px;color:var(--mut);letter-spacing:0}
+.seg{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:7px;cursor:pointer;color:var(--mut);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.spacer{flex:1}
+.linkbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:6px 12px;cursor:pointer;text-decoration:none;color:var(--ink);font-size:14px;white-space:nowrap}
+.linkbtn:hover{border-color:var(--faint)}
+.intro{padding:14px 0 4px;color:var(--mut);font-size:14px;max-width:900px}
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:14px 0 28px;align-items:start}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}}
+/* stage */
+.stagecard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.stages{display:grid;grid-template-columns:1fr;gap:2px;background:var(--stage)}
+.stages.two{grid-template-columns:1fr 1fr}
+@media (max-width:800px){.stages.two{grid-template-columns:1fr}}
+.stage{position:relative;aspect-ratio:16/10;max-height:74vh;width:100%;background:var(--stage)}
+.stages.two .stage{aspect-ratio:16/11}
+.stage iframe,.stage img.poster{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:var(--stage)}
+.stage .tag{position:absolute;left:10px;bottom:10px;z-index:2;background:rgba(0,0,0,.62);color:#fff;font-size:12px;border-radius:7px;padding:3px 8px;max-width:calc(100% - 20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.stage .slot{position:absolute;right:10px;top:10px;z-index:2;background:var(--acc);color:var(--acc-ink);font-weight:700;font-size:12px;border-radius:7px;padding:2px 8px}
+.stage .loading{position:absolute;inset:auto 10px 10px auto;z-index:2;color:#fff;background:rgba(0,0,0,.55);font-size:12px;border-radius:7px;padding:3px 8px}
+.toolbar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.toolbar .label{color:var(--mut);font-size:13px}
+.iconbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:6px 10px;cursor:pointer;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+.iconbtn[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.iconbtn:hover{border-color:var(--faint)}
+/* run header */
+.runhead{padding:16px 18px 8px;display:grid;gap:10px}
+.runhead.two{grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:800px){.runhead.two{grid-template-columns:1fr}}
+.rh-model{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.rh-model .slotmark{font-size:12px;background:var(--acc);color:var(--acc-ink);border-radius:6px;padding:1px 7px;vertical-align:middle;margin-right:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{background:var(--chip);border-radius:7px;padding:2px 9px;font-size:13px;white-space:nowrap}
+.chip.quant{background:var(--acc);color:var(--acc-ink);font-weight:600}
+.chip.hosted{background:transparent;border:1px dashed var(--faint);color:var(--mut)}
+.flag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin-top:8px}
+.flag.warn{background:var(--warn-bg);color:var(--warn)}
+.flag.bad{background:var(--bad-bg);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--soft);border-radius:10px;padding:8px 10px}
+.stat span{display:block;font-size:12px;color:var(--mut)}
+.stat b{font-size:17px;font-variant-numeric:tabular-nums}
+/* tabs below stage */
+.tabs{display:flex;gap:4px;padding:0 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:11px 10px;cursor:pointer;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.panel{padding:16px 18px 20px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.shot{border:0;padding:0;background:none;cursor:zoom-in;text-align:left}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:9px;border:1px solid var(--line);display:block}
+.shot span{display:block;font-size:12px;color:var(--mut);margin-top:4px}
+.shotgroup + .shotgroup{margin-top:18px}
+.shotgroup h4{margin:0 0 8px;font-size:13px;font-weight:600;color:var(--mut)}
+dl.kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 16px;margin:0;font-size:14px}
+dl.kv dt{color:var(--mut)}
+dl.kv dd{margin:0;overflow-wrap:anywhere}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:800px){.cols2{grid-template-columns:1fr}}
+.cols2 h4{margin:0 0 8px;font-size:14px}
+code,.mono{font-family:var(--mono);font-size:13px}
+/* run list */
+aside.list{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);position:sticky;top:12px;max-height:calc(100vh - 24px);display:flex;flex-direction:column}
+@media (max-width:1100px){aside.list{position:static;max-height:none}}
+.listhead{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.listhead h3{margin:0;font-size:14px;flex:1}
+.listhead select{font:inherit;font-size:13px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 6px}
+.items{overflow:auto;padding:8px}
+.group{font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;margin:10px 6px 6px}
+.item{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;width:100%;border:1px solid transparent;background:transparent;border-radius:11px;padding:7px;cursor:pointer;text-align:left}
+.item:hover{background:var(--soft)}
+.item[aria-current="true"]{border-color:var(--acc);background:var(--soft)}
+.item img{width:96px;aspect-ratio:16/10;object-fit:cover;border-radius:7px;display:block;background:var(--stage)}
+.item .m{font-weight:600;font-size:14px;line-height:1.25}
+.item .q{font-size:12px;color:var(--ink);margin-top:2px}
+.item .q b{font-weight:600}
+.item .w{font-size:12px;color:var(--mut)}
+.item .n{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.item .slotbadge{float:right;background:var(--acc);color:var(--acc-ink);font-size:11px;font-weight:700;border-radius:5px;padding:0 6px}
+/* table */
+section.all{padding:6px 0 48px}
+section.all h2{font-size:18px;margin:6px 0 10px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--mut);font-weight:500;cursor:pointer;user-select:none;position:sticky;top:0;background:var(--panel)}
+th[aria-sort] .arr{opacity:1}
+th .arr{opacity:.25;font-size:11px;margin-left:3px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--soft)}
+tbody tr[aria-current="true"]{background:var(--soft);box-shadow:inset 3px 0 0 var(--acc)}
+.note{color:var(--mut);font-size:13px;margin:10px 2px 0}
+/* modal + lightbox */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.lb-fig{margin:0;max-width:min(1600px,100%);max-height:100%;display:flex;flex-direction:column;align-items:center;gap:10px}
+.lb-fig img{max-width:100%;max-height:calc(100vh - 120px);border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.lb-fig figcaption{color:#e8e8ea;font-size:14px;text-align:center}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.12);color:#fff;width:48px;height:64px;border-radius:12px;cursor:pointer;font-size:26px}
+.lb-nav:hover{background:rgba(255,255,255,.22)}
+.lb-prev{left:16px}.lb-next{right:16px}
+.lb-close,.md-close{position:fixed;top:14px;right:16px;border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:6px 12px;cursor:pointer;font-size:14px}
+.md-box{background:var(--panel);color:var(--ink);border-radius:var(--r);max-width:900px;width:100%;max-height:calc(100vh - 48px);overflow:auto;padding:22px 24px}
+.md-box h2{margin:0 0 4px;font-size:20px}
+.md-box pre{white-space:pre-wrap;font-family:var(--mono);font-size:13px;background:var(--soft);border-radius:10px;padding:14px;line-height:1.55}
+.md-box.wide{max-width:1200px;height:calc(100vh - 48px);padding:0;display:flex;flex-direction:column}
+.md-box.wide iframe{flex:1;border:0;width:100%;border-radius:0 0 var(--r) var(--r);background:#fff}
+.md-box.wide .mdh{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.md-box.wide .mdh b{flex:1}
+footer{color:var(--faint);font-size:13px;padding:18px 0 36px;border-top:1px solid var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">Weightclass<small>Open-weight models and their local packs, one task, no follow-up</small></div>
+  <div class="seg" id="promptSeg" role="group" aria-label="Prompt"></div>
+  <div class="spacer"></div>
+  <button class="linkbtn" id="showPrompt">Read the prompt</button>
+  <a class="linkbtn" href="https://github.com/rdbell/weightclass">Method &amp; code</a>
+</div></header>
+
+<main class="wrap">
+  <p class="intro" id="intro"></p>
+  <div class="layout">
+    <section>
+      <div class="stagecard">
+        <div class="stages" id="stages"></div>
+        <div class="toolbar">
+          <span class="label">Time of day</span>
+          <div class="seg" id="modeSeg" role="group" aria-label="Time of day"></div>
+          <div class="spacer"></div>
+          <button class="iconbtn" id="compareBtn" aria-pressed="false" title="Show two runs side by side">⇆ Compare</button>
+          <button class="iconbtn" id="reloadBtn" title="Restart the scene">↻ Restart</button>
+          <button class="iconbtn" id="fullBtn" title="Full screen">⛶ Full screen</button>
+        </div>
+        <div class="runhead" id="runhead"></div>
+        <div class="tabs" role="tablist" id="tabs">
+          <button role="tab" data-tab="shots" aria-selected="true">Screenshots</button>
+          <button role="tab" data-tab="details" aria-selected="false">Run details</button>
+          <button role="tab" data-tab="setup" aria-selected="false">Pack &amp; engine</button>
+        </div>
+        <div class="panel" id="panel"></div>
+      </div>
+    </section>
+    <aside class="list" aria-label="Runs">
+      <div class="listhead"><h3 id="listTitle">Runs</h3>
+        <label class="sr" for="sortSel">Sort</label>
+        <select id="sortSel">
+          <option value="model">Group by model</option>
+          <option value="generated">Fewest tokens</option>
+          <option value="energy">Least energy</option>
+          <option value="where">Hosted vs local</option>
+        </select>
+      </div>
+      <div class="items" id="items"></div>
+    </aside>
+  </div>
+
+  <section class="all">
+    <h2>All runs for this prompt</h2>
+    <div class="tablewrap"><table id="table"></table></div>
+    <p class="note">Generated = output + reasoning tokens. * Reasoning estimated from the raw stream where the engine reports one combined count. Energy is CPU+GPU+ANE from powermetrics on the M3 Ultra (local runs; not wall power). Wall time depends on hardware and on the other run sharing the engine, so it is shown but never ranked. One sample per setup so far; no votes yet.</p>
+  </section>
+</main>
+<footer><div class="wrap">Scenes are the models' own pages, run in sandboxed frames. Only the scenes on stage run; everything else is a judged screenshot. <a href="https://github.com/rdbell/weightclass">Source, spec and run format</a>.</div></footer>
+
+<div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lb-close" id="lbClose">Close ✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+</div>
+<div class="modal" id="docmodal" role="dialog" aria-modal="true">
+  <button class="md-close" id="mdClose">Close ✕</button>
+  <div class="md-box" id="mdBox"></div>
+</div>
+
+<script>
+const DATA = __DATA__;
+const PROMPTS = __PROMPTS__;
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const k = n => n == null ? "–" : n >= 1e6 ? (n/1e6).toFixed(2) + "M" : n >= 1000 ? (n/1000).toFixed(1) + "K" : String(n);
+const mins = s => s ? (s >= 3600 ? Math.floor(s/3600) + " h " + Math.round((s%3600)/60) + " min" : Math.round(s/60) + " min") : "–";
+const where = r => r.where === "local" ? `${r.engine} ${r.engine_version || ""} · M3 Ultra` : "OpenRouter" + (r.providers.length ? " · " + r.providers.join(", ") : "");
+const est = r => r.token_note !== "reported" ? "*" : "";
+const facts = r => { const c = r.checks || {}; const m = (c.missing_files||[]).length, e = (c.page_errors||[]).length;
+  return { canvas: c.canvases ?? 0, missing: m, errors: e, text: `${c.canvases ?? 0} canvas · ${m} missing file${m===1?"":"s"} · ${e} page error${e===1?"":"s"}` }; };
+const ended = r => String(r.end || "");
+const flagOf = r => { const f = facts(r);
+  if (!f.canvas || f.missing || f.errors) return ["bad", "Page did not draw a scene: " + f.text];
+  if (ended(r).startsWith("step cap") || ended(r).startsWith("guard")) return ["warn", "Run ended at " + ended(r)];
+  return null; };
+
+/* ---------- state (URL hash) ---------- */
+const S = { prompt: Object.keys(PROMPTS)[0], a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
+function readHash(){
+  const h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("p") && PROMPTS[h.get("p")]) S.prompt = h.get("p");
+  S.a = h.get("a"); S.b = h.get("b"); S.compare = !!h.get("b"); S.mode = h.get("m");
+}
+function writeHash(){
+  const h = new URLSearchParams({ p: S.prompt });
+  if (S.a) h.set("a", S.a); if (S.compare && S.b) h.set("b", S.b); if (S.mode) h.set("m", S.mode);
+  history.replaceState(null, "", "#" + h.toString());
+}
+const runs = () => DATA.filter(r => r.prompt === S.prompt)
+  .sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+const byId = id => DATA.find(r => r.id === id);
+const P = () => PROMPTS[S.prompt];
+
+/* ---------- header ---------- */
+function renderPrompts(){
+  $("#promptSeg").innerHTML = Object.entries(PROMPTS).map(([id, p]) =>
+    `<button aria-pressed="${id === S.prompt}" data-id="${esc(id)}">${esc(p.title)}</button>`).join("");
+  $("#promptSeg").querySelectorAll("button").forEach(b => b.onclick = () => { S.prompt = b.dataset.id; S.a = S.b = null; S.mode = null; render(); });
+  const p = P();
+  $("#intro").innerHTML = p.variant === "spec"
+    ? "<b>Spec variant.</b> A hard specification with exact numbers, code and palettes: it measures instruction following, so the scenes should look alike. Compare tokens, steps and reliability."
+    : "<b>Open variant.</b> The prompt states outcomes, not steps; each model decides the scene. Every result below is one run, one shot, no follow-up turns.";
+}
+
+/* ---------- stage ---------- */
+function sceneSrc(r){ const m = S.mode && P().mode_param ? `?${encodeURIComponent(P().mode_param)}=${encodeURIComponent(S.mode)}` : ""; return `runs/${r.id}/scene/index.html${m}`; }
+function posterOf(r){ return `runs/${r.id}/shots/${S.mode && r.shots.includes("mode-" + S.mode) ? "mode-" + S.mode : "default"}.png`; }
+function stageHTML(r, slot){
+  return `<div class="stage" data-id="${esc(r.id)}">
+    <img class="poster" alt="" src="${posterOf(r)}">
+    <iframe sandbox="allow-scripts" title="${esc(r.model)} scene" src="${sceneSrc(r)}"></iframe>
+    ${S.compare ? `<span class="tag">${slot.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</span>` : ""}
+  </div>`;
+}
+function renderStage(){
+  const list = runs();
+  if (!byId(S.a) || byId(S.a).prompt !== S.prompt) S.a = list[0]?.id;
+  if (S.compare && (!byId(S.b) || byId(S.b).prompt !== S.prompt || S.b === S.a)) S.b = list.find(r => r.id !== S.a)?.id;
+  const st = $("#stages"); st.className = "stages" + (S.compare ? " two" : "");
+  st.innerHTML = stageHTML(byId(S.a), "a") + (S.compare ? stageHTML(byId(S.b), "b") : "");
+  const modes = P().modes || [];
+  $("#modeSeg").innerHTML = [`<button aria-pressed="${!S.mode}" data-m="">Default</button>`]
+    .concat(modes.map(m => `<button aria-pressed="${S.mode === m}" data-m="${esc(m)}">${esc(m[0].toUpperCase() + m.slice(1))}</button>`)).join("");
+  $("#modeSeg").parentElement.style.display = modes.length ? "" : "none";
+  $("#modeSeg").querySelectorAll("button").forEach(b => b.onclick = () => { S.mode = b.dataset.m || null; renderStage(); writeHash(); });
+  $("#compareBtn").setAttribute("aria-pressed", S.compare);
+}
+
+/* ---------- run header + panels ---------- */
+function headCol(r, slot){
+  const fl = flagOf(r);
+  return `<div>
+    <div class="rh-model">${S.compare ? `<span class="slotmark">${slot.toUpperCase()}</span>` : ""}${esc(r.model)}</div>
+    <div class="chips">
+      ${r.where === "local" ? `<span class="chip quant">${esc(r.quant)}</span><span class="chip">${esc(r.pack_label)}</span>` : `<span class="chip hosted">Hosted · provider-served</span>`}
+      <span class="chip">${esc(where(r))}</span>
+    </div>
+    ${fl ? `<span class="flag ${fl[0]}">${esc(fl[1])}</span>` : ""}
+    <div class="stats">
+      <div class="stat"><span>Generated</span><b>${k(r.generated)}</b></div>
+      <div class="stat"><span>Reasoning${est(r)}</span><b>${k(r.reasoning)}</b></div>
+      <div class="stat"><span>Output</span><b>${k(r.output)}</b></div>
+      <div class="stat"><span>Steps</span><b>${r.steps ?? "–"}</b></div>
+      <div class="stat"><span>Tool errors</span><b>${r.tool_errors ?? "–"}</b></div>
+      ${r.energy_wh != null ? `<div class="stat"><span>Energy</span><b>${r.energy_wh} Wh</b></div>` : ""}
+      ${r.cost_usd != null ? `<div class="stat"><span>Cost</span><b>$${r.cost_usd.toFixed(3)}</b></div>` : ""}
+      <div class="stat"><span>Wall time</span><b>${mins(r.wall_seconds)}</b></div>
+    </div>
+  </div>`;
+}
+function renderHead(){
+  const rh = $("#runhead"); rh.className = "runhead" + (S.compare ? " two" : "");
+  rh.innerHTML = headCol(byId(S.a), "a") + (S.compare ? headCol(byId(S.b), "b") : "");
+}
+const shotLabel = s => s === "default" ? "Judged screenshot" : s.startsWith("mode-") ? s.slice(5)[0].toUpperCase() + s.slice(6) + " (URL mode)" : s.startsWith("click-") ? s.slice(6)[0].toUpperCase() + s.slice(7) + " (button click)" : s === "default-later" ? "3 s later" : s === "default-second-load" ? "Second load" : s;
+function shotsFor(r){
+  const order = ["default", ...r.shots.filter(s => s.startsWith("mode-")), ...r.shots.filter(s => s.startsWith("click-")), "default-later", "default-second-load"];
+  return order.filter((s, i) => r.shots.includes(s) && order.indexOf(s) === i).map(s => ({ src: `runs/${r.id}/shots/${s}.png`, cap: `${r.model} · ${r.quant || "hosted"} — ${shotLabel(s)}` }));
+}
+function shotsPanel(r, slot){
+  const items = shotsFor(r);
+  return `<div class="shotgroup">${S.compare ? `<h4>${slot.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</h4>` : ""}
+    <div class="shots">${items.map((it, i) => `<button class="shot" data-run="${esc(r.id)}" data-i="${i}"><img loading="lazy" alt="${esc(it.cap)}" src="${it.src}"><span>${esc(it.cap.split(" — ")[1])}</span></button>`).join("")}</div></div>`;
+}
+function detailsPanel(r){
+  const c = r.checks || {}; const f = facts(r);
+  return `<div class="cols2">
+    <div><h4>Tokens and steps</h4><dl class="kv">
+      <dt>Generated</dt><dd>${k(r.generated)} = output ${k(r.output)} + reasoning ${k(r.reasoning)}${est(r) ? " (reasoning estimated from the raw stream)" : ""}</dd>
+      <dt>Input</dt><dd>${k(r.input)} fresh · ${k(r.cached)} read from cache</dd>
+      <dt>Steps</dt><dd>${r.steps ?? "–"} · ${r.tool_calls ?? "–"} tool calls · ${r.tool_errors ?? "–"} tool errors</dd>
+      <dt>Run ended</dt><dd>${esc(r.end)}</dd>
+      <dt>Wall time</dt><dd>${mins(r.wall_seconds)}${r.concurrent ? ` (engine shared with ${r.concurrent} other run)` : ""}</dd>
+      ${r.decode_tps_p50 ? `<dt>Speed</dt><dd>decode p50 ${r.decode_tps_p50} tok/s · first token p50 ${(r.ttft_ms_p50/1000).toFixed(1)} s</dd>` : ""}
+      ${r.energy_wh != null ? `<dt>Energy</dt><dd>${r.energy_wh} Wh · average ${r.avg_watts} W · thermal ${esc((r.thermal || []).join(", "))}</dd>` : ""}
+      ${r.cost_usd != null ? `<dt>Cost</dt><dd>$${r.cost_usd.toFixed(4)} (OpenRouter)</dd>` : ""}
+    </dl></div>
+    <div><h4>Judged page</h4><dl class="kv">
+      <dt>Drew</dt><dd>${f.text}</dd>
+      <dt>Rendering</dt><dd>${c.fps ?? "–"} fps in software WebGL · ${c.draw_calls_per_frame ?? "–"} draw calls and ${k(c.primitives_per_frame)} triangles per frame · animated: ${c.animated ?? "–"}</dd>
+      <dt>Modes</dt><dd>${(r.modes || []).map(m => `${esc(m.mode)} ${m.blank ? "blank" : "drew"}`).join(" · ") || "–"}</dd>
+      <dt>Mode buttons</dt><dd>${(r.clicks || []).map(c => `${esc(c.mode)} ${c.found ? "found" : "not found"}`).join(" · ") || "–"}</dd>
+      ${(c.console_errors || []).length ? `<dt>Console</dt><dd class="mono">${esc(c.console_errors.slice(0, 3).join("\n"))}</dd>` : ""}
+    </dl>
+    <h4 style="margin-top:16px">Files</h4><dl class="kv">
+      <dt>Transcript</dt><dd><a href="#" data-transcript="${esc(r.id)}">Open in page</a></dd>
+      <dt>Scene</dt><dd><a href="${sceneSrc(r)}" target="_blank" rel="noopener">Open alone</a> · its files are the model's own except the three.js path</dd>
+      <dt>Records</dt><dd><a href="runs/${r.id}/meta.json">meta.json</a> · <a href="runs/${r.id}/checks.json">checks.json</a></dd>
+    </dl></div></div>`;
+}
+function setupPanel(r){
+  return `<dl class="kv">
+    <dt>Model</dt><dd>${esc(r.model)}</dd>
+    <dt>Quant</dt><dd>${esc(r.quant || "Provider-served; precision not recorded")}</dd>
+    <dt>Pack</dt><dd>${r.pack ? (r.pack_link ? `<a href="https://huggingface.co/${esc(r.pack)}">${esc(r.pack)}</a>` : esc(r.pack)) + ` · ${esc(r.pack_label)}` : esc(r.pack_label)}</dd>
+    ${r.pack_extras ? `<dt>Also loaded</dt><dd>${r.pack_extras.map(esc).join(" · ")}</dd>` : ""}
+    ${r.pack_revision ? `<dt>Revision</dt><dd class="mono">${esc(r.pack_revision)}</dd>` : ""}
+    ${r.pack_bytes ? `<dt>Size on disk</dt><dd>${(r.pack_bytes/1e9).toFixed(1)} GB</dd>` : ""}
+    <dt>Engine</dt><dd>${r.where === "local" ? esc(`${r.engine} ${r.engine_version || ""}`) : "OpenRouter" + (r.providers.length ? " (served by " + esc(r.providers.join(", ")) + ")" : "")}</dd>
+    ${r.engine_settings ? `<dt>Engine settings</dt><dd class="mono">${esc(r.engine_settings)}</dd>` : ""}
+    ${r.hardware ? `<dt>Hardware</dt><dd>${esc(r.hardware)}</dd>` : ""}
+    <dt>Request</dt><dd class="mono">${esc(r.request)}</dd>
+    <dt>Harness</dt><dd>OpenCode ${esc(r.harness.opencode)} · three.js ${esc(r.harness.three)} · Playwright ${esc(r.harness.playwright)}</dd>
+    <dt>Started</dt><dd>${esc((r.started || "").replace("T", " ").slice(0, 16))} UTC</dd>
+  </dl>`;
+}
+function renderPanel(){
+  $("#tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === S.tab));
+  const sel = [["a", byId(S.a)]].concat(S.compare ? [["b", byId(S.b)]] : []);
+  const pn = $("#panel");
+  if (S.tab === "shots") pn.innerHTML = sel.map(([s, r]) => shotsPanel(r, s)).join("");
+  else if (S.tab === "details") pn.innerHTML = sel.map(([s, r]) => (S.compare ? `<h4 style="margin:0 0 10px">${s.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</h4>` : "") + detailsPanel(r)).join('<hr style="border:0;border-top:1px solid var(--line);margin:18px 0">');
+  else pn.innerHTML = S.compare ? `<div class="cols2">${sel.map(([s, r]) => `<div><h4>${s.toUpperCase()}</h4>${setupPanel(r)}</div>`).join("")}</div>` : setupPanel(sel[0][1]);
+  pn.querySelectorAll(".shot").forEach(b => b.onclick = () => openLightbox(shotsFor(byId(b.dataset.run)), +b.dataset.i));
+  pn.querySelectorAll("[data-transcript]").forEach(a => a.onclick = e => { e.preventDefault(); openTranscript(byId(a.dataset.transcript)); });
+}
+
+/* ---------- run list ---------- */
+function renderList(){
+  let list = runs().slice();
+  const s = S.sort;
+  if (s === "generated") list.sort((a, b) => (a.generated ?? 1e12) - (b.generated ?? 1e12));
+  else if (s === "energy") list.sort((a, b) => (a.energy_wh ?? 1e12) - (b.energy_wh ?? 1e12));
+  else if (s === "where") list.sort((a, b) => a.where.localeCompare(b.where) || a.model.localeCompare(b.model));
+  else list.sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+  let html = "", last = null;
+  for (const r of list) {
+    const g = s === "model" ? r.model : s === "where" ? (r.where === "local" ? "Local · M3 Ultra" : "Hosted · OpenRouter") : null;
+    if (g && g !== last) { html += `<div class="group">${esc(g)}</div>`; last = g; }
+    const fl = flagOf(r);
+    const slot = r.id === S.a ? "A" : (S.compare && r.id === S.b ? "B" : "");
+    html += `<button class="item" data-id="${esc(r.id)}" aria-current="${!!slot}">
+      <img loading="lazy" alt="" src="runs/${r.id}/shots/default.png">
+      <div>${slot && S.compare ? `<span class="slotbadge">${slot}</span>` : ""}
+        <div class="m">${esc(r.model)}</div>
+        <div class="q">${r.where === "local" ? `<b>${esc(r.quant)}</b> · ${esc(r.engine)}` : "Hosted · OpenRouter"}</div>
+        <div class="n">${k(r.generated)} tokens${r.energy_wh != null ? " · " + r.energy_wh + " Wh" : ""}${fl ? (fl[0] === "bad" ? " · <span style='color:var(--bad)'>no scene</span>" : " · <span style='color:var(--warn)'>" + esc(ended(r)) + "</span>") : ""}</div>
+      </div></button>`;
+  }
+  $("#items").innerHTML = html;
+  $("#listTitle").textContent = `${list.length} runs`;
+  $("#items").querySelectorAll(".item").forEach(b => b.onclick = () => pick(b.dataset.id));
+}
+function pick(id){
+  if (S.compare) { if (id === S.a || id === S.b) return; S[S.slot] = id; S.slot = S.slot === "a" ? "b" : "a"; }
+  else S.a = id;
+  renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash();
+  if (window.innerWidth < 1100) $("#stages").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ---------- table ---------- */
+const COLS = [
+  ["model", "Model", r => r.model, false], ["quant", "Quant / pack", r => r.where === "local" ? r.quant : "hosted", false],
+  ["where", "Engine", r => where(r), false], ["end", "Run ended", r => ended(r), false], ["page", "Judged page", r => facts(r).text, false],
+  ["generated", "Generated", r => r.generated, true], ["output", "Output", r => r.output, true], ["reasoning", "Reasoning", r => r.reasoning, true],
+  ["steps", "Steps", r => r.steps, true], ["tool_errors", "Tool errors", r => r.tool_errors, true],
+  ["energy", "Energy (Wh)", r => r.energy_wh, true], ["wall", "Wall", r => r.wall_seconds, true],
+];
+function renderTable(){
+  let list = runs().slice();
+  if (S.tsort) { const [key, dir] = S.tsort; const col = COLS.find(c => c[0] === key);
+    list.sort((a, b) => { const x = col[2](a), y = col[2](b); if (x == null) return 1; if (y == null) return -1; return (x > y ? 1 : x < y ? -1 : 0) * dir; }); }
+  else list.sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+  const t = $("#table");
+  t.innerHTML = `<thead><tr>${COLS.map(([key, label, , num]) => `<th class="${num ? "num" : ""}" data-k="${key}" ${S.tsort && S.tsort[0] === key ? `aria-sort="${S.tsort[1] > 0 ? "ascending" : "descending"}"` : ""}>${label}<span class="arr">${S.tsort && S.tsort[0] === key ? (S.tsort[1] > 0 ? "▲" : "▼") : "↕"}</span></th>`).join("")}</tr></thead><tbody>` +
+    list.map(r => `<tr data-id="${esc(r.id)}" aria-current="${r.id === S.a || (S.compare && r.id === S.b)}">
+      <td><b>${esc(r.model)}</b></td><td>${r.where === "local" ? `<b>${esc(r.quant)}</b> <span style="color:var(--mut)">${esc(r.pack || "")}</span>` : `<span style="color:var(--mut)">hosted</span>`}</td>
+      <td>${esc(where(r))}</td><td>${esc(ended(r))}</td><td style="color:${flagOf(r) && flagOf(r)[0] === "bad" ? "var(--bad)" : "inherit"}">${esc(facts(r).text)}</td>
+      <td class="num">${k(r.generated)}</td><td class="num">${k(r.output)}</td><td class="num">${k(r.reasoning)}${est(r)}</td>
+      <td class="num">${r.steps ?? "–"}</td><td class="num">${r.tool_errors ?? "–"}</td><td class="num">${r.energy_wh ?? "–"}</td><td class="num">${mins(r.wall_seconds)}</td></tr>`).join("") + "</tbody>";
+  t.querySelectorAll("th").forEach(th => th.onclick = () => { const key = th.dataset.k; S.tsort = S.tsort && S.tsort[0] === key ? [key, -S.tsort[1]] : [key, 1]; renderTable(); });
+  t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { pick(tr.dataset.id); $("#stages").scrollIntoView({ behavior: "smooth", block: "start" }); });
+}
+
+/* ---------- lightbox ---------- */
+let LB = { items: [], i: 0, back: null };
+function openLightbox(items, i){ LB = { items, i, back: document.activeElement }; showLB(); $("#lightbox").classList.add("open"); $("#lbClose").focus(); }
+function showLB(){ const it = LB.items[LB.i]; $("#lbImg").src = it.src; $("#lbImg").alt = it.cap; $("#lbCap").textContent = `${it.cap}  (${LB.i + 1} of ${LB.items.length})`; }
+function closeModal(id){ $(id).classList.remove("open"); if (id === "#docmodal") $("#mdBox").innerHTML = ""; (LB.back || document.body).focus?.(); }
+$("#lbPrev").onclick = () => { LB.i = (LB.i - 1 + LB.items.length) % LB.items.length; showLB(); };
+$("#lbNext").onclick = () => { LB.i = (LB.i + 1) % LB.items.length; showLB(); };
+$("#lbClose").onclick = () => closeModal("#lightbox");
+$("#lightbox").onclick = e => { if (e.target.id === "lightbox") closeModal("#lightbox"); };
+document.addEventListener("keydown", e => {
+  if ($("#lightbox").classList.contains("open")) {
+    if (e.key === "ArrowLeft") $("#lbPrev").click(); else if (e.key === "ArrowRight") $("#lbNext").click(); else if (e.key === "Escape") closeModal("#lightbox");
+  } else if ($("#docmodal").classList.contains("open") && e.key === "Escape") closeModal("#docmodal");
+});
+/* ---------- prompt / transcript modal ---------- */
+function openDoc(html, wide){ LB.back = document.activeElement; const b = $("#mdBox"); b.className = "md-box" + (wide ? " wide" : ""); b.innerHTML = html; $("#docmodal").classList.add("open"); $("#mdClose").focus(); }
+$("#mdClose").onclick = () => closeModal("#docmodal");
+$("#docmodal").onclick = e => { if (e.target.id === "docmodal") closeModal("#docmodal"); };
+$("#showPrompt").onclick = () => { const p = P(); openDoc(`<h2>${esc(p.title)}</h2><p style="color:var(--mut);margin:0 0 12px">${p.variant === "spec" ? "Spec variant" : "Open variant"} · sent as the only message, with the shared <a href="https://github.com/rdbell/weightclass/blob/main/harness/template/AGENTS.md">task file</a> in the workspace · <a href="${esc(p.url)}">source</a></p><pre>${esc(p.text)}</pre>`); };
+function openTranscript(r){ openDoc(`<div class="mdh"><b>${esc(r.model)} · ${esc(r.quant || "hosted")} — transcript</b><a class="linkbtn" href="runs/${r.id}/transcript.html" target="_blank" rel="noopener">Open in new tab</a></div><iframe sandbox="" src="runs/${r.id}/transcript.html" title="Transcript"></iframe>`, true); }
+
+/* ---------- controls ---------- */
+$("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => { S.tab = b.dataset.tab; renderPanel(); });
+$("#compareBtn").onclick = () => { S.compare = !S.compare; S.slot = "b"; render(); };
+$("#reloadBtn").onclick = () => renderStage();
+$("#fullBtn").onclick = () => { const el = $("#stages"); (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el); };
+$("#sortSel").onchange = e => { S.sort = e.target.value; renderList(); };
+window.addEventListener("hashchange", () => { readHash(); render(); });
+
+function render(){ renderPrompts(); renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash(); }
+readHash(); render();
+</script>
+</body>
+</html>
