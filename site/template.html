@@ -70,6 +70,10 @@ header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-w
 .chip.quant{background:var(--acc);color:var(--acc-ink);font-weight:600}
 .chip.hosted{background:transparent;border:1px dashed var(--faint);color:var(--mut)}
 .flag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin-top:8px}
+.attempts{font-size:13px;color:var(--mut);margin-top:8px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.att{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:1px 9px;cursor:pointer;font-size:13px}
+.att[aria-current="true"]{border-color:var(--acc);color:var(--acc)}
+.moreatt{display:block;width:100%;margin-top:8px;border:1px dashed var(--line);background:transparent;border-radius:9px;padding:7px;cursor:pointer;color:var(--mut);font-size:13px}
 .flag.warn{background:var(--warn-bg);color:var(--warn)}
 .flag.bad{background:var(--bad-bg);color:var(--bad)}
 .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:10px}
@@ -220,7 +224,8 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const k = n => n == null ? "–" : n >= 1e6 ? (n/1e6).toFixed(2) + "M" : n >= 1000 ? (n/1000).toFixed(1) + "K" : String(n);
 const mins = s => s ? (s >= 3600 ? Math.floor(s/3600) + " h " + Math.round((s%3600)/60) + " min" : Math.round(s/60) + " min") : "–";
-const runTag = r => r.runs_of_setup > 1 ? ` · run ${r.run_no} of ${r.runs_of_setup}` : "";
+const runTag = r => r.runs_of_setup > 1 ? ` · attempt ${r.run_no} of ${r.runs_of_setup}` : "";
+const attemptsOf = r => DATA.filter(x => x.prompt === r.prompt && x.setup === r.setup).sort((a, b) => a.run_no - b.run_no);
 const where = r => r.where === "local" ? `${r.engine} ${r.engine_version || ""} · M3 Ultra` : "OpenRouter" + (r.providers.length ? " · " + r.providers.join(", ") : "");
 const est = r => r.token_note !== "reported" ? "*" : "";
 const facts = r => { const c = r.checks || {}; const m = (c.missing_files||[]).length, e = (c.page_errors||[]).length;
@@ -232,7 +237,7 @@ const flagOf = r => { const f = facts(r);
   return null; };
 
 /* ---------- state (URL hash) ---------- */
-const S = { prompt: Object.keys(PROMPTS)[0], a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
+const S = { showAll: false, prompt: Object.keys(PROMPTS)[0], a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
 function readHash(){
   const h = new URLSearchParams(location.hash.slice(1));
   if (h.get("p") && PROMPTS[h.get("p")]) S.prompt = h.get("p");
@@ -243,7 +248,7 @@ function writeHash(){
   if (S.a) h.set("a", S.a); if (S.compare && S.b) h.set("b", S.b); if (S.mode) h.set("m", S.mode);
   history.replaceState(null, "", "#" + h.toString());
 }
-const runs = () => DATA.filter(r => r.prompt === S.prompt)
+const runs = () => DATA.filter(r => r.prompt === S.prompt && (S.showAll || !r.superseded || r.id === S.a || r.id === S.b))
   .sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
 const byId = id => DATA.find(r => r.id === id);
 const P = () => PROMPTS[S.prompt];
@@ -293,6 +298,7 @@ function headCol(r, slot){
       <span class="chip">${esc(where(r))}</span>
     </div>
     ${fl ? `<span class="flag ${fl[0]}">${esc(fl[1])}</span>` : ""}
+    ${r.runs_of_setup > 1 ? `<div class="attempts">Attempts: ${attemptsOf(r).map(x => `<button class="att" data-pick="${esc(x.id)}" aria-current="${x.id === r.id}">${x.run_no}${flagOf(x) && flagOf(x)[0] === "bad" ? " · failed" : ""}${!x.superseded ? " · result" : ""}</button>`).join("")}</div>` : ""}
     <div class="stats">
       <div class="stat"><span>Generated</span><b>${k(r.generated)}</b></div>
       <div class="stat"><span>Reasoning${est(r)}</span><b>${k(r.reasoning)}</b></div>
@@ -308,6 +314,9 @@ function headCol(r, slot){
 function renderHead(){
   const rh = $("#runhead"); rh.className = "runhead" + (S.compare ? " two" : "");
   rh.innerHTML = headCol(byId(S.a), "a") + (S.compare ? headCol(byId(S.b), "b") : "");
+  rh.querySelectorAll(".att").forEach((b, i) => b.onclick = () => {
+    const slot = S.compare && b.closest(".runhead > div") === rh.children[1] ? "b" : "a";
+    S[slot] = b.dataset.pick; renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash(); });
 }
 const shotLabel = s => s === "default" ? "Judged screenshot" : s.startsWith("mode-") ? s.slice(5)[0].toUpperCase() + s.slice(6) + " (URL mode)" : s.startsWith("click-") ? s.slice(6)[0].toUpperCase() + s.slice(7) + " (button click)" : s === "default-later" ? "3 s later" : s === "default-second-load" ? "Second load" : s;
 function shotsFor(r){
@@ -396,7 +405,11 @@ function renderList(){
       </div></button>`;
   }
   $("#items").innerHTML = html;
-  $("#listTitle").textContent = `${list.length} runs`;
+  const hidden = DATA.filter(r => r.prompt === S.prompt && r.superseded).length;
+  if (hidden) html += `<button class="moreatt" id="moreAtt">${S.showAll ? "Hide" : "Show"} ${hidden} earlier attempt${hidden === 1 ? "" : "s"}</button>`;
+  $("#items").innerHTML = html;
+  $("#listTitle").textContent = `${list.filter(r => !r.superseded).length} results`;
+  if (hidden) $("#moreAtt").onclick = () => { S.showAll = !S.showAll; renderList(); renderTable(); };
   $("#items").querySelectorAll(".item").forEach(b => b.onclick = () => pick(b.dataset.id));
 }
 function pick(id){

@@ -237,11 +237,15 @@ Visitors run model-written JavaScript, so:
 - Unit: one vote = (prompt id+version, output A, output B, choice, voter, time).
 - Random pairs of different setups on the same prompt version, open variant
   only.
-- Failed runs stay in the pool (decided 2026-11-12): a model or engine failure
-  (e.g. a tool call emitted as text, ending the run with an unfinished page)
-  is a result. It loses its pairs unless both sides failed, which is the
-  intended penalty for an incomplete task. Re-runs only for harness or
-  infrastructure faults, and the original stays on record.
+- Retries (decided 2026-11-13, replacing "failed runs stay in the pool"): a
+  failed attempt may be retried with the same setup and prompt version. A
+  failed attempt is one that ends without a working page (no scene drawn,
+  missing files, page errors) or is stopped by a guard or an engine fault.
+  The latest attempt is the setup's result: it is what the gallery shows
+  first and what gets paired for votes. Every result states its attempt
+  number ("attempt 2 of 2"), and earlier attempts stay published and can be
+  opened from the result, with their full record. Successful attempts are
+  not retried to get a better one. No cap on retries is set yet.
 - Light abuse controls for the PoC: one anonymous voter id per browser and a
   rate limit. Before going public: control pairs (a clear winner against a
   broken scene), voter quality scoring and dropping voters who fail them.

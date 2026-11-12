@@ -170,6 +170,9 @@ def main():
         d["run_no"] = groups[key]
     for d in data:
         d["runs_of_setup"] = groups[(d["prompt"], d["setup"])]
+        # Retry policy: the latest attempt is the result; earlier ones stay
+        # reachable from it.
+        d["superseded"] = d["run_no"] < d["runs_of_setup"]
     prompts = {}
     for f in sorted((ROOT / "prompts").rglob("*.md")):
         text = f.read_text()

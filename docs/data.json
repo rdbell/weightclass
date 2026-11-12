@@ -112,7 +112,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": null,
@@ -227,7 +228,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": null,
@@ -342,7 +344,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": null,
@@ -457,7 +460,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": null,
@@ -572,7 +576,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": null,
@@ -687,7 +692,8 @@
   },
   "started": null,
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "4-bit MLX",
@@ -809,7 +815,8 @@
   },
   "started": "2026-11-11T23:12:08.035167+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "4-bit MLX",
@@ -931,7 +938,8 @@
   },
   "started": "2026-11-11T23:12:10.779841+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "oQ4e",
@@ -1050,7 +1058,8 @@
   },
   "started": "2026-11-12T01:15:22.803381+00:00",
   "run_no": 1,
-  "runs_of_setup": 2
+  "runs_of_setup": 2,
+  "superseded": true
  },
  {
   "quant": "oQ4e",
@@ -1168,7 +1177,8 @@
   },
   "started": "2026-11-12T01:15:25.399159+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "oQ4e",
@@ -1287,7 +1297,8 @@
   },
   "started": "2026-11-12T01:53:59.162557+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "oQ4e",
@@ -1406,7 +1417,8 @@
   },
   "started": "2026-11-12T01:54:01.744788+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "iQ-MLX 3.0 bpw",
@@ -1525,7 +1537,8 @@
   },
   "started": "2026-11-12T04:16:42.760070+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "iQ-MLX 3.0 bpw",
@@ -1644,7 +1657,8 @@
   },
   "started": "2026-11-12T04:16:45.458368+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "4-bit MLX",
@@ -1751,7 +1765,8 @@
   },
   "started": "2026-11-12T09:30:34.376262+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "oQ4e",
@@ -1855,7 +1870,8 @@
   },
   "started": "2026-11-12T10:36:29.348876+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "iQ-MLX 3.0 bpw",
@@ -1961,7 +1977,8 @@
   },
   "started": "2026-11-12T11:31:04.800419+00:00",
   "run_no": 1,
-  "runs_of_setup": 1
+  "runs_of_setup": 1,
+  "superseded": false
  },
  {
   "quant": "oQ4e",
@@ -2079,6 +2096,7 @@
   },
   "started": "2026-11-12T13:22:44.398196+00:00",
   "run_no": 2,
-  "runs_of_setup": 2
+  "runs_of_setup": 2,
+  "superseded": false
  }
 ]
