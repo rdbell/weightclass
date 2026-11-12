@@ -1,0 +1,17 @@
+{
+  "id": "cpa-terra-low",
+  "label": "GPT 6.1 Terra, low reasoning (ChatGPT subscription via CPA; prompt lab only)",
+  "base_url_env": "WC_CPA_BASE_URL",
+  "api_key_env": "WC_CPA_KEY",
+  "kind": "lab-proxy",
+  "model_id": "gpt-6.1-terra",
+  "context": 262144,
+  "max_output": 65536,
+  "request_body": {
+    "reasoning_effort": "low",
+    "service_tier": "priority"
+  },
+  "quant": null,
+  "pack_label": "Closed model via subscription (lab trials only, never ranked)",
+  "notes": "Fast prompt trials before local runs. service_tier=priority is requested; as of 2026-11-12 CPA's chat endpoint reports service_tier=default, so fast mode is not confirmed."
+}

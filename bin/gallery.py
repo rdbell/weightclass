@@ -87,12 +87,15 @@ def run_record(run, out):
         pub_meta["setup"]["base_url"] = setup.get("base_url")
     (dst / "meta.json").write_text(json.dumps(pub_meta, indent=2))
 
-    tok = meta.get("tokens") or {}
-    raw = bf.get("tokens_raw")
-    if raw and not tok.get("reasoning") and raw.get("reasoning"):
-        reasoning, output, tok_note = raw["reasoning"], raw["output"], "; ".join(raw["method"])
-    else:
-        reasoning, output, tok_note = tok.get("reasoning", 0), tok.get("output", 0), "reported"
+    # Prefer totals over every model request (relay; includes sub-agents).
+    raw = bf.get("tokens_raw") if (bf.get("tokens_raw") or {}).get("model_calls") is not None else None
+    if raw is None and (meta.get("tokens") or {}).get("model_calls") is not None:
+        raw = meta["tokens"]
+    sess = meta.get("tokens_session") or (meta.get("tokens") if raw is None or "steps" in (meta.get("tokens") or {}) else {}) or {}
+    tok = raw or sess
+    reasoning, output = tok.get("reasoning", 0), tok.get("output", 0)
+    methods = (raw or {}).get("reasoning_method") or ["reported"]
+    tok_note = "reported" if methods == ["reported"] else "; ".join(methods)
     p = bf.get("prompt") or meta["prompt"]
     agent = meta.get("agent") or R.agent_summary(R.read_events(run / "record" / "events.jsonl"))
     host = meta.get("host") or {}
@@ -119,7 +122,10 @@ def run_record(run, out):
         "hardware": "M3 Ultra 60c / 256 GB" if local else None,
         "providers": sorted(set(mc.get("providers") or []) | set((orr.get("providers") or {}).keys())),
         "end": bf.get("end_reason") or meta.get("end_reason"),
-        "steps": tok.get("steps"), "tool_calls": meta.get("tool_calls"),
+        "steps": (raw or {}).get("model_calls") or sess.get("steps"),
+        "session_steps": sess.get("steps"), "subagent_calls": agent.get("subagent_calls", 0),
+        "token_source": "all model requests (relay)" if raw else "main session events (run predates the relay)",
+        "tool_calls": meta.get("tool_calls"),
         "tool_errors": agent.get("tool_errors"),
         "generated": output + reasoning, "output": output, "reasoning": reasoning, "token_note": tok_note,
         "input": tok.get("input"), "cached": tok.get("cache_read"),

@@ -110,12 +110,15 @@
   "submitter": null,
   "rendered": true,
   "backfill": {
-    "rechecked": false,
     "tokens_raw": {
-      "completion": 61248,
-      "reasoning": 41824,
+      "model_calls": 29,
+      "failed_calls": 0,
+      "input": 82085,
+      "cache_read": 1663053,
       "output": 19424,
-      "method": [
+      "reasoning": 41824,
+      "generated": 61248,
+      "reasoning_method": [
         "reported"
       ]
     },

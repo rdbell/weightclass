@@ -179,24 +179,19 @@ class Snapshots:
 
 
 class Guard:
-    """Watches events.jsonl while the agent runs: stops runaway runs and
-    snapshots the workspace after each step."""
+    """Watches the run: stops runaway runs and snapshots the workspace.
 
-    def __init__(self, events, container, snapshots, max_tokens):
-        self.events, self.container, self.snapshots = events, container, snapshots
+    Token budget and snapshots follow the relay's call log, which sees every
+    model request, including those of sub-agents the model starts; OpenCode's
+    events cover only the main session. Repeated identical tool calls are
+    detected from the main session's events."""
+
+    def __init__(self, events, calls, container, snapshots, max_tokens):
+        self.events, self.calls, self.container, self.snapshots = events, calls, container, snapshots
         self.max_tokens = max_tokens
-        self.reason, self.tool_calls, self.tokens, self.steps = None, 0, 0, 0
+        self.reason, self.tool_calls, self.tokens, self.steps, self.model_calls = None, 0, 0, 0, 0
         self.last_call, self.repeats = None, 0
         self.stop = threading.Event()
-
-    def _usage(self, ev):
-        best = 0
-        for d in walk(ev):
-            tok = d.get("tokens") if isinstance(d.get("tokens"), dict) else None
-            if tok:
-                total = sum(v for k, v in tok.items() if isinstance(v, (int, float)) and k in ("input", "output", "reasoning"))
-                best = max(best, total)
-        return best
 
     def _tool_call(self, ev):
         for d in walk(ev):
@@ -206,36 +201,50 @@ class Guard:
                 return tool + json.dumps(state.get("input"), sort_keys=True)
         return None
 
+    @staticmethod
+    def _lines(path, pos):
+        if not path.exists():
+            return pos, []
+        out = []
+        with path.open() as f:
+            f.seek(pos)
+            for line in f:
+                if not line.endswith("\n"):
+                    break
+                pos += len(line.encode())
+                try:
+                    out.append(json.loads(line))
+                except ValueError:
+                    pass
+        return pos, out
+
     def run(self):
-        pos = 0
+        epos = cpos = 0
         while not self.stop.is_set():
-            if self.events.exists():
-                with self.events.open() as f:
-                    f.seek(pos)
-                    for line in f:
-                        if not line.endswith("\n"):
-                            break
-                        pos += len(line.encode())
-                        try:
-                            ev = json.loads(line)
-                        except ValueError:
-                            continue
-                        self.tokens += self._usage(ev)
-                        if ev.get("type") == "step_finish":
-                            self.steps += 1
-                            self.snapshots.commit(f"step {self.steps}")
-                        call = self._tool_call(ev)
-                        if call:
-                            self.tool_calls += 1
-                            self.repeats = self.repeats + 1 if call == self.last_call else 1
-                            self.last_call = call
-                        if self.tokens > self.max_tokens:
-                            self.reason = f"guard: token budget ({self.max_tokens})"
-                        elif self.repeats >= MAX_REPEATS:
-                            self.reason = f"guard: {MAX_REPEATS} identical tool calls in a row"
-                        if self.reason:
-                            sh("docker", "stop", "-t", "10", self.container, check=False)
-                            return
+            cpos, calls = self._lines(self.calls, cpos)
+            for c in calls:
+                u = c.get("usage") or {}
+                cached = int((u.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
+                self.tokens += max(0, int(u.get("prompt_tokens") or 0) - cached) + int(u.get("completion_tokens") or 0)
+                if c.get("method") == "POST":
+                    self.model_calls += 1
+                    self.snapshots.commit(f"model call {c.get('n')}")
+            epos, evs = self._lines(self.events, epos)
+            for ev in evs:
+                if ev.get("type") == "step_finish":
+                    self.steps += 1
+                call = self._tool_call(ev)
+                if call:
+                    self.tool_calls += 1
+                    self.repeats = self.repeats + 1 if call == self.last_call else 1
+                    self.last_call = call
+            if self.tokens > self.max_tokens:
+                self.reason = f"guard: token budget ({self.max_tokens})"
+            elif self.repeats >= MAX_REPEATS:
+                self.reason = f"guard: {MAX_REPEATS} identical tool calls in a row"
+            if self.reason:
+                sh("docker", "stop", "-t", "10", self.container, check=False)
+                return
             time.sleep(2)
 
 
@@ -406,6 +415,74 @@ def read_events(events):
     return out
 
 
+def stream_split(path):
+    """Characters of reasoning, content and tool-call arguments in one
+    streamed response (to apportion tokens when the engine reports one
+    combined completion count)."""
+    r = c = t = 0
+    raw = ""
+    with gzip.open(path, "rt") as f:
+        for line in f:
+            try:
+                raw += json.loads(line).get("d", "")
+            except ValueError:
+                pass
+    for line in raw.splitlines():
+        if not line.startswith("data: {"):
+            continue
+        try:
+            d = json.loads(line[6:])
+        except ValueError:
+            continue
+        for ch in d.get("choices") or []:
+            delta = ch.get("delta") or {}
+            r += len(delta.get("reasoning_content") or delta.get("reasoning") or "")
+            c += len(delta.get("content") or "")
+            for tc in delta.get("tool_calls") or []:
+                t += len(((tc or {}).get("function") or {}).get("arguments") or "")
+    return r, c, t
+
+
+def raw_token_totals(raw):
+    """Token totals over every model request the relay saw (main session and
+    sub-agents). Reasoning as reported by the engine, else estimated from
+    the reasoning share of the streamed characters (method recorded)."""
+    f = raw / "calls.jsonl"
+    if not f.exists():
+        return None
+    t = {"model_calls": 0, "failed_calls": 0, "input": 0, "cache_read": 0,
+         "output": 0, "reasoning": 0, "generated": 0, "reasoning_method": []}
+    methods = set()
+    for line in f.read_text().splitlines():
+        c = json.loads(line)
+        if c.get("method") != "POST":
+            continue
+        t["model_calls"] += 1
+        if c.get("status") != 200:
+            t["failed_calls"] += 1
+        u = c.get("usage") or {}
+        prompt = int(u.get("prompt_tokens") or 0)
+        cached = int((u.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
+        comp = int(u.get("completion_tokens") or 0)
+        t["input"] += max(0, prompt - cached)
+        t["cache_read"] += cached
+        t["generated"] += comp
+        rep = (u.get("completion_tokens_details") or {}).get("reasoning_tokens")
+        if rep is not None:
+            t["reasoning"] += int(rep)
+            methods.add("reported")
+        elif comp:
+            resp = raw / f"{c['n']:04d}.resp.jsonl.gz"
+            if resp.exists():
+                r, ct, tc = stream_split(resp)
+                tot = r + ct + tc
+                t["reasoning"] += round(comp * r / tot) if tot else 0
+                methods.add("estimated from reasoning character share")
+    t["output"] = t["generated"] - t["reasoning"]
+    t["reasoning_method"] = sorted(methods)
+    return t
+
+
 def token_totals(evs):
     """Sum per-step usage from step_finish events. OpenCode reports output
     and reasoning separately; input excludes cache reads."""
@@ -439,6 +516,7 @@ def agent_summary(evs):
             r = p.get("reason")
             finish[r] = finish.get(r, 0) + 1
     return {"tool_counts": tools, "tool_errors": errors, "preview_calls": preview,
+            "subagent_calls": sum(v for k, v in tools.items() if str(k).lower() in ("subagent", "task", "agent")),
             "step_finish_reasons": finish,
             "error_events": sum(1 for ev in evs if ev.get("type") == "error")}
 
@@ -595,7 +673,7 @@ def main():
                  IMAGE, "/opt/weightclass/entry.sh"]
 
     snapshots = Snapshots(work, rec / "history.git")
-    guard = Guard(rec / "events.jsonl", name, snapshots, max_tokens)
+    guard = Guard(rec / "events.jsonl", raw / "calls.jsonl", name, snapshots, max_tokens)
     conc = Concurrency(run.name, f"{up.scheme}://{up.netloc}")
     host = Host(setup["host"], rec / "host") if setup.get("host") else None
     if host:
@@ -657,7 +735,9 @@ def main():
         "end_reason": end, "wall_seconds": wall,
         "concurrent_runs": concurrent,
         "tool_calls": guard.tool_calls, "tokens_seen": guard.tokens,
-        "tokens": token_totals(evs),
+        # Headline totals: every model request (relay), sub-agents included.
+        "tokens": raw_token_totals(raw) or token_totals(evs),
+        "tokens_session": token_totals(evs),
         "agent": agent_summary(evs),
         "model_calls": calls_summary(raw),
         "openrouter": generations,

@@ -293,7 +293,7 @@ function headCol(r, slot){
       <div class="stat"><span>Generated</span><b>${k(r.generated)}</b></div>
       <div class="stat"><span>Reasoning${est(r)}</span><b>${k(r.reasoning)}</b></div>
       <div class="stat"><span>Output</span><b>${k(r.output)}</b></div>
-      <div class="stat"><span>Steps</span><b>${r.steps ?? "–"}</b></div>
+      <div class="stat"><span>Model calls</span><b>${r.steps ?? "–"}</b></div>
       <div class="stat"><span>Tool errors</span><b>${r.tool_errors ?? "–"}</b></div>
       ${r.energy_wh != null ? `<div class="stat"><span>Energy</span><b>${r.energy_wh} Wh</b></div>` : ""}
       ${r.cost_usd != null ? `<div class="stat"><span>Cost</span><b>$${r.cost_usd.toFixed(3)}</b></div>` : ""}
@@ -321,7 +321,8 @@ function detailsPanel(r){
     <div><h4>Tokens and steps</h4><dl class="kv">
       <dt>Generated</dt><dd>${k(r.generated)} = output ${k(r.output)} + reasoning ${k(r.reasoning)}${est(r) ? " (reasoning estimated from the raw stream)" : ""}</dd>
       <dt>Input</dt><dd>${k(r.input)} fresh · ${k(r.cached)} read from cache</dd>
-      <dt>Steps</dt><dd>${r.steps ?? "–"} · ${r.tool_calls ?? "–"} tool calls · ${r.tool_errors ?? "–"} tool errors</dd>
+      <dt>Model calls</dt><dd>${r.steps ?? "–"}${r.subagent_calls ? ` (incl. ${r.subagent_calls} sub-agent task${r.subagent_calls === 1 ? "" : "s"}; main session ${r.session_steps} steps)` : ""} · ${r.tool_calls ?? "–"} tool calls · ${r.tool_errors ?? "–"} tool errors</dd>
+      <dt>Counted from</dt><dd>${esc(r.token_source)}</dd>
       <dt>Run ended</dt><dd>${esc(r.end)}</dd>
       <dt>Wall time</dt><dd>${mins(r.wall_seconds)}${r.concurrent ? ` (engine shared with ${r.concurrent} other run)` : ""}</dd>
       ${r.decode_tps_p50 ? `<dt>Speed</dt><dd>decode p50 ${r.decode_tps_p50} tok/s · first token p50 ${(r.ttft_ms_p50/1000).toFixed(1)} s</dd>` : ""}
@@ -406,7 +407,7 @@ const COLS = [
   ["model", "Model", r => r.model, false], ["quant", "Quant / pack", r => r.where === "local" ? r.quant : "hosted", false],
   ["where", "Engine", r => where(r), false], ["end", "Run ended", r => ended(r), false], ["page", "Judged page", r => facts(r).text, false],
   ["generated", "Generated", r => r.generated, true], ["output", "Output", r => r.output, true], ["reasoning", "Reasoning", r => r.reasoning, true],
-  ["steps", "Steps", r => r.steps, true], ["tool_errors", "Tool errors", r => r.tool_errors, true],
+  ["steps", "Model calls", r => r.steps, true], ["tool_errors", "Tool errors", r => r.tool_errors, true],
   ["energy", "Energy (Wh)", r => r.energy_wh, true], ["wall", "Wall", r => r.wall_seconds, true],
 ];
 function renderTable(){

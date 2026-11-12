@@ -150,12 +150,12 @@ def main():
     ap.add_argument("--yes", action="store_true")
     args = ap.parse_args()
 
+    # Only used for the cost estimate and the spend measurement; setups on
+    # other endpoints (CPA, the M3) run without it.
     key = os.environ.get("OPENROUTER_API_KEY")
-    if not key:
-        sys.exit("OPENROUTER_API_KEY is not set")
     setup_files = [ROOT / "setups" / f"{s.strip()}.json" for s in args.setups.split(",")]
     setups = [json.loads(p.read_text()) for p in setup_files]
-    total, lines = estimate(setups, args.samples)
+    total, lines = estimate(setups, args.samples) if key else (0.0, ["  (no OpenRouter key: no estimate)"])
     print(f"Estimated cost: ~${total:.2f} (rough; actual spend is measured)")
     print("\n".join(lines))
     if not args.yes and input("Start? [y/N] ").strip().lower() != "y":
@@ -165,7 +165,7 @@ def main():
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     batch = ROOT / "lab" / f"{stamp}-{brief.stem}"
     batch.mkdir(parents=True)
-    before = key_usage(key)
+    before = key_usage(key) if key else None
 
     def one(job):
         setup_file, sample = job
@@ -197,7 +197,7 @@ def main():
     # OpenRouter's usage counter lags; wait up to two minutes for it to move.
     after = None
     for _ in range(12):
-        after = key_usage(key)
+        after = key_usage(key) if key else None
         if before is None or after is None or after > before:
             break
         time.sleep(10)

@@ -41,7 +41,6 @@
   "submitter": null,
   "rendered": true,
   "backfill": {
-    "rechecked": true,
     "prompt": {
       "id": "eiffel-open",
       "title": "Eiffel Tower (open)",

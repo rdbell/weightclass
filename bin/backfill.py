@@ -4,10 +4,8 @@
   bin/backfill.py RUN_DIR... [--recheck]
 
 Adds to meta.json (keeps every original field; adds a "backfill" block):
-  - token split from the raw model calls: completion tokens per call, and
-    reasoning tokens as reported by the engine, or estimated from the share
-    of reasoning characters in the streamed response when the engine does
-    not report them (mlx-serve). The method is recorded.
+  - token totals over every model request (run.raw_token_totals): main
+    session and sub-agents; reasoning reported or estimated (method kept).
   - end reason under the cap that applied: a run that used all of its
     guard.max_steps is marked "step cap (N)".
   - prompt identity under the current prompt file when the run used an
@@ -38,58 +36,6 @@ def prompt_index():
         if meta.get("id"):
             out[hashlib.sha256(text.encode()).hexdigest()] = (f, meta)
     return out
-
-
-def stream_split(path):
-    """Characters of reasoning, content and tool-call arguments in one call."""
-    r = c = t = 0
-    raw = ""
-    with gzip.open(path, "rt") as f:
-        for line in f:
-            try:
-                raw += json.loads(line).get("d", "")
-            except ValueError:
-                pass
-    for line in raw.splitlines():
-        if not line.startswith("data: {"):
-            continue
-        try:
-            d = json.loads(line[6:])
-        except ValueError:
-            continue
-        for ch in d.get("choices") or []:
-            delta = ch.get("delta") or {}
-            r += len(delta.get("reasoning_content") or delta.get("reasoning") or "")
-            c += len(delta.get("content") or "")
-            for tc in delta.get("tool_calls") or []:
-                t += len(((tc or {}).get("function") or {}).get("arguments") or "")
-    return r, c, t
-
-
-def token_split(rec):
-    calls_f = rec / "raw" / "calls.jsonl"
-    if not calls_f.exists():
-        return None
-    completion = reasoning = 0
-    methods = set()
-    for line in calls_f.read_text().splitlines():
-        call = json.loads(line)
-        u = call.get("usage") or {}
-        comp = int(u.get("completion_tokens") or 0)
-        completion += comp
-        rep = (u.get("completion_tokens_details") or {}).get("reasoning_tokens")
-        if rep is not None:
-            reasoning += int(rep)
-            methods.add("reported")
-            continue
-        resp = rec / "raw" / f"{call['n']:04d}.resp.jsonl.gz"
-        if comp and resp.exists():
-            r, c, t = stream_split(resp)
-            total = r + c + t
-            reasoning += round(comp * r / total) if total else 0
-            methods.add("estimated from reasoning character share")
-    return {"completion": completion, "reasoning": reasoning,
-            "output": completion - reasoning, "method": sorted(methods)}
 
 
 def recheck(run):
@@ -127,9 +73,9 @@ def main():
         bf = {}
         if args.recheck:
             bf["rechecked"] = recheck(run)
-        split = token_split(run / "record")
-        if split:
-            bf["tokens_raw"] = split
+        tot = R.raw_token_totals(run / "record" / "raw")
+        if tot:
+            bf["tokens_raw"] = tot
         cap = ((meta.get("harness") or {}).get("guard") or {}).get("max_steps")
         steps = (meta.get("tokens") or {}).get("steps")
         if cap and steps and steps >= cap and not str(meta.get("end_reason", "")).startswith("guard"):
