@@ -1,6 +1,6 @@
 ---
 id: room-open
-title: Reading room from a plan (open)
+title: Reading room (open)
 category: room
 variant: open
 subject: reading-room
@@ -8,7 +8,7 @@ modes: top,door              # judged render: one screenshot per view
 mode_param: view             # ...loaded as index.html?view=<mode>
 version: 1
 ---
-A cosy reading room, built from this plan. North is −z, east is +x, units are metres, y is up.
+A cosy reading room, built from this plan. North is −z, east is +x, units are metres, y is up, and the origin is the centre of the floor.
 
 The room
 - 6 m east–west, 4.5 m north–south, ceiling 2.7 m.
@@ -22,10 +22,13 @@ Furniture (place it by these relations)
 - An armchair angled 45° toward the fireplace, in the north-east corner, not blocking the window.
 - A bookshelf, floor to ceiling, covering the west wall except the door's swing.
 - A rug centred under the coffee table, extending under the sofa's front legs.
-- A floor lamp beside the armchair, on the side away from the fireplace.
+- A floor lamp beside the armchair, on its west side (away from the fireplace).
 
-Nothing may overlap, float or pass through a wall; the door must be able to swing open (inward, hinged on the west side).
+Nothing may overlap, float or pass through a wall. The door is hinged on its west side and opens into the room; keep its swing arc clear.
 
-Requirements
-- Interior style, lighting and materials are your choice.
-- The page opens with a view from the doorway, and supports ?view=top (an orthographic top-down view of the whole room) and ?view=door.
+Views (required)
+- Default, and ?view=door: the view from the doorway, standing just inside the door at eye height (1.6 m), looking north-east into the room.
+- ?view=top: an orthographic top-down view of the whole room, north up, framing all four walls. Hide the ceiling so the furniture layout is visible.
+- Orbit controls may start from these views.
+
+Everything else (style, lighting, materials, decoration) is your choice.
