@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Tour Eiffel — Toon</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  canvas { display: block; }
+  #ui {
+    position: fixed; top: 16px; left: 16px; z-index: 10;
+    background: rgba(255, 252, 244, 0.88);
+    border: 3px solid #2b2419;
+    border-radius: 16px;
+    padding: 10px 14px 12px;
+    box-shadow: 4px 4px 0 rgba(43, 36, 25, 0.35);
+    font-family: 'Trebuchet MS', 'Verdana', system-ui, sans-serif;
+    user-select: none;
+  }
+  #ui h1 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #2b2419;
+  }
+  #ui h1 span { color: #b0533a; }
+  #modes { display: flex; gap: 6px; }
+  #modes button {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #2b2419;
+    background: #fdf6e3;
+    border: 2.5px solid #2b2419;
+    border-radius: 999px;
+    padding: 5px 14px;
+    cursor: pointer;
+    transition: transform 0.08s ease;
+  }
+  #modes button:hover { transform: translateY(-1px); }
+  #modes button.active {
+    background: #2b2419;
+    color: #ffe9a8;
+  }
+  #hint {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    z-index: 10; font-family: 'Trebuchet MS', system-ui, sans-serif;
+    font-size: 12px; letter-spacing: 0.6px; color: rgba(43, 36, 25, 0.75);
+    background: rgba(255, 252, 244, 0.6); padding: 4px 12px; border-radius: 999px;
+    pointer-events: none;
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <h1>La <span>Tour</span> Eiffel</h1>
+  <div id="modes">
+    <button data-tod="day">Day</button>
+    <button data-tod="dusk">Dusk</button>
+    <button data-tod="night">Night</button>
+  </div>
+</div>
+<div id="hint">drag to orbit &middot; scroll to zoom</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>

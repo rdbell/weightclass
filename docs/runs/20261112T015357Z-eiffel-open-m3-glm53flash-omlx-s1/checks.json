@@ -1,0 +1,112 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [
+    "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+    "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+    "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+  ],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 17.5,
+  "draw_calls_per_frame": 206,
+  "primitives_per_frame": 43634,
+  "canvases": 1,
+  "luma_stddev": 41.54,
+  "distinct_colours": 466,
+  "blank": false,
+  "animation_diff": 0.1791,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "day",
+      "found": true,
+      "diff_vs_before": 0.1769
+    },
+    {
+      "mode": "dusk",
+      "found": true,
+      "diff_vs_before": 0.9141
+    },
+    {
+      "mode": "night",
+      "found": true,
+      "diff_vs_before": 0.8525
+    }
+  ],
+  "second_load_diff": 0.1633,
+  "modes": [
+    {
+      "query": "?tod=day",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 17.5,
+      "draw_calls_per_frame": 206,
+      "primitives_per_frame": 43634,
+      "canvases": 1,
+      "luma_stddev": 41.54,
+      "distinct_colours": 464,
+      "blank": false,
+      "mode": "day",
+      "diff_vs_default": 0.0019
+    },
+    {
+      "query": "?tod=dusk",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 18,
+      "draw_calls_per_frame": 207,
+      "primitives_per_frame": 44184,
+      "canvases": 1,
+      "luma_stddev": 51.06,
+      "distinct_colours": 259,
+      "blank": false,
+      "mode": "dusk",
+      "diff_vs_default": 0.9736
+    },
+    {
+      "query": "?tod=night",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Material: 'flatShading' is not a property of THREE.MeshToonMaterial.",
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 16.5,
+      "draw_calls_per_frame": 207,
+      "primitives_per_frame": 44184,
+      "canvases": 1,
+      "luma_stddev": 38.75,
+      "distinct_colours": 222,
+      "blank": false,
+      "mode": "night",
+      "diff_vs_default": 0.993
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

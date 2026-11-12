@@ -1,0 +1,42 @@
+{
+  "id": "m3-qwenflash-omlx",
+  "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+  "api_key_env": "WC_M3_KEY",
+  "model_id": "m3-ultra-local",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "local",
+  "hardware": {
+    "machine": "m3ultra256",
+    "chip": "Apple M3 Ultra",
+    "gpu_cores": 60,
+    "memory_gib": 256
+  },
+  "pack": {
+    "repo": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+    "revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+    "manifest_sha256": "98ec45b5fc35b05382966dabeb879ba675e155691f5e5029a328ff1165c03b8f",
+    "total_bytes": 107693772821
+  },
+  "engine": {
+    "name": "omlx",
+    "version": "0.7.4.dev1",
+    "speculative": "MTP"
+  },
+  "request_body": {
+    "reasoning_effort": "high"
+  },
+  "host": {
+    "engine_match": "omlx",
+    "engine_log": "~/Library/Logs/com.rdbell.command-center.omlx.log",
+    "ssh_env": "WC_M3_SSH"
+  },
+  "verify_before_runs": [
+    "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+    "engine flags in record/host/start.txt match engine block",
+    "prefix cache hits visible in raw usage"
+  ],
+  "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+  "base_url_env": "WC_M3_BASE_URL",
+  "host_header_env": "WC_M3_HOST_HEADER"
+}

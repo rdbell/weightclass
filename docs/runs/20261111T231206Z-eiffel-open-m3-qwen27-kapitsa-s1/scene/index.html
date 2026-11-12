@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>La Tour Eiffel — A Toon Adventure</title>
+<style>
+  :root {
+    --ink: #241c33;
+    --paper: #fff6e3;
+  }
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #0e1428;
+  }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .ui {
+    position: fixed;
+    z-index: 10;
+    font-family: "Baloo 2", "Comic Sans MS", "Chalkboard SE", "Marker Felt", ui-rounded, system-ui, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #title { top: 16px; left: 20px; pointer-events: none; }
+  #title h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--paper);
+    text-shadow: 0 3px 0 rgba(20, 14, 34, 0.85), 0 0 18px rgba(20, 14, 34, 0.4);
+    transform: rotate(-2deg);
+  }
+  #title p {
+    margin: 2px 0 0 4px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--paper);
+    opacity: 0.85;
+    text-shadow: 0 2px 0 rgba(20, 14, 34, 0.8);
+  }
+
+  #modes {
+    top: 18px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px 10px;
+    font: 800 15px/1 inherit;
+    font-family: inherit;
+    letter-spacing: 1px;
+    color: var(--ink);
+    background: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 14px;
+    box-shadow: 0 5px 0 var(--ink);
+    cursor: pointer;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.2s ease;
+  }
+  .mode-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 0 var(--ink); }
+  .mode-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--ink); }
+  .mode-btn.active { background: #ffd75e; }
+  .mode-btn .dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2.5px solid var(--ink);
+  }
+  .mode-btn .dot.day   { background: radial-gradient(circle at 35% 30%, #fff2b0, #ffcf3d); }
+  .mode-btn .dot.dusk  { background: linear-gradient(180deg, #ff9a4d 55%, #7a4a8a 55%); }
+  .mode-btn .dot.night { background: radial-gradient(circle at 62% 40%, #cdd8ff 0 42%, #2a3a6e 45%); }
+
+  #hint {
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--paper);
+    background: rgba(24, 18, 38, 0.55);
+    border: 2.5px solid rgba(255, 246, 227, 0.5);
+    border-radius: 999px;
+    padding: 8px 20px;
+    opacity: 0.95;
+    transition: opacity 1.6s ease;
+    pointer-events: none;
+  }
+  #hint.faded { opacity: 0; }
+
+  #vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 50% 42%, rgba(0,0,0,0) 55%, rgba(10, 8, 24, 0.28) 100%);
+  }
+</style>
+</head>
+<body>
+  <div id="app"></div>
+  <div id="vignette"></div>
+
+  <div id="title" class="ui">
+    <h1>LA TOUR EIFFEL</h1>
+    <p>a toon adventure in paris</p>
+  </div>
+
+  <div id="modes" class="ui">
+    <button class="mode-btn" data-mode="day"><span class="dot day"></span>Day</button>
+    <button class="mode-btn" data-mode="dusk"><span class="dot dusk"></span>Dusk</button>
+    <button class="mode-btn" data-mode="night"><span class="dot night"></span>Night</button>
+  </div>
+
+  <div id="hint" class="ui">drag to orbit &nbsp;&middot;&nbsp; scroll to zoom</div>
+
+  <script type="importmap">
+  { "imports": {
+      "three": "../../../vendor/three/build/three.module.js",
+      "three/addons/": "../../../vendor/three/examples/jsm/"
+  } }
+  </script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

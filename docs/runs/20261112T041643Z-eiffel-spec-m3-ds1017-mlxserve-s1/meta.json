@@ -1,0 +1,166 @@
+{
+  "run": "20261112T041643Z-eiffel-spec-m3-ds1017-mlxserve-s1",
+  "lab": true,
+  "prompt": {
+    "id": "eiffel-spec",
+    "version": "1",
+    "variant": "spec",
+    "subject": "eiffel",
+    "file": "prompts/lab/eiffel-spec.md",
+    "sha256": "cef5fb3121aa4cbf758d257497f687f6f7db92c2bae810b911a608683038b99d"
+  },
+  "setup_sha256": "b5dd4803e2b50434e5214226c9cf831503170883844da5c08f4da9b6974f6bff",
+  "sample": 1,
+  "started": "2026-11-12T04:16:45.458368+00:00",
+  "ended": "2026-11-12T05:21:48.718288+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 3903.3,
+  "concurrent_runs": [
+    {
+      "run": "20261112T041640Z-eiffel-open-m3-ds1017-mlxserve-s1",
+      "overlap_seconds": 3906.2
+    }
+  ],
+  "tool_calls": 85,
+  "tokens_seen": 229608,
+  "tokens": {
+    "steps": 83,
+    "input": 167575,
+    "cache_read": 9698656,
+    "cache_write": 0,
+    "output": 62856,
+    "reasoning": 0,
+    "generated": 62856
+  },
+  "agent": {
+    "tool_counts": {
+      "read": 6,
+      "shell": 67,
+      "write": 1,
+      "edit": 11
+    },
+    "tool_errors": 0,
+    "preview_calls": 18,
+    "step_finish_reasons": {
+      "tool-calls": 82,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 83,
+    "model_calls": 83,
+    "statuses": {
+      "200": 83
+    },
+    "relay_errors": 0,
+    "client_closed_early": 21,
+    "cached_prompt_tokens": 9698656,
+    "prompt_tokens": 9866231,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 82,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 2503.5,
+    "ttft_ms_p90": 4404.4,
+    "decode_tps_p50": 24.9,
+    "generation_ids": 83
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 772,
+    "avg_watts": 76.9,
+    "max_watts": 160.7,
+    "energy_wh": 82.42,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 84,
+  "code": {
+    "files": 2,
+    "bytes": 26154,
+    "lines": 794
+  },
+  "workspace_sha256": "35e1a54ea36569b8f61dd5d3cef08fc32908b39b63b85ff1b79cc17bc259e343",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "03d04cbe9a2022bed6f477ad855158dbf274182474b4d86ad36d6a5c69b91296",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5d1ff5e4241780f9eff93556cff0053d732fd00e7cc43b0ac432000eb17de488",
+    "guard": {
+      "max_steps": 200,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "backfill": {
+    "rechecked": false,
+    "tokens_raw": {
+      "completion": 62856,
+      "reasoning": 48229,
+      "output": 14627,
+      "method": [
+        "estimated from reasoning character share"
+      ]
+    },
+    "prompt": {
+      "id": "eiffel-spec",
+      "title": "Eiffel Tower (spec)",
+      "variant": "spec",
+      "subject": "eiffel",
+      "version": "1",
+      "file": "prompts/lab/eiffel-spec.md"
+    }
+  },
+  "setup": {
+    "id": "m3-ds1017-mlxserve",
+    "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)",
+    "model_id": "m3-ultra-local",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw",
+      "revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045",
+      "manifest_sha256": "3c6fa21d53c9363adcafbd502b7aad590200529eb72abb28d746fe64495a6315",
+      "total_bytes": 427295062169
+    },
+    "engine": {
+      "name": "mlx-serve",
+      "version": "26.11.2",
+      "max_concurrent": 8,
+      "prefix_cache_mem": "16GB",
+      "prefix_cache_disk": "64GB",
+      "prefill_chunk": 2048
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw."
+  }
+}

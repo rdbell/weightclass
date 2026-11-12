@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cel-shaded Eiffel Tower</title>
+<style>
+  :root {
+    --ink: #2b1a10;
+    --accent: #ffd23f;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #56bce8;
+    font-family: "Trebuchet MS", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #ui {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .tabs {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border: 2px solid rgba(30, 40, 54, 0.34);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 5px 0 rgba(30, 40, 54, 0.18), 0 10px 24px rgba(20, 50, 80, 0.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: auto;
+  }
+
+  .tab {
+    appearance: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 20px 9px;
+    background: transparent;
+    color: #223243;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, transform 120ms ease, box-shadow 160ms ease;
+  }
+
+  .tab:hover { background: rgba(255, 255, 255, 0.42); }
+
+  .tab:active { transform: translateY(1px); }
+
+  .tab:focus-visible {
+    outline: 2px solid #223243;
+    outline-offset: 2px;
+  }
+
+  .tab.active {
+    background: var(--accent);
+    color: var(--ink);
+    box-shadow: inset 0 -2px 0 rgba(150, 100, 0, 0.18), 0 2px 7px rgba(60, 40, 0, 0.20);
+  }
+
+  .label {
+    position: absolute;
+    left: 22px;
+    bottom: 20px;
+    max-width: calc(100vw - 44px);
+    padding: 8px 13px 9px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 9px;
+    background: rgba(17, 34, 48, 0.42);
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.015em;
+    line-height: 1.35;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+  .label .arrow { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    .tabs { top: 14px; right: 14px; }
+    .tab { padding: 7px 13px 8px; font-size: 11px; }
+    .label { left: 14px; bottom: 14px; font-size: 10.5px; }
+  }
+</style>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <nav class="tabs" role="group" aria-label="Time of day">
+    <button class="tab" type="button" data-tod="day" aria-pressed="true">Day</button>
+    <button class="tab" type="button" data-tod="dusk" aria-pressed="false">Dusk</button>
+    <button class="tab" type="button" data-tod="night" aria-pressed="false">Night</button>
+  </nav>
+  <div class="label">
+    Cel-shaded Eiffel Tower: vertex light <span class="arrow">→</span> band LUT
+    <span class="arrow">→</span> palette LUT &middot; drag to orbit, scroll to zoom
+  </div>
+</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+/* ------------------------------------------------------------------------- */
+/*  Seeded randomness                                                        */
+/* ------------------------------------------------------------------------- */
+
+function mulberry32( seed ) {
+  let a = seed >>> 0;
+  return function () {
+    a = ( a + 0x6d2b79f5 ) >>> 0;
+    let t = a;
+    t = Math.imul( t ^ ( t >>> 15 ), 1 | t );
+    t = ( t + Math.imul( t ^ ( t >>> 7 ), 61 | t ) ) ^ t;
+    return ( ( t ^ ( t >>> 14 ) ) >>> 0 ) / 4294967296;
+  };
+}
+
+const rand = mulberry32( 0xE1FFE1 );
+const randRange = ( min, max ) => min + ( max - min ) * rand();
+
+/* ------------------------------------------------------------------------- */
+/*  Renderer, camera, controls                                               */
+/* ------------------------------------------------------------------------- */
+
+const renderer = new THREE.WebGLRenderer( { antialias: true, powerPreference: 'high-performance' } );
+renderer.setPixelRatio( Math.min( window.devicePixelRatio || 1, 2 ) );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+document.body.appendChild( renderer.domElement );
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 4000 );
+camera.position.set( 330, 165, 430 );
+
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.target.set( 0, 115, 0 );
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.autoRotate = true;
+controls.autoRotateSpeed = 0.5;
+controls.minDistance = 80;
+controls.maxDistance = 1400;
+controls.maxPolarAngle = Math.PI * 0.495;
+controls.update();
+
+/* ------------------------------------------------------------------------- */
+/*  Sun / moon light                                                         */
+/* ------------------------------------------------------------------------- */
+
+const LIGHT_TARGET = new THREE.Vector3( 0, 100, 0 );
+
+const sun = new THREE.DirectionalLight( 0xffffff, 1.0 );
+sun.castShadow = true;
+sun.shadow.mapSize.set( 2048, 2048 );
+sun.shadow.camera.left = - 280;
+sun.shadow.camera.right = 280;
+sun.shadow.camera.top = 280;
+sun.shadow.camera.bottom = - 280;
+sun.shadow.camera.near = 1;
+sun.shadow.camera.far = 1500;
+sun.shadow.camera.updateProjectionMatrix();
+sun.shadow.bias = - 0.0004;
+sun.shadow.normalBias = 0.6;
+sun.shadow.radius = 3;
+sun.shadow.intensity = 1.0;
+sun.target.position.copy( LIGHT_TARGET );
+scene.add( sun );
+scene.add( sun.target );
+
+/* ------------------------------------------------------------------------- */
+/*  Band LUT and palette LUTs                                                */
+/* ------------------------------------------------------------------------- */
+
+const BAND_VALUES = [ 0.125, 0.375, 0.625, 0.875 ];
+
+function makeBandTexture() {
+  const size = 256;
+  const data = new Float32Array( size * 4 );
+
+  for ( let i = 0; i < size; i ++ ) {
+    const t = i / ( size - 1 ); // 0 .. 1
+    let value;
+
+    // Boundaries on t: 0.5 / 0.625 / 0.85.
+    if ( t < 0.5 ) value = BAND_VALUES[ 0 ];
+    else if ( t < 0.625 ) value = BAND_VALUES[ 1 ];
+    else if ( t < 0.85 ) value = BAND_VALUES[ 2 ];
+    else value = BAND_VALUES[ 3 ];
+
+    const o = i * 4;
+    data[ o ] = value;
+    data[ o + 1 ] = value;
+    data[ o + 2 ] = value;
+    data[ o + 3 ] = 1;
+  }
+
+  const tex = new THREE.DataTexture( data, size, 1, THREE.RGBAFormat, THREE.FloatType );
+  tex.minFilter = THREE.NearestFilter;
+  tex.magFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.wrapS = THREE.ClampToEdgeWrapping;
+  tex.wrapT = THREE.ClampToEdgeWrapping;
+  tex.colorSpace = THREE.NoColorSpace;
+  tex.needsUpdate = true;
+  return tex;
+}
+
+function makePaletteTexture( hexes ) {
+  const data = new Uint8Array( 4 * 4 );
+
+  for ( let i = 0; i < 4; i ++ ) {
+    const hex = hexes[ i ];
+    data[ i * 4 ] = ( hex >> 16 ) & 255;
+    data[ i * 4 + 1 ] = ( hex >> 8 ) & 255;
+    data[ i * 4 + 2 ] = hex & 255;
+    data[ i * 4 + 3 ] = 255;
+  }
+
+  const tex = new THREE.DataTexture( data, 4, 1, THREE.RGBAFormat, THREE.UnsignedByteType );
+  tex.minFilter = THREE.NearestFilter;
+  tex.magFilter = THREE.NearestFilter;
+  tex.generateMipmaps = false;
+  tex.wrapS = THREE.ClampToEdgeWrapping;
+  tex.wrapT = THREE.ClampToEdgeWrapping;
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.needsUpdate = true;
+  return tex;
+}
+
+const bandsTex = makeBandTexture();
+
+/* Palette entries are [shadow, mid, upper, lit]. */
+const PALETTES = {
+  iron: {
+    day:   [ 0x7d4f2c, 0xa56a38, 0xc8864a, 0xe8a45e ],
+    dusk:  [ 0x6a3a1e, 0x9c5828, 0xc87838, 0xf09848 ],
+    night: [ 0x26364e, 0x384a66, 0x4a5c7a, 0x68789a ]
+  },
+  ironDark: {
+    day:   [ 0x6d4426, 0x946034, 0xb87a42, 0xd89450 ],
+    dusk:  [ 0x5a3016, 0x8a4c24, 0xb86834, 0xd88840 ],
+    night: [ 0x1e2c42, 0x2e3e58, 0x3e4e68, 0x586880 ]
+  },
+  ground: {
+    day:   [ 0x3f8a35, 0x5cb04a, 0x6fc258, 0x82d468 ],
+    dusk:  [ 0x4a6a28, 0x6a8838, 0x88a848, 0xa8c058 ],
+    night: [ 0x16301f, 0x24462e, 0x345c3e, 0x4a7852 ]
+  },
+  plaza: {
+    day:   [ 0xb09058, 0xd0b078, 0xe0c088, 0xf0d098 ],
+    dusk:  [ 0xa88850, 0xc8a868, 0xe0c080, 0xf8d898 ],
+    night: [ 0x3a3e52, 0x4c5066, 0x5e6278, 0x787c92 ]
+  },
+  leaf: {
+    day:   [ 0x3a7a34, 0x4f9c44, 0x60b452, 0x74cc62 ],
+    dusk:  [ 0x3a6a28, 0x558838, 0x70a848, 0x90c058 ],
+    night: [ 0x16382a, 0x245038, 0x346848, 0x4a8858 ]
+  },
+  trunk: {
+    day:   [ 0x5a3e26, 0x7a5230, 0x8f6238, 0xa47440 ],
+    dusk:  [ 0x5a3820, 0x7a5230, 0x986838, 0xb88048 ],
+    night: [ 0x222838, 0x323848, 0x424858, 0x585e70 ]
+  },
+  cloud: {
+    day:   [ 0xc8d8e8, 0xe8f0f8, 0xf4f8fc, 0xffffff ],
+    dusk:  [ 0xd89878, 0xf0b890, 0xf8d0b0, 0xffe8d0 ],
+    night: [ 0x303c54, 0x404c66, 0x505c78, 0x687490 ]
+  }
+};
+
+const paletteTextures = {};
+for ( const key of Object.keys( PALETTES ) ) {
+  paletteTextures[ key ] = {};
+  for ( const mode of [ 'day', 'dusk', 'night' ] ) {
+    paletteTextures[ key ][ mode ] = makePaletteTexture( PALETTES[ key ][ mode ] );
+  }
+}
+
+const TIMES = {
+  day: {
+    sky: 0x56bce8,
+    fog: 0x56bce8,
+    sunDir: new THREE.Vector3( 300, 420, 180 ).normalize(),
+    shadowStrength: 0.5,
+    ink: 0x2b1a10,
+    palettes: PALETTES
+  },
+  dusk: {
+    sky: 0xef9a58,
+    fog: 0xef9a58,
+    sunDir: new THREE.Vector3( 1.0, 0.16, 0.28 ).normalize(),
+    shadowStrength: 0.42,
+    ink: 0x2a1608,
+    palettes: PALETTES
+  },
+  night: {
+    sky: 0x16263e,
+    fog: 0x16263e,
+    sunDir: new THREE.Vector3( 0.5, 0.72, 0.45 ).normalize(),
+    shadowStrength: 0.55,
+    ink: 0x0a0e18,
+    palettes: PALETTES
+  }
+};
+
+scene.background = new THREE.Color( TIMES.day.sky );
+scene.fog = new THREE.Fog( TIMES.day.fog, 600, 1700 );
+
+/* ------------------------------------------------------------------------- */
+/*  Toon shaders                                                            */
+/* ------------------------------------------------------------------------- */
+
+const TOON_VERTEX = /* glsl */`
+  #include <common>
+  #include <packing>
+  #include <fog_pars_vertex>
+  #include <shadowmap_pars_vertex>
+
+  uniform vec3 uLightDir;
+  varying float vDiffuse;
+
+  void main() {
+
+    #include <begin_vertex>
+    #include <beginnormal_vertex>
+    #include <defaultnormal_vertex>
+    #include <worldpos_vertex>
+    #include <shadowmap_vertex>
+
+    // One directional light, no ambient: per-vertex world-space diffuse.
+    vec3 n = normalize( mat3( modelMatrix ) * normal );
+    vDiffuse = dot( n, uLightDir );
+
+    // Our own position math (also gives fog_vertex its mvPosition).
+    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+    gl_Position = projectionMatrix * mvPosition;
+
+    #include <fog_vertex>
+  }
+`;
+
+const TOON_FRAGMENT = /* glsl */`
+  #include <common>
+  #include <packing>
+  #include <fog_pars_fragment>
+  #include <shadowmap_pars_fragment>
+
+  uniform sampler2D uBands;
+  uniform sampler2D uPalette;
+  uniform float uReceiveShadow;
+  uniform float uShadowStrength;
+
+  varying float vDiffuse;
+
+  void main() {
+
+    // Stage 2: hard four-band lookup.
+    float t = clamp( vDiffuse * 0.5 + 0.5, 0.0, 1.0 );
+    float band = texture2D( uBands, vec2( t, 0.5 ) ).r;
+
+    // Stage 3: per-material palette lookup.
+    vec3 col = texture2D( uPalette, vec2( band, 0.5 ) ).rgb;
+
+    // Shadow is applied after the palette so the bands stay intact.
+    float shadow = 1.0;
+    #if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0
+      DirectionalLightShadow dl = directionalLightShadows[ 0 ];
+      shadow = getShadow(
+        directionalShadowMap[ 0 ],
+        dl.shadowMapSize,
+        dl.shadowIntensity,
+        dl.shadowBias,
+        dl.shadowRadius,
+        vDirectionalShadowCoord[ 0 ]
+      );
+    #endif
+
+    float shadowAmount = ( 1.0 - smoothstep( 0.4, 0.6, shadow ) ) * uReceiveShadow;
+    float shadowFactor = mix( 1.0, uShadowStrength, shadowAmount );
+
+    gl_FragColor = vec4( col * shadowFactor, 1.0 );
+
+    // Match three.js' built-in order: encode, then fog in output space.
+    gl_FragColor = linearToOutputTexel( gl_FragColor );
+
+    #include <fog_fragment>
+  }
+`;
+
+const OUTLINE_VERTEX = /* glsl */`
+  #include <common>
+  #include <packing>
+  #include <fog_pars_vertex>
+  #include <shadowmap_pars_vertex>
+
+  uniform float uPx;
+  uniform float uFov;
+  uniform float uViewportH;
+
+  void main() {
+
+    #include <begin_vertex>
+    #include <beginnormal_vertex>
+    #include <defaultnormal_vertex>
+    #include <worldpos_vertex>
+    #include <shadowmap_vertex>
+
+    vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+    // Constant screen-space width, in pixels.
+    float worldW = uPx * 2.0 * -mvPosition.z * tan( uFov * 0.5 ) / uViewportH;
+    mvPosition.xyz += normalize( normalMatrix * normal ) * worldW;
+    gl_Position = projectionMatrix * mvPosition;
+
+    #include <fog_vertex>
+  }
+`;
+
+const OUTLINE_FRAGMENT = /* glsl */`
+  #include <common>
+  #include <packing>
+  #include <fog_pars_fragment>
+  #include <shadowmap_pars_fragment>
+
+  uniform vec3 uColor;
+  uniform float uShadowStrength;
+
+  void main() {
+
+    float shadow = 1.0;
+    #if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0
+      DirectionalLightShadow dl = directionalLightShadows[ 0 ];
+      shadow = getShadow(
+        directionalShadowMap[ 0 ],
+        dl.shadowMapSize,
+        dl.shadowIntensity,
+        dl.shadowBias,
+        dl.shadowRadius,
+        vDirectionalShadowCoord[ 0 ]
+      );
+    #endif
+
+    float shadowAmount = 1.0 - smoothstep( 0.4, 0.6, shadow );
+    float shadowFactor = mix( 1.0, uShadowStrength, shadowAmount );
+
+    gl_FragColor = vec4( uColor * shadowFactor, 1.0 );
+
+    gl_FragColor = linearToOutputTexel( gl_FragColor );
+
+    #include <fog_fragment>
+  }
+`;
+
+/* ------------------------------------------------------------------------- */
+/*  Materials                                                                */
+/* ------------------------------------------------------------------------- */
+
+const toonMaterials = {};
+
+function makeToonMaterial( key, receiveShadow ) {
+  const mode = TIMES.day;
+
+  const uniforms = THREE.UniformsUtils.merge( [
+    THREE.UniformsLib.lights,
+    THREE.UniformsLib.fog,
+    {
+      uBands: { value: bandsTex },
+      uPalette: { value: paletteTextures[ key ].day },
+      uLightDir: { value: mode.sunDir.clone() },
+      uShadowStrength: { value: mode.shadowStrength },
+      uReceiveShadow: { value: receiveShadow }
+    }
+  ] );
+
+  // Keep the shared textures instead of the clones made by merge().
+  uniforms.uBands.value = bandsTex;
+  uniforms.uPalette.value = paletteTextures[ key ].day;
+
+  const material = new THREE.ShaderMaterial( {
+    lights: true,
+    fog: true,
+    uniforms,
+    vertexShader: TOON_VERTEX,
+    fragmentShader: TOON_FRAGMENT
+  } );
+
+  toonMaterials[ key ] = material;
+  return material;
+}
+
+const ironMat = makeToonMaterial( 'iron', 1.0 );
+const ironDarkMat = makeToonMaterial( 'ironDark', 1.0 );
+const groundMat = makeToonMaterial( 'ground', 1.0 );
+const plazaMat = makeToonMaterial( 'plaza', 1.0 );
+const leafMat = makeToonMaterial( 'leaf', 1.0 );
+const trunkMat = makeToonMaterial( 'trunk', 1.0 );
+const cloudMat = makeToonMaterial( 'cloud', 0.0 );
+
+const outlineUniforms = THREE.UniformsUtils.merge( [
+  THREE.UniformsLib.lights,
+  THREE.UniformsLib.fog,
+  {
+    uColor: { value: new THREE.Color( TIMES.day.ink ) },
+    uShadowStrength: { value: TIMES.day.shadowStrength },
+    uPx: { value: 1.0 },
+    uFov: { value: THREE.MathUtils.degToRad( camera.fov ) },
+    uViewportH: { value: window.innerHeight }
+  }
+] );
+outlineUniforms.uColor.value.setHex( TIMES.day.ink );
+
+const outlineMat = new THREE.ShaderMaterial( {
+  lights: true,
+  fog: true,
+  side: THREE.BackSide,
+  uniforms: outlineUniforms,
+  vertexShader: OUTLINE_VERTEX,
+  fragmentShader: OUTLINE_FRAGMENT
+} );
+
+/* ------------------------------------------------------------------------- */
+/*  Small geometry helpers                                                   */
+/* ------------------------------------------------------------------------- */
+
+const _up = new THREE.Vector3( 0, 1, 0 );
+const _a = new THREE.Vector3();
+const _b = new THREE.Vector3();
+const _mid = new THREE.Vector3();
+const _dir = new THREE.Vector3();
+const _quat = new THREE.Quaternion();
+const _mat = new THREE.Matrix4();
+const _one = new THREE.Vector3( 1, 1, 1 );
+
+function cylinderBetween( list, a, b, radiusAtA, radiusAtB, radialSegments, openEnded = true ) {
+  _a.copy( a );
+  _b.copy( b );
+  _dir.subVectors( _b, _a );
+  const length = _dir.length();
+  if ( length < 1e-5 ) return;
+
+  const geometry = new THREE.CylinderGeometry(
+    radiusAtB,
+    radiusAtA,
+    length,
+    radialSegments,
+    1,
+    openEnded
+  );
+
+  _quat.setFromUnitVectors( _up, _dir.normalize() );
+  _mid.addVectors( _a, _b ).multiplyScalar( 0.5 );
+  _mat.compose( _mid, _quat, _one );
+  geometry.applyMatrix4( _mat );
+  list.push( geometry );
+}
+
+function boxGeometry( list, w, h, d, x, y, z ) {
+  const g = new THREE.BoxGeometry( w, h, d );
+  g.applyMatrix4( new THREE.Matrix4().makeTranslation( x, y, z ) );
+  list.push( g );
+}
+
+function addRealMesh( geometry, material, options = {} ) {
+  const {
+    castShadow = true,
+    receiveShadow = true,
+    outline = true,
+    parent = scene
+  } = options;
+
+  const mesh = new THREE.Mesh( geometry, material );
+  mesh.castShadow = castShadow;
+  mesh.receiveShadow = receiveShadow;
+
+  if ( outline ) {
+    const hull = new THREE.Mesh( geometry, outlineMat );
+    hull.castShadow = false;
+    hull.receiveShadow = true;
+    mesh.add( hull );
+  }
+
+  parent.add( mesh );
+  return mesh;
+}
+
+function mergeIntoMesh( geometries, material, options ) {
+  const merged = mergeGeometries( geometries, false );
+  if ( ! merged ) {
+    console.error( 'Failed to merge geometry for', material );
+    return null;
+  }
+  merged.computeBoundingSphere();
+  for ( const g of geometries ) g.dispose();
+  return addRealMesh( merged, material, options );
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Tower profile                                                            */
+/* ------------------------------------------------------------------------- */
+
+const PROFILE = [
+  [ 0, 62.45 ],
+  [ 57.63, 35.35 ],
+  [ 115.73, 20.48 ],
+  [ 276.13, 9.33 ],
+  [ 300, 2.0 ]
+];
+const PROFILE_POWERS = [ 1.7, 1.4, 1.15, 1.2 ];
+
+function halfWidth( y ) {
+  if ( y <= 0 ) return PROFILE[ 0 ][ 1 ];
+  if ( y >= 300 ) return PROFILE[ PROFILE.length - 1 ][ 1 ];
+
+  for ( let i = 0; i < PROFILE_POWERS.length; i ++ ) {
+    const y0 = PROFILE[ i ][ 0 ];
+    const y1 = PROFILE[ i + 1 ][ 0 ];
+    if ( y <= y1 ) {
+      const t = ( y - y0 ) / ( y1 - y0 );
+      const w0 = PROFILE[ i ][ 1 ];
+      const w1 = PROFILE[ i + 1 ][ 1 ];
+      return w0 + ( w1 - w0 ) * Math.pow( t, PROFILE_POWERS[ i ] );
+    }
+  }
+  return 2.0;
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Tower: legs, lattice, platforms, antenna                                 */
+/* ------------------------------------------------------------------------- */
+
+const ironGeometries = [];
+const ironDarkGeometries = [];
+
+/* Four curved corner legs, 32 segments each. */
+const LEG_SEGMENTS = 32;
+const legCorners = [
+  [ 1, 1 ], [ 1, - 1 ], [ - 1, 1 ], [ - 1, - 1 ]
+];
+
+for ( const [ sx, sz ] of legCorners ) {
+  let previous = null;
+
+  for ( let i = 0; i <= LEG_SEGMENTS; i ++ ) {
+    const y = 300 * ( i / LEG_SEGMENTS );
+    const w = halfWidth( y );
+    const point = new THREE.Vector3( sx * w, y, sz * w );
+
+    if ( previous !== null ) {
+      const midW = halfWidth( ( previous.y + y ) * 0.5 );
+      const radius = Math.max( 0.5, midW * 0.08 );
+      cylinderBetween( ironGeometries, previous, point, radius * 1.12, radius * 0.98, 8 );
+    }
+
+    previous = point;
+  }
+}
+
+/* Lattice bracing: per section, level, and face. */
+const LATTICE_SECTIONS = [
+  [ 0, 57.63, 6 ],
+  [ 57.63, 115.73, 5 ],
+  [ 115.73, 276.13, 8 ],
+  [ 276.13, 300, 3 ]
+];
+
+const FACES = [
+  { axis: 'z', sign: 1 },
+  { axis: 'z', sign: - 1 },
+  { axis: 'x', sign: 1 },
+  { axis: 'x', sign: - 1 }
+];
+
+function facePoint( axis, sign, u, y, w ) {
+  if ( axis === 'z' ) return new THREE.Vector3( u * w, y, sign * w );
+  return new THREE.Vector3( sign * w, y, u * w );
+}
+
+for ( const [ y0, y1, levels ] of LATTICE_SECTIONS ) {
+  for ( let level = 0; level < levels; level ++ ) {
+    const yb = y0 + ( y1 - y0 ) * ( level / levels );
+    const yt = y0 + ( y1 - y0 ) * ( ( level + 1 ) / levels );
+    const wb = halfWidth( yb );
+    const wt = halfWidth( yt );
+    const midW = halfWidth( ( yb + yt ) * 0.5 );
+    const radius = Math.max( 0.3, midW * 0.028 );
+    const horizontalRadius = radius * 1.5;
+
+    for ( const face of FACES ) {
+      const bottomLeft = facePoint( face.axis, face.sign, - 1, yb, wb );
+      const bottomRight = facePoint( face.axis, face.sign, 1, yb, wb );
+      const topLeft = facePoint( face.axis, face.sign, - 1, yt, wt );
+      const topRight = facePoint( face.axis, face.sign, 1, yt, wt );
+
+      // Two X diagonals.
+      cylinderBetween( ironGeometries, bottomLeft, topRight, radius, radius, 6 );
+      cylinderBetween( ironGeometries, bottomRight, topLeft, radius, radius, 6 );
+
+      // One top horizontal.
+      cylinderBetween( ironGeometries, topLeft, topRight, horizontalRadius, horizontalRadius, 6 );
+    }
+  }
+}
+
+/* Four decorative base arches, spanning between the legs below the first deck. */
+const ARCH_SPRING_Y = 34;
+const ARCH_APEX_Y = 52;
+const ARCH_SPAN = 0.94;
+const ARCH_STEPS = 22;
+const ARCH_GAP = 2.6;
+const ARCH_OUTSET = 1.35;
+
+function archPoint( face, u, y, outset ) {
+  const w = halfWidth( y );
+  const point = facePoint( face.axis, face.sign, u, y, w );
+  if ( face.axis === 'z' ) point.z += face.sign * outset;
+  else point.x += face.sign * outset;
+  return point;
+}
+
+for ( const face of FACES ) {
+  let previousUpper = null;
+  let previousLower = null;
+
+  for ( let i = 0; i <= ARCH_STEPS; i ++ ) {
+    const u = - ARCH_SPAN + ( 2 * ARCH_SPAN ) * ( i / ARCH_STEPS );
+    const curve = 1 - Math.pow( u / ARCH_SPAN, 2 );
+    const yUpper = ARCH_SPRING_Y + ( ARCH_APEX_Y - ARCH_SPRING_Y ) * curve;
+    const localGap = ARCH_GAP * ( 0.32 + 0.68 * curve );
+    const yLower = yUpper - localGap;
+
+    const upper = archPoint( face, u, yUpper, ARCH_OUTSET );
+    const lower = archPoint( face, u, yLower, ARCH_OUTSET );
+
+    if ( previousUpper !== null ) {
+      cylinderBetween( ironGeometries, previousUpper, upper, 1.75, 1.75, 8 );
+      cylinderBetween( ironGeometries, previousLower, lower, 0.7, 0.7, 6 );
+
+      if ( i % 2 === 0 ) {
+        cylinderBetween( ironGeometries, lower, upper, 0.32, 0.32, 6 );
+      }
+    }
+
+    previousUpper = upper;
+    previousLower = lower;
+  }
+}
+
+/* Three platforms. */
+const PLATFORMS = [
+  { y: 57.63, overhang: 1.5, thickness: 6 },
+  { y: 115.73, overhang: 1.5, thickness: 5 },
+  { y: 276.13, overhang: 1.2, thickness: 4 }
+];
+
+for ( const platform of PLATFORMS ) {
+  const hw = halfWidth( platform.y ) + platform.overhang;
+  boxGeometry(
+    ironDarkGeometries,
+    hw * 2,
+    platform.thickness,
+    hw * 2,
+    0,
+    platform.y,
+    0
+  );
+
+  // A light iron railing gives each deck a readable, inhabited silhouette.
+  const deckY = platform.y + platform.thickness * 0.5;
+  const railY = deckY + 1.3;
+  const midRailY = deckY + 0.72;
+  const railInset = hw - 0.22;
+  const railSpan = hw * 2 - 0.5;
+
+  // Top and middle rails on all four sides.
+  for ( const yRail of [ railY, midRailY ] ) {
+    const railSize = yRail === railY ? 0.16 : 0.1;
+    boxGeometry( ironDarkGeometries, railSpan, railSize, railSize, 0, yRail, railInset );
+    boxGeometry( ironDarkGeometries, railSpan, railSize, railSize, 0, yRail, - railInset );
+    boxGeometry( ironDarkGeometries, railSize, railSize, railSpan, railInset, yRail, 0 );
+    boxGeometry( ironDarkGeometries, railSize, railSize, railSpan, - railInset, yRail, 0 );
+  }
+
+  // Vertical balusters, spaced around the perimeter.
+  const perimeter = hw * 8;
+  const postCount = Math.max( 12, Math.round( perimeter / 7 ) );
+  for ( let i = 0; i < postCount; i ++ ) {
+    const t = i / postCount;
+    const along = - hw + 0.25 + t * ( hw * 2 - 0.5 );
+    boxGeometry( ironDarkGeometries, 0.2, 1.3, 0.2, along, deckY + 0.65, railInset );
+    boxGeometry( ironDarkGeometries, 0.2, 1.3, 0.2, along, deckY + 0.65, - railInset );
+    boxGeometry( ironDarkGeometries, 0.2, 1.3, 0.2, railInset, deckY + 0.65, along );
+    boxGeometry( ironDarkGeometries, 0.2, 1.3, 0.2, - railInset, deckY + 0.65, along );
+  }
+}
+
+/* Antenna mast and tip. */
+cylinderBetween(
+  ironDarkGeometries,
+  new THREE.Vector3( 0, 300, 0 ),
+  new THREE.Vector3( 0, 330, 0 ),
+  1.1,
+  0.35,
+  6,
+  true
+);
+
+{
+  const tip = new THREE.SphereGeometry( 1.1, 12, 8 );
+  tip.applyMatrix4( new THREE.Matrix4().makeTranslation( 0, 330, 0 ) );
+  ironDarkGeometries.push( tip );
+}
+
+mergeIntoMesh( ironGeometries, ironMat, { castShadow: true, receiveShadow: true, outline: true } );
+mergeIntoMesh( ironDarkGeometries, ironDarkMat, { castShadow: true, receiveShadow: true, outline: true } );
+
+/* ------------------------------------------------------------------------- */
+/*  Ground and plaza                                                         */
+/* ------------------------------------------------------------------------- */
+
+{
+  const ground = new THREE.CircleGeometry( 1600, 48 );
+  ground.rotateX( - Math.PI * 0.5 );
+  const mesh = addRealMesh( ground, groundMat, {
+    castShadow: false,
+    receiveShadow: true,
+    outline: false
+  } );
+  mesh.position.y = 0;
+}
+
+{
+  const plaza = new THREE.CircleGeometry( 100, 48 );
+  plaza.rotateX( - Math.PI * 0.5 );
+  const mesh = addRealMesh( plaza, plazaMat, {
+    castShadow: false,
+    receiveShadow: true,
+    outline: false
+  } );
+  mesh.position.y = 0.15;
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Trees                                                                    */
+/* ------------------------------------------------------------------------- */
+
+const trunkGeometries = [];
+const leafGeometries = [];
+const TREE_COUNT = 14;
+const treeAngleJitter = 0.34;
+const treeSpacing = Math.PI * 2 / TREE_COUNT;
+
+for ( let i = 0; i < TREE_COUNT; i ++ ) {
+  const angle = i * treeSpacing + randRange( - treeAngleJitter, treeAngleJitter );
+  const radius = randRange( 118, 173 );
+  const s = randRange( 0.8, 1.5 );
+  const yRot = rand() * Math.PI * 2;
+  const x = Math.cos( angle ) * radius;
+  const z = Math.sin( angle ) * radius;
+
+  const rot = new THREE.Quaternion().setFromAxisAngle( _up, yRot );
+
+  // Trunk: 6 radial, height 7s, base on the ground.
+  {
+    const trunk = new THREE.CylinderGeometry( 0.72 * s, 0.9 * s, 7 * s, 6, 1, false );
+    trunk.applyMatrix4( new THREE.Matrix4().compose(
+      new THREE.Vector3( x, 3.5 * s, z ),
+      rot,
+      _one
+    ) );
+    trunkGeometries.push( trunk );
+  }
+
+  // Two stacked 7-radial cones.
+  {
+    const lower = new THREE.ConeGeometry( 6 * s, 10 * s, 7 );
+    lower.applyMatrix4( new THREE.Matrix4().compose(
+      new THREE.Vector3( x, 11 * s, z ),
+      rot,
+      _one
+    ) );
+    leafGeometries.push( lower );
+  }
+
+  {
+    const upper = new THREE.ConeGeometry( 4.6 * s, 8 * s, 7 );
+    upper.applyMatrix4( new THREE.Matrix4().compose(
+      new THREE.Vector3( x, 16 * s, z ),
+      rot,
+      _one
+    ) );
+    leafGeometries.push( upper );
+  }
+}
+
+mergeIntoMesh( trunkGeometries, trunkMat, { castShadow: true, receiveShadow: true, outline: true } );
+mergeIntoMesh( leafGeometries, leafMat, { castShadow: true, receiveShadow: true, outline: true } );
+
+/* ------------------------------------------------------------------------- */
+/*  Clouds                                                                   */
+/* ------------------------------------------------------------------------- */
+
+const CLOUD_PUFFS = [
+  [ 0, 0, 0, 1.0 ],
+  [ 9, - 1, 2, 0.75 ],
+  [ - 9, - 1.5, - 1, 0.7 ],
+  [ 4, 3, - 2, 0.6 ],
+  [ - 4, 2.5, 1, 0.55 ]
+];
+
+const cloudGeometries = [];
+for ( const [ px, py, pz, puffScale ] of CLOUD_PUFFS ) {
+  const puff = new THREE.SphereGeometry( 7 * puffScale, 12, 8 );
+  puff.applyMatrix4( new THREE.Matrix4().compose(
+    new THREE.Vector3( px, py, pz ),
+    new THREE.Quaternion(),
+    _one
+  ) );
+  cloudGeometries.push( puff );
+}
+
+const cloudGeometry = mergeGeometries( cloudGeometries, false );
+for ( const g of cloudGeometries ) g.dispose();
+cloudGeometry.computeBoundingSphere();
+
+const clouds = [];
+const CLOUD_COUNT = 8;
+
+/* Spread the cloud bank across the opening view (the camera starts on the
+   +x/+z side), with a few extras for the orbit. */
+const CLOUD_ANGLES = [ 188, 207, 223, 246, 263, 281, 302, 158 ];
+const CLOUD_RADII = [ 540, 455, 660, 430, 780, 585, 850, 700 ];
+const CLOUD_HEIGHTS = [ 258, 304, 218, 318, 268, 232, 196, 286 ];
+
+for ( let i = 0; i < CLOUD_COUNT; i ++ ) {
+  const angle = THREE.MathUtils.degToRad( CLOUD_ANGLES[ i ] + randRange( - 4, 4 ) );
+  const radius = THREE.MathUtils.clamp( CLOUD_RADII[ i ] + randRange( - 28, 28 ), 420, 920 );
+  const y = THREE.MathUtils.clamp( CLOUD_HEIGHTS[ i ] + randRange( - 12, 12 ), 190, 330 );
+
+  const group = new THREE.Group();
+  group.position.set( Math.cos( angle ) * radius, y, Math.sin( angle ) * radius );
+  group.scale.set( 1.6, 0.7, 1 );
+
+  const mesh = new THREE.Mesh( cloudGeometry, cloudMat );
+  mesh.castShadow = false;
+  mesh.receiveShadow = false;
+  group.add( mesh );
+
+  const hull = new THREE.Mesh( cloudGeometry, outlineMat );
+  hull.castShadow = false;
+  hull.receiveShadow = false;
+  mesh.add( hull );
+
+  scene.add( group );
+
+  clouds.push( {
+    group,
+    speed: randRange( 5, 11 )
+  } );
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Time of day                                                              */
+/* ------------------------------------------------------------------------- */
+
+const tabButtons = Array.from( document.querySelectorAll( '.tab' ) );
+
+function syncFogUniforms( material ) {
+  // The built-in fog chunk runs after output-color-space conversion, so the
+  // uniform itself is stored in the renderer's output space (like three.js).
+  scene.fog.color.getRGB( material.uniforms.fogColor.value, renderer.outputColorSpace );
+  material.uniforms.fogNear.value = scene.fog.near;
+  material.uniforms.fogFar.value = scene.fog.far;
+  material.uniformsNeedUpdate = true;
+}
+
+function applyTimeOfDay( name ) {
+  if ( ! Object.prototype.hasOwnProperty.call( TIMES, name ) ) name = 'day';
+  const mode = TIMES[ name ];
+
+  scene.background.setHex( mode.sky );
+  scene.fog.color.setHex( mode.fog );
+  scene.fog.near = 600;
+  scene.fog.far = 1700;
+
+  // Move the sun / moon.
+  sun.position.copy( mode.sunDir ).multiplyScalar( 600 ).add( LIGHT_TARGET );
+  sun.target.position.copy( LIGHT_TARGET );
+  sun.target.updateMatrixWorld();
+  sun.updateMatrixWorld();
+
+  // Swap the pre-built palette LUT for every material.
+  for ( const key of Object.keys( toonMaterials ) ) {
+    const material = toonMaterials[ key ];
+    material.uniforms.uPalette.value = paletteTextures[ key ][ name ];
+    material.uniforms.uLightDir.value.copy( mode.sunDir );
+    material.uniforms.uShadowStrength.value = mode.shadowStrength;
+    syncFogUniforms( material );
+  }
+
+  outlineMat.uniforms.uColor.value.setHex( mode.ink );
+  outlineMat.uniforms.uShadowStrength.value = mode.shadowStrength;
+  syncFogUniforms( outlineMat );
+
+  for ( const button of tabButtons ) {
+    const active = button.dataset.tod === name;
+    button.classList.toggle( 'active', active );
+    button.setAttribute( 'aria-pressed', active ? 'true' : 'false' );
+  }
+
+  document.body.dataset.tod = name;
+}
+
+for ( const button of tabButtons ) {
+  button.addEventListener( 'click', () => {
+    applyTimeOfDay( button.dataset.tod );
+    try {
+      const url = new URL( window.location.href );
+      url.searchParams.set( 'tod', button.dataset.tod );
+      window.history.replaceState( null, '', url );
+    } catch ( error ) {
+      // Local file URLs can reject history changes; the toggle still works.
+    }
+  } );
+}
+
+/* ------------------------------------------------------------------------- */
+/*  Resize, animation                                                        */
+/* ------------------------------------------------------------------------- */
+
+function onResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setPixelRatio( Math.min( window.devicePixelRatio || 1, 2 ) );
+  renderer.setSize( window.innerWidth, window.innerHeight );
+
+  outlineMat.uniforms.uFov.value = THREE.MathUtils.degToRad( camera.fov );
+  outlineMat.uniforms.uViewportH.value = window.innerHeight;
+  outlineMat.uniformsNeedUpdate = true;
+}
+
+window.addEventListener( 'resize', onResize );
+
+const params = new URLSearchParams( window.location.search );
+const requestedTime = ( params.get( 'tod' ) || '' ).trim().toLowerCase();
+const initialTime = Object.prototype.hasOwnProperty.call( TIMES, requestedTime ) ? requestedTime : 'day';
+
+applyTimeOfDay( initialTime );
+
+let previousTime = performance.now();
+
+function animate( now ) {
+  requestAnimationFrame( animate );
+
+  const dt = Math.min( Math.max( 0, ( now - previousTime ) / 1000 ), 0.1 );
+  previousTime = now;
+
+  for ( const cloud of clouds ) {
+    cloud.group.position.x += cloud.speed * dt;
+    if ( cloud.group.position.x > 1200 ) cloud.group.position.x -= 2400;
+    if ( cloud.group.position.x < - 1200 ) cloud.group.position.x += 2400;
+  }
+
+  controls.update( dt );
+  renderer.render( scene, camera );
+}
+
+requestAnimationFrame( animate );
+</script>
+</body>
+</html>

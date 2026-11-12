@@ -1,0 +1,3548 @@
+# Weightclass M3 window 2026-11-11: temporary engine selection for local_llm.yml
+# (-e @this-file). Production is restored afterwards from host_vars.
+# omlx block as served in production by command-center 85158b4 (2026-11-08).
+# omlx_staged: host_vars' list with Qwen Flash replaced by the GLM pack, so the
+# swap moves GLM out to staged/ (kept) and Qwen Flash in.
+local_llm_engine: omlx
+omlx:
+  version: 0.7.4.dev1
+  wheel_sha256: 4434d3e0eb3d3f7081bd26a3e93571f4732ae72de5333ca2ae39f00fb92ea46d
+  python: 3.12.16+20261026
+  python_sha256: fbf4afef53c2a6b72bb741bc06d5671a9dfaf87bd84e5aa73ac9b3d0d589f14e
+  repo: Jundot/Qwen3.8-Flash-Next-oQ4e-mtp
+  revision: 2322c888c2c314d4eceddf0159dec5d821aa1e41
+  fetch_rate: 40M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 2456
+    sha256: a9c753348dcb86e9061accd9f6bd3667d1a481a247bd429c5d10f657fffdae69
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 254407
+    sha256: 42f3f1feaef7ed2df292b7abaf705b888ee711bd8a147d40e8e2cebb987e4416
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00021.safetensors
+    size: 5099575266
+    sha256: 581ab663bbc9ac3eb052e53002868bdb3794af04dfdbe965ad74b1b429f28b6f
+  - name: model-00002-of-00021.safetensors
+    size: 5000033542
+    sha256: 4451478cf757dc72bc7223ed9f51f0024a09c89f5cd98fd4c8c067d4160618f5
+  - name: model-00003-of-00021.safetensors
+    size: 5000033548
+    sha256: a3f43ee69264e65894845463e603f898a16290cec51e960c008fc8c159190892
+  - name: model-00004-of-00021.safetensors
+    size: 5000033548
+    sha256: 0d0e8868e906b58a86d9a22a300dfa0418fd6ff5f7b423e212a2a22854e0e78e
+  - name: model-00005-of-00021.safetensors
+    size: 5000033550
+    sha256: 6ad381a090afc734e8aade2f72e1bb17bdc59163d9e5ffb230a5fb8bf6e9887c
+  - name: model-00006-of-00021.safetensors
+    size: 5000033600
+    sha256: 6932d98dd4043708452fdccb10e823a82bde64423ef97bd4ededf72df508945f
+  - name: model-00007-of-00021.safetensors
+    size: 5016350696
+    sha256: b7c25b140fa382fc0323d61fb0ee93c8a2ff02230f151ca104f4c11e42fcf051
+  - name: model-00008-of-00021.safetensors
+    size: 5078107346
+    sha256: 2bccb60d994efdd5a325d696f1b745ac852ae88e26d7b886742682c138ba55a1
+  - name: model-00009-of-00021.safetensors
+    size: 5190455859
+    sha256: 9059f4239b3fbff862e27447bd875f05e5563f572f48af007034b0b3a9ecc5bc
+  - name: model-00010-of-00021.safetensors
+    size: 5190455847
+    sha256: f5488be9fb46ca68704703ced161e6628a778a6d669d6566d596990cf76fc6ea
+  - name: model-00011-of-00021.safetensors
+    size: 5190455874
+    sha256: 2b9fe2ffaf40078456aec0e58fa13a1728e2630058505a7c28727475505ff46a
+  - name: model-00012-of-00021.safetensors
+    size: 5190455884
+    sha256: 3ae4e0cc21cfb3e58d8d87ad506768dbbc59fd9b14410904b51b836e79d80260
+  - name: model-00013-of-00021.safetensors
+    size: 5190455892
+    sha256: 5cf0a8754ccd5be94773f7236d7967480673bb9d69e7071cbbeef842d3c30e36
+  - name: model-00014-of-00021.safetensors
+    size: 5190455888
+    sha256: 7fc95d7519c401a9f8f7683e33d7c9266ff19c8bb03ce80348ce936bb0ffac50
+  - name: model-00015-of-00021.safetensors
+    size: 5190455886
+    sha256: 3b6ece77e8e61c9325b47d458ba27c7528aaec6cf4717b42f9f4e7a9110735b8
+  - name: model-00016-of-00021.safetensors
+    size: 5190455892
+    sha256: f98fa49c962becdb9c63aa74268d27d07a16e28d0a0a4842ec911427c71625be
+  - name: model-00017-of-00021.safetensors
+    size: 5190455886
+    sha256: d08ce0d71fd6b1156289f5e536614095b218cba75703bece0af595933dcfa1e0
+  - name: model-00018-of-00021.safetensors
+    size: 5190455880
+    sha256: da5c291c66adb8ab38ffc204dc917c406a0bc139aaf5701c36cef2a778a14390
+  - name: model-00019-of-00021.safetensors
+    size: 5190455872
+    sha256: c19ab91a33b9956abeb6efae0a22ed62f3c83f3daa6035004470e5735aa15f32
+  - name: model-00020-of-00021.safetensors
+    size: 5190455890
+    sha256: aad358017d0a341c3ee41aab9471171b6bac2d5242da8865806aee1f06901b6b
+  - name: model-00021-of-00021.safetensors
+    size: 5190455724
+    sha256: 8e0b249b7ae0227bd4534250491c10654e7864cc2afd83dde0cb57474fd6c99b
+  - name: model.safetensors.index.json
+    size: 405177
+    sha256: 4a2625cbc3062dda0497c8de60cdd3d2e48c2494b72cc611742dbd7aa370ccd0
+  - name: oq_imatrix_report.json
+    size: 67366
+    sha256: 843864df1ac0b82fabf64d1aed3840fe8c3a51aaa475ffb4239ac1093231a7cb
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+  context: 262144
+  max_tokens: 131072
+  max_concurrent_requests: 8
+  memory_settings:
+    prefill_memory_guard: true
+    memory_guard_tier: balanced
+  efforts:
+  - low
+  - medium
+  - xhigh
+  effort_names:
+    low: low
+    medium: medium
+    high: xhigh
+    xhigh: xhigh
+    max: xhigh
+  reasoning_effort: xhigh
+  thinking: optional
+  sampling:
+    temperature: 1.0
+    top_p: 0.95
+    top_k: 20
+    min_p: 0.0
+  model_settings:
+    mtp_enabled: true
+    mtp_adaptive_max_depth: 1
+  burst_decode_mode: aggressive
+  alias: m3-ultra-local
+  gpu_wired_limit_mb: 245760
+  ssd_cache_max_size: 100GB
+  hot_cache_max_size: 16GB
+omlx_staged:
+- repo: ivanfioravanti/DeepSeek-V4.1-Flash-DS4-IQ2
+  revision: d9f3197f3f38683c755990a9cd714e674364df69
+  archived: true
+  fetch_rate: 120M
+  fetch_workers: 8
+  files:
+  - name: DeepSeek-V4.1-Flash-1017-DSpark-support-MXFP4.gguf
+    size: 7966294016
+    sha256: d3efe0b1f6b6fea54f1c58c5cbeb3fded5967b15b64476aed00c95806ad3e3e9
+  - name: DeepSeek-V4.1-Flash-1017-IQ2XXSImatrix-Q2KDown.gguf
+    size: 365713686528
+    sha256: bf3e09d6b177d32c962ce17491ff328901fa178955b1a50f8fde57fa4d340c7e
+  - name: DeepSeek-V4.1-Flash-1017-Vision.gguf
+    size: 970555552
+    sha256: 861f1097e8686111fa23dc4a6bf139fd0c4cc114db2f1b4090a267f7683c0dbf
+  - name: LICENSE
+    size: 1084
+    sha256: f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040
+  - name: README.md
+    size: 14783
+    sha256: 1abf77d09ae2e311f0214805abc03e67943ce502c186bf6af6f7f5ed65f035d5
+  - name: SHA256SUMS
+    size: 665
+    sha256: 306f8139f2920960568a428968b6c738855a14b8db6a685096f22b9d8786ed3b
+  - name: imatrix/DeepSeek-V4.1-Flash-1017-routed-moe-ds4-full.dat
+    size: 770707996
+    sha256: 71bc7ffbb90c453d4ae7c41caaea41d8793b7919391db75baeb173b8c0559838
+  - name: imatrix/DeepSeek-V4.1-Flash-1017-routed-moe-ds4-full.dat.counts
+    size: 122896
+    sha256: 23ec3ea68ec78deee59822231fa61fb359d8c28285ceb1dac3f5cd17400349d1
+- repo: incoai/GLM-5.3-Flash-DFlash2
+  revision: bf582e4eacc1810f76656d1811693ff6c6737d2a
+  fetch_rate: 50M
+  files:
+  - name: config.json
+    size: 1273
+    sha256: c4aeac0101196a6e26705b34c45230bcd0c7c68ee2d2d1efdb242087f3712573
+  - name: model.safetensors
+    size: 2342169800
+    sha256: b038e1d9d1e7833fa3880c2c0135ba9b673013f03da1b29fb831931584759dac
+- repo: ddalcu/Qwen3.8-Flash-Next-MLX-Serve-iQ-MLX-4.7bpw
+  revision: a0e89db090a3e4b2e8ea2118fe9d0324d3854aca
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 6914
+    sha256: 20aacd06347ecb906516aa783b568708186506f8a8e4647b601c0c9951a2a57f
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 4401
+    sha256: 9a2ab86be9f4860a1ac78c4d908aa78a4ad1522d0358e68bbc837af20161fe7a
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001.safetensors
+    size: 75673848
+    sha256: 567132c5ea94cbeb8e5b9a57db2b20cfd67e97e8329f22bc664e3b5c7d9dac16
+  - name: model-00002.safetensors
+    size: 943719288
+    sha256: b760ec41056a3599f33c2a7341f9a6ffd61905708b107d9d876d425dff4c2d05
+  - name: model-00003.safetensors
+    size: 554237720
+    sha256: 37b38642d536b9f8c45167d41f6448e76a9a1c906e29d3d9b7b4ae73ce6c2f49
+  - name: model-00004.safetensors
+    size: 943719288
+    sha256: d7278b1569c8aa18e71bed6781e28e444db4bb46610d2c2307acfde6ef6b05cf
+  - name: model-00005.safetensors
+    size: 513463736
+    sha256: e23a58617423ac967e44dbac7a3d825606524b87f18532d6cfc4853a5a8b5cd5
+  - name: model-00006.safetensors
+    size: 75755944
+    sha256: 13b206dc0287c706c42e6434003ae0a566a351887a1063d690c5a90695772710
+  - name: model-00007.safetensors
+    size: 943719296
+    sha256: 07dda62fc30b68d3326e89cdbf1a0ea1df64a3d08c3196345109d81e01a1f99c
+  - name: model-00008.safetensors
+    size: 492615456
+    sha256: ef7c2801fd495d01a2c49fc1430ed4a7b82d522dace47f9519c9f88091a2e480
+  - name: model-00009.safetensors
+    size: 943719296
+    sha256: bee759266d0c2c4c1c06022ca351bea32bc573f72268947879a64a26fe25e4b8
+  - name: model-00010.safetensors
+    size: 612385160
+    sha256: fbb1db39fc14d5b60340736d2c46e26f22c12d2f881ae39084730a24955f4d83
+  - name: model-00011.safetensors
+    size: 943719296
+    sha256: 2225ec7a9cffc1438b8d000ff9a0fba1cb42b17aa1c5953ddb7348b5e10546e8
+  - name: model-00012.safetensors
+    size: 557719832
+    sha256: 50b81b01e7500ad700dd3ee38434d25f136a1d220d4e9dc0f78c56aac3d1ea57
+  - name: model-00013.safetensors
+    size: 943719296
+    sha256: 0cd77b2860ad4b202596ff380230ac10734355d9f1764cf9c599023faf40f879
+  - name: model-00014.safetensors
+    size: 554237776
+    sha256: b90a1c8a4e089304dce267ce848629ac3bf61e8c53898d5f3430c1ebb1ae24bb
+  - name: model-00015.safetensors
+    size: 943719296
+    sha256: 74cbe2c2d931239e457516d93bed9ef4345d167c35eff0ea186ee27ed2be3795
+  - name: model-00016.safetensors
+    size: 492697536
+    sha256: 9559fb6a119d423a8362fdafd8ce547891c27e8b8414cf7b1c73fc35b22c07d6
+  - name: model-00017.safetensors
+    size: 943719296
+    sha256: 09d85fdcde77bf54e9ad9c51c55f761e676562da75f62c2f8bdf78e6a6643f3d
+  - name: model-00018.safetensors
+    size: 608923720
+    sha256: d2260bfdac42c71ecc9772638d98b6c078182d4c88aa56311b7ca9746d06ba1b
+  - name: model-00019.safetensors
+    size: 943719296
+    sha256: ec20b898e82ca1cc6cf319312d23a8431820a804ef70098b80d3c53e433cb721
+  - name: model-00020.safetensors
+    size: 554237776
+    sha256: ab99a604ac13271fd65797228beb84eba60e274064af066c7f3aa8b8e69112ce
+  - name: model-00021.safetensors
+    size: 943719296
+    sha256: 804d174f35643808e080f3db9a9c3f7d5a5bc474e962b9a4d52ddad6712357c8
+  - name: model-00022.safetensors
+    size: 557719864
+    sha256: 9cbc098acae8e74a27435af33bf5451eac1a81bacccbb59b88c811b3860d1763
+  - name: model-00023.safetensors
+    size: 943719296
+    sha256: 74a2cc7af7bbad9294698bacff019e927e666b6e715edd90f8c18de344cc3763
+  - name: model-00024.safetensors
+    size: 492615456
+    sha256: 47c31f370b2b9c0a3d32887c4167199949b09aea192cbab0db04d03055fb3081
+  - name: model-00025.safetensors
+    size: 943719296
+    sha256: dffa32fe026569a0a8b43edd2b74c488011f5eae161dae81cd11dabc7e2078c1
+  - name: model-00026.safetensors
+    size: 612385152
+    sha256: 85ba0c54a1bfa89e6ca029873ec3ddba290ab95148143c3ff40f8a63a66e4a32
+  - name: model-00027.safetensors
+    size: 943719288
+    sha256: fcd7eee29a5b4a3130061e6066a7455d875bc9e7515e3a5467a3266d7d1a980a
+  - name: model-00028.safetensors
+    size: 492615656
+    sha256: 619c42167309773eb55a45073fac342afef9a06f0197c60196cdfb5ee734bf78
+  - name: model-00029.safetensors
+    size: 1005341304
+    sha256: 7676db62afb6ac43f859a708db8482e608f0a08f3ff48c7e27eaf74081ea7dd7
+  - name: model-00030.safetensors
+    size: 943719296
+    sha256: 7a5816c1bb670e47a66a2a5af071e08b40b9219a054721977b7dd8dec5c6092d
+  - name: model-00031.safetensors
+    size: 1026097416
+    sha256: ab96983ead835f3670f2601531d9db3273153b775482f7f7a4bd1e15df74bd7f
+  - name: model-00032.safetensors
+    size: 943719296
+    sha256: 6b390d3002068a2da2dc55501c8daa03c59e39b45ac56a16e906f793d6cef483
+  - name: model-00033.safetensors
+    size: 554237776
+    sha256: 75a99942f8296e42173f021d970328c114e690554cacc9557c76760765b094e9
+  - name: model-00034.safetensors
+    size: 943719296
+    sha256: f68026ecf99818973dc4c437b406d1d42f326a97eff2968da7838520191f0c9b
+  - name: model-00035.safetensors
+    size: 494008472
+    sha256: e8bcaa829bea2a2faa4b0224a20b8bf1493a1c8d8a6d3c9deaf6ccd1dc690218
+  - name: model-00036.safetensors
+    size: 943719296
+    sha256: a30ccd6ff7c0d24e7f1cdcd0f41f79c5dbe9601ce279f079769a8a54d1853ac5
+  - name: model-00037.safetensors
+    size: 608903096
+    sha256: b1bbcbf7d249f0dae41c87f03474c17f34b8eccb3d0b03c518d7be67314d8f29
+  - name: model-00038.safetensors
+    size: 943719296
+    sha256: 6c7dd6ac66e492bf6833b8b995a3a39fbf9c917dcaad7da0f4bfe640fe8327c1
+  - name: model-00039.safetensors
+    size: 554243032
+    sha256: e5cf62f3ad1da09195771b6dacccc3fea236835ff27efd12a79e4d02e97752c4
+  - name: model-00040.safetensors
+    size: 943719296
+    sha256: f062f089ff0c75eb9dfeccb5ca7de224c41b196ea999cb0bb7fc46f7a4111c10
+  - name: model-00041.safetensors
+    size: 557720240
+    sha256: dc8e291a8ae132797206604ce7a4a5e366c973956bd99489f6d1c9d1ec1152cd
+  - name: model-00042.safetensors
+    size: 943719296
+    sha256: ab1e197e4d26d0284823937e178d49685a052ce6eb4ae2dedc22767f55097475
+  - name: model-00043.safetensors
+    size: 492615456
+    sha256: fff827206a7ddadce886c3e9cc279a541e72bf0691f59d5a32fb15646b4323e3
+  - name: model-00044.safetensors
+    size: 943719296
+    sha256: c429d2a7a84c043ea144019e89afe23ceaae77e244d824b0d1aca6431d07631a
+  - name: model-00045.safetensors
+    size: 610644336
+    sha256: b1283fc6bf79a3d8136dabd34a76181552679251ce5c22908d92ecf173ff58df
+  - name: model-00046.safetensors
+    size: 943719296
+    sha256: 275231bdd3afbd385e6ec6c79b621915762c8b02ded8550eea627bcfbc23aad7
+  - name: model-00047.safetensors
+    size: 554319856
+    sha256: 463528dc1dda2095fad6f72436016ea5f0bff03e916f006aac85cfec3795b6f4
+  - name: model-00048.safetensors
+    size: 943719296
+    sha256: 90eba99b70d83e26eb1aee90e2d84abb07eaea244d2b120cad8555820883d9ca
+  - name: model-00049.safetensors
+    size: 492615448
+    sha256: ac733da8ccea56185108e6c2a2d01dd571fd3611fdfb60ae34fcdcdeb20ffd89
+  - name: model-00050.safetensors
+    size: 943719288
+    sha256: cfcfae4ca26ae53c1f92e54c6247fafabdd936ff13c1511f5b45a7821a83c6b1
+  - name: model-00051.safetensors
+    size: 608923680
+    sha256: 09f5c100db8f5fd31ee5676e97a123635e69df066d2bd36d573e6beb8a50a962
+  - name: model-00052.safetensors
+    size: 943719296
+    sha256: bb7da4cca173575860e3da1c92275d112a9253982d99931b2ff1b49c304ff2eb
+  - name: model-00053.safetensors
+    size: 492615456
+    sha256: b9f8c1915db51ce898e9af2ceb9b21a7f941d3915265a1d9dd633118c021c402
+  - name: model-00054.safetensors
+    size: 943719296
+    sha256: 949e3dba406228de038c415a3ac6cb7910660568cb0ff6c7dab415f13a93a033
+  - name: model-00055.safetensors
+    size: 612385184
+    sha256: 785748cabd2a990338d952e157873e51318e044197aad6b45b3c69735b01ae27
+  - name: model-00056.safetensors
+    size: 943719296
+    sha256: 5e5a2fd92d2e52a2d2002771dbf62e4d4431f519b2f0788d2694698ffef49d62
+  - name: model-00057.safetensors
+    size: 557719848
+    sha256: 2f749580d1a28414f2b1764aa4a57b8590dc97f2496142e84e153d86756d478f
+  - name: model-00058.safetensors
+    size: 943719296
+    sha256: 186e7168dc76b8b4a514f7441716d2715ed189a5a9a2dd46f7b0fc3467a4d71d
+  - name: model-00059.safetensors
+    size: 555979024
+    sha256: 1dc46f388baacab69e4d3da6ce0cef8822a2ec9f408e2592ac3d317e75f584cd
+  - name: model-00060.safetensors
+    size: 943719296
+    sha256: 1eb2142031b3a2b99bee5f626ce04a5b03e022b20a233ce091a6fb9db842e024
+  - name: model-00061.safetensors
+    size: 492615456
+    sha256: 26fba6d95185cf58a871eb1c05e0b9cdfd6a93fe4ffa8618cf6ef9019fe20e6f
+  - name: model-00062.safetensors
+    size: 943719296
+    sha256: 2a0b9fc372fc65cbb6191f58d8cac029e99f5da4ef066c2c01937726e9d24fab
+  - name: model-00063.safetensors
+    size: 608903496
+    sha256: 6f69d44ed9a18aff75febc4167c9960ac16e68f9681a5256683b8fe426d74199
+  - name: model-00064.safetensors
+    size: 943719296
+    sha256: 5caa8b98c5f2332ad41b647ba00e89cf96c2dd511fb0365a0be045285f946298
+  - name: model-00065.safetensors
+    size: 554237776
+    sha256: efa847a439adeaa7f1d376e7e1be60b99eb388ebfa28848d70c6ef1c3960c269
+  - name: model-00066.safetensors
+    size: 943719296
+    sha256: a75e7389922a9c1b66d5b338c621dccaa6fa6639aa2f6aaca5906f04bd4b78bd
+  - name: model-00067.safetensors
+    size: 554237776
+    sha256: fd3158bd639222af39733a40cb31cfb149909189bc918dcc09cec897e275eb83
+  - name: model-00068.safetensors
+    size: 943719296
+    sha256: c00ee350d3c76d6aaa24c59b97a34669507cfc304e6bc4ed25d5b2dbb431e756
+  - name: model-00069.safetensors
+    size: 492615856
+    sha256: 85ace2ca823f79e9a8a71dba6a5410ea311ae337b9a6ba1ed014ee266254504e
+  - name: model-00070.safetensors
+    size: 943719296
+    sha256: c1e3bb097b83a78e107b4bd853e989b274cda330dca2bd1b13264e01f95ad86d
+  - name: model-00071.safetensors
+    size: 608903712
+    sha256: 45861c7100b8b894a50349ba505de10cbbcbfbc112279e295278aff129b3fbe3
+  - name: model-00072.safetensors
+    size: 943719288
+    sha256: beab83228932c31ca8ca2030195c87ac0a1a7e3cdb5aba70219b75557d87731c
+  - name: model-00073.safetensors
+    size: 554237752
+    sha256: 9d74d0e742ed389b9a6ea0c84ad897505024ef6bb0e93035c18b1114e72972c7
+  - name: model-00074.safetensors
+    size: 943719296
+    sha256: e706152cabff2e1c74b5b0be9606c785eecf5f346d075d725f6a0b3e579e4e42
+  - name: model-00075.safetensors
+    size: 570949864
+    sha256: b8c1f802d6120af97a87eb1e32f48c90fe774e940163dd9053ea807ca1e329ce
+  - name: model-00076.safetensors
+    size: 943719296
+    sha256: 9156b575e9c02a5bf6722081f53e89f3a009d08b0386baa11847ffa66154c3d7
+  - name: model-00077.safetensors
+    size: 590447624
+    sha256: 5fe9d45660b004c25ef5ad3c260bcb821c7891bd0767e1326bbee789b9c90424
+  - name: model-00078.safetensors
+    size: 943719296
+    sha256: 156785c6bebaf918fb6d01fe10741cd0203208698706724616a3f6b1a1b46941
+  - name: model-00079.safetensors
+    size: 492615456
+    sha256: a7db6989f95d8eab92bbf62af5e5cf3367b3b81a1b8eb7653dee5c4c16dc362e
+  - name: model-00080.safetensors
+    size: 943719296
+    sha256: f50ed363b935a5b8dbe1c1ac7346fd71384392673d5478735d422bf15071a4ae
+  - name: model-00081.safetensors
+    size: 608903744
+    sha256: 3345adcf993ccf261746221c479af34c052002c2938a40892be2bdbc8d5c69cc
+  - name: model-00082.safetensors
+    size: 943719296
+    sha256: 8cfb57a3e73594326208c8f5645c2728a3e59a143beea646621026690d7c5c07
+  - name: model-00083.safetensors
+    size: 554243024
+    sha256: 903fef79f7d7ea0407469dbbd074910e6364a81fbec5f353ea7ea62e44652915
+  - name: model-00084.safetensors
+    size: 943719296
+    sha256: acda643225e6808c747ec1a47d27f0b26c92b5d8ad60578719c768b9dedc109e
+  - name: model-00085.safetensors
+    size: 554237776
+    sha256: 5d37038173bdf4751fae939ac0215180ce42590d37b5145d7f87eac74e44ceb7
+  - name: model-00086.safetensors
+    size: 943719296
+    sha256: 193617a9400ba2a6d3179a7ae501434637f531e793026fa10726fb7bc6797640
+  - name: model-00087.safetensors
+    size: 492636064
+    sha256: 85bd9adde6ff922b3f9dd8cf23afd10f0e271cf8e48ff16babe383bcdfae7901
+  - name: model-00088.safetensors
+    size: 943719296
+    sha256: 8bc4948ca13c5ef9c03879753cd51169ae02a74cd176248e6486cedf607fd009
+  - name: model-00089.safetensors
+    size: 615866640
+    sha256: b7bbbc85c505df974b81162bd4e8fb595cddfe0b3144154807dda6d9bd156002
+  - name: model-00090.safetensors
+    size: 943719288
+    sha256: 83d9c9a0a2f232564316326f0e93205dcfa85ccb5fc4b564ab549ee2008618f5
+  - name: model-00091.safetensors
+    size: 554237720
+    sha256: 70eba3d3f458a5b0eae40a0968e7ec0eba629010e95406237597587ee2ce544a
+  - name: model-00092.safetensors
+    size: 943719288
+    sha256: cc9e705213d1cb9c4bf1445a10ea00ae0c835251e1fc9a2fc3993784f542a60f
+  - name: model-00093.safetensors
+    size: 499578984
+    sha256: 861c55adc0c9a7a5cebc730e0dbfc5aa701fb73f16907754a66dab4b2c2062c1
+  - name: model-00094.safetensors
+    size: 943719288
+    sha256: 15588fc1486add5f846ee44289aa1b1d4f31710faebcead90c184351144b735c
+  - name: model-00095.safetensors
+    size: 608903032
+    sha256: 9a1b7f53b9c8f28043df7aba7406d2af799dfc034f4a886b4b471931f70b8f09
+  - name: model-00096.safetensors
+    size: 943719288
+    sha256: 2436ef3a77bc8f7525924bcb99115b97e60aaf9f9e3ac3c41eba4abbaa5492c1
+  - name: model-00097.safetensors
+    size: 554237720
+    sha256: 8411ed2b06a2dc012c220a2b0732f5b49b1bcd96f1a818a2ba5026d4974ab737
+  - name: model-00098.safetensors
+    size: 943719288
+    sha256: 04fd0570b0d7b3778d4bf182e2f267dc87c72cf585408ff506587eabd596f79e
+  - name: model-00099.safetensors
+    size: 843129712
+    sha256: 21e7f2f691522da1e5b71a37e223e5f719186f022d20c7af37e1aa89bac865d6
+  - name: model-00100.safetensors
+    size: 675430752
+    sha256: 6518523a9d5ed8ad59a0a19f08ad1eb2a5e0d30aab38b8c52e9089b8a495671d
+  - name: model-vision.safetensors
+    size: 897901896
+    sha256: bba0b8dd7d32f2295a422bc61ddcf3101d0136a12511e33fa776e716278359fe
+  - name: model.safetensors.index.json
+    size: 305026
+    sha256: 095d52d076b5ecdc50d3206ef645cc9ca9a571d969cef7685a75f5018a4ce068
+  - name: ngram_table.bin
+    size: 32000153976
+    sha256: c8ab74bc343408cf3923d7d64b3698fbeb3e78c07ce7f85a650a8278731251d2
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: ddalcu/GLM-5.3-Flash-MLX-Serve-iQ-MLX-5.1bpw
+  revision: 2b1c4539c9f8fcde3ca5ee7f27eec91f38a34af2
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 1070
+    sha256: 30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1
+  - name: README.md
+    size: 6250
+    sha256: 0e472173bcf7a7cd0441c15c2f7b09867fada61e0c3831c56b5b956050a7d1c4
+  - name: chat_template.jinja
+    size: 10644
+    sha256: 34d5ee66b12fa6446cdae131c352b8f68cd85369e0e6fda115583805fada3891
+  - name: config.json
+    size: 163973
+    sha256: 4df8ab9c061b3d96fc382608d05c952771f63cfbe37b9402c6e19cdb9e16dab5
+  - name: generation_config.json
+    size: 194
+    sha256: 230c30609ecbbb9e6583bedde8e7bdda0c6eb8fe5fad0eaeb3d1b293d751cb4f
+  - name: model-00001-of-00036.safetensors
+    size: 6223195602
+    sha256: e9d20aa752dd6c6067bdd56257ec4dfabdc0a8c6ea6b2fea79dddd7438678a8f
+  - name: model-00002-of-00036.safetensors
+    size: 5461976789
+    sha256: 838e82f721066e6ac33d21efea9995ebfe301e0434eab4fad15727f7a69b259f
+  - name: model-00003-of-00036.safetensors
+    size: 5461976791
+    sha256: 008af4c6da3616a23cac191e76cc29cb56c4d0fea12262aff7c9f321ee3a08b7
+  - name: model-00004-of-00036.safetensors
+    size: 5461976795
+    sha256: c69b5137b1df1f011f88d3c5bd923cdb0c76dd71416d0c60280c149c7a3e80ce
+  - name: model-00005-of-00036.safetensors
+    size: 5448735650
+    sha256: 49835c77a4d1045d564f2d2404ee38d56b2287fda218fcb674a9b31b09596b7d
+  - name: model-00006-of-00036.safetensors
+    size: 5461976791
+    sha256: 9e7494523d94a28723cf15990637a2586b0facee193d07eaec787005f9ec93ed
+  - name: model-00007-of-00036.safetensors
+    size: 5461976789
+    sha256: 18ea2dc347c3e12b373c112aebb2c0255f9c4ae520a53e4d5838875b59719ec3
+  - name: model-00008-of-00036.safetensors
+    size: 5461976854
+    sha256: df8533902260ec7e69f31464d34e66ed9c63d1b4d6930bba9707c621730cfc91
+  - name: model-00009-of-00036.safetensors
+    size: 5448735697
+    sha256: 5b66ba0c165ad149b4d54fb0ef1d4d1ac028ff2954f4bd8358cdd04d29114565
+  - name: model-00010-of-00036.safetensors
+    size: 5461976856
+    sha256: 349b835334b3c35683506b77a7cf57cf130e1a8d55909dee5bb7c8b585aa69eb
+  - name: model-00011-of-00036.safetensors
+    size: 6092114404
+    sha256: 1c250b036fae7e13f33fe2b9db1b836cec627a86566e2c761f1ae8c9a679d0e7
+  - name: model-00012-of-00036.safetensors
+    size: 5901720970
+    sha256: 5ae3350ff0cdca3f986453e70d255060eb14811d1d38d9330f7a56f3361a897b
+  - name: model-00013-of-00036.safetensors
+    size: 6216951977
+    sha256: dea0586a80bad417085cff9f406c9a82f93e573d22ecdd667044dc0efa05f886
+  - name: model-00014-of-00036.safetensors
+    size: 6092114620
+    sha256: 3f6c876773dca1af84899c5285b2a322110debf13c4b8b071b2869394f544452
+  - name: model-00015-of-00036.safetensors
+    size: 5901720936
+    sha256: aa31b7c7553827c3d8342f8f183bd0b9158a27b9dd909d1405e494f11bfafa50
+  - name: model-00016-of-00036.safetensors
+    size: 6216952001
+    sha256: c1f6cd81512506b2ff0251906a2e15f4084bc43f9af40837ccf940ce26ea6680
+  - name: model-00017-of-00036.safetensors
+    size: 6092114428
+    sha256: e2e8c4286960ea9e5461b7cbd26f79f13442f508265a80463a14844a6e8411ba
+  - name: model-00018-of-00036.safetensors
+    size: 5901720894
+    sha256: b0010a2fbe270d21231c797c2c5e8b4b7826b4611b69ddb0007447df41f5131b
+  - name: model-00019-of-00036.safetensors
+    size: 6216952001
+    sha256: 751faaf875383eb8feadbecd773bba5fcf2dcb006dd67b60623542c1db3ea521
+  - name: model-00020-of-00036.safetensors
+    size: 6092114512
+    sha256: b7bc68374ac1e458a590e9c8c36e61f0556e78cacbaa2033a9f6e071315960c8
+  - name: model-00021-of-00036.safetensors
+    size: 5901720970
+    sha256: 2018de73c05351ca55753f96b59d1153c53a04dc081778fdc7ca63477dabb549
+  - name: model-00022-of-00036.safetensors
+    size: 5612972225
+    sha256: 617f0bb61d85b92befa4537c4b015c0494edf93e596b011f9ca3245797749016
+  - name: model-00023-of-00036.safetensors
+    size: 5790124618
+    sha256: 1d0dedec4808c2cb1fd7389d78b5f695c063a4359d92d8d2f6ea53f2db3bd7ac
+  - name: model-00024-of-00036.safetensors
+    size: 5599731082
+    sha256: 27009baf406007116d3bc9ee891c7afece00966e428e14408d7e069b00597cdb
+  - name: model-00025-of-00036.safetensors
+    size: 5612972225
+    sha256: 561b6f3131c1a263ff0c6122f93acaa9988237f64e55166e57ac8da5600929b7
+  - name: model-00026-of-00036.safetensors
+    size: 5790124586
+    sha256: 29b09acc26473d465ca8df4d7c9f97d82abb2c13f11b9a89e85f370f308a5aab
+  - name: model-00027-of-00036.safetensors
+    size: 5599731082
+    sha256: 56fc875617ee6e97913ea608125c2b1bd9e3b03421ff84d8492f96c35865d614
+  - name: model-00028-of-00036.safetensors
+    size: 5612972221
+    sha256: e853891cd86168d50306711dc97a64addc241eec12d97325f1b096f364cf5e9b
+  - name: model-00029-of-00036.safetensors
+    size: 5790124600
+    sha256: 6fbdc6bcf011adddb44f970131e6dc863f1ed1ca6c3abe333d8d129dd40c2f13
+  - name: model-00030-of-00036.safetensors
+    size: 5599731082
+    sha256: 3e9b08b52883b840dc8e27c8b8d2ae91102b9e9a956435dc34f4b6c750243cb0
+  - name: model-00031-of-00036.safetensors
+    size: 5612972219
+    sha256: 2cdf922f86d3fcefa753b78b35d8b2c6c03cb004035b4a0f0c7f95ff47bc66d8
+  - name: model-00032-of-00036.safetensors
+    size: 5790124732
+    sha256: 425e0146fe96004c74130c9038b12bfb25db09480d94893a965c33e7a41d8bd6
+  - name: model-00033-of-00036.safetensors
+    size: 5599731082
+    sha256: fc328ad411e4534cd766eee8c18e777187f12bf5061651cfd206d1e621df1a03
+  - name: model-00034-of-00036.safetensors
+    size: 5612972225
+    sha256: 712edc81ca1de0b6bc15862a195708a0e219b81b930121c04c23201fe65e4b3b
+  - name: model-00035-of-00036.safetensors
+    size: 5605052870
+    sha256: cb0e4bb1b1acd89c983cf114ae204e6775ff3f5035abd817a3cb1944f9a4fe15
+  - name: model-00036-of-00036.safetensors
+    size: 1293593174
+    sha256: 08dbf3b4d3f0b8e701949e4cfd42b66b60f0622c704e7f4efb74d8282ef889d0
+  - name: model.safetensors.index.json
+    size: 307331
+    sha256: 33afd77f9492c1545f0690a1f0e0bae0f1bdf5e292a79306c274656b5c198999
+  - name: processor_config.json
+    size: 909
+    sha256: aae38374c94b08cc9b0547c6e64f05b951bd9735cea571c6988f5ed552bed3ed
+  - name: tokenizer.json
+    size: 20217442
+    sha256: 19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d
+  - name: tokenizer_config.json
+    size: 761
+    sha256: 98b1271574f41abf89427ae2dda030d94dc9478f0edc5a8bd240db213c6fd5fc
+  - name: zai-logo.png
+    size: 1939
+    sha256: 82d803fac99c16bcef180207d9e98918693fec761a09ffbe509a6c15c4df073f
+- repo: beamster/GLM-5.3-Flash-Sushi-2.4bpw
+  revision: 0bc3bf157723d2bb7723e31118addf48b22101b0
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: GLM-5.3-Flash-DFlash2/README.md
+    size: 2619
+    sha256: 2014434d3e3639147d35d61259690d585e7820993180e7d579e3b796dddf5a31
+  - name: GLM-5.3-Flash-DFlash2/config.json
+    size: 1273
+    sha256: c4aeac0101196a6e26705b34c45230bcd0c7c68ee2d2d1efdb242087f3712573
+  - name: GLM-5.3-Flash-DFlash2/model.safetensors
+    size: 2342169800
+    sha256: b038e1d9d1e7833fa3880c2c0135ba9b673013f03da1b29fb831931584759dac
+  - name: LICENSE
+    size: 1070
+    sha256: 30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1
+  - name: README.md
+    size: 3181
+    sha256: aced75228cfca910562725615693cf4da466fcd2f7ddb8e8df626063bd09a176
+  - name: chat_template.jinja
+    size: 10950
+    sha256: 0c4099f3382d6c92700dfb99725025360966fd73032f0ecf32377c0d9e6309c5
+  - name: config.json
+    size: 64520
+    sha256: 078bb467e73d5939f065d2c7baf78ccaa64d86f39b1cd731f721f48c2e99bb18
+  - name: generation_config.json
+    size: 194
+    sha256: 230c30609ecbbb9e6583bedde8e7bdda0c6eb8fe5fad0eaeb3d1b293d751cb4f
+  - name: model-exl3-L03.safetensors
+    size: 2049050272
+    sha256: 90f6c819ff8ddd1a2dfea0cae2619084ff0398f0b34d31a6a7e23a2a74f7073c
+  - name: model-exl3-L04.safetensors
+    size: 2049050272
+    sha256: e05d261d718bbd6b5aa732545b19b136def8c768fa5dc1fb714a41cfb3442c02
+  - name: model-exl3-L05.safetensors
+    size: 2049050272
+    sha256: 8999cf3ad9a6209d304cc8e2615055e3a75177ae8acafa671084d499862ee3db
+  - name: model-exl3-L06.safetensors
+    size: 2049050272
+    sha256: 1173b0d3724da89cec93ce5f34e254f099e3f70e041ed6d70bf72fe85698c247
+  - name: model-exl3-L07.safetensors
+    size: 2049050272
+    sha256: f282adbafbdc3c2ee428aa0b05022db8675efcb10320d9e45625fb0f9dd1202a
+  - name: model-exl3-L08.safetensors
+    size: 2049050272
+    sha256: ea91497a504ad6d296c0aa3498a9ae7d0eaaf2b69f5c77a3a5b541ab262a4e1a
+  - name: model-exl3-L09.safetensors
+    size: 2049050272
+    sha256: 31a6275533523966a6614fd65557276f7447b3c22fdceac592ac1b1c1dd5fa78
+  - name: model-exl3-L10.safetensors
+    size: 2049050280
+    sha256: b3e030d11d5230dadf55b0d33b1a73b7fdb7508b2e344c017adbd07f823d29c0
+  - name: model-exl3-L11.safetensors
+    size: 2049050280
+    sha256: 498e21bc79255046e42ce4f56899e11becf5f3cdd5a1da5999300e4c602ce5cb
+  - name: model-exl3-L12.safetensors
+    size: 2049050280
+    sha256: 5ed2ea102b56573ca2cafc3a94d4d0ea8ecc7872750ae0121bea1e0d85a90846
+  - name: model-exl3-L13.safetensors
+    size: 2049050280
+    sha256: 536f50f307340626e6e9638ab3af50f8c71f61a8cf88c39b112bf9b4f499bb92
+  - name: model-exl3-L14.safetensors
+    size: 2049050280
+    sha256: c20111b1f4d2ebedde75afac1888e9e95ebf6a6cde456a05d261087806874d37
+  - name: model-exl3-L15.safetensors
+    size: 2049050280
+    sha256: ab9586ffd18ad4a763ec2bbb9ec06afd626e0b2aeb4c91d1b932064603957a89
+  - name: model-exl3-L16.safetensors
+    size: 2049050280
+    sha256: 288351da12f8ed1674d7374fb0ce635912d295d6f7abac00b9bf3c90f0843e8d
+  - name: model-exl3-L17.safetensors
+    size: 2049050280
+    sha256: 80a433351fb095b9df47fb7d2fe30d39d48264cb799611d03a2baa2b6283b659
+  - name: model-exl3-L18.safetensors
+    size: 2049050280
+    sha256: b2ab747df88099c9bfbd90f455fd4872bf18e4c3fde5f68e924754e8abe9b79b
+  - name: model-exl3-L19.safetensors
+    size: 2049050280
+    sha256: f0b6ba7c53d638a61da731798b0c370c9ea825a201a6353031ca4b971d610698
+  - name: model-exl3-L20.safetensors
+    size: 2049050280
+    sha256: efddc9041a7e1347514f3861f3db2db491f9b36438e51f7868832a16d5357420
+  - name: model-exl3-L21.safetensors
+    size: 2049050280
+    sha256: 095a6c0d2a62da8dbd3481a7683887d63c57489598019b449b1ef7eedd0bf472
+  - name: model-exl3-L22.safetensors
+    size: 2049050280
+    sha256: e8e7b9bde28af41d31198cd7cb9b4933e358703712120af93744e0f49c77bcfd
+  - name: model-exl3-L23.safetensors
+    size: 2049050280
+    sha256: 594fbaa412e9f4c7b91bf7c92c66cfa39c8683d118d9b3d7ef723312ca462e1d
+  - name: model-exl3-L24.safetensors
+    size: 2049050280
+    sha256: 0a255b2136261156d760e5ec6c4b7fc13281c25d4ce2523a90718e381a9afc0d
+  - name: model-exl3-L25.safetensors
+    size: 2049050280
+    sha256: d4b51c418e6ddc2878057cf6f6be84a3d03291fbc1f0b19c92f389ede868e8bf
+  - name: model-exl3-L26.safetensors
+    size: 2049050280
+    sha256: e46a4ea5e6b54461ddf4ae1ad691cae60bed7b0ac37de52695f60910e1e6e6d3
+  - name: model-exl3-L27.safetensors
+    size: 2049050280
+    sha256: 90b5e0f75933f7059c98673aa2f14c03977142c86d947487711e30d24d788743
+  - name: model-exl3-L28.safetensors
+    size: 2049050280
+    sha256: 7ce07fbfe19fba3cbf110d82862b5d5c6b67ca3cb87d52f1f879f9e4f0b04e8f
+  - name: model-exl3-L29.safetensors
+    size: 2049050280
+    sha256: 34261f1315d7d4ec4c79e05c35ed1a4f78e4326a5e5d8bd8af96d931334953f2
+  - name: model-exl3-L30.safetensors
+    size: 2049050280
+    sha256: 09c2c0a12c83f1b23e03052372cd1d867ed6e3dfe5ad3672dd7aa945a8831883
+  - name: model-exl3-L31.safetensors
+    size: 2049050280
+    sha256: eee85a536833361338cdd847a639ed62c8d2d35f948cdc0ead5bb44cf2f84191
+  - name: model-exl3-L32.safetensors
+    size: 2049050280
+    sha256: 9a1fa7fea80658e58723c4aee797acb58ee539b47354668369f0354a8762db4d
+  - name: model-exl3-L33.safetensors
+    size: 2049050280
+    sha256: 8db209771e40e6c52ff2486591f3bdd283a9c775ca39038aeed042c691e97989
+  - name: model-exl3-L34.safetensors
+    size: 2049050280
+    sha256: 48d001f6ccbfaf09fa280180c10017064c36fb85d45963eabda05abff77970f0
+  - name: model-exl3-L35.safetensors
+    size: 2049050280
+    sha256: 3e04fffa7678d9c2f1ab4d0b04102068a9613ff350e1ee75c7716f90780e1065
+  - name: model-exl3-L36.safetensors
+    size: 2049050280
+    sha256: 6d1779344c21f0461ea8e4d4696f927d3a0101f207718d2750b61e1afcf0c86f
+  - name: model-exl3-L37.safetensors
+    size: 2275542696
+    sha256: d3d7374c994c39531d67c017882ce6bc1a3ec6fea90e212dbdf6580ff7bc24e0
+  - name: model-exl3-L38.safetensors
+    size: 2275542696
+    sha256: e84cc7b6b190c304c71c3c1e234fb2f04cdc75cf6adea910a48fe7dc0788c9ea
+  - name: model-exl3-L39.safetensors
+    size: 2275542696
+    sha256: 519a56bec138e6990305769e1062e4bfe7edf5495e00f35215ce05aa4564bdcf
+  - name: model-exl3-L40.safetensors
+    size: 2275542696
+    sha256: 361ac864ad11061d5180be5b48967ae2426c6fd75b7fc56dc7b0212491a2ddfe
+  - name: model-exl3-L41.safetensors
+    size: 2275542696
+    sha256: d181819cbf9122c0ec57fbc4a7169e0a0222fa029119d8a52f1d1e4fc688ea8a
+  - name: model-exl3-L42.safetensors
+    size: 2275542696
+    sha256: 4d22465ddc1207a2e53f826744abc45a0fee8c9a49a55d498359e6c91b994b9a
+  - name: model-exl3-L43.safetensors
+    size: 2275542696
+    sha256: c273ed3d448a302606a97645ede5fe01cb2fb603cd67ab3cafb29755d2b0aaaf
+  - name: model-exl3-L44.safetensors
+    size: 2275542696
+    sha256: 5d9678b4d924476a41f7769f2ad598feb60dc5d29404479ca4ca23c87e94b494
+  - name: model-exl3-L45.safetensors
+    size: 2049050280
+    sha256: 6abe3accd8ab4acf31109e0add480c295a9138b838c94967cef986ad6f9b99d8
+  - name: model-retained.safetensors
+    size: 528223256
+    sha256: 2f38dd3ae64776f48062f5919ca7924444aaf09c82e2f402b4bf02b3262975c8
+  - name: model-trunk.safetensors
+    size: 7348401264
+    sha256: 107d075005e8b2d0db5f62f7ff5a9be728a6bc8069f49c6cd033a634600c0df9
+  - name: model.safetensors.index.json
+    size: 260004
+    sha256: 096d88f4e79374f9e1d71577128458f1159730c4aac720d628d31d747ea69896
+  - name: processor_config.json
+    size: 909
+    sha256: aae38374c94b08cc9b0547c6e64f05b951bd9735cea571c6988f5ed552bed3ed
+  - name: tokenizer.json
+    size: 20217442
+    sha256: 19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d
+  - name: tokenizer_config.json
+    size: 761
+    sha256: 98b1271574f41abf89427ae2dda030d94dc9478f0edc5a8bd240db213c6fd5fc
+- repo: Jundot/GLM-5.3-Flash-oQ3e-mtp
+  revision: 3b1f7afb95968a836089e9a73b153d511cc6e2d3
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 1070
+    sha256: 30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1
+  - name: README.md
+    size: 2052
+    sha256: 3147b9824e0366faaa75cb9c742b710fa006917a0bc67bf44ca4585c0748cf25
+  - name: chat_template.jinja
+    size: 10830
+    sha256: 2614a3c896d53e265f564c23701173c0049f985dacfbae79fc4bcd9f5ba083f4
+  - name: config.json
+    size: 154507
+    sha256: b6f6aa473dd873e87e4e139e125e78aa573445809950a63eaf3d707b9a4d5286
+  - name: generation_config.json
+    size: 194
+    sha256: 230c30609ecbbb9e6583bedde8e7bdda0c6eb8fe5fad0eaeb3d1b293d751cb4f
+  - name: model-00001-of-00029.safetensors
+    size: 5021639995
+    sha256: e8673a7bc5fa51b3e90974fe6c9aa15c1c49f198f09ede843f58838cf61afb0e
+  - name: model-00002-of-00029.safetensors
+    size: 5570697414
+    sha256: 520601c3b89fa4c789888e022b5438d14e22a112280c42f4b1df7d54b12a7240
+  - name: model-00003-of-00029.safetensors
+    size: 5302651783
+    sha256: 86494f430e3c770519fa9b2b1225c84dd00aeafee58549e8ad7eb691baa10ad3
+  - name: model-00004-of-00029.safetensors
+    size: 5284825190
+    sha256: cbd75937c606a9ce35f380e1fc74cae5795382c6d5d8dbaa19120fedb4e3d2a5
+  - name: model-00005-of-00029.safetensors
+    size: 5302651775
+    sha256: b246c96c0e6ab6413f35a2528830dadcad4c7a40e713c50beacfa781aab22121
+  - name: model-00006-of-00029.safetensors
+    size: 5284825184
+    sha256: 43ce63d46d7367b8c301f02188e345bebebab79ff8e0e051c8f129d43bc159d4
+  - name: model-00007-of-00029.safetensors
+    size: 5284825205
+    sha256: e437a1b345e0766ea5efcdaf772642bbb3c006daa33324b4e3afa9433da27e09
+  - name: model-00008-of-00029.safetensors
+    size: 5302651790
+    sha256: 7fe88493ab585e400e4d346e95aa809871606cd9c97e203d2bea486930c68feb
+  - name: model-00009-of-00029.safetensors
+    size: 5284825199
+    sha256: ad9032e5acfc25e8cdf06c140f8f2159e9c4570923238cb45c5f4866f1edb8af
+  - name: model-00010-of-00029.safetensors
+    size: 5302651808
+    sha256: de6e97dbac91da50d7bdf3da4307b8be64959e3a44fa702fbbd81cf2a7191018
+  - name: model-00011-of-00029.safetensors
+    size: 5284825199
+    sha256: f235ea4bc95753a4cd9511e5b1083fb29fbbdfad51e774cf743ab5bd0083cdae
+  - name: model-00012-of-00029.safetensors
+    size: 5284825199
+    sha256: 311a1a2724f3330bf3d9510cf9ac3b5c50efe2a50b3d257078dbfca9e4f4f2a8
+  - name: model-00013-of-00029.safetensors
+    size: 5302651810
+    sha256: a448bc2fe932b49c41b876f9f7e6f8692094c25fa873877f9dec8e5df78bc7a4
+  - name: model-00014-of-00029.safetensors
+    size: 5284825199
+    sha256: 36da0a99120cff9bdfde3ec75b4482ffe1759b2e5ad6ce13c6743e296d1e8999
+  - name: model-00015-of-00029.safetensors
+    size: 5302651802
+    sha256: 10f4a0aa279082a331641e47f91dc07c4b60243ad1e0735725b0fb6914771585
+  - name: model-00016-of-00029.safetensors
+    size: 5284825205
+    sha256: ec949512830873f43e4adcf26cf71db79e37bb971f0c93e25c7558cd11a3ba1b
+  - name: model-00017-of-00029.safetensors
+    size: 5302651796
+    sha256: e1eb0e4eae5277306021fcea9a2fd8599342907c1e6079e6ed99af2afe0d6b15
+  - name: model-00018-of-00029.safetensors
+    size: 5284825199
+    sha256: 4492e15f43a0242c0607ea073f18c455cc801baef08e315eb3c5a327ff656100
+  - name: model-00019-of-00029.safetensors
+    size: 5284825205
+    sha256: 6644587a4a7356fd5fe52470bfd4a47e0604548bec085807a839c4bdd19a72db
+  - name: model-00020-of-00029.safetensors
+    size: 5302651800
+    sha256: c9ea5047db6644f1a58825d185dc295c7fa64f4dab6e1ec62b3422c0a947a199
+  - name: model-00021-of-00029.safetensors
+    size: 5284825195
+    sha256: c1f810683d7a11397128990effa29a5b190d4f75c4083d348c1a988def6576e5
+  - name: model-00022-of-00029.safetensors
+    size: 5302651810
+    sha256: 96e2548ff94ece8460fc1eaec12f0e70ae404c57a5682517aa046fbf264b047d
+  - name: model-00023-of-00029.safetensors
+    size: 5284825199
+    sha256: b5e0739854c469ce6ee86175b86c7faece0e6b1cbf9ad9d77ece66e4f050836c
+  - name: model-00024-of-00029.safetensors
+    size: 5284825199
+    sha256: 5a2d0a8d84f3a02d79fcd8145b0b901342f095dfd5334f23eb58edfcb2e4af1a
+  - name: model-00025-of-00029.safetensors
+    size: 5302651808
+    sha256: 02b0ee03213bc98cdbe4f07e81e75a37c6b842ea7084675563b18d847e374c7f
+  - name: model-00026-of-00029.safetensors
+    size: 5284825199
+    sha256: 2596eb6333fde8f9c7b615af3bb75dfa046d4feec0cbdd0fbdbe619b6babb566
+  - name: model-00027-of-00029.safetensors
+    size: 5302651802
+    sha256: 36e0a914f3058a188138dd60d458d62d4b643f61cd97575047e3a34580d4bba9
+  - name: model-00028-of-00029.safetensors
+    size: 5003912748
+    sha256: 5dadb372ed45d18c84cb499c34d4fa3387eea63f8d63d99db52e588c930ad408
+  - name: model-00029-of-00029.safetensors
+    size: 438764731
+    sha256: 04a7ecca9f5f0f391bbc43667688c72b1bf0fff56168f68a39610a37b8f4c37a
+  - name: model.safetensors.index.json
+    size: 303743
+    sha256: d8e1acc812c2051b3b0467951f3b41bf8798fe096af937b3bdccb349bd13416e
+  - name: oq_imatrix_report.json
+    size: 45746
+    sha256: 6a07b387e6d4e0a6836b0d12b88c0b2826567e9a7b0e241d85df257cc5ef191c
+  - name: processor_config.json
+    size: 909
+    sha256: aae38374c94b08cc9b0547c6e64f05b951bd9735cea571c6988f5ed552bed3ed
+  - name: tokenizer.json
+    size: 20217442
+    sha256: 19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d
+  - name: tokenizer_config.json
+    size: 761
+    sha256: 98b1271574f41abf89427ae2dda030d94dc9478f0edc5a8bd240db213c6fd5fc
+- repo: mlx-community/Qwen3.8-Flash-Next-Uncensored-oQ5e-mtp
+  revision: c7d915c693e37fa11810d600b617adb4c36ff596
+  archived: true
+  fetch_rate: 10M
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 11023
+    sha256: e991078a5777d7271f9ee50be811f489f4887630a1dbd1c5f3543ec45ad4dc59
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 253909
+    sha256: b48028d73da28742052d545beba67bbeced8cf34de81b8e32ec90dcd7991eef4
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00025.safetensors
+    size: 5250095602
+    sha256: adf20caddaee6bf72da9fd325911b4ead2226738eab94a3e6e5d6395987e9c7b
+  - name: model-00002-of-00025.safetensors
+    size: 5100032599
+    sha256: 63a045b94412ae394ddbc8a85454b71ae4b0ce5cabc453cfec4b0f8d8b5736f6
+  - name: model-00003-of-00025.safetensors
+    size: 5100032601
+    sha256: e5f7ec637bb36d27779b97d5c382ea0bd246ada58cfd3888107591087e953556
+  - name: model-00004-of-00025.safetensors
+    size: 5100032593
+    sha256: 809f4085454d7a212eb76b6603ba3efcfc30960960ed6927d1153f3d8f8edb45
+  - name: model-00005-of-00025.safetensors
+    size: 5100032595
+    sha256: 4fbd3e5c89b10cfedbaafa1df610170bebfc9112e34119ebafd76c2f6e185ba9
+  - name: model-00006-of-00025.safetensors
+    size: 5100032600
+    sha256: 83edceda5c1c3b1f96b631e68d13de220c1d01607f258d37c2f61c6b771edda4
+  - name: model-00007-of-00025.safetensors
+    size: 5100032650
+    sha256: 3935d81dc61b6c7d9ecd9593b817d4ba313a8884b74932cd7be96d22bbde33cc
+  - name: model-00008-of-00025.safetensors
+    size: 5000977139
+    sha256: 1030e99e11a2e33273f5e37e61ac12f6e77015de96219c8a3e21987e6840de8c
+  - name: model-00009-of-00025.safetensors
+    size: 5222300450
+    sha256: 26ae3551b797403145b35f942e8613f0d4a2e668c676c9d157c448cbf1f1d3e7
+  - name: model-00010-of-00025.safetensors
+    size: 5190455020
+    sha256: b96b6d42e02c9269e424d30526f11d9898c15fabce01e4cfa605d289dc7f0f7c
+  - name: model-00011-of-00025.safetensors
+    size: 5190455018
+    sha256: fadeae405c507445f0eba48a1f596134054514939fd092d159d6d8d7a07b6ae6
+  - name: model-00012-of-00025.safetensors
+    size: 5190455021
+    sha256: 90ac50d22af87f9a23d5cc8c5ee1370c20255f515e3c5675eb861bf5e9777c38
+  - name: model-00013-of-00025.safetensors
+    size: 5190455047
+    sha256: f72f27e5ff67b596f476c87e256cd3181201f530a93b7c099c31a5b1d05113e2
+  - name: model-00014-of-00025.safetensors
+    size: 5190455031
+    sha256: 1e1455ccca9e4f3568ea67b24bd85205be0658875685b98e78c81f562eedef94
+  - name: model-00015-of-00025.safetensors
+    size: 5190455047
+    sha256: 0fad65506772c258f067e7ef27fba7162fce961ab3c5529ae202b4352d89423c
+  - name: model-00016-of-00025.safetensors
+    size: 5190455043
+    sha256: 13a495e3c6e1f73278be69e11b4fb4c8016032f9e6286f132cc3ef0ad322cb30
+  - name: model-00017-of-00025.safetensors
+    size: 5190455051
+    sha256: 04c20a56150e5ca957d753fc1ae3320db6010867ffa3ff7d0ce411b8f90ab163
+  - name: model-00018-of-00025.safetensors
+    size: 5190455043
+    sha256: 0447611988a429d3302dadf96598c4c434b0f30456bac829a68cf7f97ab85c63
+  - name: model-00019-of-00025.safetensors
+    size: 5190455051
+    sha256: 1d42834b76d40b600a9c7fa2819c98f3a05bb31b32a2558a1a3a6f856fbf7f07
+  - name: model-00020-of-00025.safetensors
+    size: 5190455043
+    sha256: 115ec242f13ef82d121c6b501aac33cbae804d31427b485c4be53c5df88f1b58
+  - name: model-00021-of-00025.safetensors
+    size: 5190455045
+    sha256: b72f46d38d1ab0e761f81865643d519b8bdf810da47c1f4847d68697c66bc697
+  - name: model-00022-of-00025.safetensors
+    size: 5190455043
+    sha256: 97e3ab67dd05f7169b3400ddf2129e69d93776135ffb8313a9ca25a9ba0bd01a
+  - name: model-00023-of-00025.safetensors
+    size: 5190455041
+    sha256: 88b9872d052f74b002d47df64ab8adb0363c90ada27348969a37b30469a08d6b
+  - name: model-00024-of-00025.safetensors
+    size: 5190455047
+    sha256: 233f25f63e6abacc7f89fd15de08f88f5239ee9fc3b4a11579e7b8837017e7e5
+  - name: model-00025-of-00025.safetensors
+    size: 4613737661
+    sha256: cea3abc2077644c9485cccc605f690a36e89cc5fff1b7e9ee89797c337d426de
+  - name: model.safetensors.index.json
+    size: 405177
+    sha256: 32c34a1090b05fcb4925c76a02057862c30cecb0b2c27b1d82e583bfe65b40f3
+  - name: oq_imatrix_report.json
+    size: 67389
+    sha256: 4d9fc64939af901a8cade0770d7f71480766dec6258192e608e865ab60530b38
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: nace-ai/Qwen3.8-Flash-Next-MLX-4bit
+  revision: 5d423f9f563c1f1b7ca7945b268e65c0b92b0eae
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 4713
+    sha256: 555481cbf0f9bdf4d2c8d4913c2a544aec6182c672d7ee6aabc3854d78c60d86
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 165069
+    sha256: 2dfdcdbe996732a243873da406a4dd92839c6dba54c309e0fd40b57df165e2d0
+  - name: conversion.json
+    size: 9587
+    sha256: 5dcae2607903731fd0da407f6250be48f24732ea59d3a6102dd0e6ae984c87e8
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00050.safetensors
+    size: 1038372864
+    sha256: 4b0fff745962a1c41c9eb3dd192fcc2dc88d32fa7b86789715e01ed76a460032
+  - name: model-00002-of-00050.safetensors
+    size: 1463269472
+    sha256: 6f5a11b035d188b0480c470622423670bfd9ba557f21a999b9eea0f3b6e02d56
+  - name: model-00003-of-00050.safetensors
+    size: 1498229112
+    sha256: 783ac2d76fe0d37f29bff082dfb69a15afe2f626a0a0f35f30074695ba390d7b
+  - name: model-00004-of-00050.safetensors
+    size: 1463269472
+    sha256: fdf8fda7493d52a88f9ac878e2e667e7bfe40b18e0dafb9cd7056d82e4f3efa6
+  - name: model-00005-of-00050.safetensors
+    size: 1472819360
+    sha256: b4d72603e64ae893630d69c68a6381abaabe711e9ba9dec56051821c1acea51a
+  - name: model-00006-of-00050.safetensors
+    size: 1463269472
+    sha256: e459908b5deb085e6278ab9b95c82f364515b5edfc77119e8dc2a9b76879464f
+  - name: model-00007-of-00050.safetensors
+    size: 1463269472
+    sha256: b2422cae68f52ea47ddee4b2504394f187e9f606312aee9d4088991aa014d840
+  - name: model-00008-of-00050.safetensors
+    size: 1463269472
+    sha256: 249357b1113c47e761ee2561b1118e7ba9321935fccf21708e2515cb029db1cf
+  - name: model-00009-of-00050.safetensors
+    size: 1472819360
+    sha256: ba2bfe9cb60c1f3716433e14f503f6e5cf366c16285f8f5d684b38244ac75b7c
+  - name: model-00010-of-00050.safetensors
+    size: 1463269472
+    sha256: acf04389eba9746770adee4e8c3e21028d1674183f078d30d6c94397fc1a40b1
+  - name: model-00011-of-00050.safetensors
+    size: 1463269472
+    sha256: aafb123caac580a8162be84ad0edd88e1f45819e8903de55a251c1d4eae77fff
+  - name: model-00012-of-00050.safetensors
+    size: 1463269472
+    sha256: 0b456ac9d0453a6316c89ad1a4c7c9a13fabf5689402643821f7a4641eb71a22
+  - name: model-00013-of-00050.safetensors
+    size: 1472819360
+    sha256: 7ea8b73359da18bc53e59df9f4f5f07fa20a6524e94d89100422aff018fbcb62
+  - name: model-00014-of-00050.safetensors
+    size: 1463269472
+    sha256: 3e3d3f34c88a0ac56d0e6b9494bdea3076cccc2c9b5abf8f0c75fa4d9ff09644
+  - name: model-00015-of-00050.safetensors
+    size: 1463269472
+    sha256: 72356e4061a9421cc264bd3e55e30803a309c99192e90bb05fe009d2748ede1c
+  - name: model-00016-of-00050.safetensors
+    size: 1463269472
+    sha256: 43b8fe39996a00745ae3cda4043382df7a1ea3897dc3761e9377185554043c2b
+  - name: model-00017-of-00050.safetensors
+    size: 1472819360
+    sha256: da85643a2a86443644ab1de7d66b5fcc1cb7769c12145045558b55d9a9048935
+  - name: model-00018-of-00050.safetensors
+    size: 1463269472
+    sha256: 695fe3b87ce6d811b74e50bacc2a3ada826f9d3f76f885cc5e3b75cbedd8a6e4
+  - name: model-00019-of-00050.safetensors
+    size: 1463269472
+    sha256: a20e58b8d28e73aa685466e88e6318a75bb8b730b9d51820dfa788689c26f25a
+  - name: model-00020-of-00050.safetensors
+    size: 1463269472
+    sha256: eb978b86f0100bcdf7b2fe8c089680158df2425b362ec1bdaf4ac1491e9ef81a
+  - name: model-00021-of-00050.safetensors
+    size: 1472819360
+    sha256: 6c1d8cc34ef227b40853436e805a625991b39c1e56932a256505de31f65619a4
+  - name: model-00022-of-00050.safetensors
+    size: 1463269472
+    sha256: 7f6140ce8dcb74e1a5ae81bc5cc5a412f39cf7f88e12ecc71f0ca1618ae07313
+  - name: model-00023-of-00050.safetensors
+    size: 1463269472
+    sha256: 568b1b323c8434d9f5e59442f1ab1e0e6b85c1d3f582198d4353e2ce4c4dd9fd
+  - name: model-00024-of-00050.safetensors
+    size: 1463269472
+    sha256: de8c9ea714817c4145ad2557b01c03a8ce82e0a2b1d0634a87c8b30c2b244211
+  - name: model-00025-of-00050.safetensors
+    size: 1472819360
+    sha256: 9aaac44bcd864922125af268efa430c04b2d98190a5b625379204f745eaf4407
+  - name: model-00026-of-00050.safetensors
+    size: 1463269472
+    sha256: 6248c524728574950b9c6d67896e8ae43d6be5727656be8680b2aeb8ead3abb2
+  - name: model-00027-of-00050.safetensors
+    size: 1463269472
+    sha256: bb336ba45fc5c071a11f7e136e901b4c07e7bff81f6f27d7b041d7df1bab86f5
+  - name: model-00028-of-00050.safetensors
+    size: 1463269472
+    sha256: 5a03392899c5123212a74af51353b9475b91756122a972d29916397286b55377
+  - name: model-00029-of-00050.safetensors
+    size: 1472819360
+    sha256: d317ed9703a70fe2d202abdf16f3e720fc581298214e2700d28e6906578480c6
+  - name: model-00030-of-00050.safetensors
+    size: 1463269472
+    sha256: 25fe9de7ee108c8121a101d1347bea47c200297c0a695b99940c66e536b14a2f
+  - name: model-00031-of-00050.safetensors
+    size: 1463269472
+    sha256: e2bf7c2845d028108c6c25781b51a3bbc408533473bd4c71cd681b0b37a2cc18
+  - name: model-00032-of-00050.safetensors
+    size: 1463269472
+    sha256: 1f578a0e2fffd0637036f13822de0be12d54c2045860c0962fafa4cc8c50ac23
+  - name: model-00033-of-00050.safetensors
+    size: 1472819360
+    sha256: 4727e1df3c806315e2674abb6b91b0b321704abafd5bcfc667901cc6e5946ae3
+  - name: model-00034-of-00050.safetensors
+    size: 1463269472
+    sha256: 975beb4234e1afdad500bf231ca67afb73b530e78b0dbcfdba5a83191a34b56e
+  - name: model-00035-of-00050.safetensors
+    size: 1463269472
+    sha256: a2630917fabe9176f24c40ff47eda0fbf1bd2a0bbeaeef04da0efb72389d9a8d
+  - name: model-00036-of-00050.safetensors
+    size: 1463269472
+    sha256: bb71f9ceb554a7ec690249335e3d843d8666e66b33731bae6a3347f4ceed1f75
+  - name: model-00037-of-00050.safetensors
+    size: 1472819360
+    sha256: ac35dc3e7e45e94dfabc6180bd60e9b7edae1bd537129b47276bacbc67b53d27
+  - name: model-00038-of-00050.safetensors
+    size: 1463269472
+    sha256: fc9421f4bdca21a199e208d1d8669b7caa22253f54dc5f8519a8cdd72085774d
+  - name: model-00039-of-00050.safetensors
+    size: 1463269472
+    sha256: 159b58ac8c309a0ab128da2a97c6299f5bcaec25e7550ffcc21b341439e75b84
+  - name: model-00040-of-00050.safetensors
+    size: 1463269472
+    sha256: ab92fc85bf1f594c4aa3c6b8d84efc9a36159bc7b3149c5b9e89ec5f14dad878
+  - name: model-00041-of-00050.safetensors
+    size: 1472819360
+    sha256: 8b7842da7beb79abd13b54af4064b652a9f238d1f4b6b7d032258deeb82fa179
+  - name: model-00042-of-00050.safetensors
+    size: 1463269472
+    sha256: d7ba328b5758c6ab08b6ecac0124943a028eeb6fbb2ec9f37281a49fd8bbab19
+  - name: model-00043-of-00050.safetensors
+    size: 1463269472
+    sha256: 1c3e9f7df30be078643e9d9fa863aaf73202ef841dcc3f8584b594469978760a
+  - name: model-00044-of-00050.safetensors
+    size: 1463269472
+    sha256: 7e63492ed8e9e23691952716da6a9ae3910630fe9331634acd3be0b93c0fdd0d
+  - name: model-00045-of-00050.safetensors
+    size: 1472819360
+    sha256: 8aada5208d473e57336a5b1a919466bcc4ef9beb46bc9c27d49dafccbf7a7bf7
+  - name: model-00046-of-00050.safetensors
+    size: 1463269472
+    sha256: bc56a793dfa568cd75901b749efc6a22360c94060d6114a1b9c746d7279574d7
+  - name: model-00047-of-00050.safetensors
+    size: 1463269472
+    sha256: e0f49da5a3d51c897d521a305d193982c9d6375bb08b3507c101b9b58d88c3b4
+  - name: model-00048-of-00050.safetensors
+    size: 1463269472
+    sha256: 66d58ea46c64a9bc702be1fa16e01fc8ed7f940b5296bed1b22de64439858082
+  - name: model-00049-of-00050.safetensors
+    size: 1472819360
+    sha256: 96917cbab55a1f7de0be2a8b6b9e358bfee31aed50244712a411cc02429aaaae
+  - name: model-00050-of-00050.safetensors
+    size: 897911264
+    sha256: ae3991e46dc9d32f787ccdfba691ef8e4282b1e82490ffa85368261f0174e180
+  - name: model.safetensors.index.json
+    size: 374833
+    sha256: aa7b502e618504b630d0f528064e8d7f0a450ef651c294cc110a416a8e6485f3
+  - name: mtp.safetensors
+    size: 1511941280
+    sha256: 618ac2c84f73b26b06f53aad94fe9e80bd5940784a01ed73f3c5fbfec08688a8
+  - name: ple.safetensors
+    size: 32000219136
+    sha256: 3c7fba921d64ff851835539a366e4e314a2c5e853472fbd5dbe5935c6e508768
+  - name: ple_manifest.json
+    size: 62246
+    sha256: 944e62c38548b031d59774d4846ad33225d299facd2d3a413e17f87efdd8da74
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: video_preprocessor_config.json
+    size: 385
+    sha256: 7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: pratikgx/TwIL-8B-MLX-4bit
+  revision: 047dbd81e5c9d25266cd12c4537f977d025f2df6
+  archived: true
+  fetch_rate: 25M
+  files:
+  - name: apache-2.0-LICENSE.txt
+    size: 11358
+    sha256: cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30
+  - name: chat_template.jinja
+    size: 9013
+    sha256: f0ba43f79b3cabca5e5a7584c77aec92f49feae45cdf7779c87d9fc54cd90258
+  - name: config.json
+    size: 1129
+    sha256: fbfa229a755e2ad4e628fe9cdf31b5cb5778ea2c14e0dda17902b59921108337
+  - name: generation_config.json
+    size: 206
+    sha256: be65222bff1df213f0645de77e36dc284faf87f716596756785f74f1160a749b
+  - name: LICENSE.md
+    size: 4383
+    sha256: 79dbbb1d4a08c335f0e39b4a2127e04264556a4f0c1a56082bc85bcd29087d5d
+  - name: model.safetensors
+    size: 4945853960
+    sha256: 9b0497cd1f240e340a52ffd2550c744e2d00006a303c2c83f35fc7001fe68cfc
+  - name: model.safetensors.index.json
+    size: 65461
+    sha256: e8d7bddce3c9ab993b8f4af8c390a10390c2966483f5391a808f9c6242e0c594
+  - name: README.md
+    size: 4515
+    sha256: da7259035a5703996a7119104bfe70c4ca583299a99ee4b8ecc32aba00b19dcd
+  - name: tokenizer_config.json
+    size: 436
+    sha256: 0b1cc678b9fbde8ce90c81e0f6483c4e1696dfa377330e42a88106416b96e659
+  - name: tokenizer.json
+    size: 7153414
+    sha256: 883975314d58743726347caaf2c32ac89afd5ad57222cffbc4f052f2ab27b2d7
+- repo: Jundot/Qwen3.8-Flash-Next-oQ3.5e-mtp
+  revision: 10de4f37c4a67cc683a4e81cbcf855695bd37924
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 2730
+    sha256: 268b7c5728614f6fe499a3c632a417c020dc2de98f9d46d08b5b702c07376482
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 268147
+    sha256: ebf31ed6044df60805fbc262ce44e05f368d7542ee08a2c756a836a4ce0dfa57
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00019.safetensors
+    size: 5097936866
+    sha256: cad554a89baa1e54dec2d52f611694795b0aaae14398495612ab6dfb7ea59e58
+  - name: model-00002-of-00019.safetensors
+    size: 5000033542
+    sha256: 4451478cf757dc72bc7223ed9f51f0024a09c89f5cd98fd4c8c067d4160618f5
+  - name: model-00003-of-00019.safetensors
+    size: 5000033548
+    sha256: a3f43ee69264e65894845463e603f898a16290cec51e960c008fc8c159190892
+  - name: model-00004-of-00019.safetensors
+    size: 5000033548
+    sha256: 0d0e8868e906b58a86d9a22a300dfa0418fd6ff5f7b423e212a2a22854e0e78e
+  - name: model-00005-of-00019.safetensors
+    size: 5000033550
+    sha256: 6ad381a090afc734e8aade2f72e1bb17bdc59163d9e5ffb230a5fb8bf6e9887c
+  - name: model-00006-of-00019.safetensors
+    size: 5000033600
+    sha256: 6932d98dd4043708452fdccb10e823a82bde64423ef97bd4ededf72df508945f
+  - name: model-00007-of-00019.safetensors
+    size: 5001115206
+    sha256: 0d60239ec153a9bc41545025255384c90c0c4ea0a72b0d18f90bf4fb4bffa186
+  - name: model-00008-of-00019.safetensors
+    size: 5356265961
+    sha256: f899cb5ca486376d822ff903bc3d3cc7a230376e1263956264fa0e95eac5d9ae
+  - name: model-00009-of-00019.safetensors
+    size: 5190456687
+    sha256: 62f42c557cadcb3f15b49dd229603ee99da8bf565fd1f0666b4faf3f2636511f
+  - name: model-00010-of-00019.safetensors
+    size: 5190456695
+    sha256: 09174935802d34c7e58f214766452686f62699d99d21ca1fcda80e21b9433b29
+  - name: model-00011-of-00019.safetensors
+    size: 5295314346
+    sha256: 89393201969bc0ccae8b66b458821920a33fee87e3192c6ad4c7e00782a4977f
+  - name: model-00012-of-00019.safetensors
+    size: 5190456742
+    sha256: c2d6e18a56d9e4d9fc3e6a004dc064eb3d2a6b96876c0880fc305cf1f4bd3ddf
+  - name: model-00013-of-00019.safetensors
+    size: 5190456726
+    sha256: 93561e7d59c941e6976e6dabee8f1cc5332c469b211c4e034cb2ffd5ec5d1655
+  - name: model-00014-of-00019.safetensors
+    size: 5295314352
+    sha256: 4963bbd3da7624768639211b157d700140030d8bd267b2589f524e4e577b52a6
+  - name: model-00015-of-00019.safetensors
+    size: 5190456740
+    sha256: d28846d5f12d7eee3f3c853ca41b93e3fb85c69ec5b5a9236e8646a14751e386
+  - name: model-00016-of-00019.safetensors
+    size: 5190456730
+    sha256: b890bd94c535538b6c6033d530e63dee5259ad87c05924f6fec9c886cd0874b0
+  - name: model-00017-of-00019.safetensors
+    size: 5295314330
+    sha256: ea8a413f30a76a9f63d2333cdf3b6aea16e9d23dbb72f5b02ca7e4a8e26af3c8
+  - name: model-00018-of-00019.safetensors
+    size: 5190456744
+    sha256: b96474a2e792b5183ff1306033bfd6db0ff1375818f741e5b59383d937b0b9e3
+  - name: model-00019-of-00019.safetensors
+    size: 4666167724
+    sha256: 55b701d81c7bc41a579f48353e96dd7f86ce4542c8c9e2c2dcb880ce42f98822
+  - name: model.safetensors.index.json
+    size: 405176
+    sha256: 812aa97b66f54758663441603c1e2ba6a6048a1f75c467acd761e5c4cae81134
+  - name: oq_imatrix_report.json
+    size: 67366
+    sha256: 843864df1ac0b82fabf64d1aed3840fe8c3a51aaa475ffb4239ac1093231a7cb
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: Jundot/Qwen3.8-Flash-Next-oQ3.5e-fp16-mtp
+  revision: 4811dda43e094db321163fd19c556ffdf494679a
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 2942
+    sha256: 152ad826e830c0da7b5701b2e1d11cab60331e705b34b24b7278d34bdff24482
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 268146
+    sha256: 3211f5c1c0dabc7409584321b203fb5c4fbf8c059024674b978ceb5abcf447d9
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00020.safetensors
+    size: 5245793514
+    sha256: 5a0baeb4b74db8c0007e8602d72baf3502aaa4172e8f35f03e7042698df4580f
+  - name: model-00002-of-00020.safetensors
+    size: 5000033508
+    sha256: cd7eccd6dd3d54949395d64130f10904fbe878f660d82d74de90a376bc019bb2
+  - name: model-00003-of-00020.safetensors
+    size: 5000033506
+    sha256: 46562706190a753b36474d6cbb4f2d561c7b06d3ad699b6bdd45b35d8377ca35
+  - name: model-00004-of-00020.safetensors
+    size: 5000033504
+    sha256: 205eaf108ed71bc1d509dec0ff4c83d1d67929110cc7c328038edd677a934a10
+  - name: model-00005-of-00020.safetensors
+    size: 5000033490
+    sha256: 36a35a1eed43ede954c47ced17b89e8280380450c1306eb4881bfed68bbea6e0
+  - name: model-00006-of-00020.safetensors
+    size: 5000033545
+    sha256: 9728ac56ea49258b6d97b14797d5c7731aedb72f63176bfcb675d0be7803217c
+  - name: model-00007-of-00020.safetensors
+    size: 5014660920
+    sha256: d302e3cfd72a57abbdba3bb80cc47065419cd9e18e14d48641907d8467bcdfde
+  - name: model-00008-of-00020.safetensors
+    size: 5253862533
+    sha256: b38029bf97b738a457bf6054490781e1da0ec12faedab2162dcf64068bc0bbd4
+  - name: model-00009-of-00020.safetensors
+    size: 5190456665
+    sha256: 9e8627822d033fd6b7ed2164b139eecb8d15c32d02b18b5bdf9a5daba81c0b9e
+  - name: model-00010-of-00020.safetensors
+    size: 5295314275
+    sha256: e0ec7b3ec5df425a60416ea7d3b779c744c6f982e0492a5477110d4be68c21b2
+  - name: model-00011-of-00020.safetensors
+    size: 5190456712
+    sha256: dd9d13adce1d5d56c694246552106ecbc8fd804c812c915abede41dbb3917690
+  - name: model-00012-of-00020.safetensors
+    size: 5190456702
+    sha256: 197bb2f60a34d5f562563531b3b4a9ce1a51c9c73a4a129a831836ac8e5cfee7
+  - name: model-00013-of-00020.safetensors
+    size: 5295314310
+    sha256: b251044612599e0bbb77a1c4d9fb7bc37ec51697fe458f6f5bb9ac710ded3dee
+  - name: model-00014-of-00020.safetensors
+    size: 5190456718
+    sha256: d4b3989f8d6a7997856797baad4b81f35346aa85ba31de06e066415120fbfbbb
+  - name: model-00015-of-00020.safetensors
+    size: 5190456712
+    sha256: 49080cc222a8a2a9fb6568f72a75936a9fd3b933c072d0e42b4101fae7800bf3
+  - name: model-00016-of-00020.safetensors
+    size: 5295314310
+    sha256: 8d458489bf681cb4fb072dca60746bd5d22e584efcd3df2da8dc33b2f0f154e0
+  - name: model-00017-of-00020.safetensors
+    size: 5190456700
+    sha256: 281b5c3864dba360a3cad7adbe1aaec0de6f815f913b3b701d0694e489bdfb71
+  - name: model-00018-of-00020.safetensors
+    size: 5190456704
+    sha256: 2c75cebedf072953b1989e113beead2cd1cef96a3cc3c700262c24e9a4288e7b
+  - name: model-00019-of-00020.safetensors
+    size: 5033169766
+    sha256: e414fb99c6a9de5daa75989f7b6be44b6bd3a1ad85d653f1984da43945e4a1b4
+  - name: model-00020-of-00020.safetensors
+    size: 471859595
+    sha256: a7d85d7c4e91372610996eb49dba4187672fb3ac0146dbfe9aad585b2c36117c
+  - name: model.safetensors.index.json
+    size: 405176
+    sha256: 6243255b548485e1ce63e59ee73afeab15787e1e58ea4cb2251f9713048aaa86
+  - name: oq_imatrix_report.json
+    size: 67366
+    sha256: 843864df1ac0b82fabf64d1aed3840fe8c3a51aaa475ffb4239ac1093231a7cb
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: Jundot/Qwen3.8-Flash-Next-oQ4e-fp16-mtp
+  revision: a2a0b3c703d9340c6db192fcaefce07a05cc9ab9
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 2668
+    sha256: ba267b3cd8f15f36cf0af36fa413dc85b56bf7b3d1e9af373286cafe968b430a
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 254406
+    sha256: d0fadb61d665d3bb6a96733f2fde41ab04830675a12c49ed0b26a22a58684186
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00022.safetensors
+    size: 5247431914
+    sha256: 2afcf9247b4aeed2493931b26799cc98c9a413ffe372e5d5455b1ccbe8bc405e
+  - name: model-00002-of-00022.safetensors
+    size: 5000033508
+    sha256: cd7eccd6dd3d54949395d64130f10904fbe878f660d82d74de90a376bc019bb2
+  - name: model-00003-of-00022.safetensors
+    size: 5000033506
+    sha256: 46562706190a753b36474d6cbb4f2d561c7b06d3ad699b6bdd45b35d8377ca35
+  - name: model-00004-of-00022.safetensors
+    size: 5000033504
+    sha256: 205eaf108ed71bc1d509dec0ff4c83d1d67929110cc7c328038edd677a934a10
+  - name: model-00005-of-00022.safetensors
+    size: 5000033490
+    sha256: 36a35a1eed43ede954c47ced17b89e8280380450c1306eb4881bfed68bbea6e0
+  - name: model-00006-of-00022.safetensors
+    size: 5000033545
+    sha256: 9728ac56ea49258b6d97b14797d5c7731aedb72f63176bfcb675d0be7803217c
+  - name: model-00007-of-00022.safetensors
+    size: 5003521949
+    sha256: a93a6cd98b40ffa9bc63e004a9629ce74ba90f68a9e71157912468dccb2c8032
+  - name: model-00008-of-00022.safetensors
+    size: 5369080450
+    sha256: 8664109584c8c41ea327a330c2ba7118c77368f178e0fcfceff3b96d90e088d2
+  - name: model-00009-of-00022.safetensors
+    size: 5190455833
+    sha256: 408c21ec0ffbb776c00dd982583412d64334c5586c884c8871ca3a0699829e55
+  - name: model-00010-of-00022.safetensors
+    size: 5190455833
+    sha256: 99315a5f1d5022e87781040818ecff5387afeae63be480b17223b8c4f43ce276
+  - name: model-00011-of-00022.safetensors
+    size: 5190455843
+    sha256: ac3715a78bbf6aa1f2b3f3c62bb6f9b0f27e6b0e99b15be69040ad0f0d66d428
+  - name: model-00012-of-00022.safetensors
+    size: 5190455864
+    sha256: 55eef68b1e4794a4262f3afd1c38363e9e126bbdcc4eaf7254f19acbfd826512
+  - name: model-00013-of-00022.safetensors
+    size: 5190455872
+    sha256: 9f34191c37426a1f3a95af9f7ff2772908b7334ed71cb9310bbe30cbb71aeb12
+  - name: model-00014-of-00022.safetensors
+    size: 5190455860
+    sha256: 500fe8ce50e39e5a5206b8cf57b8dd4efb50c339474e318d9bb496a0f15d66a1
+  - name: model-00015-of-00022.safetensors
+    size: 5190455862
+    sha256: 57ef19e8e3238c54dcb501cdf109f1601764f7065ff9948dd88f9c85f7d3dadd
+  - name: model-00016-of-00022.safetensors
+    size: 5190455874
+    sha256: 4100fd67a107bbffc9fc0f4d1925aa90f206bc0eb42591333e8a445bd326e545
+  - name: model-00017-of-00022.safetensors
+    size: 5190455860
+    sha256: b739b9e57be22e000e83ad3c5e084381abac05250ed0440b3585ce95335a8d46
+  - name: model-00018-of-00022.safetensors
+    size: 5190455860
+    sha256: c922ec6945f8be41f5df21d4ec8acaff1428a6ddb59f415233f7a52c9b80941f
+  - name: model-00019-of-00022.safetensors
+    size: 5190455864
+    sha256: 98b25272c956e0550baf93bdf1211ccfcc727740c94a49481e592e81f2524f69
+  - name: model-00020-of-00022.safetensors
+    size: 5190455870
+    sha256: 5c0682dcab98d54a49f61c1722b9a955ec2317ab3e3bb3f356a7e3a35fb1caf9
+  - name: model-00021-of-00022.safetensors
+    size: 5190455746
+    sha256: 1454c0715347874ff7cd6e5da789bd88ed30588678ead5a17c812da10a171caa
+  - name: model-00022-of-00022.safetensors
+    size: 471859595
+    sha256: a7d85d7c4e91372610996eb49dba4187672fb3ac0146dbfe9aad585b2c36117c
+  - name: model.safetensors.index.json
+    size: 405177
+    sha256: 2b8c612eae3232c3e57c73eb055551cea62322f252d6b2010bcac1d4ed5e66f3
+  - name: oq_imatrix_report.json
+    size: 67366
+    sha256: 843864df1ac0b82fabf64d1aed3840fe8c3a51aaa475ffb4239ac1093231a7cb
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: TensorFold/Qwen3.8-Flash-Next-MLX-4bit-MTP
+  revision: 2b170fa6309d5d1ee380b35636075fac7945f286
+  archived: true
+  fetch_rate: 50M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 10306
+    sha256: 06b1d4dea22a71b4848749607b9e511918465821cfe57dd2c0f9ba92bad20883
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 5361
+    sha256: 4efd5f41c47e8de9f55c678df4a237cbbc78e4d517dad42a906889f7d94f79a2
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001-of-00022.safetensors
+    size: 5283195887
+    sha256: 308f20b7e35a3e525f36eca0df286f6d1043cfeb621e7bbcf372a834c99cd66d
+  - name: model-00002-of-00022.safetensors
+    size: 5250035137
+    sha256: 8af1a616f2f39dbfe6ee92e959afb2414623fcb299aff1ced55984bfe810d608
+  - name: model-00003-of-00022.safetensors
+    size: 5250035154
+    sha256: 519a0472252ac9a51af020686f462aa6be82ce655f948fd5f054d70949de17a6
+  - name: model-00004-of-00022.safetensors
+    size: 5250035160
+    sha256: b1ad7e951969eb8dc4e92762dc2e50bd47353c95990ae207db5da393d441400f
+  - name: model-00005-of-00022.safetensors
+    size: 5250035164
+    sha256: 9ca797304c563bb65f2356b67d444511b11744bc5b5c8ec8345ae7d97d3e251c
+  - name: model-00006-of-00022.safetensors
+    size: 5250035184
+    sha256: 8aab4c1dce7d8a0af645426b66d1caf30245d422d4c6b7029583959d675a1827
+  - name: model-00007-of-00022.safetensors
+    size: 5067850140
+    sha256: 7908da37b2e3fa7f0de8b9734dad0759be7dc445716f3acd59c20c4842638db9
+  - name: model-00008-of-00022.safetensors
+    size: 5337131618
+    sha256: 85beff20f250bfe63e95f12c0460512aab92bcde8f7408fe9c20e3de0321bc1d
+  - name: model-00009-of-00022.safetensors
+    size: 5337131558
+    sha256: f7c03ae640e9bf0f7813ef2b2980afa83a883c02b3988e814e9921055fc08a28
+  - name: model-00010-of-00022.safetensors
+    size: 4970130103
+    sha256: 6897f52227533e720b243d6aef24c1293ad1eb02a1bb2ec6a6e4dc48d56d0c8f
+  - name: model-00011-of-00022.safetensors
+    size: 5341257482
+    sha256: 905d27f9db887284289a043f9638020258c5f90d52122cdce2e7aef941a431f2
+  - name: model-00012-of-00022.safetensors
+    size: 4967968541
+    sha256: c4d2bb76fa4613f7386ddaa7045608c320f9736623211a814aa28fb370530dec
+  - name: model-00013-of-00022.safetensors
+    size: 5337131651
+    sha256: 1f20a5e1f2256b2fb6a78fef52f9e66daa970f4318ab1be3abb32a1effedbbf3
+  - name: model-00014-of-00022.safetensors
+    size: 5337131799
+    sha256: 860d12691792df5f08c9dfe245dc356773741f1edcc1fd430672ef06ac387635
+  - name: model-00015-of-00022.safetensors
+    size: 4970130195
+    sha256: 259fb7577b8248f6dcbe6a932fe5d2f1c8869eda761ef3394fe6ad06065f216c
+  - name: model-00016-of-00022.safetensors
+    size: 5341257440
+    sha256: e931785f9ff4e0a567bf8c06df37639be46b4dae156e0f8b39b9d32a03d75792
+  - name: model-00017-of-00022.safetensors
+    size: 4967968481
+    sha256: 4f4610dc4a862bf9d93d70cfd0ec037e8e7943a734794d34eb5c0d748b74747a
+  - name: model-00018-of-00022.safetensors
+    size: 5337131695
+    sha256: afdb4828920186600f9d61537d1465979fb36692f4eddb8c5a961a6b72964b77
+  - name: model-00019-of-00022.safetensors
+    size: 5337131801
+    sha256: 869d34c6e8f7db79bd4e54b9833d5b0db45eefac860c9bd64fbd312bf862a667
+  - name: model-00020-of-00022.safetensors
+    size: 4970130135
+    sha256: 5ca2f994fec1aa06fefef6646b9f072cf70f7f73aa8dab4c7c1a9a424afb4a52
+  - name: model-00021-of-00022.safetensors
+    size: 5341257436
+    sha256: 58def6762f29cc798437e5649a56ee75d053faca69138a2454dbdb34bb8a37c3
+  - name: model-00022-of-00022.safetensors
+    size: 3715570974
+    sha256: 30a3c82b573d813a1d2349f1c05c308c0d415f3ca1bb67caa0bfaad8a6afa7a3
+  - name: model.safetensors.index.json
+    size: 420813
+    sha256: 8848503860c7da8619fdc8d5e65201868f8f1d21d69d2e21166c95522379ff77
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: Jundot/GLM-5.3-Flash-oQ4e-mtp
+  revision: 9e5c75a947f06d807ec55ea625b30613ad98da74
+  fetch_rate: 50M
+  files:
+  - name: LICENSE
+    size: 1070
+    sha256: 30b85b6b9659f2e78aa259f8faf5d920a68dee7c9ced3fa6dba1f19f2bc4fca1
+  - name: README.md
+    size: 1988
+    sha256: a2d3e4400585c40a319d72bc133175aa0dcc027095678aaa0d3d86e43fd0400c
+  - name: chat_template.jinja
+    size: 10830
+    sha256: 2614a3c896d53e265f564c23701173c0049f985dacfbae79fc4bcd9f5ba083f4
+  - name: config.json
+    size: 153719
+    sha256: 9815699da7ecebd0348382fd12a8911fa132bf0914c7969d4fa816209aab61eb
+  - name: generation_config.json
+    size: 194
+    sha256: 230c30609ecbbb9e6583bedde8e7bdda0c6eb8fe5fad0eaeb3d1b293d751cb4f
+  - name: model-00001-of-00035.safetensors
+    size: 5021639995
+    sha256: e8673a7bc5fa51b3e90974fe6c9aa15c1c49f198f09ede843f58838cf61afb0e
+  - name: model-00002-of-00035.safetensors
+    size: 5872687302
+    sha256: a1589bb077d029ed1c09a4075cabbcc5f78aaea51e05e5d27a436ad249296358
+  - name: model-00003-of-00035.safetensors
+    size: 5453646297
+    sha256: a3b31dba07d126ce067b9cc2cfa653a29b966ab472a9ff1c67a1f8b5e0d95be6
+  - name: model-00004-of-00035.safetensors
+    size: 5435819704
+    sha256: 21a037cbb40656a0272420a4d313f56136331d27545f3b7952903d6b7369ef35
+  - name: model-00005-of-00035.safetensors
+    size: 5435819708
+    sha256: 0c51aa27a809b63844db1c13cb1a396cc911a51bbb8857e54f444dc46ab75688
+  - name: model-00006-of-00035.safetensors
+    size: 5453646305
+    sha256: 87e658b1cabb461520991b712946dd18a3e73b77d044444ad99822cda6629525
+  - name: model-00007-of-00035.safetensors
+    size: 5435819702
+    sha256: cbb881bb535cdecb42cd58f2326a3e9359cc9ed78ef3d31a82b08dcb3da41789
+  - name: model-00008-of-00035.safetensors
+    size: 5435819720
+    sha256: 897ed7ebf8ebf07804aadcf586a7ff9b5306582b5f510394a345b890294feb9a
+  - name: model-00009-of-00035.safetensors
+    size: 5453646313
+    sha256: 98b7434b91af73790ddd5ef9a8933f9c6a44bbece5491f6ccf7a792eb79b5ff0
+  - name: model-00010-of-00035.safetensors
+    size: 5435819716
+    sha256: df2570c28b07f729f4478de990c99d139d38375bccbf8d88ad027a2b3289f4ba
+  - name: model-00011-of-00035.safetensors
+    size: 5435819718
+    sha256: 6cf0d573d1fe25abf27b476e0e5da9804ed204fa271a9c85af2ba4de8d1b64f0
+  - name: model-00012-of-00035.safetensors
+    size: 5453646323
+    sha256: fe27d9947a806c5d366ca95b7621a013dd2cbf9a29aebfd2c64cf9b421e1ea2a
+  - name: model-00013-of-00035.safetensors
+    size: 5435819716
+    sha256: 7643783d55dc72d4bcdbcc53716ba099577aaff80d8ff13fce41d8694d8e71e4
+  - name: model-00014-of-00035.safetensors
+    size: 5435819722
+    sha256: ee30bde966bb7b0e85e74e0651f7fbbd67942aebc630b2771c854c46f73458ad
+  - name: model-00015-of-00035.safetensors
+    size: 5453646323
+    sha256: 2bb9278039421d0a2b6650513fb99d19c3905d6e72eec0d41366956445daa145
+  - name: model-00016-of-00035.safetensors
+    size: 5435819714
+    sha256: c288b4dff9381309dcd4143f76a6244433307c3709b34a8c38d5f0ed1625bbff
+  - name: model-00017-of-00035.safetensors
+    size: 5435819726
+    sha256: 14dd7673025b071c0ad9fcba1325f324aa1e1ae57a3d43b0203a8bb2eddd90da
+  - name: model-00018-of-00035.safetensors
+    size: 5453646329
+    sha256: 613eef66be926131b13be3b036ff101b7ba5fb51602e98722b26e625dbca9720
+  - name: model-00019-of-00035.safetensors
+    size: 5435819720
+    sha256: af945eb9218208da3f993921b3e6033d06f3873ebae5bb13fbbc1c642b3602d1
+  - name: model-00020-of-00035.safetensors
+    size: 5435819722
+    sha256: f56f902ed145274e54721ba7e2dab9b06608949da24db2a5ec0d23409122bf4a
+  - name: model-00021-of-00035.safetensors
+    size: 5453646329
+    sha256: fa21782f2c03f42d1de85a8bea1f4997385c4c79ef5c694c85eb347076ca8ba5
+  - name: model-00022-of-00035.safetensors
+    size: 5435819706
+    sha256: 84ef2a1e6df7c6cf54c923b570abc147148371713e79256c322c94cafa4616fc
+  - name: model-00023-of-00035.safetensors
+    size: 5435819720
+    sha256: 53ef3d12d3d117ca1de53ad41f8e20f22bf33227f0c77495b99f92a5c35075a4
+  - name: model-00024-of-00035.safetensors
+    size: 5453646325
+    sha256: 15689b1dca5667aeb88c6b2b692c2b77db96ff030c86d34a38165a36c2192cb5
+  - name: model-00025-of-00035.safetensors
+    size: 5435819716
+    sha256: 610c7c1e1df924f1293debb2e0afdfb75618db47b22c64c1c996e1c47980c694
+  - name: model-00026-of-00035.safetensors
+    size: 5435819716
+    sha256: 7a10a67106774705390c73385a80d33652fd26c2b4a9b7508e4dc1f4c644506c
+  - name: model-00027-of-00035.safetensors
+    size: 5453646325
+    sha256: ba7c3752339e2a79718525048b2c149d6c03f233355d11673e9d256b4c6d428a
+  - name: model-00028-of-00035.safetensors
+    size: 5435819716
+    sha256: 848e4306f4af658d55c6806fc737063b7736e52cdef7530e5073e77011f54d1b
+  - name: model-00029-of-00035.safetensors
+    size: 5435819712
+    sha256: 32d65af30f6c33aee79d97094e3f4f7cbc6129b73a6b98ecb31a86294b459319
+  - name: model-00030-of-00035.safetensors
+    size: 5453646325
+    sha256: 81af254e2d253ae9b6cac96b9761477bc68e853b6bf50c6e8a0d2b3a2653480b
+  - name: model-00031-of-00035.safetensors
+    size: 5435819712
+    sha256: e154c32968de0a6633283733745033df9bfe217c3bb0db43150f28648823cde8
+  - name: model-00032-of-00035.safetensors
+    size: 5435819720
+    sha256: 5462f9f85896fb07f8646f0c6560fecb401a35fa6b22b240dca0414ea75eb43c
+  - name: model-00033-of-00035.safetensors
+    size: 5453646325
+    sha256: d5ac4950456c734dfbe2469fcd212e42f9bfc676c5ec50ad3b5091576b8ac635
+  - name: model-00034-of-00035.safetensors
+    size: 5589378981
+    sha256: ce5346251e193662f94c964a2a9fe664f1ab653c46ee9ac859b6efc6d11b58a8
+  - name: model-00035-of-00035.safetensors
+    size: 1212253620
+    sha256: 9a614f44c8613711e0bee9891ffad5a0d86da90854ce60d5faa38458717530f8
+  - name: model.safetensors.index.json
+    size: 303743
+    sha256: c9675c01f4b57986044015ff27657ea9ee4b9ee5003a368bbf0c338f173f3964
+  - name: oq_imatrix_report.json
+    size: 45746
+    sha256: 6a07b387e6d4e0a6836b0d12b88c0b2826567e9a7b0e241d85df257cc5ef191c
+  - name: processor_config.json
+    size: 909
+    sha256: aae38374c94b08cc9b0547c6e64f05b951bd9735cea571c6988f5ed552bed3ed
+  - name: tokenizer.json
+    size: 20217442
+    sha256: 19e773648cb4e65de8660ea6365e10acca112d42a854923df93db4a6f333a82d
+  - name: tokenizer_config.json
+    size: 761
+    sha256: 98b1271574f41abf89427ae2dda030d94dc9478f0edc5a8bd240db213c6fd5fc
+- repo: apetersson/DeepSeek-V4.1-Flash-1017-Abliterated-MLX
+  revision: 48969b50dcd7de17d0598beb6a8e5cb80fee2f4a
+  archived: true
+  files:
+  - name: LICENSE
+    size: 1084
+    sha256: f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040
+  - name: README.md
+    size: 21501
+    sha256: f0f3b1f4b5cadb3301bb218ec255a5448b4a068696d274bb1be0e6e24f350dc9
+  - name: config.json
+    size: 118902
+    sha256: 3931aeb1ae2e40131bb767923c7ff00f4845c5612f1104e40573f98e9ebbdd7e
+  - name: model.safetensors.index.json
+    size: 191284
+    sha256: 363a92f1538f44dec275cb9d635c475e5bfbb415f2fd46b17fc8467b8b08889f
+  - name: quantization_report.json
+    size: 53495
+    sha256: d91c36b91ba0156bb5a8ad04aea78664c0bc116d2ecc6f11737b4fdd7a6dcf24
+  - name: tokenizer.json
+    size: 6367257
+    sha256: c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b
+  - name: tokenizer_config.json
+    size: 801
+    sha256: 6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547
+  - name: layer1.safetensors
+    size: 101377628616
+    sha256: 17cdc03bf97000367615b5c0c7e92e6e4ded35ce43e49a26b2e33d7124650233
+  - name: layer14.safetensors
+    size: 101380404312
+    sha256: a436e359fcdfc6f2401ac9086d20227ca4bf1f42308a45e49334e8abcfd93289
+  - name: model-00003-of-00053.safetensors
+    size: 4009238327
+    sha256: 3be7c1af5142b11288956f6ef1b8720c19c1e37ecfad67191918d4142373b847
+  - name: model-00004-of-00053.safetensors
+    size: 4348774056
+    sha256: 5d5b0adda4e8f95365d14a8460a3627f1dc77117bf9d7b6dfa88a878db58a8c0
+  - name: model-00005-of-00053.safetensors
+    size: 4175101799
+    sha256: 969fed04e9173b7bf742ee70f76e9660e58b8d637fa4c1cb1571a1804f0a8ab0
+  - name: model-00006-of-00053.safetensors
+    size: 4999380429
+    sha256: 14358dd2e60368a9e9664aab6c9c9749b09db54412077bf7aa857559f990e2d3
+  - name: model-00007-of-00053.safetensors
+    size: 4967329053
+    sha256: 5d17bfd56bc6d3c1b22f680a620b794a272d76b1266a92a573459b19cbae497a
+  - name: model-00008-of-00053.safetensors
+    size: 4899088564
+    sha256: e44ea09f931cfd361f43a637160a84b54da75e2112f86f9578e28f3e29783042
+  - name: model-00009-of-00053.safetensors
+    size: 4362562444
+    sha256: 8f1ee79eee3ed6d01aa3f8ddc28d2d5fd4bfdff08cf4954ffd82ccea60ff5c00
+  - name: model-00010-of-00053.safetensors
+    size: 4175101835
+    sha256: 9639f610c78fed4f72d94d16253e39b705cde165828299653b13b998d19575a1
+  - name: model-00011-of-00053.safetensors
+    size: 4175101799
+    sha256: e3f7c6c71f85a23491d3ea57cf7cd4ff5016472abc399e37f0b96417532354d9
+  - name: model-00012-of-00053.safetensors
+    size: 4999380431
+    sha256: 4418c055b5fb324c0d7490db322c48648e15f996850329d4893f0055366772a4
+  - name: model-00013-of-00053.safetensors
+    size: 4967329025
+    sha256: 4294f5f9b243e021d152d16785b664a3bd235b50871123922528c5d2c11cb75a
+  - name: model-00014-of-00053.safetensors
+    size: 4045806070
+    sha256: 68fdd385d90b9dd2d8fd6978ea452c060d3d52e54859fe89d71c05b65d394ea0
+  - name: model-00015-of-00053.safetensors
+    size: 3608870785
+    sha256: 173f4c73bf5ea1f568e20dedb98780445e13679ae5efeb30f8b7cbdeae7e8c04
+  - name: model-00016-of-00053.safetensors
+    size: 3620258969
+    sha256: fe99cbf5ee074e373407be300471764c417eeaf929732d163abb1c7a58e6eabc
+  - name: model-00017-of-00053.safetensors
+    size: 4999380431
+    sha256: cabc8463b4b4d0b6ca5729e7607556a4d4ecc73bcb6b274f49bd37abdcb07b10
+  - name: model-00018-of-00053.safetensors
+    size: 3988686369
+    sha256: fe39168d16d586fa095683cede5c66ff79f8ae532a18e16a5ffba9edaeef19e3
+  - name: model-00019-of-00053.safetensors
+    size: 3614616238
+    sha256: 12f4f3cc1cb2f6b165c745aef3815de8490f70d9122a01fbdb9843590b0ce056
+  - name: model-00020-of-00053.safetensors
+    size: 3614616190
+    sha256: 1e39fbf9abc041f32926d343e3bdb48070dfdad5a83b49d07d2df0d86a846989
+  - name: model-00021-of-00053.safetensors
+    size: 4816910916
+    sha256: 89dbe9fd0f9c66738d900d28cd8b25d34b6db31bd711c308d1c229462f57ba96
+  - name: model-00022-of-00053.safetensors
+    size: 4524815454
+    sha256: af05672cb0c2a698d8e5ee3d2800ee96199f739bbbc29304ef0c6918f61f4ef7
+  - name: model-00023-of-00053.safetensors
+    size: 3608870777
+    sha256: 12f9c0d875f1a708f69cd26b223cef76cb2e4da90d5ad23d2e348dea76ab7d37
+  - name: model-00024-of-00053.safetensors
+    size: 3608870714
+    sha256: 49bd716390ed5f51fedf64a603a18e6df2d01993457311abb26c46ea5a2ad34c
+  - name: model-00025-of-00053.safetensors
+    size: 3963618074
+    sha256: 46bd2b01e0d0b70c4039cc6591333283452d6c5d0e3272c3f2f0a8d2dd6f73fc
+  - name: model-00026-of-00053.safetensors
+    size: 3608870767
+    sha256: 26b8611a300a4ad165a6a3273c1672c726a7fef95dc9ef6fe197b1d75ced3104
+  - name: model-00027-of-00053.safetensors
+    size: 3608870719
+    sha256: c78deae1dd0157b6c2925f19b73818c359f5a6d9345ad9b495870b3ecc81e193
+  - name: model-00028-of-00053.safetensors
+    size: 4996102982
+    sha256: c0d6303d7507122ac8220cbf483a31a1342464606ecc1812653b1e154b2c4ce6
+  - name: model-00029-of-00053.safetensors
+    size: 4147751297
+    sha256: 643f67cc4b5dc28b8d283d711380ac49aba49d57263aa9bcc719c1abc3350a33
+  - name: model-00030-of-00053.safetensors
+    size: 3608870760
+    sha256: 26420367af688b55a35b62f4928e78de922159cc1352dca033f90be4e6ceaa2a
+  - name: model-00031-of-00053.safetensors
+    size: 4999380407
+    sha256: 252a1b46694435c9c0be25c4455c83a166eb942b4ebd2722a0b536a4e412c7d2
+  - name: model-00032-of-00053.safetensors
+    size: 3988686373
+    sha256: 911817528dce3ff414152b006120b3380d91fcef3f168f8133684f82f373da08
+  - name: model-00033-of-00053.safetensors
+    size: 3608870807
+    sha256: 77e4249bc34ba31dd05d4fd11362290ce4c50e9948b0f30a280740bde27b48e0
+  - name: model-00034-of-00053.safetensors
+    size: 3608870757
+    sha256: 0005dab9278eb070a37e39284e6b233493b30d88815096c80222b78a99183d53
+  - name: model-00035-of-00053.safetensors
+    size: 4996102958
+    sha256: 705d9c375d898345d66cd8e67eb92a0f39b74597ab9d3a68fdf86aa729ae8cb0
+  - name: model-00036-of-00053.safetensors
+    size: 4055251634
+    sha256: 1f16a44dc256ea1b354dadbe64c6c773acc5b5c300e96f669be6c83f5742cb58
+  - name: model-00037-of-00053.safetensors
+    size: 3608870754
+    sha256: fb4d9102f484b7f6af43fcac1b6b156a7ea21771b8e9d66b7ccf91a566859da7
+  - name: model-00038-of-00053.safetensors
+    size: 4999380447
+    sha256: d2c6f26918ff873d4b80ec6e1a7cf1513e0557c18573e526c65bf08b92433430
+  - name: model-00039-of-00053.safetensors
+    size: 4967329057
+    sha256: 0cda48c69493620277ae53f606433ca9f9a72c5316fff51d3d47e4464b627d10
+  - name: model-00040-of-00053.safetensors
+    size: 4954552978
+    sha256: 844f299de1a6e264e23fa03c083c5e541c989608bdfa01862ff5036fdc43bcb5
+  - name: model-00041-of-00053.safetensors
+    size: 4979676287
+    sha256: d1729696e68688f055625957dda8f4c03510e4d011bf77cc19cff3c48d00a0ec
+  - name: model-00042-of-00053.safetensors
+    size: 4356166276
+    sha256: bb0a6e6fd7d65770665c4291312aa093f4c616483a701177c696819ac958c46d
+  - name: model-00043-of-00053.safetensors
+    size: 3608870714
+    sha256: 7bb5f6220203a479db0311e3bd7fd6721744b384a63e856fa5152659a804fc18
+  - name: model-00044-of-00053.safetensors
+    size: 4995448857
+    sha256: f2ac8df945a6ebc12378e41ac218a378689a7c148afb7272da6a4f6f5775f643
+  - name: model-00045-of-00053.safetensors
+    size: 4985608575
+    sha256: c011720cabcf83710dd5222c4b0fbeb8acc9092cf46d6a51d781f5478ca1f396
+  - name: model-00046-of-00053.safetensors
+    size: 4954552992
+    sha256: ea5048e101c1b3fd6345c0f47a951cf397c341838d9e913cdf775cc5591251f0
+  - name: model-00047-of-00053.safetensors
+    size: 4985626655
+    sha256: f0fa558096cea75b791d13aafc517c8ab8faa4ecd53c3be387c1502102bbfedc
+  - name: model-00048-of-00053.safetensors
+    size: 3027807227
+    sha256: 976f94a675519185b213620e24e9626a156f6b3564a17a8bff7ca1c96c7828a8
+  - name: model-00049-of-00053.safetensors
+    size: 3608870759
+    sha256: 83957599f363f184f04ddd06cd1b51174dc2db1859e66dab4b3102bcd079ebff
+  - name: model-00050-of-00053.safetensors
+    size: 3608870755
+    sha256: 637591a781473fb0db746f71a035a77abf69d3f11c7c43c0d1422e48f6e2fc63
+  - name: model-00051-of-00053.safetensors
+    size: 4999380439
+    sha256: 47a6af93bf99fab999792b3606bd2ca31a11ab7f261b0775540edcbffef5ddaf
+  - name: model-00052-of-00053.safetensors
+    size: 4967329015
+    sha256: 6374bbffd0f29151a6796a346415d3ef039a34df613073a96219591cf93c2cd5
+  - name: model-00053-of-00053.safetensors
+    size: 4899088560
+    sha256: b27f4e9ba07eeac5d7949c8c5f639d14cc0a2b14a70eaa2f4df50398d73b73a8
+- repo: mlx-community/DeepSeek-V4.1-Flash-1017-oQ2.5e-mtp
+  archived: true
+  revision: 78456115d301eecf9fadcdcc81c0cf6f8b2c8eab
+  files:
+  - name: LICENSE
+    size: 1084
+    sha256: f2c6c602815669d292889e5be8c802f2ed950653b77999b1584e8e6aed25d040
+  - name: README.md
+    size: 2646
+    sha256: 27f581b561f85374fc46f89dcaa160f2d39b93154bc0dce869fc8b821a51c2d5
+  - name: config.json
+    size: 134355
+    sha256: 74259bebe816bb248eb075a9c285c64eb705d9ced63777ef5b0a9263b06793c6
+  - name: model-00001-of-00053.safetensors
+    size: 61442669536
+    sha256: 690072f5285b87c546f3f201a335d80e9fb9d2ebac42adb10661fc597ef75ac4
+  - name: model-00002-of-00053.safetensors
+    size: 61440987296
+    sha256: 4631630246946c8e7a9137c343cef999e937b59f1542f8fcf3963ac1ca828627
+  - name: model-00003-of-00053.safetensors
+    size: 4009238327
+    sha256: e65f647085e2b5ec750efca6968e38a3c91ab3a1e372b258394fc60b4de999d5
+  - name: model-00004-of-00053.safetensors
+    size: 4348774056
+    sha256: 17482bd34bcd322f4f3a0b08d0c51c8ef4acb709833524e7ec3d0ae533ff34d8
+  - name: model-00005-of-00053.safetensors
+    size: 4175101799
+    sha256: 2f61f330080c169a57937f713de1bab4e4bd99a8976e4e918e495b1129dd36da
+  - name: model-00006-of-00053.safetensors
+    size: 4999380429
+    sha256: 0d14ad3a3fc82c04b20fb797a23a7378308004d63f9303ed2c21a9d30495fb4c
+  - name: model-00007-of-00053.safetensors
+    size: 4967329053
+    sha256: d2f0c25c83224643b498cd3b6f8ac2234939479cda11bbae93c031dc96bdbbb0
+  - name: model-00008-of-00053.safetensors
+    size: 4899088564
+    sha256: 5c33bfe5fffcaea55efd2a04124f7a0d5cd9ee853c668e53805b372f39cc3e56
+  - name: model-00009-of-00053.safetensors
+    size: 4362562444
+    sha256: 895c4be427ada59bd331086fa7021bb99f0bef7485e98a6687b2d89889b2ae42
+  - name: model-00010-of-00053.safetensors
+    size: 4175101835
+    sha256: d684cc9845e1e646aa0d2c2a098f7f3bcf6b416469bdc6cadd9228ff1cff7107
+  - name: model-00011-of-00053.safetensors
+    size: 4175101799
+    sha256: 7762a1cc5a7f20a9ccb131cebb1dc7aa39442f4037207b4d37845f0b9053ac4d
+  - name: model-00012-of-00053.safetensors
+    size: 4999380431
+    sha256: 00c34b2395faa5887b7fffc4d7c10e4edc3f9415930948596fbc6aa51cf1417c
+  - name: model-00013-of-00053.safetensors
+    size: 4967329025
+    sha256: a77400eac6a268ccb576fd75cd1c4861f18ca58e573a2f5b31853b847d578fe7
+  - name: model-00014-of-00053.safetensors
+    size: 4045806070
+    sha256: f3e83acd99d935f646468bc7f377fd266c14e1b4ef46b512a2430c9b6992cd8a
+  - name: model-00015-of-00053.safetensors
+    size: 3608870785
+    sha256: 4ebef9afe16d3a0e3324d71016a663c5b8665c2b7b0e6d979dcdad8f5bb175b8
+  - name: model-00016-of-00053.safetensors
+    size: 3620258969
+    sha256: 6a9d001e14a13a5b99da3ebc61c9dbf7c37d149b9cd6b7e569b6edb8b3c67dae
+  - name: model-00017-of-00053.safetensors
+    size: 4999380431
+    sha256: d10a9f011e23b598d38a8896b5195ca8bdcbd5609b410a514ef1e89202e79100
+  - name: model-00018-of-00053.safetensors
+    size: 3988686369
+    sha256: 018947debdd66d3fd519dbfd8df5b4c5babac3972744773b25ab41b249b49caf
+  - name: model-00019-of-00053.safetensors
+    size: 3614616238
+    sha256: 9991cbdaeaac671065f814b9c6625f79046ae8aff6d44969d84e0a5843c98621
+  - name: model-00020-of-00053.safetensors
+    size: 3614616190
+    sha256: 8324a9b2c6057b7827c4b3824995a436de68f6930f02bff2ed684f522786a5ae
+  - name: model-00021-of-00053.safetensors
+    size: 4816910916
+    sha256: 7d290a6f52f6669c38d59efbe1acd838d1493696edc691b7e75e8e87dfe38844
+  - name: model-00022-of-00053.safetensors
+    size: 4524815454
+    sha256: 283414e9d1204d2bca0cdb5488e161ca27f31b13433761e1a6b063d48f1e5274
+  - name: model-00023-of-00053.safetensors
+    size: 3608870777
+    sha256: 64486463ea1ffd222ba2c9d35be2e0cb7709fc7e5c5322e95a2d0a7843493c68
+  - name: model-00024-of-00053.safetensors
+    size: 3608870714
+    sha256: 8a2869db21b8001cd81e0e5dea7a945acaa9275c2fc831d852f7505d9da35419
+  - name: model-00025-of-00053.safetensors
+    size: 3963618074
+    sha256: 4dbb196370d04ce2af739d84c85c883b855c03fe8d5b94e5a4b32e39cecd620d
+  - name: model-00026-of-00053.safetensors
+    size: 3608870767
+    sha256: 6a2af4126a70f21fa62bafa24508aed00bb17ddc833fb8b510fd3a718bdcdeb2
+  - name: model-00027-of-00053.safetensors
+    size: 3608870719
+    sha256: 70bb62ac9b6484546d6eedd1cb66fa30baa2373a68ffe17fd752d34628d593ee
+  - name: model-00028-of-00053.safetensors
+    size: 4996102982
+    sha256: 54448da3dc87ec7a2290c84895f2919e8f1a8c09592866f69ad087915608c89d
+  - name: model-00029-of-00053.safetensors
+    size: 4147751297
+    sha256: 505e26d961fe8b7f495838d017ddcd284f4ff08964010c26dc059d7b121df65f
+  - name: model-00030-of-00053.safetensors
+    size: 3608870760
+    sha256: 8c4102ab91fc33d45cfadcc070c574892c7200de2093506f57d1e574ef684db5
+  - name: model-00031-of-00053.safetensors
+    size: 4999380407
+    sha256: 8880ce8dd0177047cb5567aa87eb59826e82c9200021b1626264ecd659c9da64
+  - name: model-00032-of-00053.safetensors
+    size: 3988686373
+    sha256: 9c391613f32ab2cf0eb84f6333b40c34bc80fdbfad5e21fb74a8846e97a47dde
+  - name: model-00033-of-00053.safetensors
+    size: 3608870807
+    sha256: d7f369b96704ea26d4c30d1c59978f3cb6dfa6ebeedbd002c505785f53e6af48
+  - name: model-00034-of-00053.safetensors
+    size: 3608870757
+    sha256: 53952fad0c4438ca83244e0e0e2386b989ef479b1c0513eebfd62d7843d1eef4
+  - name: model-00035-of-00053.safetensors
+    size: 4996102958
+    sha256: bb8029fd0bebf78d40df4394426ff9c4a4645accee35880aaf22997f67086b8f
+  - name: model-00036-of-00053.safetensors
+    size: 4055251634
+    sha256: e99920e790020d9040e70013499f369b9632910205ff45c9ab0b088746c4d8e6
+  - name: model-00037-of-00053.safetensors
+    size: 3608870754
+    sha256: ac5304bf189cc5f9823944e5446724af45d02823b63d5728085e58874bc0a9c2
+  - name: model-00038-of-00053.safetensors
+    size: 4999380447
+    sha256: 2f977b56a603c35237fd5ed8e1c275f73f5a669332159898c62b04765f950c64
+  - name: model-00039-of-00053.safetensors
+    size: 4967329057
+    sha256: c0cd705b2b9fca0708b8843d5ebad5967cca87c8eb2a10008641f9a6d4472e2e
+  - name: model-00040-of-00053.safetensors
+    size: 4954552978
+    sha256: 3ce88605d2ff2c820c06a72f7c44602919259c21410ea1ba711233c5f01118a2
+  - name: model-00041-of-00053.safetensors
+    size: 4979676287
+    sha256: 54d281c86a354ca67eba7daeee276052170295e207057b7b196cabf1a2de88e1
+  - name: model-00042-of-00053.safetensors
+    size: 4356166276
+    sha256: a08daf93926698ffb1483c9ef49887a09535b2a9bf9a941dcade0d1ae1222efb
+  - name: model-00043-of-00053.safetensors
+    size: 3608870714
+    sha256: 8556e8837d03da94080e6127750a747af10b9855b4bd4d1417703bd57e2bc26b
+  - name: model-00044-of-00053.safetensors
+    size: 4995448857
+    sha256: ffda3e4c9b0d664a346abcda6b61a90fc2630c89c74a80d1e5f4675fee8511b9
+  - name: model-00045-of-00053.safetensors
+    size: 4985608575
+    sha256: 024967c9c223b93b517f23cef4c287893f3a30138aa2f42908a077e83299c9aa
+  - name: model-00046-of-00053.safetensors
+    size: 4954552992
+    sha256: ca6b389468d18f58957155f5e91a6bd33e378b30e92b323bec7ee2248911b09d
+  - name: model-00047-of-00053.safetensors
+    size: 4985626655
+    sha256: e993d833a030a26dbf946cda2e0acf88c9fe8340499a20f6fb712314d14184d4
+  - name: model-00048-of-00053.safetensors
+    size: 3027807227
+    sha256: 219c41ffbc8a21f2e9e817075d20d7c03406c9db4fb5db665cb2a07b27e9330a
+  - name: model-00049-of-00053.safetensors
+    size: 3608870759
+    sha256: 356bfd033a08f1d6ed75b7aeb00d4fdd4f65122bbd3b42e8bb0844f60bcfc9a7
+  - name: model-00050-of-00053.safetensors
+    size: 3608870755
+    sha256: f038dbfe17f8321f3c10247dabcd9e45e292c39b9c2d2e7348057e4d59725614
+  - name: model-00051-of-00053.safetensors
+    size: 4999380439
+    sha256: ecb9b3964dbf0c5002f5418e5fc579159782704b7243f7babf57fa3fff339c51
+  - name: model-00052-of-00053.safetensors
+    size: 4967329015
+    sha256: 1139d0387ba0dae8112d8ddce96b4a09a83b3795394c43dd67d008aa2910a577
+  - name: model-00053-of-00053.safetensors
+    size: 4899088560
+    sha256: 0bfedd19c93893b13d8c676b998f2208b49540557c5845f6f625bc69437065c2
+  - name: model.safetensors.index.json
+    size: 196079
+    sha256: cf5d05c50ce04258ece0b1d47f9abb9f8ff0eeb62665088042b3088a866714d0
+  - name: quantization_report.json
+    size: 53402
+    sha256: afaffd6a6136b30a01f1385598d7a4508dd797f48cff7cac658222ba923250c6
+  - name: tokenizer.json
+    size: 6367257
+    sha256: c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b
+  - name: tokenizer_config.json
+    size: 801
+    sha256: 6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547
+- repo: beamster/Qwen3.8-Flash-Next-Sushi-4bpw
+  revision: f25c0c4acdc44289a9cc6dab7f0eb788d1125ded
+  archived: true
+  fetch_rate: 25M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 5071
+    sha256: c7d130458b4cafca8e7400c8dbf4e8ed15bb09657878d9fa73689ec9296ec405
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 92519
+    sha256: 08a0cdca437ea94e6e16281d0c884bca670a3bb923cb39293fb0b048d3ca7576
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001.safetensors
+    size: 206184
+    sha256: cf3527984fc98869e587b77791baebb18c6b4e5111a109fa8677bc60eb68aaf8
+  - name: model-00003.safetensors
+    size: 293520
+    sha256: 9bdaff13520d30245eeb3eea67a4fe50aa59ed77e2190534ea4bf0be19b8a528
+  - name: model-00005.safetensors
+    size: 169928
+    sha256: 214cd80bdba88d74f68ff75dcd133c230207b5111ce6aa25d24e27ead70c7c96
+  - name: model-00006.safetensors
+    size: 288768
+    sha256: 5ee222cfaaf85a2cf75527fd5edfa84c848ba3cd1587eff08c4d331a0cf4c1d4
+  - name: model-00008.safetensors
+    size: 210656
+    sha256: f4ad6d724da8df0bccf16e44b18e5701214abad7fa0e24c4820e3c83d24e4a6d
+  - name: model-00010.safetensors
+    size: 295600
+    sha256: 03a1387a4a11e55d75f13d0e869d4cac91986324c20f922ab5e5cd197856e8df
+  - name: model-00012.safetensors
+    size: 293528
+    sha256: 569cd8fe7e11faa1051e8a8ed893e7416794c84b5f941ce8682c2234438c1850
+  - name: model-00014.safetensors
+    size: 293528
+    sha256: b9f84e31f3db5c8b1639f74713237c4bcb67917e1361b83b50b60e2f16ea39f4
+  - name: model-00016.safetensors
+    size: 292728
+    sha256: e78116025414e2ecb5c8253520c273153e224bdcf057db317e74b08013df50b5
+  - name: model-00018.safetensors
+    size: 316216
+    sha256: 19afb931315d168529cb84a54221ac9b16483d4734f83c0c1fbdcfe296d46152
+  - name: model-00020.safetensors
+    size: 293528
+    sha256: 8bfe7bc626837fd65d0de0d5cd113b63d6390ba91d1082d75119e00e25a9ae9f
+  - name: model-00022.safetensors
+    size: 293528
+    sha256: 5ca8ad4f5bad2a60c0a5cd6c972b71727b3df462d75e3b44764fd054581a8ed3
+  - name: model-00024.safetensors
+    size: 210656
+    sha256: 381c821c696315f6494c2f4c3ab94c49dceb9a3ca295fc1c7751c3cf8a13212e
+  - name: model-00026.safetensors
+    size: 295592
+    sha256: c72bcbcf68f2eafa9345d7f45663b466233f71bd8aa068b762955df910fafd25
+  - name: model-00028.safetensors
+    size: 210864
+    sha256: 0d2bad02ed7c9337e61426f8bb7957b3247329d36c320a4f4cd394b4f0540be9
+  - name: model-00029.safetensors
+    size: 82656
+    sha256: cfd7b2e4f74912c5ca4e460a6bd215932dc1095bcf97f697f7ab31f4984571f2
+  - name: model-00031.safetensors
+    size: 293528
+    sha256: 6e8a8ebd034c4e11c803c729bc14d042cd8bcda2824bc9508cf84ddb3fc6b1e4
+  - name: model-00033.safetensors
+    size: 293528
+    sha256: bee40ed497d5d0bc999b273ae665a8d00241d41ef8ca1a78820a576f61609015
+  - name: model-00035.safetensors
+    size: 210656
+    sha256: ef41dc49c139fb71916d99a19228d36a24fc13b6c09a2115730f2e7149788a96
+  - name: model-00037.safetensors
+    size: 295600
+    sha256: ec0d7bd60271954180db75b89d2437030963c50b35c200f80d8954fac55dd2f0
+  - name: model-00039.safetensors
+    size: 298784
+    sha256: 0ac44919a2f4428b2d4f8ee691621e8252ee4201513dcdfda2029895e3696c7e
+  - name: model-00041.safetensors
+    size: 293528
+    sha256: 9d85db66e8e1fdec86ee51333ee56df185dd2628d738342e5ae2e74b211aac22
+  - name: model-00043.safetensors
+    size: 210656
+    sha256: 1b6f4b60e89318ea33a8155fe4bf3f4714feee9a0b81ecdf8bee1e7c508ffb1a
+  - name: model-00045.safetensors
+    size: 295600
+    sha256: 27098f401e088060ac9c32f4e70c2849dab0ed68185c0eb4841406f967505a78
+  - name: model-00047.safetensors
+    size: 375600
+    sha256: 9b5d680d296551f9f7a6332e3c0a2097262a3cb600a660b644d22adfd7304086
+  - name: model-00049.safetensors
+    size: 210648
+    sha256: f251c73b248657a3bd67e2e64e0f4ba97b5746157ae7100f8ceb1e618bef1844
+  - name: model-00051.safetensors
+    size: 316208
+    sha256: d442a72dbecf360289a750fb715f4574dae87a185a3b8812da1687c07dbabeab
+  - name: model-00053.safetensors
+    size: 210656
+    sha256: 4151d7cb8180bb029242ecbe4f8f8a3a48127693ec2393ce641cdb88d3d09b25
+  - name: model-00055.safetensors
+    size: 295600
+    sha256: c9cfc286ec7f78a5f2ebe12b55d3fa6da9bd7b03b28548bc43be81329ef440e1
+  - name: model-00057.safetensors
+    size: 293528
+    sha256: ab103b4f663da5e01f82c86ae52d20c93de8b2ca5a9d5cad49ab1abd564a45c6
+  - name: model-00059.safetensors
+    size: 293528
+    sha256: 555c821cce6fdedf9430d6c9ad05425a1c23115ccb84d3db96f134591e9ad134
+  - name: model-00061.safetensors
+    size: 210656
+    sha256: 3d6ecd1d2df3a857dfa24cc204606695b678e2d1c0f43ece3db6f0aa47d81112
+  - name: model-00063.safetensors
+    size: 295992
+    sha256: 986b2f832dcccc25b644e02be1bacda2b4d2de1e62bb174a4b71c23c69f3bcc9
+  - name: model-00065.safetensors
+    size: 293528
+    sha256: 806f9f0fac332a8bcfcd825f6901e3ab7ffc7bdf44badb8de7aeeac376bdea75
+  - name: model-00067.safetensors
+    size: 293528
+    sha256: 6aa4e96c27cc23ae7564a2ae16e2505ca9718a3d5f689e5390a69d17468b4bb9
+  - name: model-00069.safetensors
+    size: 211048
+    sha256: ca66379816c35db3819d86ad3944fa2e9db056f31cf902f14108ee3e9bf97ca7
+  - name: model-00071.safetensors
+    size: 296224
+    sha256: 867f3134fc72f7d3d7500f052a594ff9ca6e51aca4ce2056d85c5c57640671c8
+  - name: model-00073.safetensors
+    size: 293528
+    sha256: bcd6daaa089477bf32c4b602ef7f8df52e8d1a2369829fc5d5bd314c94fcb0d1
+  - name: model-00075.safetensors
+    size: 293528
+    sha256: eaa8620b6d359fd9a2609ad2474cd33e873d0befb354033842298691b3d8e568
+  - name: model-00077.safetensors
+    size: 293528
+    sha256: c54d11cebec38446a01a3ec627cb26230cc221c8802c193b7eb426306d13f64c
+  - name: model-00079.safetensors
+    size: 210656
+    sha256: 37b534daab8369d8d58f43401129d74d41696a914458eef9932431c6c4f391c1
+  - name: model-00081.safetensors
+    size: 296232
+    sha256: b634f8b5647b3e6f6d11d16f4fbfddacc7fd5eeee9f906eaa484423d79edda43
+  - name: model-00083.safetensors
+    size: 298768
+    sha256: 8e7602de5c5f409cc07e048b48070fdaf92930f888ab38a181ec64f4440fe80c
+  - name: model-00085.safetensors
+    size: 293528
+    sha256: ad310b6c6d2998ef1d8c55fb843fa52573d750203556c1c38d305e0f7bb7cea5
+  - name: model-00087.safetensors
+    size: 231256
+    sha256: 17d7d5cfcc1026e0ac0adf0bf467fc06290bd8d144294258b890c29438f7c408
+  - name: model-00089.safetensors
+    size: 295592
+    sha256: 3fc1008edd79adedbfb6ea13d91a31ca1d033c9a34d261ace1258177f6162ca4
+  - name: model-00091.safetensors
+    size: 293520
+    sha256: 87ff1af6e9f82f7e33798ab0817bb1976cd1a4fa77fc47d0b412457bf263ffde
+  - name: model-00093.safetensors
+    size: 210648
+    sha256: 9a3361a459d6e328e941bbbc968f9985228b6bc3a0570f9b1c11d5e2603d5cb4
+  - name: model-00095.safetensors
+    size: 295584
+    sha256: dfd5a27b850db44f06d650cbe2f251686d32891f1133c5c34353be1247b08e88
+  - name: model-00097.safetensors
+    size: 293520
+    sha256: a9345d698525a19ac91c904b3b3396ca853bbf225317552e288d5956d38ca3cb
+  - name: model-00099.safetensors
+    size: 107952
+    sha256: a5759bde44f8af64f56cda048248d0ac0d99341e75e92ff0aab6e3b1c990cb8f
+  - name: model-embed.safetensors
+    size: 675430752
+    sha256: ddfbf366354752f541e8616ea57987f6a16596ddb65ea8afaf21d788c8f4fea2
+  - name: model-exl3-L00-down.safetensors
+    size: 422708072
+    sha256: c26fc17c6321cf1bdebf2e57bc46be610928562dbb51ee4992a4ba650c8d0dac
+  - name: model-exl3-L00-gate.safetensors
+    size: 422708072
+    sha256: 7e47fca8ef9b4583701fce5da5482a86c9f13ef4b944376a32ca84e20e6e6b36
+  - name: model-exl3-L00-up.safetensors
+    size: 422708064
+    sha256: cadbdce002b96ac98cb3ad89d15cfcc245f7a81e3196149032370574ef5c825b
+  - name: model-exl3-L01-down.safetensors
+    size: 422708072
+    sha256: f88aea3f2f6b86960ca1a3fc75161d82193bf28a54edc982b19b84cce6589973
+  - name: model-exl3-L01-gate.safetensors
+    size: 422708072
+    sha256: dad1cef7a49af2d188b8688324a92bc3464b62e22420859a4314e118ef9ca875
+  - name: model-exl3-L01-up.safetensors
+    size: 422708064
+    sha256: bc570d9d1435dd22ae923846b459f1411a212bd1f5f4d1df1ca1eed77ca0a255
+  - name: model-exl3-L02-down.safetensors
+    size: 422708072
+    sha256: 0c38f9adfb39e73f92599b91314a37512a61cb65e23caa768dd19086dc34673a
+  - name: model-exl3-L02-gate.safetensors
+    size: 422708072
+    sha256: 78b025815ba83df70e902639b5eae231f5af6bafe4d637318c4262b3ac7ff96a
+  - name: model-exl3-L02-up.safetensors
+    size: 422708064
+    sha256: fbeb71030da58382c6fc0cc6855c11b69613240748921320987b103d5fb27da2
+  - name: model-exl3-L03-down.safetensors
+    size: 422708072
+    sha256: 0e39c0ab1053ca88d355921afa24570a69a6f63c0c0c1c7f22d4e7cce7049f7b
+  - name: model-exl3-L03-gate.safetensors
+    size: 422708072
+    sha256: 9de921dab4b51dfcba8342c0ce71bf7040b2d358994ffa5f4c174e469505299d
+  - name: model-exl3-L03-up.safetensors
+    size: 422708064
+    sha256: 824805b6fad858bdf5b4e3b821395dd7f029f7bfe1f555aee0027a9b4b19fd07
+  - name: model-exl3-L04-down.safetensors
+    size: 422708072
+    sha256: e91892e296fec108b645528905da7b4acc488d5b8f7c13404639991a8d9f7efd
+  - name: model-exl3-L04-gate.safetensors
+    size: 422708072
+    sha256: 5835a6360d4cde4e7e71e32b6510f20b1a5db9f5cb7a2a84c1ce4d345be31f0c
+  - name: model-exl3-L04-up.safetensors
+    size: 422708064
+    sha256: f80020d197c4fb6e3cfa4630f72edf47b84691d714290d8df43f575719a05583
+  - name: model-exl3-L05-down.safetensors
+    size: 422708072
+    sha256: fef6e38624d15f1e1bab3fdf406616784f24add5c32bdac9d56f7244d10c36ec
+  - name: model-exl3-L05-gate.safetensors
+    size: 422708072
+    sha256: 7c8b6cbbacb8909352bb9ac6d92d88670f18911f08d378e32dbb28dcb6ce7e06
+  - name: model-exl3-L05-up.safetensors
+    size: 422708064
+    sha256: 9e0cfec6b295fa96a38336d93bd0ceedb0d9c2a6dc5a2e1308608a10c9d0852c
+  - name: model-exl3-L06-down.safetensors
+    size: 422708072
+    sha256: bb9d580d084960d14681f9c6f25be2332e8b920f4f464d2c1b31b342e17342c2
+  - name: model-exl3-L06-gate.safetensors
+    size: 422708072
+    sha256: fb392dc0d281de83f112b2863865899369548194188ff72e016429cf75b4cc57
+  - name: model-exl3-L06-up.safetensors
+    size: 422708064
+    sha256: e50630172b3c17990ca0cc003bb333723b6c1d6bad0c077e799f6da7c28612ac
+  - name: model-exl3-L07-down.safetensors
+    size: 422708072
+    sha256: a0fec3900220d796a82f29a01753a946184871c0f05cbd44d3f6e43e3a57f5ee
+  - name: model-exl3-L07-gate.safetensors
+    size: 422708072
+    sha256: 590f102e543c8709a7e91319a96d5614b53a221c696f5ced460dcacb9b04cc71
+  - name: model-exl3-L07-up.safetensors
+    size: 422708064
+    sha256: 486194cf19df8b8ece00e1a40463140eabf3c6b9b53db87a7d5af90c80dbb5d8
+  - name: model-exl3-L08-down.safetensors
+    size: 422708072
+    sha256: 3c64e88e01714278f13a46bf1e66c059595f3019125198947eb0fd65d1e59f32
+  - name: model-exl3-L08-gate.safetensors
+    size: 422708072
+    sha256: 727925da6b2d6889a00077e0acfaa82885635ea2aedb5388f4cb8fcdcc013372
+  - name: model-exl3-L08-up.safetensors
+    size: 422708064
+    sha256: b29f1019a7f9e18850285ffa48ca188d2407f577049a0323877aa5e2dc3a9af7
+  - name: model-exl3-L09-down.safetensors
+    size: 422708072
+    sha256: 14c089608f3edea445ce35c5d0a78ea1d92871c54af4de8c78a6e6c09fb52355
+  - name: model-exl3-L09-gate.safetensors
+    size: 422708072
+    sha256: 01b2d79ec7fcc1ad674f1b922b6f8ebe32f780a33792a893c232377647ed953a
+  - name: model-exl3-L09-up.safetensors
+    size: 422708064
+    sha256: e615143a084a6a2acd984e42212d0cbe5ee0a8c91872f6b07fbf3d09b32cfbee
+  - name: model-exl3-L10-down.safetensors
+    size: 422708072
+    sha256: 7b6e2681d7f61cb474aad1860ca0669f03d92af7d485e09a8a361c997140c24e
+  - name: model-exl3-L10-gate.safetensors
+    size: 422708072
+    sha256: abfdd70150048a18bb7fe9748913073ea101c94f6cc1761f03e8cf56cb3c08e9
+  - name: model-exl3-L10-up.safetensors
+    size: 422708072
+    sha256: b97fb7977c2f88114f6b5c2c9953f46d04740048c60afc3977894a5a42513a66
+  - name: model-exl3-L11-down.safetensors
+    size: 422708072
+    sha256: 43b72c37d2b20f05971b7ac9428bcff3ae3ef7c2969e6044bd231f3a9a102d25
+  - name: model-exl3-L11-gate.safetensors
+    size: 422708072
+    sha256: c3e459e8f782102d90339cd66ae7d0f1076f531b2707d403f7f080f5111fc89b
+  - name: model-exl3-L11-up.safetensors
+    size: 422708072
+    sha256: 343e5a9f1b5e75447c12780d102219910a5ceaa782b1d4eab71e2c6419fe2d45
+  - name: model-exl3-L12-down.safetensors
+    size: 422708072
+    sha256: 4452d61265f42426740091ddf9b87252b16175e5a38bb6c666d1e825c8ab4cd1
+  - name: model-exl3-L12-gate.safetensors
+    size: 422708072
+    sha256: f74f1e6d85286a309dad9c743ebcb407aca58b0af90a91da74a95c7ef0ea17ad
+  - name: model-exl3-L12-up.safetensors
+    size: 422708072
+    sha256: 726307519b04c25137a655edf02a269be89a78558d8d78c36f127fcd67e57c26
+  - name: model-exl3-L13-down.safetensors
+    size: 422708072
+    sha256: cfe7f64d172bb7b9674dcf8a30d2f31a5c193d99993391914ad8b1fee70d7de0
+  - name: model-exl3-L13-gate.safetensors
+    size: 422708072
+    sha256: e40a81d7d36daed12189c4784f7fd86e92508595293349fdcc527dd859b86cee
+  - name: model-exl3-L13-up.safetensors
+    size: 422708072
+    sha256: f6a0c272db75f6c32520af30817549a81d69bd568d0a14a3980c9d4d54023c32
+  - name: model-exl3-L14-down.safetensors
+    size: 422708072
+    sha256: 756b1755450493f345c55c1e2a63a50a3ddd3b8d735a9854b61f995fbca0018d
+  - name: model-exl3-L14-gate.safetensors
+    size: 422708072
+    sha256: c9b12f45468bab45d62f1a295b80d1f21b615404d2089df6c386f7a6c3309883
+  - name: model-exl3-L14-up.safetensors
+    size: 422708072
+    sha256: 99fba917612d2d38dca76035341bdad397df1f4fb772c24846cb35001820925d
+  - name: model-exl3-L15-down.safetensors
+    size: 422708072
+    sha256: 4d953fa22a6b083306c1eec60306633fc4d6b5072a27e6dabc829fc8c6fc55a7
+  - name: model-exl3-L15-gate.safetensors
+    size: 422708072
+    sha256: ae889f30b432431d887fd17ba148ff03f8f0443edc4fd330683048cc16007259
+  - name: model-exl3-L15-up.safetensors
+    size: 422708072
+    sha256: 5883bcec6d61b188701c6afb4bffbea019d78f702129415cca2cb74ce0d9c364
+  - name: model-exl3-L16-down.safetensors
+    size: 422708072
+    sha256: e673d34311e52b54ada661f2ef5ee69e631e3d6ea82fc71934824704f6ac8525
+  - name: model-exl3-L16-gate.safetensors
+    size: 422708072
+    sha256: 28cc1631170b0ef2fab33e0d4e8012438589304c50de8caa28d162bdf5a1d08d
+  - name: model-exl3-L16-up.safetensors
+    size: 422708072
+    sha256: 0249db93d13b0555ba371bd9f26d6fabc101bab4338d366dc3ba0121a3b2ae92
+  - name: model-exl3-L17-down.safetensors
+    size: 422708072
+    sha256: 3fb27c05b9e9c4d9c532487dae351d86d731678cc8619f0ce29d127e3406ac94
+  - name: model-exl3-L17-gate.safetensors
+    size: 422708072
+    sha256: 6d0e96fa1f9fa1dd51caa6017bad76adc1729e353d5ac612d84342b5216d2be6
+  - name: model-exl3-L17-up.safetensors
+    size: 422708072
+    sha256: f76a6c5f82179078d04c554917d7be9caa865831a278d0b2fa8797942ecd31c9
+  - name: model-exl3-L18-down.safetensors
+    size: 422708072
+    sha256: fbbd405f561281dc26690be2fe8c71f8f11922cc31e37f9da55a215dcb7806f8
+  - name: model-exl3-L18-gate.safetensors
+    size: 422708072
+    sha256: 49520966f7eb4d50781f07a164c0ab2c1e2c5ee58e3b5430e594451cbb7093a5
+  - name: model-exl3-L18-up.safetensors
+    size: 422708072
+    sha256: a45fa607258c39bc6088df64d85a39f72691309d2740e340a0aa995992e7ea14
+  - name: model-exl3-L19-down.safetensors
+    size: 422708072
+    sha256: 00610f140b6f0af1a6b7f81eed86e5a224ad5bfb0d4e9c2d5a07a1b883aaa6d3
+  - name: model-exl3-L19-gate.safetensors
+    size: 422708072
+    sha256: 17406e42189a81d88bb39cdb09321e13e9d0f052aa357e7a12e6fba250901e7c
+  - name: model-exl3-L19-up.safetensors
+    size: 422708072
+    sha256: 3b62e3937aa64c3197db3b01f9c09348858db5bf07f7336b8535a3eb63efde19
+  - name: model-exl3-L20-down.safetensors
+    size: 422708072
+    sha256: 2c7ef80b8356a1f00ab62bb2c937cbaea1ae35c5fdaef06079cf07e5603790c6
+  - name: model-exl3-L20-gate.safetensors
+    size: 422708072
+    sha256: 4146c47a3e09ebc35ba02703f9c14b3a0b92a4d85a39a6e09c7f0645f14fbd6d
+  - name: model-exl3-L20-up.safetensors
+    size: 422708072
+    sha256: 4f2983b9035614365cfe02aca146ec5b3df19ba51f66c2e89de570b8ecc62ba0
+  - name: model-exl3-L21-down.safetensors
+    size: 422708072
+    sha256: 1b61a7d169d0be7700a7774827a9509b313deb773a3cf0e648c43df3d53c87de
+  - name: model-exl3-L21-gate.safetensors
+    size: 422708072
+    sha256: a23d667522662006cc837a801997f8957b7c85173e2059f5ed6a9c83e56dbcf9
+  - name: model-exl3-L21-up.safetensors
+    size: 422708072
+    sha256: 2be95768318efa0384eeb1990a853495f643614e38034358a0e8d5684aed7a69
+  - name: model-exl3-L22-down.safetensors
+    size: 422708072
+    sha256: 0bbf501813cc7371ad455462ee8437829cc3195a818946edea778e41984c2975
+  - name: model-exl3-L22-gate.safetensors
+    size: 422708072
+    sha256: c20cfbb5f84e34c21f77adb37e17914aef006782e836a2e49c2627844fa3ac65
+  - name: model-exl3-L22-up.safetensors
+    size: 422708072
+    sha256: 0b3837230c7f77dc23ba3a098ca7f6f121f0e6b10219d5fff37be96a19b97dd6
+  - name: model-exl3-L23-down.safetensors
+    size: 422708072
+    sha256: bbbc4432343a2d4081b606e44ecc6fc2e0b1f6e95f6865734ffc94efed41a724
+  - name: model-exl3-L23-gate.safetensors
+    size: 422708072
+    sha256: afac8c44c6ccab368f7259789e4855e3205b4a1ec945eb5a707259e446d1eea5
+  - name: model-exl3-L23-up.safetensors
+    size: 422708072
+    sha256: f940a1614fd55ff7db1e895d46470533ac2f61e25cf0d952a8480206af4aae71
+  - name: model-exl3-L24-down.safetensors
+    size: 422708072
+    sha256: 48ae5eed0a180fe4cf0c3434d2d268119f3927d80cb430b8659d3f9a8c6a355f
+  - name: model-exl3-L24-gate.safetensors
+    size: 422708072
+    sha256: a86bf142db97103d5001aaf731796fdfb94bf6584f6a09d9b1bfde1f681a170e
+  - name: model-exl3-L24-up.safetensors
+    size: 422708072
+    sha256: 9319c4af58e72a2d4b0556682e07258f39823a708c0cb05f451e24303328ed37
+  - name: model-exl3-L25-down.safetensors
+    size: 422708072
+    sha256: 70f034cebe5cb6d2ec7909c2339d9ccc5886c2b6afbc8f60db79d7d848903e78
+  - name: model-exl3-L25-gate.safetensors
+    size: 422708072
+    sha256: 9bb8aef36f0feacb87a127bfe7010df4157b8785934643e033ac958e75366899
+  - name: model-exl3-L25-up.safetensors
+    size: 422708072
+    sha256: d6f5fc140e4b9f3817c8d8fef81081e5a512390b719c60b9be0cfc84cf40022f
+  - name: model-exl3-L26-down.safetensors
+    size: 422708072
+    sha256: 6569670d286e3827523c5aa8a72181793e411162e398f6f9545a7b6caa98d0d0
+  - name: model-exl3-L26-gate.safetensors
+    size: 422708072
+    sha256: c7b2ee9f5fbd051be4bfd715deff1a0d18cec5323d5a48cd1c95099b90dd9de3
+  - name: model-exl3-L26-up.safetensors
+    size: 422708072
+    sha256: 41dfa6f32c8a011645c69b1b2d6aebff082de46e525543fcbd58d0cf9b6762bf
+  - name: model-exl3-L27-down.safetensors
+    size: 422708072
+    sha256: 342e4fa20f19c9abc7209cb053db90bd0c6db983dd90be867e7c12341a1bdfee
+  - name: model-exl3-L27-gate.safetensors
+    size: 422708072
+    sha256: 91641efab6cb56425535631118b0b4a0e9a427123e53d1561bb4af0f13a0d273
+  - name: model-exl3-L27-up.safetensors
+    size: 422708072
+    sha256: 51dcf075e664a9562c69296246e52b15b6d53cf8ffed58d9998663a3e0ab6c13
+  - name: model-exl3-L28-down.safetensors
+    size: 422708072
+    sha256: 0d496781bb152de71e3ae0fa8223b51c738417204ad287d088aca637b36f7fcb
+  - name: model-exl3-L28-gate.safetensors
+    size: 422708072
+    sha256: 43ba4dde2c1915302d0306847196b79140d5181adb30a080581f751d51ac2cfe
+  - name: model-exl3-L28-up.safetensors
+    size: 422708072
+    sha256: 2125bf18030903ab884d50d6aa5dcd02438b0d3c83db9e356dfba03b5435bec6
+  - name: model-exl3-L29-down.safetensors
+    size: 422708072
+    sha256: 8a4c082e07800482905d1eab3f62a8b9d1e5f3085de3d570fe7ea705c7f56c60
+  - name: model-exl3-L29-gate.safetensors
+    size: 422708072
+    sha256: 0f0d50ba3b643c0a8aa3797ec404d1897e2954f8d8adb0e4f820f49fc850bf49
+  - name: model-exl3-L29-up.safetensors
+    size: 422708072
+    sha256: 7cdd3d115d5ecead53cfca20beca734e755ba7d22b7c9973c04f9779d479e5ef
+  - name: model-exl3-L30-down.safetensors
+    size: 422708072
+    sha256: 7a1bbbf9cc3f46f9948f2e5639127cac860fa4f05bc0329ebba1d46f063e863e
+  - name: model-exl3-L30-gate.safetensors
+    size: 422708072
+    sha256: 832991051ae3481edbca4057f9413aa6d1700fb073ca9e33d6bd54204d587d60
+  - name: model-exl3-L30-up.safetensors
+    size: 422708072
+    sha256: a4bbc59fdd074255eb422cb1107f899126167f392d901c4d9c33b2cf1c8f1198
+  - name: model-exl3-L31-down.safetensors
+    size: 422708072
+    sha256: 0dcf93be6dbc242941ab33c2c2648fa092eb9e9d12681ed14ed26309a7238ff9
+  - name: model-exl3-L31-gate.safetensors
+    size: 422708072
+    sha256: 21431fac4b5f8b46d2f68118025364367c2e6325d49b20bc151bff7a9b955d26
+  - name: model-exl3-L31-up.safetensors
+    size: 422708072
+    sha256: 7c52b090b91bf02e3c05b2297a452b6bb1ea90a7034966399b063015958d467f
+  - name: model-exl3-L32-down.safetensors
+    size: 422708072
+    sha256: 34784dbc0aef86bef077d5ca899a9f307035be95ca7fd5e03d0607dfec68e689
+  - name: model-exl3-L32-gate.safetensors
+    size: 422708072
+    sha256: 3710ddbd1bcced8a22cb88ff886c595351c950cc4c245f76d77008e0b567e849
+  - name: model-exl3-L32-up.safetensors
+    size: 422708072
+    sha256: 306c210e48917506c0d527f2bd87e7c695ba5ff6043b44c14bacd75e021ce121
+  - name: model-exl3-L33-down.safetensors
+    size: 422708072
+    sha256: 6709ccdeaa4297472f280483b01add1122dc8d9fcf2c23640e6b0bfecd01ecc8
+  - name: model-exl3-L33-gate.safetensors
+    size: 422708072
+    sha256: 96c9b6d6e222ec9e5736079da03d219c6b95738b5d34df0d404ffad14ff167ce
+  - name: model-exl3-L33-up.safetensors
+    size: 422708072
+    sha256: ba78372a1b16bb533b37c07c9e5290c09e774068890b24f13063876447765047
+  - name: model-exl3-L34-down.safetensors
+    size: 422708072
+    sha256: 27a44331158ff08354c12d262b8c9c792a9eb3c083734886986c714d799ca95b
+  - name: model-exl3-L34-gate.safetensors
+    size: 422708072
+    sha256: 52b34e7e30f7ab4bad6cf39fa50a3ffbd969a8360a6f25a4b6cb7ff5a57683db
+  - name: model-exl3-L34-up.safetensors
+    size: 422708072
+    sha256: 3b6c118f66dcb9dbf7cb6d0ad0903e362b010de13db37536f68a70edf51fdea9
+  - name: model-exl3-L35-down.safetensors
+    size: 422708072
+    sha256: 44eb6bc02ac36b10dd041d16841384ee2c06bb285b5a8bf1883e0096db6c2a48
+  - name: model-exl3-L35-gate.safetensors
+    size: 422708072
+    sha256: 8e46a7eba8713ee5e2b211019c9fbf983c1a08d11880f191f6f484c515d4521d
+  - name: model-exl3-L35-up.safetensors
+    size: 422708072
+    sha256: cef92970ebc20129ab7f81888b20c97b42a9ccc14d701e27937f78830a0d2b19
+  - name: model-exl3-L36-down.safetensors
+    size: 422708072
+    sha256: 1ac3c16aab4f596509019f6755f068c167393a5b3448ab746e2a34157333b2cc
+  - name: model-exl3-L36-gate.safetensors
+    size: 422708072
+    sha256: ebb048148d3a913fb84322dcf4ff83cc9610b8a3d896bca5f76b1a886c05b5b7
+  - name: model-exl3-L36-up.safetensors
+    size: 422708072
+    sha256: 8cc004de5d0fa2a78e86f9f17b33a6fc7db83fe5502c402149692ff18099995f
+  - name: model-exl3-L37-down.safetensors
+    size: 422708072
+    sha256: dc0130aff4d7ac9b99b351f3e4ab2782defd8dc4e3fb765ef426da8a53c6baad
+  - name: model-exl3-L37-gate.safetensors
+    size: 422708072
+    sha256: 937bdca59031bbf8a54a67e1d8040afcec4ca96698a0f39df202658b4326e288
+  - name: model-exl3-L37-up.safetensors
+    size: 422708072
+    sha256: 436462933c67b2bb47470e0184b366e6d783ed53d20369310e9680fc3bdf44f1
+  - name: model-exl3-L38-down.safetensors
+    size: 422708072
+    sha256: 1e0048d8ec7916581a115afff7c96f4b65c3231ed6d23da4e92489a89a585a0d
+  - name: model-exl3-L38-gate.safetensors
+    size: 422708072
+    sha256: 43a0607a0f3dbd70119cbf7c996c3d51e48d029f20bc76bffa728e8ea668520b
+  - name: model-exl3-L38-up.safetensors
+    size: 422708072
+    sha256: a1263c3548fcd9e2f80c230e4b7027abe66548d69905e8094f1a37830c5f653d
+  - name: model-exl3-L39-down.safetensors
+    size: 422708072
+    sha256: c827b57a78b572ed1234ebe3da48c8cf22848cf4bb8d846ace0427a13f295cda
+  - name: model-exl3-L39-gate.safetensors
+    size: 422708072
+    sha256: 4eec08e4e20b8d8ab9a0b82c29df6deb1c0799015c68ddbaee6f5c4afefbf132
+  - name: model-exl3-L39-up.safetensors
+    size: 422708072
+    sha256: 25bbbe196280682996bee49837af9909e341f839c0bbcde90543c1ce8523d9bb
+  - name: model-exl3-L40-down.safetensors
+    size: 422708072
+    sha256: a7660b6548cf7c3d98225b28eaf8247bbd05f780c7da1146313203a7386eca75
+  - name: model-exl3-L40-gate.safetensors
+    size: 422708072
+    sha256: a528ef5232c66f59a00a1dc34ab6b4a87456ff04c9a0d8ad64a08af36ad9a34a
+  - name: model-exl3-L40-up.safetensors
+    size: 422708072
+    sha256: 6b1390d1069045db48e7e2958595e7f438684b8c1246a3d5ed0eaea1b5ba44a0
+  - name: model-exl3-L41-down.safetensors
+    size: 422708072
+    sha256: 2c89eb315c07708c0fc39c065bd0cca44feb733ac461cdefacad5e92fb3e14b2
+  - name: model-exl3-L41-gate.safetensors
+    size: 422708072
+    sha256: f6be8a5e3102e10cf231294669a6a75436729c926bcaf2955ca6949d0a32bf66
+  - name: model-exl3-L41-up.safetensors
+    size: 422708072
+    sha256: 17ff33d058effb7f652e962f6b2c3a9fcce9e768a5bb2a549994176665017164
+  - name: model-exl3-L42-down.safetensors
+    size: 422708072
+    sha256: 8c1efb3d2440f2886cc79c3c2bd36b670de1241e18d9cdd1e4cd3a5bc6906191
+  - name: model-exl3-L42-gate.safetensors
+    size: 422708072
+    sha256: 4a92e73fda2cc6353532f31f837b4b15746d89efaf407d82b7b8e34edf62e2b2
+  - name: model-exl3-L42-up.safetensors
+    size: 422708072
+    sha256: 5a84c959025b3b7aaf11fb608f82d038c17eef3f30e38ef63f721b461b509abb
+  - name: model-exl3-L43-down.safetensors
+    size: 422708072
+    sha256: 6b14bc25c9f6bf0912367615a26f7611bda8ecf19b1875ab74368870aaf07dbe
+  - name: model-exl3-L43-gate.safetensors
+    size: 422708072
+    sha256: 5e9ad1326a87c3f1aeff5fbe0459f6e7d8029ac31f15dbdc4082e9b8b1f71514
+  - name: model-exl3-L43-up.safetensors
+    size: 422708072
+    sha256: 4089fc98c0f7e3b13f8e42289f2050679299a6d284cd3e63a543e2cfb57653a7
+  - name: model-exl3-L44-down.safetensors
+    size: 422708072
+    sha256: fe4bc642a108a2b02ec2d45aad3a6f0d2d7c3b11435a5f4de6cc10f40fdc65b3
+  - name: model-exl3-L44-gate.safetensors
+    size: 422708072
+    sha256: 73459f55a4f8c9e673b9b2e7a1330df7caf744836f7e481e2dff780c57d590f1
+  - name: model-exl3-L44-up.safetensors
+    size: 422708072
+    sha256: 3ed36d61afa19c047c54ce464653b57c225b66a48b2dc2f2fb21aa4a32942c18
+  - name: model-exl3-L45-down.safetensors
+    size: 422708072
+    sha256: 3fa30bd8c98f47ff7fbf888d49397ea0d7b1d65341d5eb0b816d5e438439d4a4
+  - name: model-exl3-L45-gate.safetensors
+    size: 422708072
+    sha256: c87e00bb711972566b2e95c9b39a2c81d90765058c6b2cf6c0aa647f0f43ff18
+  - name: model-exl3-L45-up.safetensors
+    size: 422708072
+    sha256: 40fcb83d4c99c77599eaa1bc0cc88fe321a634f8f20e53a9ea8bc06ddd5d3e58
+  - name: model-exl3-L46-down.safetensors
+    size: 422708072
+    sha256: 288a97299c3c9e8c6a2008c6fea6cbc58e0093e3eb48786e7650398c745ed3ff
+  - name: model-exl3-L46-gate.safetensors
+    size: 422708072
+    sha256: fa9bd6789d12193569c5910bd270b20424b7267b6eace92ee611d0ae2818747e
+  - name: model-exl3-L46-up.safetensors
+    size: 422708072
+    sha256: 832fc85080873d54894dd490e4766578a59961abec30ea1bd6ebd4da6be5f755
+  - name: model-exl3-L47-down.safetensors
+    size: 422708072
+    sha256: d18ba75932cb1e2b04bfbed48bad68ed513054350d0b42930fa0c2fbe342cd69
+  - name: model-exl3-L47-gate.safetensors
+    size: 422708072
+    sha256: 5b42a7b67b9c6b841e3c4fc99e3f8cba6a53bb31c561d788b82cf4ff178b9610
+  - name: model-exl3-L47-up.safetensors
+    size: 422708072
+    sha256: 1b2b0f014291ad0fbb2229a3ee8a9727713f4377e4c586b5a040478639f6db86
+  - name: model-exl3-mtp-L00-down.safetensors
+    size: 422708064
+    sha256: a652162141c871816a1e2f98cc0b60780846c4bf62302d27e650478c1a6230da
+  - name: model-exl3-mtp-L00-gate.safetensors
+    size: 422708064
+    sha256: fd5760597b425357600d2381367bb0f6cc17035e03697fbba02f2bf038496d87
+  - name: model-exl3-mtp-L00-up.safetensors
+    size: 422708064
+    sha256: b34c730911d4b30010920a3badb314b5a8fafe101ad8b85df09b9be00d1910a9
+  - name: model-lm-head.safetensors
+    size: 655565120
+    sha256: 35301f12933d935240aa9115985242a745273a6ac21d3caa3b382a61a8183105
+  - name: model-mtp.safetensors
+    size: 96058152
+    sha256: e303680b6e7d4814a24bb8f705ecc9e9539cbdb414843dc09b9da340749202c2
+  - name: model-trunk-00001-of-00002.safetensors
+    size: 2393244130
+    sha256: 538c3c5435096912d4544468d934603e5dd8df1dc1cd80ef9b9658b8bdc2ddc6
+  - name: model-trunk-00002-of-00002.safetensors
+    size: 2408600368
+    sha256: 8896131ef9becdde4261dbe2313437dcefe423904a40f891fac85545ca158f70
+  - name: model.safetensors.index.json
+    size: 331165
+    sha256: b76a06c532138ac35e916f73d21cb1011dcb2edcfdbae5e451ca5816948151f2
+  - name: ngram_table.bin
+    size: 102400491704
+    sha256: 387f988eef8d8d16adc08b46545601090b757ce17d5849975307234480609a14
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003
+- repo: beamster/Qwen3.8-Flash-Next-Sushi-STQ-2.75bpw
+  revision: 9f32dc5cff726783366443cd732c2ee6138bfade
+  archived: true
+  fetch_rate: 25M
+  fetch_workers: 8
+  files:
+  - name: LICENSE
+    size: 3235
+    sha256: a0dc422560841fd68e06d974907f8b4c709bca44a67daad2b528437bdf676c08
+  - name: README.md
+    size: 4027
+    sha256: a7063efd2723d54f68ca3755ba98beb2242abae2b683508213fff02941e9f060
+  - name: chat_template.jinja
+    size: 8952
+    sha256: c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041
+  - name: config.json
+    size: 25970
+    sha256: 7186ac5aec9ff3d6c7ed7e9eecd8dae0320edd63eb094433b6b3fc3ee109a6a4
+  - name: generation_config.json
+    size: 202
+    sha256: e70c136c1b78ddc1fb0905bac8e733a4dc448d4f852a5dd75143fffc70be550e
+  - name: layer-0.safetensors
+    size: 760253368
+    sha256: 3b42b58292b0304c387c48c705a54434aae8067d040ccd6aacccb6e465a7500f
+  - name: layer-1.safetensors
+    size: 825713792
+    sha256: 38245b511f738ee3dd1ebf9eadca8bae0e3548f57a0e3501ba10481aa94b88f3
+  - name: layer-10.safetensors
+    size: 850622688
+    sha256: 15f26f6afbbebabe22246245e03259482f3d490109e50192348e6ec80a2c66be
+  - name: layer-11.safetensors
+    size: 846449888
+    sha256: 328a99a9a0ba90c21838ca2fbf487a5c5050040dd8083f4371352781862ed141
+  - name: layer-12.safetensors
+    size: 881698624
+    sha256: cd80fa61c7a7e03ca6f9a124f71c5e343c706cecfeecd2ddef8ce9e4fa8a93cc
+  - name: layer-13.safetensors
+    size: 851800288
+    sha256: a274f1c8b3e3ae398eb090fcd164a18997111cb60589ead80ca5aa09f1527287
+  - name: layer-14.safetensors
+    size: 858558688
+    sha256: d3b7da5bf9114f6076fd0912d3a382dea174f333ea1e71c26db1006290d3138c
+  - name: layer-15.safetensors
+    size: 833290248
+    sha256: 9d2ab9665475dcf6c7e39923c910115bdf47416a71c17af71a3ad52e691453ef
+  - name: layer-16.safetensors
+    size: 853795848
+    sha256: f171733fe8575e5e0b9a851441e461bfc324374b74bb215f37b40a99bafaf804
+  - name: layer-17.safetensors
+    size: 871433016
+    sha256: 276eeff1903dc618b5daae4aca2ee413d4991af4297f85b7f16854a5733b705e
+  - name: layer-18.safetensors
+    size: 891811864
+    sha256: a8e5c277ad783952ba6f6dd6d9ea6e982b33175abd242055b3abfa5a58888f3f
+  - name: layer-19.safetensors
+    size: 857583416
+    sha256: 622575e5b9c0c1c472711a7c9f7e58c678304f7e8cf82477af10ee2ade52b6b0
+  - name: layer-2.safetensors
+    size: 857945432
+    sha256: 01f60e3dd2cf8eecbb16df330ddc7a11c9d3a98f4fea3081aa32da28a44effd5
+  - name: layer-20.safetensors
+    size: 874172216
+    sha256: e5e520b1985e7b8be98d2b86a862a17f0ae57233241f950cba95354ebab9fca2
+  - name: layer-21.safetensors
+    size: 954864664
+    sha256: c366fe346a799b189d8ce406f0212e87efa6acd31b001aaced7f7f6b749821a6
+  - name: layer-22.safetensors
+    size: 965743440
+    sha256: 007da8b2030f7eccd6c42415a43a7f6dd0df93343c069f3f11f6172a9da75de7
+  - name: layer-23.safetensors
+    size: 836208640
+    sha256: 6cf485fcf3881f6f249f6b85630473ffb910cf38e57f76ebf2d753e3c2f8403b
+  - name: layer-24.safetensors
+    size: 903383056
+    sha256: d761b2833759ae77ca01f89f6e2782f63148ab33cbcddc7ef7f0251eceece0a0
+  - name: layer-25.safetensors
+    size: 884284216
+    sha256: 66173e047f8fd7c8d440970d442964dcbc20d2208f1adffce9f7eeae94665bb6
+  - name: layer-26.safetensors
+    size: 911115496
+    sha256: a34ffb5ccfb88d1d033ed0df91725ebcd9f9b35c9837750979e84a0a04d0c7d9
+  - name: layer-27.safetensors
+    size: 871023416
+    sha256: 01ecf303ad56da726cfaa4b107e18612950badb076b405693a5d9ea4bf7a006a
+  - name: layer-28.safetensors
+    size: 915056656
+    sha256: 636b57b4644b95b41614d059e14060a164d187f7b1b93bd114892a72de9281d8
+  - name: layer-29.safetensors
+    size: 882748216
+    sha256: 4f401b159ee05212e87e47c902852b58b745eed388405af7bbd4ed4336adc482
+  - name: layer-3.safetensors
+    size: 846347416
+    sha256: 68a61a5f53128440992fe152535ade468015f8330bd77d5fb694f4401ae0622c
+  - name: layer-30.safetensors
+    size: 871664672
+    sha256: ad0a377d704d8bdf64745941bd8f5a6c5fc311e99be48233b57e92bd208a37cb
+  - name: layer-31.safetensors
+    size: 829218616
+    sha256: 36ed29e13aacfb904e33012de4006c0353b9f49c808b9b4f47b5386aa5484f92
+  - name: layer-32.safetensors
+    size: 853845816
+    sha256: f68d066ce4cf5d2e9cc6c8714580762ee2616e3ccd4bb56815425c0f97c0f549
+  - name: layer-33.safetensors
+    size: 891529016
+    sha256: 450ea6abdc619323e54793f4efb791108f81b335cc156a2ccbfd5228fa0bd67d
+  - name: layer-34.safetensors
+    size: 934487056
+    sha256: 48bcb0fcc205b56bb356bd6489af7232a261156e77a838f2217182d424c3e00e
+  - name: layer-35.safetensors
+    size: 874325816
+    sha256: f7fbaeca5bcbb82af4aec9d53eaae2ef1667db9e509c7a2c035319c434f1006a
+  - name: layer-36.safetensors
+    size: 883056664
+    sha256: 4cbd372aed0b081d4873ae25428499d9eac2bb627378565531c7a6c763084a80
+  - name: layer-37.safetensors
+    size: 931877088
+    sha256: fb561acd0edc564a4a7d52721657c14d1cf798087d3f53ec10d139ea19e5dfbe
+  - name: layer-38.safetensors
+    size: 955785024
+    sha256: 3a8f71b6ed6564061e3f55add7712a046e5e03ea552f57b2b7937c51a76d5955
+  - name: layer-39.safetensors
+    size: 865776648
+    sha256: e5ac8e64a0fcafcc1c600b16eb1bd82780902426030eeec180618bb3a0451585
+  - name: layer-4.safetensors
+    size: 847883400
+    sha256: 63114869fbb38f5ef0ea19ab4e9128e59f153e10e6f94dca629250f66c5cadcb
+  - name: layer-40.safetensors
+    size: 871024648
+    sha256: 10d09f3b6dc38e59065da99ab7ad8965c0019ed44acc8ab03145bd47cb4ad0d7
+  - name: layer-41.safetensors
+    size: 917950688
+    sha256: 86b54eafa97a1d97be62711c12b78fa9e61f4ac314e490eb169df477ec325c03
+  - name: layer-42.safetensors
+    size: 920407056
+    sha256: 6cf92759a1d875177e10624c3543a67f5a079ba861c95ad6a10678411d759670
+  - name: layer-43.safetensors
+    size: 885720280
+    sha256: b9c2891ffd20f1c7b2cd08b15af21836b597dcf1256d16bd02d0d56ba4700f8a
+  - name: layer-44.safetensors
+    size: 895475112
+    sha256: 31d959ba1a3707fc9fca70312a6bbabaaaf0314cb10b23e94a3d4e232092c888
+  - name: layer-45.safetensors
+    size: 881036712
+    sha256: df33c09bd2dc5db08b046a42389fe8a8f069377a79b556011c5abfd24e87fec6
+  - name: layer-46.safetensors
+    size: 853464280
+    sha256: 0181b73af3aa706655fbcc268fd69c3b0a897a8ad776298bd0085510b2f062b4
+  - name: layer-47.safetensors
+    size: 854029952
+    sha256: f2b016612e07555d0b719ddddb5abb9e9bdcb9069dd3767458e3835bd81145ab
+  - name: layer-5.safetensors
+    size: 838872208
+    sha256: 3eaa00c2407a692f8c90bcc2c53f8bf8bb36d5559fe9f8fb372d88fdf38bcef0
+  - name: layer-6.safetensors
+    size: 878347416
+    sha256: 910958899900fb34f881b7062a870ca33147208e97db23dd2bc0127615aa0c70
+  - name: layer-7.safetensors
+    size: 893016200
+    sha256: d6aa07fd8905cec5d5ab858b5aa57e7ba99cd58a7c393d519ead514d3c205be4
+  - name: layer-8.safetensors
+    size: 830373016
+    sha256: e543d2addd5643fc75a963cd8c57432ac0cba0072247d1c382d27e69bc11566d
+  - name: layer-9.safetensors
+    size: 850878608
+    sha256: 30e5c5b0af4d76bbcc197eff78af597c3f8e0cf261553d1b1f1e78e0baeb9008
+  - name: merges.txt
+    size: 3353259
+    sha256: a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d
+  - name: model-00001.safetensors
+    size: 206168
+    sha256: d8765653e9667d3d88917f91dbcfd0c720d44bf5824ef9db4cbd670bf6264d82
+  - name: model-00003.safetensors
+    size: 293480
+    sha256: c54445d97053551e570dc42460a183aedfb30139b3005a9e46563c452fec190c
+  - name: model-00005.safetensors
+    size: 169904
+    sha256: 63cb12bd96a88282d82aa4d5be33be0ebb5c107e170ac2cba07112a84d95d37d
+  - name: model-00006.safetensors
+    size: 288720
+    sha256: 4be9837a80525047a3403eac50c4da776de99fd475e021dfd4d08e54f050afdd
+  - name: model-00008.safetensors
+    size: 210648
+    sha256: 0310e1bc0a3e4a42bb13ba56300bfa42e91cb95ca8a8afd6ec6f38ed2e511a69
+  - name: model-00010.safetensors
+    size: 295528
+    sha256: cb09530aa4d02bd0ed89cbe2e08decf366184dc73704c4d262e2da6d531aa399
+  - name: model-00012.safetensors
+    size: 293488
+    sha256: 471a32755920bb44ace8c8841cc7f962966e293936b6f34a6e740d6394a3d410
+  - name: model-00014.safetensors
+    size: 293488
+    sha256: 27549cc0f212817051901550bf725f882a53441c97cfd3fd3ab2d926a6f01973
+  - name: model-00016.safetensors
+    size: 292712
+    sha256: bee2a23f6d8e8057f26c0b024df02a715fc347c31dcaa2a71cb9c6d38cf56788
+  - name: model-00018.safetensors
+    size: 316136
+    sha256: 271c0fc525488e3ba65eb970d101b0cd75c0b374fcafb6053e893c0d3d201299
+  - name: model-00020.safetensors
+    size: 293488
+    sha256: 792ad00937e2cf93dc79fb724beab7d658d22dbd17eeb06760b8415100749127
+  - name: model-00022.safetensors
+    size: 293488
+    sha256: 31d0d303e3b948e4687e46eb35a76e62a671db580a68f26a0c2fef9b6b3f02df
+  - name: model-00024.safetensors
+    size: 210648
+    sha256: 8fc0517471d6c9f27dc8136c9019170468d19fd34185dbd3024ac662ffa3c89b
+  - name: model-00026.safetensors
+    size: 295520
+    sha256: d0a1c70ad3f7c68f2e336ccb00a92f7ec2f58b80238b627d051fcae2287d34fb
+  - name: model-00028.safetensors
+    size: 210856
+    sha256: a9610e67b47c60907b2e77fe2aebe4ae5516b74b6340ff240d85e306546643a3
+  - name: model-00029.safetensors
+    size: 82672
+    sha256: 609cbadbbcf8a507ea3d77387131e066a50846abd4457acea9417dd7042f69ab
+  - name: model-00031.safetensors
+    size: 293488
+    sha256: 68a3ea2e53c971e54be8f5268cbf68abe223580946df579eae5991f0ab83248a
+  - name: model-00033.safetensors
+    size: 293488
+    sha256: 83387fa235d61da3de987231182a20bb77fb7e9aa10b793b9e72a7ffd48b638f
+  - name: model-00035.safetensors
+    size: 210648
+    sha256: 2ac18db8eb227a06e05abebae9f7f6c8b5eb7166d6bd3006892d6846701f8f6f
+  - name: model-00037.safetensors
+    size: 295528
+    sha256: 14e844c6b534d0d1b5c446cc477da6831af7f78d25df618219368aedcbff56ac
+  - name: model-00039.safetensors
+    size: 298736
+    sha256: 3791294a1a140d204e05fa9539c7b9504c63e3c6a80da68fbfe091d408b40af1
+  - name: model-00041.safetensors
+    size: 293488
+    sha256: cdef0fbfc7565e05127de4df8a11008a4150e4290996b0f33fbb838af3af6fd9
+  - name: model-00043.safetensors
+    size: 210648
+    sha256: 4789d92e80c464b8504b5c176f5fc8eb6bc3832b2d401b4ad343429acf4678fa
+  - name: model-00045.safetensors
+    size: 295528
+    sha256: 7dedffa51675aa4c352cc2f5bf4cfbb696c067b822e2335517cbcfc2719cda4e
+  - name: model-00047.safetensors
+    size: 375552
+    sha256: c0b0c56714ac372b889164b5be392e8fca029ca70b4f7e45143e07e62efffa6c
+  - name: model-00049.safetensors
+    size: 210648
+    sha256: 79fabf679eba0025bfe44fd6b3261b1c18a20b985a5521866d9a8e1946c2b2de
+  - name: model-00051.safetensors
+    size: 316128
+    sha256: e1799d62083f1f6737320dc3c1a5c879ad847068d8fce3a2e8da229365717e1a
+  - name: model-00053.safetensors
+    size: 210648
+    sha256: 0228950fa1fb575b12a9a68872744f5fbe766b319d521cb4acbbd3c8a7162957
+  - name: model-00055.safetensors
+    size: 295528
+    sha256: b550b25eb2dccd013fbc34c0abcc5e8e0f24ed579f79cb21ae3c6cdcc75263a6
+  - name: model-00057.safetensors
+    size: 293488
+    sha256: 8949ce8084eda1340f25c8f28b06a1581b7227710c9d6a8df16a818f98a26dfe
+  - name: model-00059.safetensors
+    size: 293488
+    sha256: c2d8d21004b37a299a251e3138833660281520f5320468c0f61dd5189be8af34
+  - name: model-00061.safetensors
+    size: 210648
+    sha256: d1248438b7214222fd29720e8b1b5d818ed5b5b218f7f90b60ab85f3900f83d1
+  - name: model-00063.safetensors
+    size: 295912
+    sha256: 1bbabca0a401b9f0bf62093cdd1efdccaada80cd39f5df055bbffef7d695aa5b
+  - name: model-00065.safetensors
+    size: 293488
+    sha256: 0ed0088aaa53d4e92fa5e99034919adb969f1c3e39d803b2ce2c186fa40f91ca
+  - name: model-00067.safetensors
+    size: 293488
+    sha256: 6678619ec693a318a2053b0df5bbcf8747a49a7ad00fb92dadc771758abf4db9
+  - name: model-00069.safetensors
+    size: 211032
+    sha256: 10c0f09fc90193b1405803bc1491293c25733f825bd647fbaf5f3a0710ea8554
+  - name: model-00071.safetensors
+    size: 296152
+    sha256: b106368d45384fe66d5f3196fd7250861bcddaf981fe68d3d3bd8e02022b0201
+  - name: model-00073.safetensors
+    size: 293488
+    sha256: 0f4f804e9f5568c533864ff05419ad58c8376037e87e5008036c05a6b689e002
+  - name: model-00075.safetensors
+    size: 293488
+    sha256: e29e92c89bce37bbba506c738ff6abb2510eb1bba7ed48fd6b237a4fd7cb6bb2
+  - name: model-00077.safetensors
+    size: 293488
+    sha256: 87615b76d4bbe9ebc315e231742a902a835f90506f90610a429e4457a5089732
+  - name: model-00079.safetensors
+    size: 210648
+    sha256: 8a74f2493e4cee0215a68bb51dabe43d14e02ba49415dfc10cc66705c6ad1073
+  - name: model-00081.safetensors
+    size: 296160
+    sha256: 00f3695b83ece1e68ac28e6ab3abb87477d8393593b136b614a18eaac88deb72
+  - name: model-00083.safetensors
+    size: 298720
+    sha256: 1bd919472d3982559fe0f9373fcacecf15938151877084aef3b0624370c1c74c
+  - name: model-00085.safetensors
+    size: 293488
+    sha256: 198d6ab81c80f09635b8513872788f7c498e175bc0e2bf78499c2904f800a32e
+  - name: model-00087.safetensors
+    size: 231240
+    sha256: 02cb7ce303ed4e4b0dabb57f8498934383be15bc49c0a649a293beed2975d4df
+  - name: model-00089.safetensors
+    size: 295520
+    sha256: 6c4e17ab3cc760a2147ae61199dab2901e0575b34ef369f0c26b5b445b1260bf
+  - name: model-00091.safetensors
+    size: 293480
+    sha256: 1d73b104659dac66147f0e0aa87da5f33a4bf64fbf4b1232a9ad1a304f64b7d3
+  - name: model-00093.safetensors
+    size: 210648
+    sha256: 06c4b6bb24e6f91ae3668333ff7ac5a6680d2161e53a27f8b27c83d94b603f8b
+  - name: model-00095.safetensors
+    size: 295512
+    sha256: 74b8a738319fd7fec3403fb12f7172f82e901c05eb9b5d9e0093c64a95368c74
+  - name: model-00097.safetensors
+    size: 293480
+    sha256: 32de8417dbdfdbd84ea70bdfa550eb1b6644969e0d2c7bb8405306ca6a072bae
+  - name: model-00099.safetensors
+    size: 107968
+    sha256: 22d79ff8c5fe652c40be87a6e5cf425a2238aeddbc3fbf271bdec76b170506c8
+  - name: model-embed.safetensors
+    size: 675430792
+    sha256: f22bd625a408915b927d7b937451763d08f8e522fbb80c597450bb687608c3ec
+  - name: model-mtp.safetensors
+    size: 96057752
+    sha256: e049a1fe11a99e45d4af59748a476160b947add99a525a3cd3e5ff7bd5020418
+  - name: model-trunk-00001-of-00002.safetensors
+    size: 945087424
+    sha256: bfacf6ee3cc85480de51c15ddc100c2a5952ffe4e61f228332640e10f7d34168
+  - name: model-trunk-00002-of-00002.safetensors
+    size: 78646840
+    sha256: f52ef6a32865a036ddd698fcb4d8cd6ab6665d66b8fbf059d723eca386b51fb7
+  - name: model.safetensors.index.json
+    size: 558989
+    sha256: 611443e5aa47bc05fe721c19f1cd65cb29cc8551a12d09162b6277084031100e
+  - name: mtp-0.safetensors
+    size: 1268123128
+    sha256: f613cc60e22ceb5050b20efd30a28e63fed236fee1abd70b860dbacad245cf7c
+  - name: ngram_table.bin
+    size: 32000153976
+    sha256: c8ab74bc343408cf3923d7d64b3698fbeb3e78c07ce7f85a650a8278731251d2
+  - name: preprocessor_config.json
+    size: 390
+    sha256: 27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516
+  - name: tokenizer.json
+    size: 12809320
+    sha256: 0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3
+  - name: tokenizer_config.json
+    size: 17928
+    sha256: b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27
+  - name: trunk-L00.safetensors
+    size: 14182480
+    sha256: 36b4cb5fd9dc7ed5ec30dacdbc616dcc00ca6d361b5865bd752ff43d9467d3f4
+  - name: trunk-L01.safetensors
+    size: 48999224
+    sha256: 435af2de552d8be201b2514feac027d75d56e451b3f52c587df88fc4bdefeeb5
+  - name: trunk-L02.safetensors
+    size: 14182480
+    sha256: 6f75ffe4cc5bbc0bb8dc9a78d8bc6934d39b0413c7576158281ca7782930c3d4
+  - name: trunk-L03.safetensors
+    size: 13928264
+    sha256: aab2b6b0f7864752c0e58d2de8e1d0f2a911d930a3401ba96ad0bbf13b430a3d
+  - name: trunk-L04.safetensors
+    size: 14182480
+    sha256: 5310f6ed17dc73d451603560f5eaf145d510d9a10d5cdd6a32c4f5b533fefe2a
+  - name: trunk-L05.safetensors
+    size: 14182480
+    sha256: 3a07ee02a6ba18d29d057eb6e6ac8aa0d751816f011683aec6054f1ec152c955
+  - name: trunk-L06.safetensors
+    size: 14182480
+    sha256: 25b11e2f97cbe044ae4e45637f250a23445a56ed2a169af58fa2b61ebaf68b85
+  - name: trunk-L07.safetensors
+    size: 13928264
+    sha256: 95e0ba93f1159e6cda6133fd012c394fcd62d2f8a5c56bc6a66261228d214620
+  - name: trunk-L08.safetensors
+    size: 14182480
+    sha256: c947701b185cd32c8c22ae07c1672b19271e84e1b499714ff117de2992c44a4e
+  - name: trunk-L09.safetensors
+    size: 14182480
+    sha256: c25f224e59c4f24443879d86bf16c2d81ea3f0ecd5ba8884c4e1be0fe11e8f79
+  - name: trunk-L10.safetensors
+    size: 14182496
+    sha256: db8b110a84facc59c45c198718276360ac4c2ae4a1995741a8abad7b083dbedf
+  - name: trunk-L11.safetensors
+    size: 13928280
+    sha256: d075116c157d8512cc1e2af9dc1b1f8542214d5adc29122b1f45426c4f9c9c62
+  - name: trunk-L12.safetensors
+    size: 14182496
+    sha256: ff37659fabb03356206021c59cb832dbcce95b5d7eba6cc70e39f3a53f1fd5fa
+  - name: trunk-L13.safetensors
+    size: 14182496
+    sha256: 7cdd25a2b1a2da517e1be4d25bdda4d63172c71fc4f112a1e455ba4551ab3b69
+  - name: trunk-L14.safetensors
+    size: 14182496
+    sha256: adcfd0af5c36beb2a4989f230137a75ef2bdaafef2dce6437cb93388bfd35bd8
+  - name: trunk-L15.safetensors
+    size: 13928280
+    sha256: 181a722f700dcf71cc699459e8add9ae9ca57c2c0238ba65ecf3d6b29c900002
+  - name: trunk-L16.safetensors
+    size: 14182496
+    sha256: c8d84ae4c22de3eaabe74645d97e6dc083b3616ed060d1c6549f1a3f32c63b9e
+  - name: trunk-L17.safetensors
+    size: 14182496
+    sha256: 06a05f349b1f8b264184e45e1dd988d88645b55771ef8680dfcd401cb7545851
+  - name: trunk-L18.safetensors
+    size: 14182496
+    sha256: d05aac49ad0d1a640de80ff499801a3e5f66a7658cd0a6550f15649c5dc22e53
+  - name: trunk-L19.safetensors
+    size: 13928280
+    sha256: e6a5a8142d8e291f885aac02b1d098b6920088f31cd6098a5c7f6bd3ddf73ae6
+  - name: trunk-L20.safetensors
+    size: 14182496
+    sha256: 54caaade82baa5c5f14b218ee90652e05396fcdd1bab1379e98751b2d009b9f4
+  - name: trunk-L21.safetensors
+    size: 14182496
+    sha256: 2554c21bab266590ed9b0a24fa5b22a07ca1d71760a611987c09e07ad3028a1c
+  - name: trunk-L22.safetensors
+    size: 14182496
+    sha256: cb4f2ece77c3352301ede740c86b3d8b144e1109153422404c31b575f332d124
+  - name: trunk-L23.safetensors
+    size: 13928280
+    sha256: f27e87ae05c3d8b00f4f0e8682f752747a369018a03281839fc9b4963cad7872
+  - name: trunk-L24.safetensors
+    size: 14182496
+    sha256: a7ed7a8c781140281961987857e77c09d95f0866bac853df6de8c045c10db064
+  - name: trunk-L25.safetensors
+    size: 14182496
+    sha256: 708e7dedf4e99f30d7fe26eed311bc834c743347aa30099b42bd474391b9d354
+  - name: trunk-L26.safetensors
+    size: 14182496
+    sha256: 0eb1916d8953aa58c5118dbea2cbc76d6d1cbdc513e270f91211587829f0b7be
+  - name: trunk-L27.safetensors
+    size: 13928280
+    sha256: c56fb2f4a78f701cd3fffdeecb9aedb5185c126f112864e1cd697bc79695733e
+  - name: trunk-L28.safetensors
+    size: 14182496
+    sha256: 9e0cdd7df5149f22261e95e4783462487f300a48f99e7064e7a08ed298186147
+  - name: trunk-L29.safetensors
+    size: 14182496
+    sha256: c782b819b694a168bbc9bf462cd03f8ba245f6ac1cc0fb2ec9dcb99df78cda3e
+  - name: trunk-L30.safetensors
+    size: 14182496
+    sha256: 1849d3acdaaf2d65444e2fc50aab20135531c5f0bcbbeb253a83041706a5cd3b
+  - name: trunk-L31.safetensors
+    size: 13928280
+    sha256: 7ae1acb6b49dbe3a31aadf72d0a79b47621c948975446634b1df7562ba11146b
+  - name: trunk-L32.safetensors
+    size: 14182496
+    sha256: e1539a8d192f65ed4d76a25bc57b938ddc099b5094fa36c3bebdd3736ff8bc75
+  - name: trunk-L33.safetensors
+    size: 14182496
+    sha256: 4170a64bd9cdbbf7a035a70e151ca073584008dcc42a5d1700623b4c2e20b6c7
+  - name: trunk-L34.safetensors
+    size: 14182496
+    sha256: 11989a0f0f1cd20d57cdd2decb64ce665126ffa7326c1ac108c37ecec58f6ba7
+  - name: trunk-L35.safetensors
+    size: 13928280
+    sha256: 4ec01bf939c722c8d5e252c7188b1633a79782ecd756946703d4681712f5d0bd
+  - name: trunk-L36.safetensors
+    size: 14182496
+    sha256: c37c71cfdffa34207638603fe0828283d83d3ba4b4f880665be2a3eded70e8cc
+  - name: trunk-L37.safetensors
+    size: 14182496
+    sha256: 991c34496667a323baf60c9998ef2b13587dff1eecd41bd6ec869accc31bb088
+  - name: trunk-L38.safetensors
+    size: 14182496
+    sha256: 33d110ccde81c4b307b8aaa8e4d2b228b89fe538d99ef47d8b17196c8329a545
+  - name: trunk-L39.safetensors
+    size: 13928280
+    sha256: 99ed4f16b2fe6c5b16c98781e46c35eb39113b9d47997c33c5b1f6f4e7d745f4
+  - name: trunk-L40.safetensors
+    size: 14182496
+    sha256: 6f24bfc5eede9c1e850ec43d82d4a7d16f950c6831b26de17e81fccaf20a96ce
+  - name: trunk-L41.safetensors
+    size: 14182496
+    sha256: 05134669df205e042396f979d384faff3a28816341496fa40b3f10f80102ae01
+  - name: trunk-L42.safetensors
+    size: 14182496
+    sha256: 75d2823221a785cfc4e5a2c30369a823e649dc39f129eef5b222d0732a872815
+  - name: trunk-L43.safetensors
+    size: 13928280
+    sha256: dc05e4d805a4ec1cba4f9dec080e2149beaab66c65d16a6407ad6a8ed1c70552
+  - name: trunk-L44.safetensors
+    size: 14182496
+    sha256: 3ef69cda90946ca684cbe82c948481560ce961378ea0be36a2dd5e65b356dd6f
+  - name: trunk-L45.safetensors
+    size: 14182496
+    sha256: 8e05a7a47586f09e34141f20b57e2fac41d37b89e0ac6a35b31530965bf7db66
+  - name: trunk-L46.safetensors
+    size: 14182496
+    sha256: 500992004dea834a1cd1819ba8b66fa40ef80e5352ada7b12a70f5732f186c85
+  - name: trunk-L47.safetensors
+    size: 13928280
+    sha256: 4dbbab69c843ddcd1ec3501ceaf6df7569d7759f1200258453772d027f5a382e
+  - name: trunk-head.safetensors
+    size: 6964112
+    sha256: da335dd7fc1d2ad5468f1002ad82edac87ef2ec03b97eb1e06f3313be8b236ed
+  - name: trunk-stq-L00.safetensors
+    size: 47022424
+    sha256: 4543fa2d669a6d4498c8c91f6312a4e5389ed4938839e167aa0bab33565138c3
+  - name: trunk-stq-L01.safetensors
+    size: 47022424
+    sha256: cb293558a226ed37be314a1addbc4aad67f699e2924fc1b46bf67b7bc71dfac6
+  - name: trunk-stq-L02.safetensors
+    size: 47022424
+    sha256: e390294935f0b4061d21a4321796f9359da12153c72e61b0c092f553f596ab59
+  - name: trunk-stq-L03.safetensors
+    size: 42359080
+    sha256: 0e9e27378e6c66acaf0f1ed6e1de0b4ce87dcf949800a1e46729df0a0b2d2e5a
+  - name: trunk-stq-L04.safetensors
+    size: 47022424
+    sha256: a8c32d59baad8e1604efa2bc78b8868f1ca19a0f3d5d79cfae986d09dfe618ab
+  - name: trunk-stq-L05.safetensors
+    size: 47022424
+    sha256: 060331df0fa71d7236b3738d78fbf649f029daf2105caca8e02b8e9c669b5016
+  - name: trunk-stq-L06.safetensors
+    size: 47022424
+    sha256: 4d0d9b96fa4aaef47b6ecac28eeeb766c052837c166345389f899426c1421cc4
+  - name: trunk-stq-L07.safetensors
+    size: 42359080
+    sha256: 75e12b8c230be94b224995fa04061d8879dc382ce13d50d8df8d690abe007595
+  - name: trunk-stq-L08.safetensors
+    size: 47022424
+    sha256: 45ed3126b437ffdafc959c297ca6bf68ab38a0a427b920dc9b2e0a9794f13d3f
+  - name: trunk-stq-L09.safetensors
+    size: 47022424
+    sha256: 0d0302bc13b7cf0f4c4ab80b9b097822976df247d57b1e11b789605fd32decb8
+  - name: trunk-stq-L10.safetensors
+    size: 47022440
+    sha256: b3058705d3247b5b0c0aa23ce525dc6790677ee1303ad5bf35454f12ac0e83f0
+  - name: trunk-stq-L11.safetensors
+    size: 42359104
+    sha256: 7b547029080723dd0400b3c2926a0c8c4c36371f480f3c27f37d0ff31873a8dc
+  - name: trunk-stq-L12.safetensors
+    size: 47022440
+    sha256: b83868c6d833ecde42b3e7db91617f9c9fdee6c672e95e055fc047c39a6cd115
+  - name: trunk-stq-L13.safetensors
+    size: 47022440
+    sha256: 0c8055660d80d40b7150684de2ea7ba520ed844b8807ed25c21986f2c7342c3c
+  - name: trunk-stq-L14.safetensors
+    size: 47022440
+    sha256: 393f3a9102c9282d611c33c801034d2cd1911bb88491300fefb8ad536eb9e6d3
+  - name: trunk-stq-L15.safetensors
+    size: 42359104
+    sha256: f08744bff06ef1fbf8e92110a19c15f4ecf642e6279b32a20015e099ad1e573d
+  - name: trunk-stq-L16.safetensors
+    size: 47022440
+    sha256: a259a132d3d93b8327d82a5b8c3e76e5c9706f5f33de252d7f2c7a64a1eeef03
+  - name: trunk-stq-L17.safetensors
+    size: 47022440
+    sha256: 8bb47f264373080f704d0ec78097ed5cf05a49fd0fc91727248d176c0926682e
+  - name: trunk-stq-L18.safetensors
+    size: 47022440
+    sha256: 475c091acc9f2f5bdad2d590ce98b73b8204d1d6e7a19cebf9ad8b381b0ba52d
+  - name: trunk-stq-L19.safetensors
+    size: 42359104
+    sha256: b5cbdba72a14cec17a5b27a0b36047a2a2aac42d0fdc8ebd43aad2cb2f72baee
+  - name: trunk-stq-L20.safetensors
+    size: 47022440
+    sha256: f902d25c1fa4fc7608e93c00676ccbce3ba831880f96ed7eeb22b33bd4f1e29e
+  - name: trunk-stq-L21.safetensors
+    size: 47022440
+    sha256: 18bce29ca2edbef1d4e19d31a09bf8f6d97fef79cc04dcc2528210312fc51b9f
+  - name: trunk-stq-L22.safetensors
+    size: 47022440
+    sha256: 27eae09ea12822baa30cf6bc99c98bd8590a7138abb63f87bea3b8bf1b1a2406
+  - name: trunk-stq-L23.safetensors
+    size: 42359104
+    sha256: 42ec9c3423073eeffa2338cce9c1f1c496bac8b9f67bb031645ba188be96121b
+  - name: trunk-stq-L24.safetensors
+    size: 47022440
+    sha256: 10b53f28ea342fadd36c62bb925edf695c14c5239a4ac5d28ee36f9c32f49c48
+  - name: trunk-stq-L25.safetensors
+    size: 47022440
+    sha256: f450585525df232c2c04f277c59e2f95764713af3603346b5e0c8997d9ba0870
+  - name: trunk-stq-L26.safetensors
+    size: 47022440
+    sha256: a8bf23ee07478773119d5c685bd65d3658eb4d25ec01e7f7e9b6fa6816bbc7b8
+  - name: trunk-stq-L27.safetensors
+    size: 42359104
+    sha256: 978ea54062f4db1bf028f6a1fe381001924bdf038ab297d7cd6fe197b08b4f41
+  - name: trunk-stq-L28.safetensors
+    size: 47022440
+    sha256: 34396781590cb74e8739ea6960b4723a93f5609ffb2dbf4b3a60d6b7547e146f
+  - name: trunk-stq-L29.safetensors
+    size: 47022440
+    sha256: e3baba3e058f7b54fc8fd8b6adc13cd8eb55895a0b47b4ebddedd9f0b8500a1d
+  - name: trunk-stq-L30.safetensors
+    size: 47022440
+    sha256: c9844325ab1ed45be4e60b20cb35784da317d4022b56ad8c6bbd234bb33ccb92
+  - name: trunk-stq-L31.safetensors
+    size: 42359104
+    sha256: bc82987b95a6c4afdb7bd0f9efc1abdef6c0853b11f8301a1e4832379a6ec2ff
+  - name: trunk-stq-L32.safetensors
+    size: 47022440
+    sha256: e364c72080fe8fea64396f46758b87149a531474a4834608519d1a59632d77dd
+  - name: trunk-stq-L33.safetensors
+    size: 47022440
+    sha256: d558deb920b2e3de43594f56a5fcdaa8e7f6f8caba473ef352053f0bd15abd69
+  - name: trunk-stq-L34.safetensors
+    size: 47022440
+    sha256: 747657f1be7313c173f855042e014d90a8d417a1f9683f281fedf24834f8b02b
+  - name: trunk-stq-L35.safetensors
+    size: 42359104
+    sha256: c558b16cb3852f659a3254d047eddd3230d958346fc8804280deceaccfad7c0c
+  - name: trunk-stq-L36.safetensors
+    size: 47022440
+    sha256: b028b411ec21beb2faaafae8c8969b21f56f477a599908a30b1e32706a83f3cf
+  - name: trunk-stq-L37.safetensors
+    size: 47022440
+    sha256: d8f6b0ba1c996edf989805fbb1f8ce1f5017ac948aa24806d0d1ac9690a63f02
+  - name: trunk-stq-L38.safetensors
+    size: 47022440
+    sha256: 919c4373b4ebeecc8d12edf79ce79b38870d1d5eef6f62a977e8d4df3a3b3dd3
+  - name: trunk-stq-L39.safetensors
+    size: 42359104
+    sha256: 4846601d28e8adfba20a3455685df13e68d8005598d24aca771941cbd01f752d
+  - name: trunk-stq-L40.safetensors
+    size: 47022440
+    sha256: 46c913db2fb5c6b6c1981c70f96590c95d0c8d5f5daf85e1db6f00cd56e7f028
+  - name: trunk-stq-L41.safetensors
+    size: 47022440
+    sha256: 3ca25b792222a3309bc479082e3616bab75d7f7156510b1e77ab127695b97ac0
+  - name: trunk-stq-L42.safetensors
+    size: 47022440
+    sha256: 6d22fc934e29ecdf429af32ee14d0df2f04aa845d825f3bb75e2b3477b487dcd
+  - name: trunk-stq-L43.safetensors
+    size: 42359104
+    sha256: c882e8147663ca976af969c10f8d123e127ab907fe8a8bac94e17a25ee8d15e5
+  - name: trunk-stq-L44.safetensors
+    size: 47022440
+    sha256: 646707a34c34e0756bf2c50e45c2268959755c2ec41d81b6303cf053d8bd7219
+  - name: trunk-stq-L45.safetensors
+    size: 47022440
+    sha256: 6fb05ba19edbf256054c4253e73ae04a57407eb6acf4b0b3559dc7fa2388f88c
+  - name: trunk-stq-L46.safetensors
+    size: 47022440
+    sha256: ed267bab51ee8d2aba708ace86450966dbbae736759762ec4558480a730eb773
+  - name: trunk-stq-L47.safetensors
+    size: 42359104
+    sha256: ca44624b85ca01bcc434e8296277f686f54ddae6ed3f209f591dd48ddcc14787
+  - name: trunk-stq-head.safetensors
+    size: 477276768
+    sha256: 41f4e3bc3564ae6ab7e56b9b525e204954c055a9f746b33bab79382abe185f97
+  - name: video_preprocessor_config.json
+    size: 385
+    sha256: 7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13
+  - name: vocab.json
+    size: 6722759
+    sha256: ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003

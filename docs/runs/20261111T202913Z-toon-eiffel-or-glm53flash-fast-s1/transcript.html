@@ -1,0 +1,294 @@
+<!doctype html><meta charset=utf-8><title>20261111T202913Z-toon-eiffel-or-glm53flash-fast-s1</title>
+<style>body{font:14px system-ui;margin:16px;max-width:1000px}pre{white-space:pre-wrap;background:#f4f4f4;padding:8px}
+.c{border-left:3px solid #3f51b5;padding-left:8px;margin:8px 0}.t{border-left:3px solid #009688;padding-left:8px}
+.s{color:#777;font-size:12px}.e{border-left:3px solid #c62828;padding-left:8px}
+@media(prefers-color-scheme:dark){body{background:#111;color:#ddd}pre{background:#222}}</style>
+<h1>20261111T202913Z-toon-eiffel-or-glm53flash-fast-s1</h1><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;ls /work; ls /work/vendor/three; ls /work/vendor/three/build 2&gt;/dev/null | head&quot;
+}</pre><details><summary>output (131 chars)</summary><pre>AGENTS.md
+vendor
+LICENSE
+build
+examples
+three.cjs
+three.core.js
+three.module.js
+three.tsl.js
+three.webgpu.js
+three.webgpu.nodes.js
+</pre></details></div><div class=c><b>glob</b><pre>{
+ &quot;pattern&quot;: &quot;**/*.html&quot;
+}</pre><details><summary>output (14 chars)</summary><pre>No files found</pre></details></div><div class=s>step: {&quot;input&quot;: 8338, &quot;output&quot;: 46, &quot;reasoning&quot;: 14, &quot;cache&quot;: {&quot;read&quot;: 320, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n \&quot;getShadow\&quot; /work/vendor/three/build/three.module.js | head -20; grep -n \&quot;shadowIntensity\&quot; /work/vendor/three/build/three.module.js | head&quot;
+}</pre><details><summary>output (45322 chars)</summary><pre>401:var lights_fragment_begin = &quot;\nvec3 geometryPosition = - vViewPosition;\nvec3 geometryNormal = normal;\nvec3 geometryViewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\nvec3 geometryClearcoatNormal = vec3( 0.0 );\n#ifdef USE_CLEARCOAT\n\tgeometryClearcoatNormal = clearcoatNormal;\n#endif\n#ifdef USE_IRIDESCENCE\n\tfloat dotNVi = saturate( dot( normal, geometryViewDir ) );\n\tif ( material.iridescenceThickness == 0.0 ) {\n\t\tmaterial.iridescence = 0.0;\n\t} else {\n\t\tmaterial.iridescence = saturate( material.iridescence );\n\t}\n\tif ( material.iridescence &gt; 0.0 ) {\n\t\tvec3 iridescenceFresnelDielectric = evalIridescence( 1.0, material.iridescenceIOR, dotNVi, material.iridescenceThickness, material.specularColor );\n\t\tvec3 iridescenceFresnelMetallic = evalIridescence( 1.0, material.iridescenceIOR, dotNVi, material.iridescenceThickness, material.diffuseColor );\n\t\tmaterial.iridescenceFresnel = mix( iridescenceFresnelDielectric, iridescenceFresnelMetallic, material.metalness );\n\t\tmaterial.iridescenceF0Dielectric = Schlick_to_F0( iridescenceFresnelDielectric, 1.0, dotNVi );\n\t\tmaterial.iridescenceF0Metallic = Schlick_to_F0( iridescenceFresnelMetallic, 1.0, dotNVi );\n\t}\n#endif\n#ifdef STANDARD\n\tfloat dotNVms = saturate( dot( geometryNormal, geometryViewDir ) );\n\tmaterial.dfg = texture2D( dfgLUT, vec2( material.roughness, dotNVms ) ).rg;\n\t#if ( NUM_SUN_LIGHTS &gt; 0 || NUM_DIR_LIGHTS &gt; 0 || NUM_POINT_LIGHTS &gt; 0 || NUM_SPOT_LIGHTS &gt; 0 )\n\t\tfloat EssMs = material.dfg.x + material.dfg.y;\n\t\tmaterial.multiScatteringCompensation = 1.0 + material.specularColorBlended * ( 1.0 / EssMs - 1.0 );\n\t#endif\n#endif\nIncidentLight directLight;\n#if ( NUM_POINT_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct )\n\tPointLight pointLight;\n\t#if defined( USE_SHADOWMAP ) &amp;&amp; NUM_POINT_LIGHT_SHADOWS &gt; 0\n\tPointLightShadow pointLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_POINT_LIGHTS; i ++ ) {\n\t\tpointLight = pointLights[ i ];\n\t\tgetPointLightInfo( pointLight, geometryPosition, directLight );\n\t\t#if defined( USE_SHADOWMAP ) &amp;&amp; ( UNROLLED_LOOP_INDEX &lt; NUM_POINT_LIGHT_SHADOWS ) &amp;&amp; ( defined( SHADOWMAP_TYPE_PCF ) || defined( SHADOWMAP_TYPE_BASIC ) )\n\t\tpointLightShadow = pointLightShadows[ i ];\n\t\tdirectLight.color *= ( directLight.visible &amp;&amp; receiveShadow ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowIntensity, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShadow.shadowCameraNear, pointLightShadow.shadowCameraFar ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_SPOT_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct )\n\tSpotLight spotLight;\n\tvec4 spotColor;\n\tvec3 spotLightCoord;\n\tbool inSpotLightMap;\n\t#if defined( USE_SHADOWMAP ) &amp;&amp; NUM_SPOT_LIGHT_SHADOWS &gt; 0\n\tSpotLightShadow spotLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_SPOT_LIGHTS; i ++ ) {\n\t\tspotLight = spotLights[ i ];\n\t\tgetSpotLightInfo( spotLight, geometryPosition, directLight );\n\t\t#if ( UNROLLED_LOOP_INDEX &lt; NUM_SPOT_LIGHT_SHADOWS_WITH_MAPS )\n\t\t#define SPOT_LIGHT_MAP_INDEX UNROLLED_LOOP_INDEX\n\t\t#elif ( UNROLLED_LOOP_INDEX &lt; NUM_SPOT_LIGHT_SHADOWS )\n\t\t#define SPOT_LIGHT_MAP_INDEX NUM_SPOT_LIGHT_MAPS\n\t\t#else\n\t\t#define SPOT_LIGHT_MAP_INDEX ( UNROLLED_LOOP_INDEX - NUM_SPOT_LIGHT_SHADOWS + NUM_SPOT_LIGHT_SHADOWS_WITH_MAPS )\n\t\t#endif\n\t\t#if ( SPOT_LIGHT_MAP_INDEX &lt; NUM_SPOT_LIGHT_MAPS )\n\t\t\tspotLightCoord = vSpotLightCoord[ i ].xyz / vSpotLightCoord[ i ].w;\n\t\t\tinSpotLightMap = all( lessThan( abs( spotLightCoord * 2. - 1. ), vec3( 1.0 ) ) );\n\t\t\tspotColor = texture2D( spotLightMap[ SPOT_LIGHT_MAP_INDEX ], spotLightCoord.xy );\n\t\t\tdirectLight.color = inSpotLightMap ? directLight.color * spotColor.rgb : directLight.color;\n\t\t#endif\n\t\t#undef SPOT_LIGHT_MAP_INDEX\n\t\t#if defined( USE_SHADOWMAP ) &amp;&amp; ( UNROLLED_LOOP_INDEX &lt; NUM_SPOT_LIGHT_SHADOWS )\n\t\tspotLightShadow = spotLightShadows[ i ];\n\t\tdirectLight.color *= ( directLight.visible &amp;&amp; receiveShadow ) ? getShadow( spotShadowMap[ i ], spotLightShadow.shadowMapSize, spotLightShadow.shadowIntensity, spotLightShadow.shadowBias, spotLightShadow.shadowRadius, vSpotLightCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_SUN_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct )\n\tSunLight sunLight;\n\t#if defined( USE_SHADOWMAP ) &amp;&amp; NUM_SUN_LIGHT_SHADOWS &gt; 0\n\tSunLightShadow sunLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_SUN_LIGHTS; i ++ ) {\n\t\tsunLight = sunLights[ i ];\n\t\tgetSunLightInfo( sunLight, directLight );\n\t\t#if defined( USE_SHADOWMAP ) &amp;&amp; ( UNROLLED_LOOP_INDEX &lt; NUM_SUN_LIGHT_SHADOWS )\n\t\tsunLightShadow = sunLightShadows[ i ];\n\t\tdirectLight.color *= ( directLight.visible &amp;&amp; receiveShadow ) ? getSunShadow( sunShadowMap[ i ], sunLightShadow, UNROLLED_LOOP_INDEX ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_DIR_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct )\n\tDirectionalLight directionalLight;\n\t#if defined( USE_SHADOWMAP ) &amp;&amp; NUM_DIR_LIGHT_SHADOWS &gt; 0\n\tDirectionalLightShadow directionalLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_DIR_LIGHTS; i ++ ) {\n\t\tdirectionalLight = directionalLights[ i ];\n\t\tgetDirectionalLightInfo( directionalLight, directLight );\n\t\t#if defined( USE_SHADOWMAP ) &amp;&amp; ( UNROLLED_LOOP_INDEX &lt; NUM_DIR_LIGHT_SHADOWS )\n\t\tdirectionalLightShadow = directionalLightShadows[ i ];\n\t\tdirectLight.color *= ( directLight.visible &amp;&amp; receiveShadow ) ? getShadow( directionalShadowMap[ i ], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowIntensity, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_RECT_AREA_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct_RectArea )\n\tRectAreaLight rectAreaLight;\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_RECT_AREA_LIGHTS; i ++ ) {\n\t\trectAreaLight = rectAreaLights[ i ];\n\t\tRE_Direct_RectArea( rectAreaLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if defined( RE_IndirectDiffuse )\n\tvec3 iblIrradiance = vec3( 0.0 );\n\tvec3 irradiance = getAmbientLightIrradiance( ambientLightColor );\n\t#if defined( USE_LIGHT_PROBES )\n\t\tirradiance += getLightProbeIrradiance( lightProbe, geometryNormal );\n\t#endif\n\t#if ( NUM_HEMI_LIGHTS &gt; 0 )\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i &lt; NUM_HEMI_LIGHTS; i ++ ) {\n\t\t\tirradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometryNormal );\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n\t#if NUM_LIGHT_PROBE_GRIDS &gt; 0\n\t\tvec3 probeWorldPos = ( ( vec4( geometryPosition, 1.0 ) - viewMatrix[ 3 ] ) * viewMatrix ).xyz;\n\t\tvec3 probeWorldNormal = transformNormalByInverseViewMatrix( geometryNormal, viewMatrix );\n\t\tint probeGrid = - 1;\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i &lt; NUM_LIGHT_PROBE_GRIDS; i ++ ) {\n\t\t\tif ( isInsideLightProbeGrid( probeWorldPos, probeWorldNormal, probesMin[ i ], probesMax[ i ], probesResolution[ i ] ) ) probeGrid = UNROLLED_LOOP_INDEX;\n\t\t}\n\t\t#pragma unroll_loop_end\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i &lt; NUM_LIGHT_PROBE_GRIDS; </pre></details></div><div class=s>step: {&quot;input&quot;: 191, &quot;output&quot;: 54, &quot;reasoning&quot;: 27, &quot;cache&quot;: {&quot;read&quot;: 8576, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;var shadowmap_vertex&#x27; /work/vendor/three/build/three.module.js | head -1; grep -n &#x27;var worldpos_vertex\\|var fog_vertex\\|var fog_pars_vertex\\|var fog_pars_fragment\\|var fog_fragment\\|var begin_vertex\\|var beginnormal_vertex\\|var defaultnormal_vertex&#x27; /work/vendor/three/build/three.module.js | cut -c1-80&quot;
+}</pre><details><summary>output (2465 chars)</summary><pre>479:var shadowmap_vertex = &quot;#if ( defined( USE_SHADOWMAP ) &amp;&amp; ( NUM_DIR_LIGHT_SHADOWS &gt; 0 || NUM_SUN_LIGHT_SHADOWS &gt; 0 || NUM_POINT_LIGHT_SHADOWS &gt; 0 ) ) || ( NUM_SPOT_LIGHT_COORDS &gt; 0 )\n\t#ifdef HAS_NORMAL\n\t\tvec3 shadowWorldNormal = transformNormalByInverseViewMatrix( transformedNormal, viewMatrix );\n\t#else\n\t\tvec3 shadowWorldNormal = vec3( 0.0 );\n\t#endif\n\tvec4 shadowWorldPosition;\n#endif\n#if defined( USE_SHADOWMAP )\n\t#if NUM_SUN_LIGHT_SHADOWS &gt; 0\n\t\tvSunShadowWorldPosition = vec4( worldPosition.xyz, - mvPosition.z );\n\t\tvSunShadowWorldNormal = shadowWorldNormal;\n\t#endif\n\t#if NUM_DIR_LIGHT_SHADOWS &gt; 0\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i &lt; NUM_DIR_LIGHT_SHADOWS; i ++ ) {\n\t\t\tshadowWorldPosition = worldPosition + vec4( shadowWorldNormal * directionalLightShadows[ i ].shadowNormalBias, 0 );\n\t\t\tvDirectionalShadowCoord[ i ] = directionalShadowMatrix[ i ] * shadowWorldPosition;\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n\t#if NUM_POINT_LIGHT_SHADOWS &gt; 0\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i &lt; NUM_POINT_LIGHT_SHADOWS; i ++ ) {\n\t\t\tshadowWorldPosition = worldPosition + vec4( shadowWorldNormal * pointLightShadows[ i ].shadowNormalBias, 0 );\n\t\t\tvPointShadowCoord[ i ] = pointShadowMatrix[ i ] * shadowWorldPosition;\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n#endif\n#if NUM_SPOT_LIGHT_COORDS &gt; 0\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_SPOT_LIGHT_COORDS; i ++ ) {\n\t\tshadowWorldPosition = worldPosition;\n\t\t#if ( defined( USE_SHADOWMAP ) &amp;&amp; UNROLLED_LOOP_INDEX &lt; NUM_SPOT_LIGHT_SHADOWS )\n\t\t\tshadowWorldPosition.xyz += shadowWorldNormal * spotLightShadows[ i ].shadowNormalBias;\n\t\t#endif\n\t\tvSpotLightCoord[ i ] = spotLightMatrix[ i ] * shadowWorldPosition;\n\t}\n\t#pragma unroll_loop_end\n#endif&quot;;
+317:var begin_vertex = &quot;vec3 transformed = vec3( position );\n#ifdef USE_ALPHAHA
+319:var beginnormal_vertex = &quot;vec3 objectNormal = vec3( normal );\n#ifdef USE_TA
+345:var defaultnormal_vertex = &quot;vec3 transformedNormal = objectNormal;\n#ifdef U
+369:var fog_vertex = &quot;#ifdef USE_FOG\n\tvFogDepth = - mvPosition.z;\n#endif&quot;;
+371:var fog_pars_vertex = &quot;#ifdef USE_FOG\n\tvarying float vFogDepth;\n#endif&quot;;
+373:var fog_fragment = &quot;#ifdef USE_FOG\n\t#ifdef FOG_EXP2\n\t\tfloat fogFactor =
+375:var fog_pars_fragment = &quot;#ifdef USE_FOG\n\tuniform vec3 fogColor;\n\tvarying
+509:var worldpos_vertex = &quot;#if defined( USE_ENVMAP ) || defined( DISTANCE ) || d
+</pre></details></div><div class=s>step: {&quot;input&quot;: 14621, &quot;output&quot;: 100, &quot;reasoning&quot;: 241, &quot;cache&quot;: {&quot;read&quot;: 8640, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Chunk names and `getShadow` signature confirmed for r187. Let me check the standard fragment chunk ordering and the fog uniform handling:</pre></div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;colorspace_fragment&#x27; /work/vendor/three/build/three.module.js | head -3; grep -n &#x27;refreshFogUniforms&#x27; /work/vendor/three/build/three.module.js | head; sed -n &#x27;395,401p&#x27; /work/vendor/three/build/three.module.js | grep -o &#x27;tonemapping_fragment[^\&quot;]*&#x27; | head -2&quot;
+}</pre><details><summary>output (1397 chars)</summary><pre>355:var colorspace_fragment = &quot;gl_FragColor = linearToOutputTexel( gl_FragColor );&quot;;
+513:const fragment$h = &quot;uniform sampler2D t2D;\nuniform float backgroundIntensity;\nvarying vec2 vUv;\nvoid main() {\n\tvec4 texColor = texture2D( t2D, vUv );\n\t#ifdef DECODE_VIDEO_TEXTURE\n\t\ttexColor = vec4( mix( pow( texColor.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), texColor.rgb * 0.0773993808, vec3( lessThanEqual( texColor.rgb, vec3( 0.04045 ) ) ) ), texColor.w );\n\t#endif\n\ttexColor.rgb *= backgroundIntensity;\n\tgl_FragColor = texColor;\n\t#include &lt;tonemapping_fragment&gt;\n\t#include &lt;colorspace_fragment&gt;\n}&quot;;
+517:const fragment$g = &quot;uniform float backgroundBlurriness;\nuniform float backgroundIntensity;\nuniform mat3 backgroundRotation;\nvarying vec3 vWorldDirection;\n#include &lt;envmap_common_pars_fragment&gt;\nvoid main() {\n\t#ifdef ENVMAP_TYPE_PMREM\n\t\tvec4 texColor = textureLod( envMap, backgroundRotation * vWorldDirection, roughnessToMip( backgroundBlurriness ) );\n\t#else\n\t\tvec4 texColor = textureCube( envMap, backgroundRotation * vWorldDirection );\n\t#endif\n\ttexColor.rgb *= backgroundIntensity;\n\tgl_FragColor = texColor;\n\t#include &lt;tonemapping_fragment&gt;\n\t#include &lt;colorspace_fragment&gt;\n}&quot;;
+14794:	function refreshFogUniforms( uniforms, fog ) {
+15384:		refreshFogUniforms: refreshFogUniforms,
+18606:					materials.refreshFogUniforms( m_uniforms, fog );
+</pre></details></div><div class=s>step: {&quot;input&quot;: 1190, &quot;output&quot;: 121, &quot;reasoning&quot;: 6126, &quot;cache&quot;: {&quot;read&quot;: 23168, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;sed -n 14790,14800p /work/vendor/three/build/three.module.js; grep -n &#x27;var tonemapping_fragment\\|var fog_fragment&#x27; /work/vendor/three/build/three.module.js | cut -c1-60; grep -o &#x27;#include &lt;fog_fragment&gt;[^\&quot;]\\{0,80\\}&#x27; /work/vendor/three/build/three.module.js | head -3&quot;
+}</pre><details><summary>output (635 chars)</summary><pre>		uniform.value.copy( map.matrix );
+
+	}
+
+	function refreshFogUniforms( uniforms, fog ) {
+
+		fog.color.getRGB( uniforms.fogColor.value, getUnlitUniformColorSpace( renderer ) );
+
+		if ( fog.isFog ) {
+
+			uniforms.fogNear.value = fog.near;
+373:var fog_fragment = &quot;#ifdef USE_FOG\n\t#ifdef FOG_EXP2\n\
+495:var tonemapping_fragment = &quot;#if defined( TONE_MAPPING )\
+#include &lt;fog_fragment&gt;\n\t#include &lt;premultiplied_alpha_fragment&gt;\n}
+#include &lt;fog_fragment&gt;\n\t#include &lt;premultiplied_alpha_fragment&gt;\n\t#include &lt;dithering_fragment&gt;\n}
+#include &lt;fog_fragment&gt;\n\t#include &lt;premultiplied_alpha_fragment&gt;\n\t#include &lt;dithering_fragment&gt;\n}
+</pre></details></div><div class=s>step: {&quot;input&quot;: 6789, &quot;output&quot;: 96, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 24256, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;SHADOWMAP_TYPE_PCF&#x27; /work/vendor/three/build/three.module.js | head -5 | cut -c1-120; grep -n &#x27;receiveShadow\\b.*bool\\|uniform bool receiveShadow&#x27; /work/vendor/three/build/three.module.js | head -3&quot;
+}</pre><details><summary>output (13817 chars)</summary><pre>401:var lights_fragment_begin = &quot;\nvec3 geometryPosition = - vViewPosition;\nvec3 geometryNormal = normal;\nvec3 geometr
+475:var shadowmap_pars_fragment = &quot;#if NUM_SPOT_LIGHT_COORDS &gt; 0\n\tvarying vec4 vSpotLightCoord[ NUM_SPOT_LIGHT_COORDS 
+481:var shadowmask_pars_fragment = &quot;float getShadowMask() {\n\tfloat shadow = 1.0;\n\t#ifdef USE_SHADOWMAP\n\t#if NUM_SU
+6313:	[ PCFShadowMap ]: &#x27;SHADOWMAP_TYPE_PCF&#x27;,
+385:var lights_pars_begin = &quot;uniform bool receiveShadow;\nuniform vec3 ambientLightColor;\n#if defined( USE_LIGHT_PROBES )\n\tuniform vec3 lightProbe[ 9 ];\n#endif\nvec3 shGetIrradianceAt( in vec3 normal, in vec3 shCoefficients[ 9 ] ) {\n\tfloat x = normal.x, y = normal.y, z = normal.z;\n\tvec3 result = shCoefficients[ 0 ] * 0.886227;\n\tresult += shCoefficients[ 1 ] * 2.0 * 0.511664 * y;\n\tresult += shCoefficients[ 2 ] * 2.0 * 0.511664 * z;\n\tresult += shCoefficients[ 3 ] * 2.0 * 0.511664 * x;\n\tresult += shCoefficients[ 4 ] * 2.0 * 0.429043 * x * y;\n\tresult += shCoefficients[ 5 ] * 2.0 * 0.429043 * y * z;\n\tresult += shCoefficients[ 6 ] * ( 0.743125 * z * z - 0.247708 );\n\tresult += shCoefficients[ 7 ] * 2.0 * 0.429043 * x * z;\n\tresult += shCoefficients[ 8 ] * 0.429043 * ( x * x - y * y );\n\treturn result;\n}\nvec3 getLightProbeIrradiance( const in vec3 lightProbe[ 9 ], const in vec3 normal ) {\n\tvec3 worldNormal = transformNormalByInverseViewMatrix( normal, viewMatrix );\n\tvec3 irradiance = shGetIrradianceAt( worldNormal, lightProbe );\n\treturn irradiance;\n}\nvec3 getAmbientLightIrradiance( const in vec3 ambientLightColor ) {\n\tvec3 irradiance = ambientLightColor;\n\treturn irradiance;\n}\nfloat getDistanceAttenuation( const in float lightDistance, const in float cutoffDistance, const in float decayExponent ) {\n\tfloat distanceFalloff = 1.0 / max( pow( lightDistance, decayExponent ), 0.01 );\n\tif ( cutoffDistance &gt; 0.0 ) {\n\t\tdistanceFalloff *= pow2( saturate( 1.0 - pow4( lightDistance / cutoffDistance ) ) );\n\t}\n\treturn distanceFalloff;\n}\nfloat getSpotAttenuation( const in float coneCosine, const in float penumbraCosine, const in float angleCosine ) {\n\treturn smoothstep( coneCosine, penumbraCosine, angleCosine );\n}\n#if NUM_SUN_LIGHTS &gt; 0\n\tstruct SunLight {\n\t\tvec3 direction;\n\t\tvec3 color;\n\t};\n\tuniform SunLight sunLights[ NUM_SUN_LIGHTS ];\n\tvoid getSunLightInfo( const in SunLight sunLight, out IncidentLight light ) {\n\t\tlight.color = sunLight.color;\n\t\tlight.direction = sunLight.direction;\n\t\tlight.visible = true;\n\t}\n#endif\n#if NUM_DIR_LIGHTS &gt; 0\n\tstruct DirectionalLight {\n\t\tvec3 direction;\n\t\tvec3 color;\n\t};\n\tuniform DirectionalLight directionalLights[ NUM_DIR_LIGHTS ];\n\tvoid getDirectionalLightInfo( const in DirectionalLight directionalLight, out IncidentLight light ) {\n\t\tlight.color = directionalLight.color;\n\t\tlight.direction = directionalLight.direction;\n\t\tlight.visible = true;\n\t}\n#endif\n#if NUM_POINT_LIGHTS &gt; 0\n\tstruct PointLight {\n\t\tvec3 position;\n\t\tvec3 color;\n\t\tfloat distance;\n\t\tfloat decay;\n\t};\n\tuniform PointLight pointLights[ NUM_POINT_LIGHTS ];\n\tvoid getPointLightInfo( const in PointLight pointLight, const in vec3 geometryPosition, out IncidentLight light ) {\n\t\tvec3 lVector = pointLight.position - geometryPosition;\n\t\tlight.direction = normalize( lVector );\n\t\tfloat lightDistance = length( lVector );\n\t\tlight.color = pointLight.color;\n\t\tlight.color *= getDistanceAttenuation( lightDistance, pointLight.distance, pointLight.decay );\n\t\tlight.visible = ( light.color != vec3( 0.0 ) );\n\t}\n#endif\n#if NUM_SPOT_LIGHTS &gt; 0\n\tstruct SpotLight {\n\t\tvec3 position;\n\t\tvec3 direction;\n\t\tvec3 color;\n\t\tfloat distance;\n\t\tfloat decay;\n\t\tfloat coneCos;\n\t\tfloat penumbraCos;\n\t};\n\tuniform SpotLight spotLights[ NUM_SPOT_LIGHTS ];\n\tvoid getSpotLightInfo( const in SpotLight spotLight, const in vec3 geometryPosition, out IncidentLight light ) {\n\t\tvec3 lVector = spotLight.position - geometryPosition;\n\t\tlight.direction = normalize( lVector );\n\t\tfloat angleCos = dot( light.direction, spotLight.direction );\n\t\tfloat spotAttenuation = getSpotAttenuation( spotLight.coneCos, spotLight.penumbraCos, angleCos );\n\t\tif ( spotAttenuation &gt; 0.0 ) {\n\t\t\tfloat lightDistance = length( lVector );\n\t\t\tlight.color = spotLight.color * spotAttenuation;\n\t\t\tlight.color *= getDistanceAttenuation( lightDistance, spotLight.distance, spotLight.decay );\n\t\t\tlight.visible = ( light.color != vec3( 0.0 ) );\n\t\t} else {\n\t\t\tlight.color = vec3( 0.0 );\n\t\t\tlight.visible = false;\n\t\t}\n\t}\n#endif\n#if NUM_RECT_AREA_LIGHTS &gt; 0\n\tstruct RectAreaLight {\n\t\tvec3 color;\n\t\tvec3 position;\n\t\tvec3 halfWidth;\n\t\tvec3 halfHeight;\n\t};\n\tuniform sampler2D ltc_1;\tuniform sampler2D ltc_2;\n\tuniform RectAreaLight rectAreaLights[ NUM_RECT_AREA_LIGHTS ];\n#endif\n#if NUM_HEMI_LIGHTS &gt; 0\n\tstruct HemisphereLight {\n\t\tvec3 direction;\n\t\tvec3 skyColor;\n\t\tvec3 groundColor;\n\t};\n\tuniform HemisphereLight hemisphereLights[ NUM_HEMI_LIGHTS ];\n\tvec3 getHemisphereLightIrradiance( const in HemisphereLight hemiLight, const in vec3 normal ) {\n\t\tfloat dotNL = dot( normal, hemiLight.direction );\n\t\tfloat hemiDiffuseWeight = 0.5 * dotNL + 0.5;\n\t\tvec3 irradiance = mix( hemiLight.groundColor, hemiLight.skyColor, hemiDiffuseWeight );\n\t\treturn irradiance;\n\t}\n#endif\n#include &lt;lightprobes_pars_fragment&gt;&quot;;
+401:var lights_fragment_begin = &quot;\nvec3 geometryPosition = - vViewPosition;\nvec3 geometryNormal = normal;\nvec3 geometryViewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\nvec3 geometryClearcoatNormal = vec3( 0.0 );\n#ifdef USE_CLEARCOAT\n\tgeometryClearcoatNormal = clearcoatNormal;\n#endif\n#ifdef USE_IRIDESCENCE\n\tfloat dotNVi = saturate( dot( normal, geometryViewDir ) );\n\tif ( material.iridescenceThickness == 0.0 ) {\n\t\tmaterial.iridescence = 0.0;\n\t} else {\n\t\tmaterial.iridescence = saturate( material.iridescence );\n\t}\n\tif ( material.iridescence &gt; 0.0 ) {\n\t\tvec3 iridescenceFresnelDielectric = evalIridescence( 1.0, material.iridescenceIOR, dotNVi, material.iridescenceThickness, material.specularColor );\n\t\tvec3 iridescenceFresnelMetallic = evalIridescence( 1.0, material.iridescenceIOR, dotNVi, material.iridescenceThickness, material.diffuseColor );\n\t\tmaterial.iridescenceFresnel = mix( iridescenceFresnelDielectric, iridescenceFresnelMetallic, material.metalness );\n\t\tmaterial.iridescenceF0Dielectric = Schlick_to_F0( iridescenceFresnelDielectric, 1.0, dotNVi );\n\t\tmaterial.iridescenceF0Metallic = Schlick_to_F0( iridescenceFresnelMetallic, 1.0, dotNVi );\n\t}\n#endif\n#ifdef STANDARD\n\tfloat dotNVms = saturate( dot( geometryNormal, geometryViewDir ) );\n\tmaterial.dfg = texture2D( dfgLUT, vec2( material.roughness, dotNVms ) ).rg;\n\t#if ( NUM_SUN_LIGHTS &gt; 0 || NUM_DIR_LIGHTS &gt; 0 || NUM_POINT_LIGHTS &gt; 0 || NUM_SPOT_LIGHTS &gt; 0 )\n\t\tfloat EssMs = material.dfg.x + material.dfg.y;\n\t\tmaterial.multiScatteringCompensation = 1.0 + material.specularColorBlended * ( 1.0 / EssMs - 1.0 );\n\t#endif\n#endif\nIncidentLight directLight;\n#if ( NUM_POINT_LIGHTS &gt; 0 ) &amp;&amp; defined( RE_Direct )\n\tPointLight pointLight;\n\t#if defined( USE_SHADOWMAP ) &amp;&amp; NUM_POINT_LIGHT_SHADOWS &gt; 0\n\tPointLightShadow pointLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i &lt; NUM_POINT_LIGHTS; i ++ ) {\n\t\tpointLight = pointLights[ i ];\n\t\tgetPointLightInfo( pointLight, geometryPosition, directLight );\n\t\t#if defined( USE_SHADOWMAP ) &amp;&amp; ( UNROLLED_LOOP_INDEX &lt; NUM_POINT_LIGHT_SHADOWS ) &amp;&amp; ( defined( SHADOWMAP_TYPE_PCF ) || defined( SHADOWMAP_TYPE_BASIC ) )\n\t\tpointLightShadow = pointLightShadows[ i ];\n\t\tdirectLight.color *= ( directLight.visible &amp;&amp; receiveShadow ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowIntensity, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShado</pre></details></div><div class=s>step: {&quot;input&quot;: 345, &quot;output&quot;: 75, &quot;reasoning&quot;: 239, &quot;cache&quot;: {&quot;read&quot;: 30976, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;HAS_NORMAL&#x27; /work/vendor/three/build/three.module.js | head -5 | cut -c1-100; grep -n &#x27;transformNormalByInverseViewMatrix&#x27; /work/vendor/three/build/three.module.js | head -3 | cut -c1-80; grep -n &#x27;var common = &#x27; /work/vendor/three/build/three.module.js | cut -c1-60&quot;
+}</pre><details><summary>output (649 chars)</summary><pre>479:var shadowmap_vertex = &quot;#if ( defined( USE_SHADOWMAP ) &amp;&amp; ( NUM_DIR_LIGHT_SHADOWS &gt; 0 || NUM_SUN
+6504:			parameters.vertexNormals ? &#x27;#define HAS_NORMAL&#x27; : &#x27;&#x27;,
+7211:		const HAS_NORMALMAP = !! material.normalMap;
+7308:			normalMap: HAS_NORMALMAP,
+7312:			normalMapObjectSpace: HAS_NORMALMAP &amp;&amp; material.normalMapType === ObjectSpaceNormalMap,
+343:var common = &quot;#define PI 3.141592653589793\n#define PI2 6.283185307179586\n#
+359:var envmap_fragment = &quot;#ifdef USE_ENVMAP\n\t#ifdef ENV_WORLDPOS\n\t\tvec3 ca
+367:var envmap_vertex = &quot;#ifdef USE_ENVMAP\n\t#ifdef ENV_WORLDPOS\n\t\tvWorldPos
+343:var common = &quot;#define PI 3.141592653589793\n#define PI2 
+</pre></details></div><div class=s>step: {&quot;input&quot;: 4741, &quot;output&quot;: 99, &quot;reasoning&quot;: 54, &quot;cache&quot;: {&quot;read&quot;: 31232, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Now let me check a couple of remaining details — `vertexNormals`/`HAS_NORMAL` for ShaderMaterial, and `cloneUniforms` texture handling:</pre></div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;vertexNormals:&#x27; /work/vendor/three/build/three.module.js | head -3 | cut -c1-160; grep -n &#x27;function cloneUniforms&#x27; /work/vendor/three/build/three.module.js; sed -n &#x27;/function cloneUniforms/,/^\t}/p&#x27; /work/vendor/three/build/three.module.js | head -40&quot;
+}</pre><details><summary>output (54 chars)</summary><pre>7396:			vertexNormals: !! geometry.attributes.normal,
+</pre></details></div><div class=s>step: {&quot;input&quot;: 444, &quot;output&quot;: 119, &quot;reasoning&quot;: 6375, &quot;cache&quot;: {&quot;read&quot;: 35904, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;function cloneUniforms\\|function cloneUniform&#x27; /work/vendor/three/build/three.module.js | head; sed -n &#x27;14020,14070p&#x27; /work/vendor/three/build/three.module.js&quot;
+}</pre><details><summary>output (1354 chars)</summary><pre>		 * @param {number} value - The framebuffer scale factor.
+		 */
+		this.setFramebufferScaleFactor = function ( value ) {
+
+			framebufferScaleFactor = value;
+
+			if ( scope.isPresenting === true ) {
+
+				warn( &#x27;WebXRManager: Cannot change framebuffer scale while presenting.&#x27; );
+
+			}
+
+		};
+
+		/**
+		 * Sets the reference space type. Can be used to configure a spatial relationship with the user&#x27;s physical
+		 * environment. Depending on how the user moves in 3D space, setting an appropriate reference space can
+		 * improve tracking. Default is `local-floor`. Valid values can be found here
+		 * https://developer.mozilla.org/en-US/docs/Web/API/XRReferenceSpace#reference_space_types.
+		 *
+		 * This method can not be used during a XR session.
+		 *
+		 * @param {string} value - The reference space type.
+		 */
+		this.setReferenceSpaceType = function ( value ) {
+
+			referenceSpaceType = value;
+
+			if ( scope.isPresenting === true ) {
+
+				warn( &#x27;WebXRManager: Cannot change reference space type while presenting.&#x27; );
+
+			}
+
+		};
+
+		/**
+		 * Returns the XR reference space.
+		 *
+		 * @return {XRReferenceSpace} The XR reference space.
+		 */
+		this.getReferenceSpace = function () {
+
+			return customReferenceSpace || referenceSpace;
+
+		};
+
+		/**
+		 * Sets a custom XR reference space.
+		 *
+		 * @param {XRReferenceSpace} space - The XR reference space.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 6635, &quot;output&quot;: 58, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 36224, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -n &#x27;isRenderTargetTexture&#x27; /work/vendor/three/build/three.module.js | head -3 | cut -c1-80&quot;
+}</pre><details><summary>output (222 chars)</summary><pre>1455:			if ( background.isRenderTargetTexture === false ) {
+2691:		// and the flag isRenderTargetTexture controls this conversion. The flip 
+2692:		// as a cube texture (this is detected when isRenderTargetTexture is set 
+</pre></details></div><div class=s>step: {&quot;input&quot;: 492, &quot;output&quot;: 41, &quot;reasoning&quot;: 25, &quot;cache&quot;: {&quot;read&quot;: 42752, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;grep -rn &#x27;function cloneUniforms&#x27; /work/vendor/three/build/three.core.js | head -2; grep -n &#x27;cloneUniforms&#x27; /work/vendor/three/build/three.module.js | head -5 | cut -c1-80&quot;
+}</pre><details><summary>output (357 chars)</summary><pre>38320:function cloneUniforms( src ) {
+38416:function cloneUniformsGroups( src ) {
+6:import { Matrix3, Vector2, Color, mergeUniforms, Vector3, Mesh, BoxGeometry, S
+1411:						uniforms: cloneUniforms( ShaderLib.backgroundCube.uniforms ),
+1489:						uniforms: cloneUniforms( ShaderLib.background.uniforms ),
+2766:			uniforms: cloneUniforms( shader.uniforms ),
+</pre></details></div><div class=s>step: {&quot;input&quot;: 234, &quot;output&quot;: 63, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 43136, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;sed -n &#x27;38320,38370p&#x27; /work/vendor/three/build/three.core.js&quot;
+}</pre><details><summary>output (846 chars)</summary><pre>function cloneUniforms( src ) {
+
+	const dst = {};
+
+	for ( const u in src ) {
+
+		dst[ u ] = {};
+
+		for ( const p in src[ u ] ) {
+
+			const property = src[ u ][ p ];
+
+			if ( isThreeObject( property ) ) {
+
+				if ( property.isRenderTargetTexture ) {
+
+					warn( &#x27;UniformsUtils: Textures of render targets cannot be cloned via cloneUniforms() or mergeUniforms().&#x27; );
+					dst[ u ][ p ] = null;
+
+				} else {
+
+					dst[ u ][ p ] = property.clone();
+
+				}
+
+			} else if ( Array.isArray( property ) ) {
+
+				if ( isThreeObject( property[ 0 ] ) ) {
+
+					const clonedProperty = [];
+
+					for ( let i = 0, l = property.length; i &lt; l; i ++ ) {
+
+						clonedProperty[ i ] = property[ i ].clone();
+
+					}
+
+					dst[ u ][ p ] = clonedProperty;
+
+				} else {
+
+					dst[ u ][ p ] = property.slice();
+
+				}
+
+			} else {
+
+				dst[ u ][ p ] = property;
+
+			}
+
+</pre></details></div><div class=s>step: {&quot;input&quot;: 276, &quot;output&quot;: 33, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 43264, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;sed -n &#x27;509p&#x27; /work/vendor/three/build/three.module.js | cut -c1-400; sed -n &#x27;317p;345p&#x27; /work/vendor/three/build/three.module.js | cut -c1-300&quot;
+}</pre><details><summary>output (824 chars)</summary><pre>var worldpos_vertex = &quot;#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defined ( USE_SHADOWMAP ) || defined ( USE_TRANSMISSION ) || NUM_SPOT_LIGHT_COORDS &gt; 0\n\tvec4 worldPosition = vec4( transformed, 1.0 );\n\t#ifdef USE_BATCHING\n\t\tworldPosition = batchingMatrix * worldPosition;\n\t#endif\n\t#ifdef USE_INSTANCING\n\t\tworldPosition = instanceMatrix * worldPosition;\n\t#endif\n\tworldPositi
+var begin_vertex = &quot;vec3 transformed = vec3( position );\n#ifdef USE_ALPHAHASH\n\tvPosition = vec3( position );\n#endif&quot;;
+var defaultnormal_vertex = &quot;vec3 transformedNormal = objectNormal;\n#ifdef USE_TANGENT\n\tvec3 transformedTangent = objectTangent;\n#endif\n#ifdef USE_BATCHING\n\tmat3 bm = mat3( batchingMatrix );\n\ttransformedNormal /= vec3( dot( bm[ 0 ], bm[ 0 ] ), dot( bm[ 1 ], bm[ 1 ] ), dot( bm[ 2 ], bm[ 2 ] )
+</pre></details></div><div class=s>step: {&quot;input&quot;: 368, &quot;output&quot;: 67, &quot;reasoning&quot;: 69, &quot;cache&quot;: {&quot;read&quot;: 43456, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>All the chunk details are confirmed for r187 (`SHADOWMAP_TYPE_PCF`, `sampler2DShadow` PCF path, `getShadow` intensity arg, `HAS_NORMAL`, fog uniform auto-refresh). Now I&#x27;ll write the complete `index.html`:</pre></div><div class=c><b>write</b><pre>{
+ &quot;path&quot;: &quot;/work/index.html&quot;,
+ &quot;content&quot;: &quot;&lt;!DOCTYPE html&gt;\n&lt;html lang=\&quot;en\&quot;&gt;\n&lt;head&gt;\n&lt;meta charset=\&quot;utf-8\&quot;&gt;\n&lt;meta name=\&quot;viewport\&quot; content=\&quot;width=device-width, initial-scale=1\&quot;&gt;\n&lt;title&gt;Cel-shaded Eiffel Tower&lt;/title&gt;\n&lt;style&gt;\n  html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #56bce8; }\n  canvas { display: block; }\n  #tod-ui {\n    position: fixed; top: 14px; right: 16px; display: flex; gap: 8px; z-index: 10;\n    font-family: system-ui, sans-serif;\n  }\n  #tod-ui button {\n    border: 2px solid rgba(20, 24, 32, 0.55);\n    border-radius: 999px;\n    padding: 7px 18px;\n    font-size: 14px; font-weight: 700; letter-spacing: 0.02em;\n    cursor: pointer;\n    color: #f4f0e6;\n    background: rgba(30, 34, 44, 0.55);\n    transition: background 0.15s, color 0.15s;\n  }\n  #tod-ui button.active {\n    background: #ffd23f;\n    color: #2b1a10;\n    border-color: rgba(20, 24, 32, 0.7);\n  }\n  #label {\n    position: fixed; left: 14px; bottom: 12px; z-index: 10;\n    font-family: system-ui, sans-serif; font-size: 12px;\n    color: #fdf6e3; text-shadow: 0 1px 2px rgba(0,0,0,0.45);\n    opacity: 0.85; pointer-events: none;\n  }\n&lt;/style&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;div id=\&quot;tod-ui\&quot;&gt;&lt;/div&gt;\n&lt;div id=\&quot;label\&quot;&gt;Cel-shaded Eiffel Tower: vertex light &amp;rarr; band LUT &amp;rarr; palette LUT &amp;middot; drag to orbit, scroll to zoom&lt;/div&gt;\n\n&lt;script type=\&quot;importmap\&quot;&gt;\n{ \&quot;imports\&quot;: {\n    \&quot;three\&quot;: \&quot;./vendor/three/build/three.module.js\&quot;,\n    \&quot;three/addons/\&quot;: \&quot;./vendor/three/examples/jsm/\&quot;\n} }\n&lt;/script&gt;\n\n&lt;script type=\&quot;module\&quot;&gt;\nimport * as THREE from &#x27;three&#x27;;\nimport { OrbitControls } from &#x27;three/addons/controls/OrbitControls.js&#x27;;\nimport { mergeGeometries } from &#x27;three/addons/utils/BufferGeometryUtils.js&#x27;;\n\n/* ============================================================\n   Seeded randomness (page looks the same on every load)\n   ============================================================ */\nfunction mulberry32(seed) {\n  return function () {\n    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;\n    let t = Math.imul(seed ^ (seed &gt;&gt;&gt; 15), 1 | seed);\n    t = (t + Math.imul(t ^ (t &gt;&gt;&gt; 7), 61 | t)) ^ t;\n    return ((t ^ (t &gt;&gt;&gt; 14)) &gt;&gt;&gt; 0) / 4294967296;\n  };\n}\nconst rand = mulberry32(1873);\n\n/* ============================================================\n   Cel-shading LUTs\n   ============================================================ */\n\n// Shared 256x1 toon band LUT: four hard plateaus [0.125, 0.375, 0.625, 0.875]\n// on t = clamp(vDiffuse*0.5+0.5, 0, 1). Boundaries: t&lt;0.5 shadow, &lt;0.625 mid,\n// &lt;0.85 upper, else lit.\nconst bandData = new Float32Array(256 * 4);\nfor (let i = 0; i &lt; 256; i++) {\n  const t = (i + 0.5) / 256;\n  const v = t &lt; 0.5 ? 0.125 : t &lt; 0.625 ? 0.375 : t &lt; 0.85 ? 0.625 : 0.875;\n  bandData[i * 4 + 0] = v; bandData[i * 4 + 1] = v;\n  bandData[i * 4 + 2] = v; bandData[i * 4 + 3] = 1.0;\n}\nconst bandLUT = new THREE.DataTexture(bandData, 256, 1, THREE.RGBAFormat, THREE.FloatType);\nbandLUT.minFilter = THREE.NearestFilter;\nbandLUT.magFilter = THREE.NearestFilter;\nbandLUT.needsUpdate = true;\n\n// Per-material 4x1 palette LUT: entries [shadow, mid, upper, lit].\n// Colors are built through THREE.Color so components are in the linear\n// working color space (matching the output colorspace conversion).\nfunction makePaletteLUT(hexes) {\n  const data = new Float32Array(4 * 4);\n  hexes.forEach((hex, i) =&gt; {\n    const c = new THREE.Color(hex);\n    data[i * 4 + 0] = c.r; data[i * 4 + 1] = c.g;\n    data[i * 4 + 2] = c.b; data[i * 4 + 3] = 1.0;\n  });\n  const tex = new THREE.DataTexture(data, 4, 1, THREE.RGBAFormat, THREE.FloatType);\n  tex.minFilter = THREE.NearestFilter;\n  tex.magFilter = THREE.NearestFilter;\n  tex.needsUpdate = true;\n  return tex;\n}\n\n/* ============================================================\n   Time of day: sky/fog, sun direction, palettes, ink\n   ============================================================ */\nconst MODE_NAMES = [&#x27;day&#x27;</pre><details><summary>output (37 chars)</summary><pre>Created file successfully: index.html</pre></details></div><div class=s>step: {&quot;input&quot;: 499, &quot;output&quot;: 7743, &quot;reasoning&quot;: 4178, &quot;cache&quot;: {&quot;read&quot;: 43712, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Now let me preview it:</pre></div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -20&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (141 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It is not blank.
+Frames per second (software rendering): 17; canvases: 1.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 12046, &quot;output&quot;: 36, &quot;reasoning&quot;: 203, &quot;cache&quot;: {&quot;read&quot;: 44096, &quot;write&quot;: 0}}</div><div class=c><b>read</b><pre>{
+ &quot;path&quot;: &quot;/work/.preview/screenshot.png&quot;
+}</pre><details><summary>output (23 chars)</summary><pre>Image read successfully</pre></details></div><div class=s>step: {&quot;input&quot;: 359, &quot;output&quot;: 16, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 56064, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>No console errors and the toon pipeline works, but the tower&#x27;s shadow on the ground looks missing (only a small smudge near the plaza). Let me debug with a temporary top-down camera to see the shadow region clearly:</pre></div><div class=c><b>edit</b><pre>{
+ &quot;path&quot;: &quot;/work/index.html&quot;,
+ &quot;oldString&quot;: &quot;camera.position.set(330, 165, 430);&quot;,
+ &quot;newString&quot;: &quot;camera.position.set(260, 800, 260); // DEBUG\ncontrols.target.set(0, 20, 0); // DEBUG&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 1463, &quot;output&quot;: 112, &quot;reasoning&quot;: 2598, &quot;cache&quot;: {&quot;read&quot;: 56320, &quot;write&quot;: 0}}</div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;controls.autoRotate = false; // DEBUG&quot;,
+ &quot;oldString&quot;: &quot;controls.autoRotate = true;&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 2840, &quot;output&quot;: 39, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 57664, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -4&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (215 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It looks blank.
+Frames per second (software rendering): 61; canvases: 1.
+Page error: ReferenceError: Cannot access &#x27;controls&#x27; before initialization
+</pre></details></div><div class=s>step: {&quot;input&quot;: 138, &quot;output&quot;: 30, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 60416, &quot;write&quot;: 0}}</div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;camera.position.set(260, 800, 260); // DEBUG&quot;,
+ &quot;oldString&quot;: &quot;camera.position.set(260, 800, 260); // DEBUG\ncontrols.target.set(0, 20, 0); // DEBUG&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 159, &quot;output&quot;: 69, &quot;reasoning&quot;: 67, &quot;cache&quot;: {&quot;read&quot;: 60480, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -4&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (141 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It is not blank.
+Frames per second (software rendering): 18; canvases: 1.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 242, &quot;output&quot;: 30, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 60544, &quot;write&quot;: 0}}</div><div class=c><b>read</b><pre>{
+ &quot;path&quot;: &quot;/work/.preview/screenshot.png&quot;
+}</pre><details><summary>output (23 chars)</summary><pre>Image read successfully</pre></details></div><div class=s>step: {&quot;input&quot;: 186, &quot;output&quot;: 16, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 60672, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Shadows work — the tower&#x27;s lattice shadow and tree shadows are clearly visible from above (in the first view they just fell mostly behind the tower). Restoring the camera:</pre></div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;camera.position.set(330, 165, 430);&quot;,
+ &quot;oldString&quot;: &quot;camera.position.set(260, 800, 260); // DEBUG&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;controls.autoRotate = true;&quot;,
+ &quot;oldString&quot;: &quot;controls.autoRotate = false; // DEBUG&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 1482, &quot;output&quot;: 123, &quot;reasoning&quot;: 279, &quot;cache&quot;: {&quot;read&quot;: 60736, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Now testing Dusk by temporarily changing the fallback mode:</pre></div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;dusk&#x27;; // DEBUG fallback&quot;,
+ &quot;oldString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;day&#x27;; // validate, fallback &#x27;day&#x27;&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 496, &quot;output&quot;: 79, &quot;reasoning&quot;: 26, &quot;cache&quot;: {&quot;read&quot;: 62144, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -4&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (141 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It is not blank.
+Frames per second (software rendering): 17; canvases: 1.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 228, &quot;output&quot;: 30, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 62528, &quot;write&quot;: 0}}</div><div class=c><b>read</b><pre>{
+ &quot;path&quot;: &quot;/work/.preview/screenshot.png&quot;
+}</pre><details><summary>output (23 chars)</summary><pre>Image read successfully</pre></details></div><div class=s>step: {&quot;input&quot;: 172, &quot;output&quot;: 16, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 62656, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Dusk works — orange sky, long low-sun shadows. Now Night:</pre></div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;night&#x27;; // DEBUG fallback&quot;,
+ &quot;oldString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;dusk&#x27;; // DEBUG fallback&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 1468, &quot;output&quot;: 81, &quot;reasoning&quot;: 74, &quot;cache&quot;: {&quot;read&quot;: 62720, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -4&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (141 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It is not blank.
+Frames per second (software rendering): 17; canvases: 1.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 290, &quot;output&quot;: 30, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 64064, &quot;write&quot;: 0}}</div><div class=c><b>read</b><pre>{
+ &quot;path&quot;: &quot;/work/.preview/screenshot.png&quot;
+}</pre><details><summary>output (23 chars)</summary><pre>Image read successfully</pre></details></div><div class=s>step: {&quot;input&quot;: 170, &quot;output&quot;: 16, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 64256, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>Night works — dark blue moonlit scene with the tower&#x27;s front clearly lit. Restoring the `day` fallback and doing a final verification:</pre></div><div class=c><b>edit</b><pre>{
+ &quot;newString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;day&#x27;; // validate, fallback &#x27;day&#x27;&quot;,
+ &quot;oldString&quot;: &quot;const initialMode = TIMES[requestedMode] ? requestedMode : &#x27;night&#x27;; // DEBUG fallback&quot;,
+ &quot;path&quot;: &quot;/work/index.html&quot;
+}</pre><details><summary>output (33 chars)</summary><pre>Edited index.html (1 replacement)</pre></details></div><div class=s>step: {&quot;input&quot;: 1466, &quot;output&quot;: 96, &quot;reasoning&quot;: 120, &quot;cache&quot;: {&quot;read&quot;: 64320, &quot;write&quot;: 0}}</div><div class=c><b>shell</b><pre>{
+ &quot;command&quot;: &quot;cd /work &amp;&amp; preview 2&gt;&amp;1 | tail -4&quot;,
+ &quot;timeout&quot;: 300000
+}</pre><details><summary>output (141 chars)</summary><pre>Loaded index.html.
+Screenshot: .preview/screenshot.png (1280x800). It is not blank.
+Frames per second (software rendering): 18; canvases: 1.
+</pre></details></div><div class=s>step: {&quot;input&quot;: 349, &quot;output&quot;: 30, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 65664, &quot;write&quot;: 0}}</div><div class=c><b>read</b><pre>{
+ &quot;path&quot;: &quot;/work/.preview/screenshot.png&quot;
+}</pre><details><summary>output (23 chars)</summary><pre>Image read successfully</pre></details></div><div class=s>step: {&quot;input&quot;: 165, &quot;output&quot;: 16, &quot;reasoning&quot;: 0, &quot;cache&quot;: {&quot;read&quot;: 65920, &quot;write&quot;: 0}}</div><div class=t><b>assistant</b><pre>All three modes verified with no console or shader errors. The scene is complete in `/work/index.html`.
+
+**What was built:**
+
+- **Cel-shading pipeline (exactly as specified)** — per-vertex `vDiffuse = dot(n, uLightDir)` in the vertex shader; a shared 256×1 RGBA `DataTexture` band LUT (`NearestFilter`, four hard plateaus `[0.125, 0.375, 0.625, 0.875]` with boundaries at t&lt;0.5 / 0.625 / 0.85); and a per-material 4×1 palette LUT (`[shadow, mid, upper, lit]`) that re-colors each surface instead of scaling a base color. All 21 palette textures (7 materials × 3 modes) are pre-built at startup, so time-of-day switching is purely a uniform swap.
+- **Real shadow mapping on custom `ShaderMaterial`s** — `lights: true` with `UniformsLib.lights` + `UniformsLib.fog` merged, chunk order (`common → packing → fog_pars → shadowmap_pars → begin/beginnormal/defaultnormal/worldpos/shadowmap → own math → fog`), `getShadow()` with the r187 shadow-intensity argument, guarded by `USE_SHADOWMAP` / `NUM_DIR_LIGHT_SHADOWS &gt; 0`. Shadow is applied as a color multiplier *after* the palette lookup; clouds opt out via `uReceiveShadow = 0`.
+- **Inverted-hull outlines** — one shared `BackSide` material expanding along view-space normals for constant pixel width, with the same shadow chunks so ink darkens in shadow; added as zero-allocation children sharing each mesh&#x27;s geometry (a `uReceiveShadow = 0` clone for clouds).
+- **Scene** — the tower at real scale (power-curve profile, 4 curved legs, 4 lattice sections with X-bracing, 3 platforms, antenna), ground + plaza, 14 seeded trees, 8 drifting 5-puff clouds, OrbitControls with damping/autorotate, fog synced to the sky color.
+- **Day / Dusk / Night** — pills top-right (active = yellow), deep-linkable via `?tod=`, `applyTimeOfDay()` called once before the first frame. Verified via `preview` for each mode by temporarily switching the fallback: Day shows warm tower + tree/tower shadows (confirmed with a top-down debug shot since the day shadow falls away from the default camera), Dusk gives the orange sky with long low-sun shadows, Night a dark blue moonlit scene with the tower&#x27;s front lit. The fallback is restored to `day` for delivery.</pre></div><div class=s>step: {&quot;input&quot;: 1461, &quot;output&quot;: 571, &quot;reasoning&quot;: 170, &quot;cache&quot;: {&quot;read&quot;: 65984, &quot;write&quot;: 0}}</div>

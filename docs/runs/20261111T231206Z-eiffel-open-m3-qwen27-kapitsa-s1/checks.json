@@ -1,0 +1,92 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 19,
+  "draw_calls_per_frame": 85,
+  "primitives_per_frame": 74231,
+  "canvases": 1,
+  "luma_stddev": 36.62,
+  "distinct_colours": 585,
+  "blank": false,
+  "animation_diff": 0.0111,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "day",
+      "found": true,
+      "diff_vs_before": 0.0082
+    },
+    {
+      "mode": "dusk",
+      "found": true,
+      "diff_vs_before": 0.9818
+    },
+    {
+      "mode": "night",
+      "found": true,
+      "diff_vs_before": 0.8941
+    }
+  ],
+  "second_load_diff": 0.0136,
+  "modes": [
+    {
+      "query": "?tod=day",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 10,
+      "draw_calls_per_frame": 85,
+      "primitives_per_frame": 74384,
+      "canvases": 1,
+      "luma_stddev": 37.24,
+      "distinct_colours": 592,
+      "blank": false,
+      "mode": "day",
+      "diff_vs_default": 0.0126
+    },
+    {
+      "query": "?tod=dusk",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 6,
+      "draw_calls_per_frame": 101,
+      "primitives_per_frame": 97496,
+      "canvases": 1,
+      "luma_stddev": 52.08,
+      "distinct_colours": 431,
+      "blank": false,
+      "mode": "dusk",
+      "diff_vs_default": 0.9869
+    },
+    {
+      "query": "?tod=night",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 8,
+      "draw_calls_per_frame": 90,
+      "primitives_per_frame": 76090,
+      "canvases": 1,
+      "luma_stddev": 34.86,
+      "distinct_colours": 293,
+      "blank": false,
+      "mode": "night",
+      "diff_vs_default": 0.9873
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

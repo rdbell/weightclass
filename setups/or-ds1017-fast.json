@@ -1,0 +1,23 @@
+{
+  "id": "or-ds1017-fast",
+  "label": "DeepSeek V4.1 Flash 1017 (hosted, fastest provider)",
+  "base_url": "https://openrouter.ai/api/v1",
+  "api_key_env": "OPENROUTER_API_KEY",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "hosted-lab",
+  "model_id": "deepseek/deepseek-v4.1-flash-1017",
+  "request_body": {
+    "provider": {
+      "sort": "throughput",
+      "allow_fallbacks": true
+    },
+    "reasoning": {
+      "effort": "high"
+    },
+    "usage": {
+      "include": true
+    }
+  },
+  "notes": "Prompt lab only: provider varies by availability; the serving provider is recorded per run."
+}

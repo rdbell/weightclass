@@ -1,0 +1,100 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+  ],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 16.5,
+  "draw_calls_per_frame": 94,
+  "primitives_per_frame": 59362,
+  "canvases": 1,
+  "luma_stddev": 52.05,
+  "distinct_colours": 237,
+  "blank": false,
+  "animation_diff": 0.6029,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "day",
+      "found": true,
+      "diff_vs_before": 0.0895
+    },
+    {
+      "mode": "dusk",
+      "found": true,
+      "diff_vs_before": 0.9775
+    },
+    {
+      "mode": "night",
+      "found": true,
+      "diff_vs_before": 0.9893
+    }
+  ],
+  "second_load_diff": 0.2685,
+  "modes": [
+    {
+      "query": "?tod=day",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 8,
+      "draw_calls_per_frame": 95,
+      "primitives_per_frame": 59476,
+      "canvases": 1,
+      "luma_stddev": 48.8,
+      "distinct_colours": 219,
+      "blank": false,
+      "mode": "day",
+      "diff_vs_default": 0.2398
+    },
+    {
+      "query": "?tod=dusk",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 18,
+      "draw_calls_per_frame": 98,
+      "primitives_per_frame": 60116,
+      "canvases": 1,
+      "luma_stddev": 48.62,
+      "distinct_colours": 189,
+      "blank": false,
+      "mode": "dusk",
+      "diff_vs_default": 0.9921
+    },
+    {
+      "query": "?tod=night",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 8.5,
+      "draw_calls_per_frame": 75,
+      "primitives_per_frame": 60468,
+      "canvases": 1,
+      "luma_stddev": 48.73,
+      "distinct_colours": 179,
+      "blank": false,
+      "mode": "night",
+      "diff_vs_default": 0.9865
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

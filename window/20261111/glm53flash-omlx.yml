@@ -1,0 +1,4 @@
+# Weightclass M3 window 2026-11-11: temporary engine selection for local_llm.yml
+# (-e @this-file). Production is restored afterwards from host_vars.
+# omlx block from current host_vars (GLM-5.3-Flash oQ4e).
+local_llm_engine: omlx

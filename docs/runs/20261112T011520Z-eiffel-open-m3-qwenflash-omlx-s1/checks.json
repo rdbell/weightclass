@@ -1,0 +1,111 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [
+    "/src/main.js"
+  ],
+  "fps": 0,
+  "draw_calls_per_frame": null,
+  "primitives_per_frame": null,
+  "canvases": 0,
+  "luma_stddev": 3.65,
+  "distinct_colours": 62,
+  "blank": false,
+  "animation_diff": 0,
+  "animated": false,
+  "clicks": [
+    {
+      "mode": "day",
+      "found": true,
+      "diff_vs_before": null,
+      "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /^\\W*day\\W*$/i }).or(getByText(/^\\W*day\\W*$/i)).first()\n    - locator resolved to <button data-tod=\"day\" aria-pressed=\"false\">Day</button>\n  - attempting click action\n    2 × waiting for eleme"
+    },
+    {
+      "mode": "dusk",
+      "found": true,
+      "diff_vs_before": null,
+      "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /^\\W*dusk\\W*$/i }).or(getByText(/^\\W*dusk\\W*$/i)).first()\n    - locator resolved to <button data-tod=\"dusk\" aria-pressed=\"false\">Dusk</button>\n  - attempting click action\n    2 × waiting for e"
+    },
+    {
+      "mode": "night",
+      "found": true,
+      "diff_vs_before": null,
+      "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /^\\W*night\\W*$/i }).or(getByText(/^\\W*night\\W*$/i)).first()\n    - locator resolved to <button data-tod=\"night\" aria-pressed=\"false\">Night</button>\n  - attempting click action\n    2 × waiting f"
+    }
+  ],
+  "second_load_diff": 0,
+  "modes": [
+    {
+      "query": "?tod=day",
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [
+        "/src/main.js"
+      ],
+      "fps": 0,
+      "draw_calls_per_frame": null,
+      "primitives_per_frame": null,
+      "canvases": 0,
+      "luma_stddev": 3.65,
+      "distinct_colours": 62,
+      "blank": false,
+      "mode": "day",
+      "diff_vs_default": 0
+    },
+    {
+      "query": "?tod=dusk",
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [
+        "/src/main.js"
+      ],
+      "fps": 0,
+      "draw_calls_per_frame": null,
+      "primitives_per_frame": null,
+      "canvases": 0,
+      "luma_stddev": 3.65,
+      "distinct_colours": 62,
+      "blank": false,
+      "mode": "dusk",
+      "diff_vs_default": 0
+    },
+    {
+      "query": "?tod=night",
+      "console_errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [
+        "/src/main.js"
+      ],
+      "fps": 0,
+      "draw_calls_per_frame": null,
+      "primitives_per_frame": null,
+      "canvases": 0,
+      "luma_stddev": 3.65,
+      "distinct_colours": 62,
+      "blank": false,
+      "mode": "night",
+      "diff_vs_default": 0
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>La Tour Eiffel — A Cartoon Paris</title>
+<style>
+  :root {
+    --ink: #242137;
+    --paper: #fff4df;
+    --paper-2: #ffe9c1;
+    --accent: #ffd24a;
+    --shadow: #242137;
+  }
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #0e1326;
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body[data-mode="day"] { --accent: #ffd24a; --paper: #fff4df; --paper-2: #ffe8b9; }
+  body[data-mode="dusk"] { --accent: #ff9b62; --paper: #ffe8d8; --paper-2: #ffcbb8; }
+  body[data-mode="night"] { --accent: #8db7ff; --paper: #dbe7ff; --paper-2: #b7c9f4; }
+
+  #scene {
+    position: fixed;
+    inset: 0;
+  }
+  #scene canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #hud {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: min(330px, calc(100vw - 290px));
+    padding: 15px 19px 16px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 5px 5px 0 var(--shadow);
+    transform: rotate(-1.2deg);
+  }
+  .kicker {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
+    color: #765b3d;
+    margin-bottom: 5px;
+  }
+  h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    font-size: clamp(23px, 3vw, 33px);
+    letter-spacing: 0.5px;
+    line-height: 1.04;
+    color: var(--ink);
+  }
+  .card p {
+    margin: 7px 0 0;
+    font-size: 11px;
+    line-height: 1.35;
+    letter-spacing: 0.2px;
+    color: #5d4b35;
+    max-width: 260px;
+  }
+  .stamp {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #b57b32;
+    border: 1px solid #cba66e;
+    border-radius: 4px;
+    padding: 2px 5px;
+    transform: rotate(8deg);
+  }
+
+  #modeToggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    border-radius: 13px;
+    box-shadow: 5px 5px 0 var(--shadow);
+    pointer-events: auto;
+  }
+  .mode {
+    appearance: none;
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    background: var(--paper-2);
+    color: var(--ink);
+    padding: 8px 14px 9px;
+    font: 800 13px/1 "Trebuchet MS", "Segoe UI", sans-serif;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--shadow);
+    transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.12s ease;
+  }
+  .mode:hover {
+    background: #fff8ea;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--shadow);
+  }
+  .mode:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: 2px;
+  }
+  .mode.active {
+    background: var(--accent);
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--shadow);
+  }
+
+  #hint {
+    position: absolute;
+    left: 50%;
+    bottom: 17px;
+    transform: translateX(-50%);
+    padding: 7px 12px 8px;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    border: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ink);
+    opacity: 0.88;
+  }
+
+  .sun-mark {
+    position: absolute;
+    right: 26px;
+    bottom: 54px;
+    width: 26px;
+    height: 26px;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  @media (max-width: 720px) {
+    .card { width: calc(100vw - 40px); top: 12px; left: 12px; padding: 12px 15px; }
+    .card p { display: none; }
+    #modeToggle { top: auto; bottom: 52px; right: 12px; padding: 6px; gap: 5px; }
+    .mode { padding: 7px 9px 8px; font-size: 11px; }
+    #hint { bottom: 12px; font-size: 8px; letter-spacing: 0.6px; }
+    .sun-mark { display: none; }
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body data-mode="day">
+  <div id="scene"></div>
+  <div id="hud">
+    <div class="card">
+      <div class="kicker">Paris &middot; Champ de Mars</div>
+      <h1>La Tour Eiffel</h1>
+      <p>A bright little stroll beneath the iron lady, drawn in ink and candy colours.</p>
+      <span class="stamp">PARIS ’26</span>
+    </div>
+    <div id="modeToggle" role="group" aria-label="Time of day">
+      <button class="mode active" data-mode="day" aria-pressed="true">Day</button>
+      <button class="mode" data-mode="dusk" aria-pressed="false">Dusk</button>
+      <button class="mode" data-mode="night" aria-pressed="false">Night</button>
+    </div>
+    <div id="hint">Drag to orbit &middot; Scroll to zoom</div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

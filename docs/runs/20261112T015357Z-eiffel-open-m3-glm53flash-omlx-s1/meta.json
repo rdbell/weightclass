@@ -1,0 +1,165 @@
+{
+  "run": "20261112T015357Z-eiffel-open-m3-glm53flash-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "eiffel-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "eiffel",
+    "file": "prompts/lab/eiffel-open.md",
+    "sha256": "a121a69a7f957e1a38782b19841010fafc8d3325b545b7818c034f8848738b1b"
+  },
+  "setup_sha256": "8e003a96cdeb2be4fa49b409e67fea11e5f8dd6ca824524a1ef3c28f0d160ef9",
+  "sample": 1,
+  "started": "2026-11-12T01:53:59.162557+00:00",
+  "ended": "2026-11-12T02:49:39.958253+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 3340.8,
+  "concurrent_runs": [
+    {
+      "run": "20261112T015359Z-eiffel-spec-m3-glm53flash-omlx-s1",
+      "overlap_seconds": 3342.0
+    }
+  ],
+  "tool_calls": 38,
+  "tokens_seen": 141376,
+  "tokens": {
+    "steps": 29,
+    "input": 82085,
+    "cache_read": 1663053,
+    "cache_write": 0,
+    "output": 19424,
+    "reasoning": 41824,
+    "generated": 61248
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 10,
+      "glob": 1,
+      "write": 6,
+      "edit": 14,
+      "read": 6,
+      "grep": 1
+    },
+    "tool_errors": 2,
+    "preview_calls": 14,
+    "step_finish_reasons": {
+      "tool-calls": 28,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 29,
+    "model_calls": 29,
+    "statuses": {
+      "200": 29
+    },
+    "relay_errors": 0,
+    "client_closed_early": 6,
+    "cached_prompt_tokens": 1663053,
+    "prompt_tokens": 1745138,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 28,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 2204.8,
+    "ttft_ms_p90": 5756.8,
+    "decode_tps_p50": 12.9,
+    "generation_ids": 29
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 660,
+    "avg_watts": 76.9,
+    "max_watts": 182.1,
+    "energy_wh": 70.45,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 30,
+  "code": {
+    "files": 8,
+    "bytes": 53272,
+    "lines": 1316
+  },
+  "workspace_sha256": "2605c7eda0b3542b99277db134e02173b0f8237378e490c18524d15127004352",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "cec4847a221de5f994334d05d6b11bbc105ac8bd4dd3f198d399263ae2829d7e",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5d1ff5e4241780f9eff93556cff0053d732fd00e7cc43b0ac432000eb17de488",
+    "guard": {
+      "max_steps": 200,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "backfill": {
+    "rechecked": false,
+    "tokens_raw": {
+      "completion": 61248,
+      "reasoning": 41824,
+      "output": 19424,
+      "method": [
+        "reported"
+      ]
+    },
+    "prompt": {
+      "id": "eiffel-open",
+      "title": "Eiffel Tower (open)",
+      "variant": "open",
+      "subject": "eiffel",
+      "version": "1",
+      "file": "prompts/lab/eiffel-open.md"
+    }
+  },
+  "setup": {
+    "id": "m3-glm53flash-omlx",
+    "label": "GLM-5.3-Flash oQ4e (oMLX, M3 Ultra)",
+    "model_id": "m3-ultra-local",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "Jundot/GLM-5.3-Flash-oQ4e-mtp",
+      "revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
+      "manifest_sha256": "a5979899ba869684360dc34432d5ddc04fe6d01b8b195dd277c486dfe0cff993",
+      "total_bytes": 186423200125
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP"
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw."
+  }
+}
