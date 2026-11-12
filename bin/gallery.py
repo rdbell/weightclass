@@ -162,6 +162,14 @@ def main():
     if not vend.exists():
         shutil.copytree(THREE, vend)
     data = [run_record(Path(r).resolve(), out) for r in args.runs]
+    # Several samples of one setup on one prompt: number them by start time.
+    groups = {}
+    for d in sorted(data, key=lambda d: d.get("started") or ""):
+        key = (d["prompt"], d["setup"])
+        groups[key] = groups.get(key, 0) + 1
+        d["run_no"] = groups[key]
+    for d in data:
+        d["runs_of_setup"] = groups[(d["prompt"], d["setup"])]
     prompts = {}
     for f in sorted((ROOT / "prompts").rglob("*.md")):
         text = f.read_text()

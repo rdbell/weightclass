@@ -110,7 +110,9 @@
    "three": "0.187.0",
    "image_id": "sha256:8cff62db87ed5face86b26f810d29ea7c84ea1c072be678365af7be01da45540"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": null,
@@ -223,7 +225,9 @@
    "three": "0.187.0",
    "image_id": "sha256:8cff62db87ed5face86b26f810d29ea7c84ea1c072be678365af7be01da45540"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": null,
@@ -336,7 +340,9 @@
    "three": "0.187.0",
    "image_id": "sha256:8cff62db87ed5face86b26f810d29ea7c84ea1c072be678365af7be01da45540"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": null,
@@ -449,7 +455,9 @@
    "three": "0.187.0",
    "image_id": "sha256:c83d25b63ed9e56e9835d23c504db6396b9919f2ef0b8316d8b4665f142b747a"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": null,
@@ -562,7 +570,9 @@
    "three": "0.187.0",
    "image_id": "sha256:c83d25b63ed9e56e9835d23c504db6396b9919f2ef0b8316d8b4665f142b747a"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": null,
@@ -675,7 +685,9 @@
    "three": "0.187.0",
    "image_id": "sha256:c83d25b63ed9e56e9835d23c504db6396b9919f2ef0b8316d8b4665f142b747a"
   },
-  "started": null
+  "started": null,
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "4-bit MLX",
@@ -795,7 +807,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-11T23:12:08.035167+00:00"
+  "started": "2026-11-11T23:12:08.035167+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "4-bit MLX",
@@ -915,7 +929,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-11T23:12:10.779841+00:00"
+  "started": "2026-11-11T23:12:10.779841+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "oQ4e",
@@ -1032,7 +1048,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T01:15:22.803381+00:00"
+  "started": "2026-11-12T01:15:22.803381+00:00",
+  "run_no": 1,
+  "runs_of_setup": 2
  },
  {
   "quant": "oQ4e",
@@ -1148,7 +1166,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T01:15:25.399159+00:00"
+  "started": "2026-11-12T01:15:25.399159+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "oQ4e",
@@ -1265,7 +1285,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T01:53:59.162557+00:00"
+  "started": "2026-11-12T01:53:59.162557+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "oQ4e",
@@ -1382,7 +1404,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T01:54:01.744788+00:00"
+  "started": "2026-11-12T01:54:01.744788+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "iQ-MLX 3.0 bpw",
@@ -1499,7 +1523,9 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T04:16:42.760070+00:00"
+  "started": "2026-11-12T04:16:42.760070+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
  },
  {
   "quant": "iQ-MLX 3.0 bpw",
@@ -1616,6 +1642,443 @@
    "three": "0.187.0",
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
-  "started": "2026-11-12T04:16:45.458368+00:00"
+  "started": "2026-11-12T04:16:45.458368+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
+ },
+ {
+  "quant": "4-bit MLX",
+  "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
+  "pack_link": true,
+  "pack_extras": [
+   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)",
+   "MTP head from Qwen/Qwen3.8-27B"
+  ],
+  "pack_revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)",
+  "pack_bytes": 20169260357,
+  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261112T093032Z-room-open-m3-qwen27-kapitsa-s1",
+  "prompt": "room-open",
+  "prompt_title": "Reading room (open)",
+  "variant": "open",
+  "setup": "m3-qwen27-kapitsa",
+  "model": "Qwen3.8-27B",
+  "where": "local",
+  "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)",
+  "pack": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+  "engine": "kapitsa",
+  "engine_version": "0.2.34",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 64,
+  "session_steps": 64,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 99,
+  "tool_errors": 0,
+  "generated": 169238,
+  "output": 43913,
+  "reasoning": 125325,
+  "token_note": "reported",
+  "input": 26203,
+  "cached": 9613787,
+  "energy_wh": 72.98,
+  "avg_watts": 74.2,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 3585.4,
+  "concurrent": 0,
+  "decode_tps_p50": 39.6,
+  "ttft_ms_p50": 2309.8,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 15.1,
+   "draw_calls_per_frame": 484,
+   "primitives_per_frame": 20856,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9454
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0046
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": false,
+    "diff": null
+   },
+   {
+    "mode": "door",
+    "found": false,
+    "diff": null
+   }
+  ],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-12T09:30:34.376262+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
+ },
+ {
+  "quant": "oQ4e",
+  "pack_label": "Jundot oQ4e + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
+  "pack_bytes": 186423200125,
+  "engine_settings": "speculative=MTP",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261112T103627Z-room-open-m3-glm53flash-omlx-s1",
+  "prompt": "room-open",
+  "prompt_title": "Reading room (open)",
+  "variant": "open",
+  "setup": "m3-glm53flash-omlx",
+  "model": "GLM-5.3-Flash",
+  "where": "local",
+  "label": "GLM-5.3-Flash oQ4e (oMLX, M3 Ultra)",
+  "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 23,
+  "session_steps": 23,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 27,
+  "tool_errors": 0,
+  "generated": 44703,
+  "output": 15301,
+  "reasoning": 29402,
+  "token_note": "reported",
+  "input": 56874,
+  "cached": 1105399,
+  "energy_wh": 21.48,
+  "avg_watts": 63.1,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 1240.4,
+  "concurrent": 0,
+  "decode_tps_p50": 13.4,
+  "ttft_ms_p50": 2112.8,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 15.5,
+   "draw_calls_per_frame": 449,
+   "primitives_per_frame": 64374,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9907
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0657
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": false,
+    "diff": null
+   },
+   {
+    "mode": "door",
+    "found": false,
+    "diff": null
+   }
+  ],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-12T10:36:29.348876+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
+ },
+ {
+  "quant": "iQ-MLX 3.0 bpw",
+  "pack_label": "ddalcu iQ-MLX 3.0 bpw",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045",
+  "pack_bytes": 427295062169,
+  "engine_settings": "max_concurrent=8, prefix_cache_mem=16GB, prefix_cache_disk=64GB, prefill_chunk=2048",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261112T113102Z-room-open-m3-ds1017-mlxserve-s1",
+  "prompt": "room-open",
+  "prompt_title": "Reading room (open)",
+  "variant": "open",
+  "setup": "m3-ds1017-mlxserve",
+  "model": "DeepSeek V4.1 Flash 1017",
+  "where": "local",
+  "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)",
+  "pack": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw",
+  "engine": "mlx-serve",
+  "engine_version": "26.11.2",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 100,
+  "session_steps": 100,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 99,
+  "tool_errors": 1,
+  "generated": 132688,
+  "output": 37982,
+  "reasoning": 94706,
+  "token_note": "estimated from reasoning character share",
+  "input": 157085,
+  "cached": 10473292,
+  "energy_wh": 68.24,
+  "avg_watts": 49.4,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 5033.9,
+  "concurrent": 0,
+  "decode_tps_p50": 33.8,
+  "ttft_ms_p50": 2835.8,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 15.8,
+   "draw_calls_per_frame": 379,
+   "primitives_per_frame": 42271,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9257
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0068
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": true,
+    "diff": 0.9247
+   },
+   {
+    "mode": "door",
+    "found": true,
+    "diff": 0.9243
+   }
+  ],
+  "shots": [
+   "default",
+   "click-door",
+   "click-top",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-12T11:31:04.800419+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1
+ },
+ {
+  "quant": "oQ4e",
+  "pack_label": "Jundot oQ4e + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+  "pack_bytes": 107693772821,
+  "engine_settings": "speculative=MTP",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261112T132242Z-eiffel-open-m3-qwenflash-omlx-s1",
+  "prompt": "eiffel-open",
+  "prompt_title": "Eiffel Tower (open)",
+  "variant": "open",
+  "setup": "m3-qwenflash-omlx",
+  "model": "Qwen3.8-Flash-Next",
+  "where": "local",
+  "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+  "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 334,
+  "session_steps": 333,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 338,
+  "tool_errors": 5,
+  "generated": 284213,
+  "output": 110800,
+  "reasoning": 173413,
+  "token_note": "reported",
+  "input": 278052,
+  "cached": 39866141,
+  "energy_wh": 76.72,
+  "avg_watts": 22.4,
+  "thermal": [
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 12495.1,
+  "concurrent": 0,
+  "decode_tps_p50": 52.4,
+  "ttft_ms_p50": 5238.4,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 12.5,
+   "draw_calls_per_frame": 141,
+   "primitives_per_frame": 313359,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "day",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0158
+   },
+   {
+    "mode": "dusk",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9968
+   },
+   {
+    "mode": "night",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9975
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "day",
+    "found": true,
+    "diff": 0.2706
+   },
+   {
+    "mode": "dusk",
+    "found": true,
+    "diff": 0.2946
+   },
+   {
+    "mode": "night",
+    "found": true,
+    "diff": 0.4109
+   }
+  ],
+  "shots": [
+   "default",
+   "click-day",
+   "click-dusk",
+   "click-night",
+   "default-later",
+   "default-second-load",
+   "mode-day",
+   "mode-dusk",
+   "mode-night"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-12T13:22:44.398196+00:00",
+  "run_no": 2,
+  "runs_of_setup": 2
  }
 ]

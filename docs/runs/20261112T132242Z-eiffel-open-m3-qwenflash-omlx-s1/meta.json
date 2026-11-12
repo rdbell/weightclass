@@ -1,0 +1,179 @@
+{
+  "run": "20261112T132242Z-eiffel-open-m3-qwenflash-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "eiffel-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "eiffel",
+    "file": "prompts/lab/eiffel-open.md",
+    "sha256": "a121a69a7f957e1a38782b19841010fafc8d3325b545b7818c034f8848738b1b"
+  },
+  "setup_sha256": "995b3d3636dfd717f3b342bdae33b2bbf379e05f209f8b5b402992ed4a0984f6",
+  "sample": 1,
+  "started": "2026-11-12T13:22:44.398196+00:00",
+  "ended": "2026-11-12T16:50:59.487837+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 12495.1,
+  "concurrent_runs": [],
+  "tool_calls": 338,
+  "tokens_seen": 283460,
+  "tokens": {
+    "model_calls": 334,
+    "failed_calls": 0,
+    "input": 278052,
+    "cache_read": 39866141,
+    "output": 110800,
+    "reasoning": 173413,
+    "generated": 284213,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 333,
+    "input": 277018,
+    "cache_read": 39643680,
+    "cache_write": 0,
+    "output": 108319,
+    "reasoning": 172411,
+    "generated": 280730
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 135,
+      "write": 12,
+      "edit": 147,
+      "ash": 1,
+      "read": 42,
+      "execute": 1
+    },
+    "tool_errors": 5,
+    "preview_calls": 26,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 332,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 334,
+    "model_calls": 334,
+    "statuses": {
+      "200": 334
+    },
+    "relay_errors": 0,
+    "client_closed_early": 35,
+    "cached_prompt_tokens": 39866141,
+    "prompt_tokens": 40144193,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 332,
+      "stop": 2
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 5238.4,
+    "ttft_ms_p90": 34701.6,
+    "decode_tps_p50": 52.4,
+    "generation_ids": 334
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 2468,
+    "avg_watts": 22.4,
+    "max_watts": 144.8,
+    "energy_wh": 76.72,
+    "thermal_levels": [
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 335,
+  "code": {
+    "files": 10,
+    "bytes": 114522,
+    "lines": 3019
+  },
+  "workspace_sha256": "5ecf749b60851dd84e6bb690624fb47c33323a4af9feb119c65c7bb41fa3c6da",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "0581cd438c6b4105ba935247b96ed93c2bd38e63225ff063bc92863ac42cf6ce",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "f44eccfa4621049bb9b066ee4dae69a69a1154cf68f5810beb90eb6a421a68d3",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "backfill": {
+    "tokens_raw": {
+      "model_calls": 334,
+      "failed_calls": 0,
+      "input": 278052,
+      "cache_read": 39866141,
+      "output": 110800,
+      "reasoning": 173413,
+      "generated": 284213,
+      "reasoning_method": [
+        "reported"
+      ]
+    },
+    "prompt": {
+      "id": "eiffel-open",
+      "title": "Eiffel Tower (open)",
+      "variant": "open",
+      "subject": "eiffel",
+      "version": "1",
+      "file": "prompts/lab/eiffel-open.md"
+    }
+  },
+  "setup": {
+    "id": "m3-qwenflash-omlx",
+    "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+    "model_id": "m3-ultra-local",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+      "revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+      "manifest_sha256": "98ec45b5fc35b05382966dabeb879ba675e155691f5e5029a328ff1165c03b8f",
+      "total_bytes": 107693772821
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP"
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "Jundot oQ4e + MTP"
+  }
+}

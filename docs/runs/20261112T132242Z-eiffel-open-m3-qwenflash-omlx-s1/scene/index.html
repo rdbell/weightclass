@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tour Eiffel — a toon study</title>
+<style>
+	:root {
+		--ink: #33241a;
+		--paper: #eaf4fb;
+		--accent: #fffaea;
+		--sun: #fff2d4;
+	}
+	* { box-sizing: border-box; }
+	html, body {
+		margin: 0; padding: 0; height: 100%; overflow: hidden;
+		background: #0d1024;
+		font-family: ui-rounded, "Trebuchet MS", "Segoe UI", Avenir, system-ui, sans-serif;
+	}
+	#stage, #stage canvas { display: block; width: 100%; height: 100%; }
+
+	#ui {
+		position: fixed; inset: 0; pointer-events: none;
+		display: flex; flex-direction: column; justify-content: space-between;
+		padding: clamp(12px, 2.2vmin, 26px);
+	}
+	.card {
+		align-self: flex-start;
+		pointer-events: auto;
+		background: color-mix(in srgb, var(--paper) 82%, transparent);
+		border: 3px solid var(--ink);
+		border-radius: 18px;
+		box-shadow: 5px 6px 0 color-mix(in srgb, var(--ink) 55%, transparent);
+		padding: 10px 18px 12px;
+		color: var(--ink);
+		backdrop-filter: blur(3px);
+		transition: opacity .8s ease, transform .8s ease;
+	}
+	.card h1 {
+		margin: 0; font-size: clamp(19px, 3.1vmin, 34px);
+		letter-spacing: .02em; text-transform: uppercase; line-height: 1;
+		text-shadow: 2px 2px 0 color-mix(in srgb, var(--accent) 70%, transparent);
+	}
+	.card p {
+		margin: 5px 0 0; font-size: clamp(10px, 1.35vmin, 14px);
+		opacity: .78; letter-spacing: .06em;
+	}
+	#ui.calm .card { opacity: .55; transform: translateY(-2px) scale(.97); }
+	#ui.calm .card:hover { opacity: 1; }
+
+	.dock { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+	.row {
+		pointer-events: auto; display: flex; gap: 9px;
+		background: color-mix(in srgb, var(--ink) 26%, transparent);
+		padding: 8px; border-radius: 22px;
+		border: 3px solid var(--ink);
+		box-shadow: 4px 5px 0 color-mix(in srgb, var(--ink) 45%, transparent);
+		backdrop-filter: blur(3px);
+	}
+	button.tod {
+		pointer-events: auto; cursor: pointer;
+		display: flex; align-items: center; gap: 8px;
+		font: inherit; font-size: clamp(11px, 1.6vmin, 16px);
+		text-transform: uppercase; letter-spacing: .1em;
+		color: var(--ink);
+		background: color-mix(in srgb, var(--paper) 72%, transparent);
+		border: 2.5px solid var(--ink);
+		border-radius: 14px;
+		padding: 8px 13px 8px 10px;
+		box-shadow: 0 3px 0 var(--ink);
+		transition: transform .12s ease, background .25s ease, box-shadow .12s ease;
+	}
+	button.tod:hover { transform: translateY(-2px); background: var(--paper); }
+	button.tod:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+	button.tod.on { background: var(--accent); box-shadow: 0 3px 0 var(--ink), 0 0 16px color-mix(in srgb, var(--sun) 60%, transparent); }
+	.orb {
+		width: 15px; height: 15px; border-radius: 50%;
+		border: 2px solid var(--ink); display: block;
+	}
+	.orb.day { background: radial-gradient(circle at 34% 32%, #fff6cf, #ffc53d); }
+	.orb.dusk { background: linear-gradient(180deg, #6a4a9c 0 46%, #ff8a4c 46% 100%); }
+	.orb.night { background: radial-gradient(circle at 62% 34%, #f7f5e6 0 42%, #2b3a6b 44% 100%); }
+
+	.hint {
+		pointer-events: none;
+		color: #fff; opacity: .8;
+		font-size: clamp(9px, 1.25vmin, 13px); letter-spacing: .09em;
+		text-shadow: 0 1px 3px rgba(0,0,0,.75), 0 0 12px rgba(0,0,0,.5);
+		padding-bottom: 4px;
+	}
+	.hint b { font-weight: 700; opacity: .95; }
+	@media (max-width: 620px) { .hint { display: none; } }
+</style>
+<script type="importmap">
+{ "imports": {
+	"three": "../../../vendor/three/build/three.module.js",
+	"three/addons/": "../../../vendor/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+	<div id="stage"></div>
+	<div id="ui">
+		<div class="card">
+			<h1>Tour Eiffel</h1>
+			<p>cel-shaded study &middot; 3 000 beams of iron</p>
+		</div>
+		<div class="dock">
+			<div class="hint"><b>drag</b> to orbit &middot; <b>scroll</b> or pinch to zoom &middot; <b>1 2 3</b> or <b>T</b> for the hour</div>
+			<div class="row"></div>
+		</div>
+	</div>
+	<script type="module" src="./src/main.js"></script>
+</body>
+</html>

@@ -34,6 +34,9 @@ header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-w
 .seg button{border:0;background:transparent;padding:6px 12px;border-radius:7px;cursor:pointer;color:var(--mut);white-space:nowrap}
 .seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .spacer{flex:1}
+#promptSeg{max-width:100%;overflow-x:auto;scrollbar-width:none}
+#promptSeg::-webkit-scrollbar{display:none}
+@media (max-width:600px){header.top .wrap>*{min-width:0}#promptSeg{width:100%}#modeSeg{max-width:100%;overflow-x:auto}}
 .linkbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:6px 12px;cursor:pointer;text-decoration:none;color:var(--ink);font-size:14px;white-space:nowrap}
 .linkbtn:hover{border-color:var(--faint)}
 .intro{padding:14px 0 4px;color:var(--mut);font-size:14px;max-width:900px}
@@ -217,6 +220,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const k = n => n == null ? "–" : n >= 1e6 ? (n/1e6).toFixed(2) + "M" : n >= 1000 ? (n/1000).toFixed(1) + "K" : String(n);
 const mins = s => s ? (s >= 3600 ? Math.floor(s/3600) + " h " + Math.round((s%3600)/60) + " min" : Math.round(s/60) + " min") : "–";
+const runTag = r => r.runs_of_setup > 1 ? ` · run ${r.run_no} of ${r.runs_of_setup}` : "";
 const where = r => r.where === "local" ? `${r.engine} ${r.engine_version || ""} · M3 Ultra` : "OpenRouter" + (r.providers.length ? " · " + r.providers.join(", ") : "");
 const est = r => r.token_note !== "reported" ? "*" : "";
 const facts = r => { const c = r.checks || {}; const m = (c.missing_files||[]).length, e = (c.page_errors||[]).length;
@@ -283,7 +287,7 @@ function renderStage(){
 function headCol(r, slot){
   const fl = flagOf(r);
   return `<div>
-    <div class="rh-model">${S.compare ? `<span class="slotmark">${slot.toUpperCase()}</span>` : ""}${esc(r.model)}</div>
+    <div class="rh-model">${S.compare ? `<span class="slotmark">${slot.toUpperCase()}</span>` : ""}${esc(r.model)}<span style="font-size:15px;font-weight:400;color:var(--mut)">${esc(runTag(r))}</span></div>
     <div class="chips">
       ${r.where === "local" ? `<span class="chip quant">${esc(r.quant)}</span><span class="chip">${esc(r.pack_label)}</span>` : `<span class="chip hosted">Hosted · provider-served</span>`}
       <span class="chip">${esc(where(r))}</span>
@@ -386,7 +390,7 @@ function renderList(){
     html += `<button class="item" data-id="${esc(r.id)}" aria-current="${!!slot}">
       <img loading="lazy" alt="" src="runs/${r.id}/shots/default.png">
       <div>${slot && S.compare ? `<span class="slotbadge">${slot}</span>` : ""}
-        <div class="m">${esc(r.model)}</div>
+        <div class="m">${esc(r.model)}<span style="font-weight:400;color:var(--mut)">${esc(runTag(r))}</span></div>
         <div class="q">${r.where === "local" ? `<b>${esc(r.quant)}</b> · ${esc(r.engine)}` : "Hosted · OpenRouter"}</div>
         <div class="n">${k(r.generated)} tokens${r.energy_wh != null ? " · " + r.energy_wh + " Wh" : ""}${fl ? (fl[0] === "bad" ? " · <span style='color:var(--bad)'>no scene</span>" : " · <span style='color:var(--warn)'>" + esc(ended(r)) + "</span>") : ""}</div>
       </div></button>`;
@@ -418,7 +422,7 @@ function renderTable(){
   const t = $("#table");
   t.innerHTML = `<thead><tr>${COLS.map(([key, label, , num]) => `<th class="${num ? "num" : ""}" data-k="${key}" ${S.tsort && S.tsort[0] === key ? `aria-sort="${S.tsort[1] > 0 ? "ascending" : "descending"}"` : ""}>${label}<span class="arr">${S.tsort && S.tsort[0] === key ? (S.tsort[1] > 0 ? "▲" : "▼") : "↕"}</span></th>`).join("")}</tr></thead><tbody>` +
     list.map(r => `<tr data-id="${esc(r.id)}" aria-current="${r.id === S.a || (S.compare && r.id === S.b)}">
-      <td><b>${esc(r.model)}</b></td><td>${r.where === "local" ? `<b>${esc(r.quant)}</b> <span style="color:var(--mut)">${esc(r.pack || "")}</span>` : `<span style="color:var(--mut)">hosted</span>`}</td>
+      <td><b>${esc(r.model)}</b>${esc(runTag(r))}</td><td>${r.where === "local" ? `<b>${esc(r.quant)}</b> <span style="color:var(--mut)">${esc(r.pack || "")}</span>` : `<span style="color:var(--mut)">hosted</span>`}</td>
       <td>${esc(where(r))}</td><td>${esc(ended(r))}</td><td style="color:${flagOf(r) && flagOf(r)[0] === "bad" ? "var(--bad)" : "inherit"}">${esc(facts(r).text)}</td>
       <td class="num">${k(r.generated)}</td><td class="num">${k(r.output)}</td><td class="num">${k(r.reasoning)}${est(r)}</td>
       <td class="num">${r.steps ?? "–"}</td><td class="num">${r.tool_errors ?? "–"}</td><td class="num">${r.energy_wh ?? "–"}</td><td class="num">${mins(r.wall_seconds)}</td></tr>`).join("") + "</tbody>";

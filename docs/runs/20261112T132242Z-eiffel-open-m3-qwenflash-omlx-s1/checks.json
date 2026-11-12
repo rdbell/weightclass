@@ -1,0 +1,92 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 12.5,
+  "draw_calls_per_frame": 141,
+  "primitives_per_frame": 313359,
+  "canvases": 1,
+  "luma_stddev": 45.97,
+  "distinct_colours": 444,
+  "blank": false,
+  "animation_diff": 0.2659,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "day",
+      "found": true,
+      "diff_vs_before": 0.2706
+    },
+    {
+      "mode": "dusk",
+      "found": true,
+      "diff_vs_before": 0.2946
+    },
+    {
+      "mode": "night",
+      "found": true,
+      "diff_vs_before": 0.4109
+    }
+  ],
+  "second_load_diff": 0.1716,
+  "modes": [
+    {
+      "query": "?tod=day",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 12.5,
+      "draw_calls_per_frame": 151,
+      "primitives_per_frame": 314150,
+      "canvases": 1,
+      "luma_stddev": 45.98,
+      "distinct_colours": 442,
+      "blank": false,
+      "mode": "day",
+      "diff_vs_default": 0.0158
+    },
+    {
+      "query": "?tod=dusk",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 11.5,
+      "draw_calls_per_frame": 160,
+      "primitives_per_frame": 316792,
+      "canvases": 1,
+      "luma_stddev": 49.28,
+      "distinct_colours": 421,
+      "blank": false,
+      "mode": "dusk",
+      "diff_vs_default": 0.9968
+    },
+    {
+      "query": "?tod=night",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 11,
+      "draw_calls_per_frame": 163,
+      "primitives_per_frame": 319925,
+      "canvases": 1,
+      "luma_stddev": 41.09,
+      "distinct_colours": 367,
+      "blank": false,
+      "mode": "night",
+      "diff_vs_default": 0.9975
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}
