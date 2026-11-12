@@ -190,9 +190,21 @@ def main():
     order = sorted(prompts, key=lambda k: (prompts[k]["variant"] != "open", k))
     prompts = {k: prompts[k] for k in order}
     (out / "data.json").write_text(json.dumps(data, indent=1))
-    page = TEMPLATE.read_text().replace("__DATA__", json.dumps(data).replace("</", "<\\/")).replace(
-        "__PROMPTS__", json.dumps(prompts).replace("</", "<\\/"))
-    (out / "index.html").write_text(page)
+    import site_pages as SP
+    js = lambda o: json.dumps(o).replace("</", "<\\/")
+    tpl = TEMPLATE.read_text().replace("__DATA__", js(data)).replace("__PROMPTS__", js(prompts)).replace("__BASE__", "../../")
+    for sub in ("tasks", "setups", "assets"):
+        if (out / sub).exists():
+            shutil.rmtree(out / sub)
+    (out / "assets").mkdir()
+    (out / "assets" / "site.css").write_text(SP.CSS)
+    for pid in prompts:
+        (out / "tasks" / pid).mkdir(parents=True)
+        (out / "tasks" / pid / "index.html").write_text(tpl.replace("__PROMPT__", pid))
+    for sid in sorted({d["setup"] for d in data}):
+        (out / "setups" / sid).mkdir(parents=True)
+        (out / "setups" / sid / "index.html").write_text(SP.build_setup(sid, data, prompts))
+    (out / "index.html").write_text(SP.build_home(data, prompts))
     (out / ".nojekyll").write_text("")
     print(f"{out}: {len(data)} runs, prompts {list(prompts)}")
 

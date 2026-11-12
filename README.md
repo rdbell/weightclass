@@ -73,9 +73,10 @@ with the pinned image.
 ## Gallery
 
 `bin/gallery.py RUN_DIR...` builds the static site in `docs/` (published with
-GitHub Pages): a summary table per prompt, then every scene live in a
-sandboxed iframe (`sandbox="allow-scripts"`, opaque origin), with
-screenshots of each mode, run details, transcript and metadata. The only
+GitHub Pages): a home page (tasks, and a filterable matrix of setups against
+tasks), one page per task (`tasks/<id>/`: large live viewer in a sandboxed
+iframe, compare, screenshots, run details, attempts) and one page per setup
+(`setups/<id>/`: pack, quant and engine, and every attempt it has run). The only
 change to a model's files is the three.js path, rewritten to one shared
 copy. `bin/backfill.py` adds what can be derived after a run (token split
 from raw calls, re-check with the current render check) without changing

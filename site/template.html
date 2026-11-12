@@ -33,6 +33,8 @@ header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-w
 .seg{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
 .seg button{border:0;background:transparent;padding:6px 12px;border-radius:7px;cursor:pointer;color:var(--mut);white-space:nowrap}
 .seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.seg a{padding:6px 12px;border-radius:7px;color:var(--mut);white-space:nowrap;text-decoration:none}
+.seg a[aria-current="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .spacer{flex:1}
 #promptSeg{max-width:100%;overflow-x:auto;scrollbar-width:none}
 #promptSeg::-webkit-scrollbar{display:none}
@@ -153,7 +155,7 @@ footer{color:var(--faint);font-size:13px;padding:18px 0 36px;border-top:1px soli
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <div class="brand">Weightclass<small>Open-weight models and their local packs, one task, no follow-up</small></div>
+  <a class="brand" href="__BASE__" style="color:inherit;text-decoration:none">Weightclass<small>All tasks and setups</small></a>
   <div class="seg" id="promptSeg" role="group" aria-label="Prompt"></div>
   <div class="spacer"></div>
   <button class="linkbtn" id="showPrompt">Read the prompt</button>
@@ -217,6 +219,7 @@ footer{color:var(--faint);font-size:13px;padding:18px 0 36px;border-top:1px soli
 </div>
 
 <script>
+const BASE = "__BASE__";
 const DATA = __DATA__;
 const PROMPTS = __PROMPTS__;
 
@@ -237,14 +240,14 @@ const flagOf = r => { const f = facts(r);
   return null; };
 
 /* ---------- state (URL hash) ---------- */
-const S = { showAll: false, prompt: Object.keys(PROMPTS)[0], a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
+const S = { showAll: false, prompt: "__PROMPT__", a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
 function readHash(){
   const h = new URLSearchParams(location.hash.slice(1));
-  if (h.get("p") && PROMPTS[h.get("p")]) S.prompt = h.get("p");
+
   S.a = h.get("a"); S.b = h.get("b"); S.compare = !!h.get("b"); S.mode = h.get("m");
 }
 function writeHash(){
-  const h = new URLSearchParams({ p: S.prompt });
+  const h = new URLSearchParams();
   if (S.a) h.set("a", S.a); if (S.compare && S.b) h.set("b", S.b); if (S.mode) h.set("m", S.mode);
   history.replaceState(null, "", "#" + h.toString());
 }
@@ -256,8 +259,8 @@ const P = () => PROMPTS[S.prompt];
 /* ---------- header ---------- */
 function renderPrompts(){
   $("#promptSeg").innerHTML = Object.entries(PROMPTS).map(([id, p]) =>
-    `<button aria-pressed="${id === S.prompt}" data-id="${esc(id)}">${esc(p.title)}</button>`).join("");
-  $("#promptSeg").querySelectorAll("button").forEach(b => b.onclick = () => { S.prompt = b.dataset.id; S.a = S.b = null; S.mode = null; render(); });
+    `<a aria-current="${id === S.prompt}" href="${BASE}tasks/${esc(id)}/">${esc(p.title)}</a>`).join("");
+  document.title = P().title + " · Weightclass";
   const p = P();
   $("#intro").innerHTML = p.variant === "spec"
     ? "<b>Spec variant.</b> A hard specification with exact numbers, code and palettes: it measures instruction following, so the scenes should look alike. Compare tokens, steps and reliability."
@@ -265,8 +268,8 @@ function renderPrompts(){
 }
 
 /* ---------- stage ---------- */
-function sceneSrc(r){ const m = S.mode && P().mode_param ? `?${encodeURIComponent(P().mode_param)}=${encodeURIComponent(S.mode)}` : ""; return `runs/${r.id}/scene/index.html${m}`; }
-function posterOf(r){ return `runs/${r.id}/shots/${S.mode && r.shots.includes("mode-" + S.mode) ? "mode-" + S.mode : "default"}.png`; }
+function sceneSrc(r){ const m = S.mode && P().mode_param ? `?${encodeURIComponent(P().mode_param)}=${encodeURIComponent(S.mode)}` : ""; return `${BASE}runs/${r.id}/scene/index.html${m}`; }
+function posterOf(r){ return `${BASE}runs/${r.id}/shots/${S.mode && r.shots.includes("mode-" + S.mode) ? "mode-" + S.mode : "default"}.png`; }
 function stageHTML(r, slot){
   return `<div class="stage" data-id="${esc(r.id)}">
     <img class="poster" alt="" src="${posterOf(r)}">
@@ -296,6 +299,7 @@ function headCol(r, slot){
     <div class="chips">
       ${r.where === "local" ? `<span class="chip quant">${esc(r.quant)}</span><span class="chip">${esc(r.pack_label)}</span>` : `<span class="chip hosted">Hosted · provider-served</span>`}
       <span class="chip">${esc(where(r))}</span>
+      <a class="chip" style="text-decoration:none" href="${BASE}setups/${esc(r.setup)}/">All results for this setup →</a>
     </div>
     ${fl ? `<span class="flag ${fl[0]}">${esc(fl[1])}</span>` : ""}
     ${r.runs_of_setup > 1 ? `<div class="attempts">Attempts: ${attemptsOf(r).map(x => `<button class="att" data-pick="${esc(x.id)}" aria-current="${x.id === r.id}">${x.run_no}${flagOf(x) && flagOf(x)[0] === "bad" ? " · failed" : ""}${!x.superseded ? " · result" : ""}</button>`).join("")}</div>` : ""}
@@ -321,7 +325,7 @@ function renderHead(){
 const shotLabel = s => s === "default" ? "Judged screenshot" : s.startsWith("mode-") ? s.slice(5)[0].toUpperCase() + s.slice(6) + " (URL mode)" : s.startsWith("click-") ? s.slice(6)[0].toUpperCase() + s.slice(7) + " (button click)" : s === "default-later" ? "3 s later" : s === "default-second-load" ? "Second load" : s;
 function shotsFor(r){
   const order = ["default", ...r.shots.filter(s => s.startsWith("mode-")), ...r.shots.filter(s => s.startsWith("click-")), "default-later", "default-second-load"];
-  return order.filter((s, i) => r.shots.includes(s) && order.indexOf(s) === i).map(s => ({ src: `runs/${r.id}/shots/${s}.png`, cap: `${r.model} · ${r.quant || "hosted"} — ${shotLabel(s)}` }));
+  return order.filter((s, i) => r.shots.includes(s) && order.indexOf(s) === i).map(s => ({ src: `${BASE}runs/${r.id}/shots/${s}.png`, cap: `${r.model} · ${r.quant || "hosted"} — ${shotLabel(s)}` }));
 }
 function shotsPanel(r, slot){
   const items = shotsFor(r);
@@ -352,7 +356,7 @@ function detailsPanel(r){
     <h4 style="margin-top:16px">Files</h4><dl class="kv">
       <dt>Transcript</dt><dd><a href="#" data-transcript="${esc(r.id)}">Open in page</a></dd>
       <dt>Scene</dt><dd><a href="${sceneSrc(r)}" target="_blank" rel="noopener">Open alone</a> · its files are the model's own except the three.js path</dd>
-      <dt>Records</dt><dd><a href="runs/${r.id}/meta.json">meta.json</a> · <a href="runs/${r.id}/checks.json">checks.json</a></dd>
+      <dt>Records</dt><dd><a href="${BASE}runs/${r.id}/meta.json">meta.json</a> · <a href="${BASE}runs/${r.id}/checks.json">checks.json</a></dd>
     </dl></div></div>`;
 }
 function setupPanel(r){
@@ -397,7 +401,7 @@ function renderList(){
     const fl = flagOf(r);
     const slot = r.id === S.a ? "A" : (S.compare && r.id === S.b ? "B" : "");
     html += `<button class="item" data-id="${esc(r.id)}" aria-current="${!!slot}">
-      <img loading="lazy" alt="" src="runs/${r.id}/shots/default.png">
+      <img loading="lazy" alt="" src="${BASE}runs/${r.id}/shots/default.png">
       <div>${slot && S.compare ? `<span class="slotbadge">${slot}</span>` : ""}
         <div class="m">${esc(r.model)}<span style="font-weight:400;color:var(--mut)">${esc(runTag(r))}</span></div>
         <div class="q">${r.where === "local" ? `<b>${esc(r.quant)}</b> · ${esc(r.engine)}` : "Hosted · OpenRouter"}</div>
@@ -462,7 +466,7 @@ function openDoc(html, wide){ LB.back = document.activeElement; const b = $("#md
 $("#mdClose").onclick = () => closeModal("#docmodal");
 $("#docmodal").onclick = e => { if (e.target.id === "docmodal") closeModal("#docmodal"); };
 $("#showPrompt").onclick = () => { const p = P(); openDoc(`<h2>${esc(p.title)}</h2><p style="color:var(--mut);margin:0 0 12px">${p.variant === "spec" ? "Spec variant" : "Open variant"} · sent as the only message, with the shared <a href="https://github.com/rdbell/weightclass/blob/main/harness/template/AGENTS.md">task file</a> in the workspace · <a href="${esc(p.url)}">source</a></p><pre>${esc(p.text)}</pre>`); };
-function openTranscript(r){ openDoc(`<div class="mdh"><b>${esc(r.model)} · ${esc(r.quant || "hosted")} — transcript</b><a class="linkbtn" href="runs/${r.id}/transcript.html" target="_blank" rel="noopener">Open in new tab</a></div><iframe sandbox="" src="runs/${r.id}/transcript.html" title="Transcript"></iframe>`, true); }
+function openTranscript(r){ openDoc(`<div class="mdh"><b>${esc(r.model)} · ${esc(r.quant || "hosted")} — transcript</b><a class="linkbtn" href="${BASE}runs/${r.id}/transcript.html" target="_blank" rel="noopener">Open in new tab</a></div><iframe sandbox="" src="${BASE}runs/${r.id}/transcript.html" title="Transcript"></iframe>`, true); }
 
 /* ---------- controls ---------- */
 $("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => { S.tab = b.dataset.tab; renderPanel(); });
