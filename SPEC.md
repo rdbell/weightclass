@@ -147,8 +147,9 @@ For each (prompt, setup, sample), 2 samples per pair, one fresh run:
    better results, which defeats the comparison. The agent's own steps within
    the run (edit, preview, fix) are its choice and count as part of the
    result. Only a runaway guard ends a run early, and it is
-   hardware-independent: a token budget (default 1M fresh input + output +
-   reasoning) and a loop detector for repeated identical tool calls. No step
+   hardware-independent: a budget of generated tokens (default 1M output +
+   reasoning over all model requests; re-sent input is excluded because it
+   depends on the engine's caching, decided 2026-11-12) and a loop detector for repeated identical tool calls. No step
    cap: steps are the agent's choice, and long tasks need many (decided
    2026-11-12; the first local round still ran under a 200-step cap). A
    prompt may set `max_steps` or `max_tokens` in its front matter. A guard

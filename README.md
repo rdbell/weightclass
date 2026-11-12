@@ -48,7 +48,7 @@ The brief is the only message; no time limit. The agent container's only
 network peer is the run's recording relay (`harness/recorder/relay.py`),
 which forwards to the setup's endpoint origin and nowhere else; OpenCode's
 own hosts are unreachable on purpose (SPEC.md, "Container"). A runaway guard
-(1M tokens, 8 identical tool calls in a row; no step cap) is the only early
+(1M generated tokens, 8 identical tool calls in a row; no step cap) is the only early
 stop; a prompt can set `max_steps`/`max_tokens` in its front matter.
 
 ### Run record

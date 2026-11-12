@@ -57,7 +57,7 @@ ACTIVE = Path.home() / ".local/state/weightclass/runs"   # one interval file per
 # No step cap by default: steps are not a runaway signal (long tasks need
 # many). A prompt may set max_steps / max_tokens in its front matter.
 STEP_CAP_DEFAULT = 100_000   # effectively none; OpenCode needs a number
-MAX_TOKENS = 1_000_000     # fresh input + output + reasoning, from usage events
+MAX_TOKENS = 1_000_000     # generated tokens (output + reasoning), all model requests
 MAX_REPEATS = 8            # identical consecutive tool calls
 SAMPLE_SECONDS = 30        # host and concurrency samples
 
@@ -223,9 +223,10 @@ class Guard:
         while not self.stop.is_set():
             cpos, calls = self._lines(self.calls, cpos)
             for c in calls:
+                # Generated tokens only: re-sent input depends on how well
+                # the engine caches, which is hardware/provider-dependent.
                 u = c.get("usage") or {}
-                cached = int((u.get("prompt_tokens_details") or {}).get("cached_tokens") or 0)
-                self.tokens += max(0, int(u.get("prompt_tokens") or 0) - cached) + int(u.get("completion_tokens") or 0)
+                self.tokens += int(u.get("completion_tokens") or 0)
                 if c.get("method") == "POST":
                     self.model_calls += 1
                     self.snapshots.commit(f"model call {c.get('n')}")
