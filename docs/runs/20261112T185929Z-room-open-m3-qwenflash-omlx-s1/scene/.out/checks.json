@@ -1,0 +1,70 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 12,
+  "draw_calls_per_frame": 718,
+  "primitives_per_frame": 92466,
+  "canvases": 1,
+  "luma_stddev": 47.05,
+  "distinct_colours": 413,
+  "blank": false,
+  "animation_diff": 0.0373,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "door",
+      "found": true,
+      "diff_vs_before": 0.0415
+    },
+    {
+      "mode": "top",
+      "found": true,
+      "diff_vs_before": 0.9879
+    }
+  ],
+  "second_load_diff": 0.0044,
+  "modes": [
+    {
+      "query": "?view=door",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 13,
+      "draw_calls_per_frame": 716,
+      "primitives_per_frame": 92462,
+      "canvases": 1,
+      "luma_stddev": 47.16,
+      "distinct_colours": 412,
+      "blank": false,
+      "mode": "door",
+      "diff_vs_default": 0.0056
+    },
+    {
+      "query": "?view=top",
+      "console_errors": [],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 13,
+      "draw_calls_per_frame": 731,
+      "primitives_per_frame": 93013,
+      "canvases": 1,
+      "luma_stddev": 83.32,
+      "distinct_colours": 280,
+      "blank": false,
+      "mode": "top",
+      "diff_vs_default": 0.9866
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

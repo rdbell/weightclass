@@ -1,0 +1,180 @@
+{
+  "run": "20261112T185929Z-room-open-m3-qwenflash-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "room-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "reading-room",
+    "file": "prompts/room-open.md",
+    "sha256": "3999ad59c4177adcd96c8aa3a99c2fecceeec269869ce55e47a47880b797ca6e"
+  },
+  "setup_sha256": "995b3d3636dfd717f3b342bdae33b2bbf379e05f209f8b5b402992ed4a0984f6",
+  "sample": 1,
+  "started": "2026-11-12T18:59:31.560746+00:00",
+  "ended": "2026-11-13T02:23:26.093007+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 26634.5,
+  "concurrent_runs": [],
+  "tool_calls": 377,
+  "tokens_seen": 347750,
+  "tokens": {
+    "model_calls": 377,
+    "failed_calls": 0,
+    "input": 339154,
+    "cache_read": 52163563,
+    "output": 145657,
+    "reasoning": 202093,
+    "generated": 347750,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 375,
+    "input": 335253,
+    "cache_read": 51718181,
+    "cache_write": 0,
+    "output": 140848,
+    "reasoning": 200014,
+    "generated": 340862
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 124,
+      "write": 17,
+      "edit": 171,
+      "read": 61,
+      "bash": 2,
+      "execute": 2
+    },
+    "tool_errors": 8,
+    "preview_calls": 53,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 374,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 377,
+    "model_calls": 377,
+    "statuses": {
+      "200": 377
+    },
+    "relay_errors": 0,
+    "client_closed_early": 54,
+    "cached_prompt_tokens": 52163563,
+    "prompt_tokens": 52502717,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 374,
+      "stop": 3
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 8959.7,
+    "ttft_ms_p90": 73566.6,
+    "decode_tps_p50": 51.5,
+    "generation_ids": 377
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 5260,
+    "avg_watts": 12.9,
+    "max_watts": 161.3,
+    "energy_wh": 94.53,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 379,
+  "code": {
+    "files": 21,
+    "bytes": 6471967,
+    "lines": 3738
+  },
+  "workspace_sha256": "28f6aeafe87e1e1c423aaad957d2d7faac5bd1c6efc91379de87f5421b31fad3",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "f05271706c3ce04a02332f88adc65bcd91409d594c803f4a69312bf9f8eda43a",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "f44eccfa4621049bb9b066ee4dae69a69a1154cf68f5810beb90eb6a421a68d3",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "backfill": {
+    "tokens_raw": {
+      "model_calls": 377,
+      "failed_calls": 0,
+      "input": 339154,
+      "cache_read": 52163563,
+      "output": 145657,
+      "reasoning": 202093,
+      "generated": 347750,
+      "reasoning_method": [
+        "reported"
+      ]
+    },
+    "prompt": {
+      "id": "room-open",
+      "title": "Reading room (open)",
+      "variant": "open",
+      "subject": "reading-room",
+      "version": "1",
+      "file": "prompts/room-open.md"
+    }
+  },
+  "setup": {
+    "id": "m3-qwenflash-omlx",
+    "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+    "model_id": "m3-ultra-local",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+      "revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+      "manifest_sha256": "98ec45b5fc35b05382966dabeb879ba675e155691f5e5029a328ff1165c03b8f",
+      "total_bytes": 107693772821
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP"
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "Jundot oQ4e + MTP"
+  }
+}

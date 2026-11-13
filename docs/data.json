@@ -1402,5 +1402,114 @@
   "run_no": 2,
   "runs_of_setup": 2,
   "superseded": false
+ },
+ {
+  "quant": "oQ4e",
+  "pack_label": "Jundot oQ4e + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+  "pack_bytes": 107693772821,
+  "engine_settings": "speculative=MTP",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261112T185929Z-room-open-m3-qwenflash-omlx-s1",
+  "prompt": "room-open",
+  "prompt_title": "Reading room (open)",
+  "variant": "open",
+  "setup": "m3-qwenflash-omlx",
+  "model": "Qwen3.8-Flash-Next",
+  "where": "local",
+  "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+  "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 377,
+  "session_steps": 375,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 377,
+  "tool_errors": 8,
+  "generated": 347750,
+  "output": 145657,
+  "reasoning": 202093,
+  "token_note": "reported",
+  "input": 339154,
+  "cached": 52163563,
+  "energy_wh": 94.53,
+  "avg_watts": 12.9,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 26634.5,
+  "concurrent": 0,
+  "decode_tps_p50": 51.5,
+  "ttft_ms_p50": 8959.7,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 13.5,
+   "draw_calls_per_frame": 716,
+   "primitives_per_frame": 92819,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [
+    "THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The \"position\" attribute is likely to have NaN values. BufferGeometry"
+   ],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9883
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0066
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": true,
+    "diff": 0.9867
+   },
+   {
+    "mode": "door",
+    "found": true,
+    "diff": 0.9885
+   }
+  ],
+  "shots": [
+   "default",
+   "click-door",
+   "click-top",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-12T18:59:31.560746+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
  }
 ]

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Cosy Reading Room</title>
+    <link rel="icon" href="data:," />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #07060a;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      #app,
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .ui {
+        position: fixed;
+        z-index: 5;
+        color: #e6d5bb;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        user-select: none;
+      }
+      #hud {
+        left: 16px;
+        bottom: 14px;
+        opacity: 0.42;
+        transition: opacity 0.35s ease;
+      }
+      #hud:hover {
+        opacity: 0.95;
+      }
+      body.touched #hud {
+        opacity: 0.9;
+      }
+      #title {
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #f3d9ac;
+      }
+      #caption {
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        opacity: 0.8;
+        margin-top: 2px;
+      }
+      #views {
+        display: flex;
+        gap: 6px;
+        margin-top: 9px;
+      }
+      #views button {
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #e6d5bb;
+        background: rgba(24, 18, 14, 0.55);
+        border: 1px solid rgba(230, 200, 150, 0.28);
+        border-radius: 2px;
+        padding: 4px 8px;
+        cursor: pointer;
+      }
+      #views button:hover {
+        background: rgba(60, 42, 26, 0.7);
+      }
+      #views button.on {
+        color: #16110c;
+        background: #e8c48b;
+        border-color: #e8c48b;
+      }
+      #hint {
+        margin-top: 8px;
+        font-size: 10px;
+        opacity: 0.55;
+      }
+      #compass {
+        right: 18px;
+        bottom: 16px;
+        width: 46px;
+        height: 46px;
+        border: 1px solid rgba(230, 200, 150, 0.35);
+        border-radius: 50%;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: #f3d9ac;
+        opacity: 0.75;
+      }
+      #compass.show {
+        display: flex;
+      }
+      #compass::before {
+        content: 'N';
+        position: absolute;
+        top: 3px;
+      }
+      #compass::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 15px solid rgba(243, 217, 172, 0.8);
+        top: 15px;
+      }
+      #fade {
+        position: fixed;
+        inset: 0;
+        background: #07060a;
+        z-index: 20;
+        pointer-events: none;
+        transition: opacity 1.2s ease;
+      }
+      @media (max-width: 620px) {
+        #hint {
+          display: none;
+        }
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../../../vendor/three/build/three.module.js",
+          "three/addons/": "../../../vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="fade"></div>
+    <div id="hud" class="ui">
+      <div id="title">A Cosy Reading Room</div>
+      <div id="caption">from the doorway</div>
+      <div id="views">
+        <button data-view="door">door</button>
+        <button data-view="top">top</button>
+        <button data-view="hearth">hearth</button>
+        <button data-view="reading">reading</button>
+      </div>
+      <div id="hint">drag to look &middot; scroll to move in &middot; right-drag to pan &middot; 1&ndash;4 views</div>
+    </div>
+    <div id="compass" class="ui"></div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [
+    "THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The \"position\" attribute is likely to have NaN values. BufferGeometry"
+  ],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 13.5,
+  "draw_calls_per_frame": 716,
+  "primitives_per_frame": 92819,
+  "canvases": 1,
+  "luma_stddev": 47.7,
+  "distinct_colours": 401,
+  "blank": false,
+  "animation_diff": 0.0728,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "top",
+      "found": true,
+      "diff_vs_before": 0.9867
+    },
+    {
+      "mode": "door",
+      "found": true,
+      "diff_vs_before": 0.9885
+    }
+  ],
+  "second_load_diff": 0.007,
+  "modes": [
+    {
+      "query": "?view=top",
+      "console_errors": [
+        "THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The \"position\" attribute is likely to have NaN values. BufferGeometry"
+      ],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 14,
+      "draw_calls_per_frame": 732,
+      "primitives_per_frame": 93093,
+      "canvases": 1,
+      "luma_stddev": 83.32,
+      "distinct_colours": 283,
+      "blank": false,
+      "mode": "top",
+      "diff_vs_default": 0.9883
+    },
+    {
+      "query": "?view=door",
+      "console_errors": [
+        "THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The \"position\" attribute is likely to have NaN values. BufferGeometry"
+      ],
+      "console_warnings": [],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 12.5,
+      "draw_calls_per_frame": 717,
+      "primitives_per_frame": 92822,
+      "canvases": 1,
+      "luma_stddev": 47.05,
+      "distinct_colours": 409,
+      "blank": false,
+      "mode": "door",
+      "diff_vs_default": 0.0066
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}
