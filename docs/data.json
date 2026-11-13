@@ -14,7 +14,7 @@
   "model_id": null,
   "id": "20261111T231206Z-eiffel-open-m3-qwen27-kapitsa-s1",
   "prompt": "eiffel-open",
-  "prompt_title": "Eiffel Tower (open)",
+  "prompt_title": "Eiffel Tower",
   "variant": "open",
   "setup": "m3-qwen27-kapitsa",
   "model": "Qwen3.8-27B",
@@ -123,129 +123,6 @@
   "superseded": false
  },
  {
-  "quant": "4-bit MLX",
-  "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
-  "pack_link": true,
-  "pack_extras": [
-   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)",
-   "MTP head from Qwen/Qwen3.8-27B"
-  ],
-  "pack_revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)",
-  "pack_bytes": 20169260357,
-  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter",
-  "request": "{\"reasoning_effort\": \"high\"}",
-  "model_id": null,
-  "id": "20261111T231209Z-eiffel-spec-m3-qwen27-kapitsa-s1",
-  "prompt": "eiffel-spec",
-  "prompt_title": "Eiffel Tower (spec)",
-  "variant": "spec",
-  "setup": "m3-qwen27-kapitsa",
-  "model": "Qwen3.8-27B",
-  "where": "local",
-  "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)",
-  "pack": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
-  "engine": "kapitsa",
-  "engine_version": "0.2.34",
-  "hardware": "M3 Ultra 60c / 256 GB",
-  "providers": [],
-  "end": "agent finished",
-  "steps": 83,
-  "session_steps": 83,
-  "subagent_calls": 0,
-  "token_source": "all model requests (relay)",
-  "tool_calls": 82,
-  "tool_errors": 0,
-  "generated": 82920,
-  "output": 18698,
-  "reasoning": 64222,
-  "token_note": "reported",
-  "input": 41117,
-  "cached": 5662473,
-  "energy_wh": 63.69,
-  "avg_watts": 81.3,
-  "thermal": [
-   "Heavy",
-   "Moderate",
-   "Nominal"
-  ],
-  "cost_usd": null,
-  "wall_seconds": 2859.1,
-  "concurrent": 1,
-  "decode_tps_p50": 33.5,
-  "ttft_ms_p50": 1437.3,
-  "checks": {
-   "check_version": 2,
-   "canvases": 1,
-   "fps": 13.5,
-   "draw_calls_per_frame": 902,
-   "primitives_per_frame": 22232,
-   "animated": true,
-   "page_errors": [],
-   "console_errors": [],
-   "missing_files": [],
-   "blank": false
-  },
-  "modes": [
-   {
-    "mode": "day",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.0211
-   },
-   {
-    "mode": "dusk",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9913
-   },
-   {
-    "mode": "night",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9998
-   }
-  ],
-  "clicks": [
-   {
-    "mode": "day",
-    "found": true,
-    "diff": 0.0519
-   },
-   {
-    "mode": "dusk",
-    "found": true,
-    "diff": 0.9956
-   },
-   {
-    "mode": "night",
-    "found": true,
-    "diff": 0.999
-   }
-  ],
-  "shots": [
-   "default",
-   "click-day",
-   "click-dusk",
-   "click-night",
-   "default-later",
-   "default-second-load",
-   "mode-day",
-   "mode-dusk",
-   "mode-night"
-  ],
-  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
-  "harness": {
-   "opencode": "2.2.7",
-   "playwright": "1.65.0",
-   "three": "0.187.0",
-   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
-  },
-  "started": "2026-11-11T23:12:10.779841+00:00",
-  "run_no": 1,
-  "runs_of_setup": 1,
-  "superseded": false
- },
- {
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -257,7 +134,7 @@
   "model_id": null,
   "id": "20261112T011520Z-eiffel-open-m3-qwenflash-omlx-s1",
   "prompt": "eiffel-open",
-  "prompt_title": "Eiffel Tower (open)",
+  "prompt_title": "Eiffel Tower",
   "variant": "open",
   "setup": "m3-qwenflash-omlx",
   "model": "Qwen3.8-Flash-Next",
@@ -370,125 +247,6 @@
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
   "pack_extras": null,
-  "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
-  "pack_bytes": 107693772821,
-  "engine_settings": "speculative=MTP",
-  "request": "{\"reasoning_effort\": \"high\"}",
-  "model_id": null,
-  "id": "20261112T011523Z-eiffel-spec-m3-qwenflash-omlx-s1",
-  "prompt": "eiffel-spec",
-  "prompt_title": "Eiffel Tower (spec)",
-  "variant": "spec",
-  "setup": "m3-qwenflash-omlx",
-  "model": "Qwen3.8-Flash-Next",
-  "where": "local",
-  "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
-  "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
-  "engine": "omlx",
-  "engine_version": "0.7.4.dev1",
-  "hardware": "M3 Ultra 60c / 256 GB",
-  "providers": [],
-  "end": "agent finished",
-  "steps": 81,
-  "session_steps": 81,
-  "subagent_calls": 0,
-  "token_source": "all model requests (relay)",
-  "tool_calls": 87,
-  "tool_errors": 1,
-  "generated": 56923,
-  "output": 17757,
-  "reasoning": 39166,
-  "token_note": "reported",
-  "input": 94536,
-  "cached": 6275959,
-  "energy_wh": 26.01,
-  "avg_watts": 50.1,
-  "thermal": [
-   "Moderate",
-   "Nominal"
-  ],
-  "cost_usd": null,
-  "wall_seconds": 1892.9,
-  "concurrent": 1,
-  "decode_tps_p50": 35.7,
-  "ttft_ms_p50": 2161.5,
-  "checks": {
-   "check_version": 2,
-   "canvases": 1,
-   "fps": 9,
-   "draw_calls_per_frame": 1339,
-   "primitives_per_frame": 22632,
-   "animated": true,
-   "page_errors": [],
-   "console_errors": [],
-   "missing_files": [],
-   "blank": false
-  },
-  "modes": [
-   {
-    "mode": "day",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.0059
-   },
-   {
-    "mode": "dusk",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9886
-   },
-   {
-    "mode": "night",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9985
-   }
-  ],
-  "clicks": [
-   {
-    "mode": "day",
-    "found": true,
-    "diff": 0.0361
-   },
-   {
-    "mode": "dusk",
-    "found": true,
-    "diff": 0.9934
-   },
-   {
-    "mode": "night",
-    "found": true,
-    "diff": 0.9982
-   }
-  ],
-  "shots": [
-   "default",
-   "click-day",
-   "click-dusk",
-   "click-night",
-   "default-later",
-   "default-second-load",
-   "mode-day",
-   "mode-dusk",
-   "mode-night"
-  ],
-  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
-  "harness": {
-   "opencode": "2.2.7",
-   "playwright": "1.65.0",
-   "three": "0.187.0",
-   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
-  },
-  "started": "2026-11-12T01:15:25.399159+00:00",
-  "run_no": 1,
-  "runs_of_setup": 1,
-  "superseded": false
- },
- {
-  "quant": "oQ4e",
-  "pack_label": "Jundot oQ4e + MTP",
-  "pack_link": true,
-  "pack_extras": null,
   "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
   "pack_bytes": 186423200125,
   "engine_settings": "speculative=MTP",
@@ -496,7 +254,7 @@
   "model_id": null,
   "id": "20261112T015357Z-eiffel-open-m3-glm53flash-omlx-s1",
   "prompt": "eiffel-open",
-  "prompt_title": "Eiffel Tower (open)",
+  "prompt_title": "Eiffel Tower",
   "variant": "open",
   "setup": "m3-glm53flash-omlx",
   "model": "GLM-5.3-Flash",
@@ -605,126 +363,6 @@
   "superseded": false
  },
  {
-  "quant": "oQ4e",
-  "pack_label": "Jundot oQ4e + MTP",
-  "pack_link": true,
-  "pack_extras": null,
-  "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
-  "pack_bytes": 186423200125,
-  "engine_settings": "speculative=MTP",
-  "request": "{\"reasoning_effort\": \"high\"}",
-  "model_id": null,
-  "id": "20261112T015359Z-eiffel-spec-m3-glm53flash-omlx-s1",
-  "prompt": "eiffel-spec",
-  "prompt_title": "Eiffel Tower (spec)",
-  "variant": "spec",
-  "setup": "m3-glm53flash-omlx",
-  "model": "GLM-5.3-Flash",
-  "where": "local",
-  "label": "GLM-5.3-Flash oQ4e (oMLX, M3 Ultra)",
-  "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp",
-  "engine": "omlx",
-  "engine_version": "0.7.4.dev1",
-  "hardware": "M3 Ultra 60c / 256 GB",
-  "providers": [],
-  "end": "step cap (200)",
-  "steps": 201,
-  "session_steps": 200,
-  "subagent_calls": 0,
-  "token_source": "all model requests (relay)",
-  "tool_calls": 205,
-  "tool_errors": 3,
-  "generated": 143548,
-  "output": 66546,
-  "reasoning": 77002,
-  "token_note": "reported",
-  "input": 413875,
-  "cached": 22127972,
-  "energy_wh": 132.84,
-  "avg_watts": 73.2,
-  "thermal": [
-   "Heavy",
-   "Moderate",
-   "Nominal"
-  ],
-  "cost_usd": null,
-  "wall_seconds": 6610.6,
-  "concurrent": 1,
-  "decode_tps_p50": 14.3,
-  "ttft_ms_p50": 2151.1,
-  "checks": {
-   "check_version": 2,
-   "canvases": 1,
-   "fps": 9.5,
-   "draw_calls_per_frame": 1329,
-   "primitives_per_frame": 21240,
-   "animated": true,
-   "page_errors": [],
-   "console_errors": [],
-   "missing_files": [],
-   "blank": false
-  },
-  "modes": [
-   {
-    "mode": "day",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.0112
-   },
-   {
-    "mode": "dusk",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9897
-   },
-   {
-    "mode": "night",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9992
-   }
-  ],
-  "clicks": [
-   {
-    "mode": "day",
-    "found": true,
-    "diff": 0.0394
-   },
-   {
-    "mode": "dusk",
-    "found": true,
-    "diff": 0.9939
-   },
-   {
-    "mode": "night",
-    "found": true,
-    "diff": 0.9978
-   }
-  ],
-  "shots": [
-   "default",
-   "click-day",
-   "click-dusk",
-   "click-night",
-   "default-later",
-   "default-second-load",
-   "mode-day",
-   "mode-dusk",
-   "mode-night"
-  ],
-  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
-  "harness": {
-   "opencode": "2.2.7",
-   "playwright": "1.65.0",
-   "three": "0.187.0",
-   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
-  },
-  "started": "2026-11-12T01:54:01.744788+00:00",
-  "run_no": 1,
-  "runs_of_setup": 1,
-  "superseded": false
- },
- {
   "quant": "iQ-MLX 3.0 bpw",
   "pack_label": "ddalcu iQ-MLX 3.0 bpw",
   "pack_link": true,
@@ -736,7 +374,7 @@
   "model_id": null,
   "id": "20261112T041640Z-eiffel-open-m3-ds1017-mlxserve-s1",
   "prompt": "eiffel-open",
-  "prompt_title": "Eiffel Tower (open)",
+  "prompt_title": "Eiffel Tower",
   "variant": "open",
   "setup": "m3-ds1017-mlxserve",
   "model": "DeepSeek V4.1 Flash 1017",
@@ -845,126 +483,6 @@
   "superseded": false
  },
  {
-  "quant": "iQ-MLX 3.0 bpw",
-  "pack_label": "ddalcu iQ-MLX 3.0 bpw",
-  "pack_link": true,
-  "pack_extras": null,
-  "pack_revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045",
-  "pack_bytes": 427295062169,
-  "engine_settings": "max_concurrent=8, prefix_cache_mem=16GB, prefix_cache_disk=64GB, prefill_chunk=2048",
-  "request": "{\"reasoning_effort\": \"high\"}",
-  "model_id": null,
-  "id": "20261112T041643Z-eiffel-spec-m3-ds1017-mlxserve-s1",
-  "prompt": "eiffel-spec",
-  "prompt_title": "Eiffel Tower (spec)",
-  "variant": "spec",
-  "setup": "m3-ds1017-mlxserve",
-  "model": "DeepSeek V4.1 Flash 1017",
-  "where": "local",
-  "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)",
-  "pack": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw",
-  "engine": "mlx-serve",
-  "engine_version": "26.11.2",
-  "hardware": "M3 Ultra 60c / 256 GB",
-  "providers": [],
-  "end": "agent finished",
-  "steps": 83,
-  "session_steps": 83,
-  "subagent_calls": 0,
-  "token_source": "all model requests (relay)",
-  "tool_calls": 85,
-  "tool_errors": 0,
-  "generated": 62856,
-  "output": 14627,
-  "reasoning": 48229,
-  "token_note": "estimated from reasoning character share",
-  "input": 167575,
-  "cached": 9698656,
-  "energy_wh": 82.42,
-  "avg_watts": 76.9,
-  "thermal": [
-   "Heavy",
-   "Moderate",
-   "Nominal"
-  ],
-  "cost_usd": null,
-  "wall_seconds": 3903.3,
-  "concurrent": 1,
-  "decode_tps_p50": 24.9,
-  "ttft_ms_p50": 2503.5,
-  "checks": {
-   "check_version": 2,
-   "canvases": 1,
-   "fps": 7.5,
-   "draw_calls_per_frame": 1361,
-   "primitives_per_frame": 29040,
-   "animated": true,
-   "page_errors": [],
-   "console_errors": [],
-   "missing_files": [],
-   "blank": false
-  },
-  "modes": [
-   {
-    "mode": "day",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.0121
-   },
-   {
-    "mode": "dusk",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9888
-   },
-   {
-    "mode": "night",
-    "blank": false,
-    "errors": 0,
-    "diff": 0.9987
-   }
-  ],
-  "clicks": [
-   {
-    "mode": "day",
-    "found": true,
-    "diff": 0.0373
-   },
-   {
-    "mode": "dusk",
-    "found": true,
-    "diff": 0.9933
-   },
-   {
-    "mode": "night",
-    "found": true,
-    "diff": 0.9847
-   }
-  ],
-  "shots": [
-   "default",
-   "click-day",
-   "click-dusk",
-   "click-night",
-   "default-later",
-   "default-second-load",
-   "mode-day",
-   "mode-dusk",
-   "mode-night"
-  ],
-  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
-  "harness": {
-   "opencode": "2.2.7",
-   "playwright": "1.65.0",
-   "three": "0.187.0",
-   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
-  },
-  "started": "2026-11-12T04:16:45.458368+00:00",
-  "run_no": 1,
-  "runs_of_setup": 1,
-  "superseded": false
- },
- {
   "quant": "4-bit MLX",
   "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
   "pack_link": true,
@@ -979,7 +497,7 @@
   "model_id": null,
   "id": "20261112T093032Z-room-open-m3-qwen27-kapitsa-s1",
   "prompt": "room-open",
-  "prompt_title": "Reading room (open)",
+  "prompt_title": "Reading room",
   "variant": "open",
   "setup": "m3-qwen27-kapitsa",
   "model": "Qwen3.8-27B",
@@ -1084,7 +602,7 @@
   "model_id": null,
   "id": "20261112T103627Z-room-open-m3-glm53flash-omlx-s1",
   "prompt": "room-open",
-  "prompt_title": "Reading room (open)",
+  "prompt_title": "Reading room",
   "variant": "open",
   "setup": "m3-glm53flash-omlx",
   "model": "GLM-5.3-Flash",
@@ -1189,7 +707,7 @@
   "model_id": null,
   "id": "20261112T113102Z-room-open-m3-ds1017-mlxserve-s1",
   "prompt": "room-open",
-  "prompt_title": "Reading room (open)",
+  "prompt_title": "Reading room",
   "variant": "open",
   "setup": "m3-ds1017-mlxserve",
   "model": "DeepSeek V4.1 Flash 1017",
@@ -1296,7 +814,7 @@
   "model_id": null,
   "id": "20261112T132242Z-eiffel-open-m3-qwenflash-omlx-s1",
   "prompt": "eiffel-open",
-  "prompt_title": "Eiffel Tower (open)",
+  "prompt_title": "Eiffel Tower",
   "variant": "open",
   "setup": "m3-qwenflash-omlx",
   "model": "Qwen3.8-Flash-Next",
@@ -1415,7 +933,7 @@
   "model_id": null,
   "id": "20261112T185929Z-room-open-m3-qwenflash-omlx-s1",
   "prompt": "room-open",
-  "prompt_title": "Reading room (open)",
+  "prompt_title": "Reading room",
   "variant": "open",
   "setup": "m3-qwenflash-omlx",
   "model": "Qwen3.8-Flash-Next",

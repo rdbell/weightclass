@@ -2,7 +2,9 @@
 
 How open-weight models and their quants do at 3D scenes, driven through
 OpenCode the way people actually use them. Design: [SPEC.md](SPEC.md).
-Status: harness and prompt lab work; no benchmark prompts yet.
+3D scene runs use open-spec prompts: describe the outcome and constraints, and
+let the model choose the implementation and visual details. Historical hard-spec
+runs stay in the lab archive and are excluded from the website.
 
 ## Setup (once)
 

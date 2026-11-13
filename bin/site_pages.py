@@ -129,7 +129,7 @@ def build_home(data, prompts):
         if len(shots) == 3:
             shots = shots[:2]
         mosaic = "".join(f'<img loading="lazy" alt="" src="runs/{r["id"]}/shots/default.png">' for r in shots)
-        kind = "Spec: exact instructions, results should look alike" if p["variant"] == "spec" else "Open: the model decides the scene"
+        kind = "The model decides the scene"
         cards.append(f"""<a class="card" href="tasks/{pid}/"><div class="mosaic{' one' if len(shots) < 2 else ''}"{' style="aspect-ratio:32/10"' if len(shots) == 2 else ''}>{mosaic}</div>
 <div class="b"><div class="t">{esc(p['title'])}</div><div class="d">{kind}</div><div class="d">{len(rs)} results · {len({r['model'] for r in rs})} models</div></div></a>""")
 

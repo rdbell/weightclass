@@ -39,8 +39,8 @@ Each prompt is one file, `prompts/<id>.md`, with front matter:
 id: clock-01            # stable; never reused for different wording
 title: Mechanical clock
 category: object        # object | room | mechanism | physics | camera | landscape | puzzle | other
-variant: open           # open | spec (see "Variants")
-subject: clock          # shared by the open and spec prompts for the same scene
+variant: open           # open-spec prompts for all new 3D runs
+subject: clock          # scene subject
 version: 1              # bump on any wording change; results keep the version they used
 ---
 <the brief, in plain prose>
@@ -62,23 +62,15 @@ the deliverable so outputs are comparable:
 Prompt changes after results exist create a new version; old results stay
 listed under the version they answered.
 
-### Variants
+### Prompt scope
 
-A subject can have two prompts that measure different things. Either may
-exist alone.
+All new 3D scene runs use open-spec prompts (`variant: open`): describe the
+outcome and constraints while letting the model choose implementation and visual
+details. Public titles use the scene name without an "(open)" suffix.
 
-- **Open** (`variant: open`): outcomes, not steps. The model decides
-  proportions, palette, camera, technique and extra detail. Outputs differ,
-  so this is what people vote on; it feeds the main leaderboard.
-- **Spec** (`variant: spec`): a hard specification (numbers, code, palettes).
-  It measures instruction following; outputs converge, so votes would be
-  noise. Not paired for voting. Scored by the shared automatic checks plus
-  review against the spec text (the spec is the rubric), and by tokens used:
-  with one fixed target, tokens are a fair efficiency measure. No per-prompt
-  check scripts for now.
-
-Open and spec results are never mixed in one rating. Listing pages show the
-variant next to the title, e.g. "Eiffel Tower (open)" / "(spec)".
+Historical hard-specification prompts and raw lab runs remain archived, but are
+excluded from the website. Eiffel Tower spec results were retired because their
+outputs were too similar to make useful comparisons.
 
 ## Prompt lab (exploration, not results)
 
@@ -226,8 +218,6 @@ Three pages, static where possible:
   right / tie / both broken." Labels appear after the vote.
 - **Leaderboard:** Bradley-Terry ratings with confidence intervals and vote
   counts (open prompts), plus the automatic-check table.
-- **Spec board:** per setup, spec prompts passed on review, check results and
-  tokens used, separate from the ratings.
 
 Private for the PoC (link-only, you and friends).
 

@@ -114,7 +114,7 @@ def run_record(run, out):
         "engine_settings": ", ".join(f"{k}={v}" for k, v in eng.items() if k not in ("name", "version")) or None,
         "request": json.dumps(setup.get("request_body") or {}, separators=(", ", ": ")),
         "model_id": setup.get("model_id") if not local else None,
-        "id": rid, "prompt": p.get("id"), "prompt_title": p.get("title"), "variant": p.get("variant"),
+        "id": rid, "prompt": p.get("id"), "prompt_title": (p.get("title") or "").removesuffix(" (open)"), "variant": p.get("variant"),
         "setup": setup["id"], "model": model_of(setup["id"]), "where": "local" if local else "hosted",
         "label": setup.get("label"),
         "pack": pack.get("repo"), "engine": (setup.get("engine") or {}).get("name"),
@@ -161,7 +161,20 @@ def main():
     vend = out / "vendor" / "three"
     if not vend.exists():
         shutil.copytree(THREE, vend)
-    data = [run_record(Path(r).resolve(), out) for r in args.runs]
+    # Historical spec runs stay in the lab, outside the published gallery.
+    selected = []
+    for source in args.runs:
+        source = Path(source).resolve()
+        meta = json.loads((source / "meta.json").read_text())
+        prompt = (meta.get("backfill") or {}).get("prompt") or meta["prompt"]
+        if prompt.get("variant") == "open":
+            selected.append(source)
+    for old in (out / "runs").glob("*/meta.json"):
+        meta = json.loads(old.read_text())
+        prompt = (meta.get("backfill") or {}).get("prompt") or meta["prompt"]
+        if prompt.get("variant") == "spec":
+            shutil.rmtree(old.parent)
+    data = [run_record(source, out) for source in selected]
     # Several samples of one setup on one prompt: number them by start time.
     groups = {}
     for d in sorted(data, key=lambda d: d.get("started") or ""):
@@ -182,7 +195,7 @@ def main():
                 k, _, v = line.partition(":")
                 meta[k.strip()] = v.split("#", 1)[0].strip()
         if meta.get("id") in {d["prompt"] for d in data}:
-            prompts[meta["id"]] = {"title": meta.get("title"), "variant": meta.get("variant"),
+            prompts[meta["id"]] = {"title": (meta.get("title") or "").removesuffix(" (open)"), "variant": meta.get("variant"),
                                    "mode_param": meta.get("mode_param"),
                                    "modes": [m.strip() for m in meta.get("modes", "").split(",") if m.strip()],
                                    "text": text.split("\n---\n", 1)[1].strip() if text.startswith("---\n") else text,

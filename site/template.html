@@ -169,8 +169,8 @@ footer{color:var(--faint);font-size:13px;padding:18px 0 36px;border-top:1px soli
       <div class="stagecard">
         <div class="stages" id="stages"></div>
         <div class="toolbar">
-          <span class="label">Time of day</span>
-          <div class="seg" id="modeSeg" role="group" aria-label="Time of day"></div>
+          <span class="label" id="modeLabel">Scene mode</span>
+          <div class="seg" id="modeSeg" role="group" aria-label="Scene mode"></div>
           <div class="spacer"></div>
           <button class="iconbtn" id="compareBtn" aria-pressed="false" title="Show two runs side by side">⇆ Compare</button>
           <button class="iconbtn" id="reloadBtn" title="Restart the scene">↻ Restart</button>
@@ -262,9 +262,7 @@ function renderPrompts(){
     `<a aria-current="${id === S.prompt}" href="${BASE}tasks/${esc(id)}/">${esc(p.title)}</a>`).join("");
   document.title = P().title + " · Weightclass";
   const p = P();
-  $("#intro").innerHTML = p.variant === "spec"
-    ? "<b>Spec variant.</b> A hard specification with exact numbers, code and palettes: it measures instruction following, so the scenes should look alike. Compare tokens, steps and reliability."
-    : "<b>Open variant.</b> The prompt states outcomes, not steps; each model decides the scene. Every result below is one run, one shot, no follow-up turns.";
+  $("#intro").textContent = "The prompt states outcomes, not steps; each model decides the scene. Every result below is one run, one shot, no follow-up turns.";
 }
 
 /* ---------- stage ---------- */
@@ -284,6 +282,9 @@ function renderStage(){
   const st = $("#stages"); st.className = "stages" + (S.compare ? " two" : "");
   st.innerHTML = stageHTML(byId(S.a), "a") + (S.compare ? stageHTML(byId(S.b), "b") : "");
   const modes = P().modes || [];
+  const modeLabel = P().mode_param === "view" ? "View" : "Time of day";
+  $("#modeLabel").textContent = modeLabel;
+  $("#modeSeg").setAttribute("aria-label", modeLabel);
   $("#modeSeg").innerHTML = [`<button aria-pressed="${!S.mode}" data-m="">Default</button>`]
     .concat(modes.map(m => `<button aria-pressed="${S.mode === m}" data-m="${esc(m)}">${esc(m[0].toUpperCase() + m.slice(1))}</button>`)).join("");
   $("#modeSeg").parentElement.style.display = modes.length ? "" : "none";
