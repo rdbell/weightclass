@@ -127,6 +127,13 @@ For each (prompt, setup, sample), 2 samples per pair, one fresh run:
    `preview` command that serves the workspace locally and saves a headless
    screenshot plus console log (so the agent can look at its own result, as a
    developer would).
+   The judged render's own tool is also in the container
+   (`node /opt/weightclass/scene.mjs check DIR OUT`): the same checks and
+   screenshots (every mode, button clicks) the result is judged with. It is
+   kept and documented on purpose (decided 2026-11-13): finding and using the
+   environment's tools is part of real agent work. Every run has had the same
+   access; how often a model uses it is in its record (most of the first 13
+   published runs did, GLM-5.3-Flash did not).
 2. **Agent:** the current OpenCode release (see Harness versions), run non-interactively with the brief
    as the task, pointed at the setup's endpoint and model. One fixed OpenCode
    config for all setups: same tools (files, shell, `preview`), same system

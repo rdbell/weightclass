@@ -51,6 +51,10 @@ own hosts are unreachable on purpose (SPEC.md, "Container"). A runaway guard
 (1M generated tokens, 8 identical tool calls in a row; no step cap) is the only early
 stop; a prompt can set `max_steps`/`max_tokens` in its front matter.
 
+The agent has `preview` (one screenshot and the console log) and, in the
+same container, the judged render's tool (`node /opt/weightclass/scene.mjs
+check DIR OUT`), which it may find and use; see SPEC.md, "Workspace".
+
 ### Run record
 
 Collected because it cannot be recovered later:
