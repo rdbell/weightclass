@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weightclass</title>
+<meta name="description" content="Open-weight models and their local packs, given one task and no follow-up in OpenCode. Live scenes, tokens, energy and full run details.">
+<style>
+:root{
+  --bg:#f6f5f2;--panel:#ffffff;--ink:#17171a;--mut:#64646b;--faint:#8d8d94;--line:#e2e0da;--soft:#efede8;
+  --acc:#2b59c3;--acc-ink:#ffffff;--warn:#9a5b00;--warn-bg:#fff4e0;--bad:#b3261e;--bad-bg:#fdecea;
+  --stage:#0d0d10;--chip:#eceae4;--shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.06);
+  --r:14px;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f0f12;--panel:#17171b;--ink:#ececf0;--mut:#a0a0a8;--faint:#76767e;--line:#2a2a30;--soft:#1f1f24;
+  --acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;
+  --stage:#050506;--chip:#24242a;--shadow:none}}
+:root[data-theme="dark"]{
+  --bg:#0f0f12;--panel:#17171b;--ink:#ececf0;--mut:#a0a0a8;--faint:#76767e;--line:#2a2a30;--soft:#1f1f24;
+  --acc:#7fa6ff;--acc-ink:#0f0f12;--warn:#f0b35a;--warn-bg:#2b2112;--bad:#ff8a80;--bad-bg:#2c1615;
+  --stage:#050506;--chip:#24242a;--shadow:none}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1440px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);background:var(--panel)}
+header.top .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.brand{font-weight:700;font-size:18px;letter-spacing:-.01em}
+.brand small{display:block;font-weight:400;font-size:12px;color:var(--mut);letter-spacing:0}
+.seg{display:inline-flex;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:7px;cursor:pointer;color:var(--mut);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.seg a{padding:6px 12px;border-radius:7px;color:var(--mut);white-space:nowrap;text-decoration:none}
+.seg a[aria-current="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.spacer{flex:1}
+#promptSeg{max-width:100%;overflow-x:auto;scrollbar-width:none}
+#promptSeg::-webkit-scrollbar{display:none}
+@media (max-width:600px){header.top .wrap>*{min-width:0}#promptSeg{width:100%}#modeSeg{max-width:100%;overflow-x:auto}}
+.linkbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:6px 12px;cursor:pointer;text-decoration:none;color:var(--ink);font-size:14px;white-space:nowrap}
+.linkbtn:hover{border-color:var(--faint)}
+.intro{padding:14px 0 4px;color:var(--mut);font-size:14px;max-width:900px}
+/* layout */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding:14px 0 28px;align-items:start}
+@media (max-width:1100px){.layout{grid-template-columns:1fr}}
+/* stage */
+.stagecard{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.stages{display:grid;grid-template-columns:1fr;gap:2px;background:var(--stage)}
+.stages.two{grid-template-columns:1fr 1fr}
+@media (max-width:800px){.stages.two{grid-template-columns:1fr}}
+.stage{position:relative;aspect-ratio:16/10;max-height:74vh;width:100%;background:var(--stage)}
+.stages.two .stage{aspect-ratio:16/11}
+.stage iframe,.stage img.poster{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:contain;background:var(--stage)}
+.stage .tag{position:absolute;left:10px;bottom:10px;z-index:2;background:rgba(0,0,0,.62);color:#fff;font-size:12px;border-radius:7px;padding:3px 8px;max-width:calc(100% - 20px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.stage .slot{position:absolute;right:10px;top:10px;z-index:2;background:var(--acc);color:var(--acc-ink);font-weight:700;font-size:12px;border-radius:7px;padding:2px 8px}
+.stage .loading{position:absolute;inset:auto 10px 10px auto;z-index:2;color:#fff;background:rgba(0,0,0,.55);font-size:12px;border-radius:7px;padding:3px 8px}
+.toolbar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.toolbar .label{color:var(--mut);font-size:13px}
+.iconbtn{border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:6px 10px;cursor:pointer;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+.iconbtn[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.iconbtn:hover{border-color:var(--faint)}
+/* run header */
+.runhead{padding:16px 18px 8px;display:grid;gap:10px}
+.runhead.two{grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:800px){.runhead.two{grid-template-columns:1fr}}
+.rh-model{font-size:22px;font-weight:700;letter-spacing:-.01em;line-height:1.2}
+.rh-model .slotmark{font-size:12px;background:var(--acc);color:var(--acc-ink);border-radius:6px;padding:1px 7px;vertical-align:middle;margin-right:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{background:var(--chip);border-radius:7px;padding:2px 9px;font-size:13px;white-space:nowrap}
+.chip.quant{background:var(--acc);color:var(--acc-ink);font-weight:600}
+.chip.hosted{background:transparent;border:1px dashed var(--faint);color:var(--mut)}
+.flag{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;margin-top:8px}
+.attempts{font-size:13px;color:var(--mut);margin-top:8px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.att{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:1px 9px;cursor:pointer;font-size:13px}
+.att[aria-current="true"]{border-color:var(--acc);color:var(--acc)}
+.moreatt{display:block;width:100%;margin-top:8px;border:1px dashed var(--line);background:transparent;border-radius:9px;padding:7px;cursor:pointer;color:var(--mut);font-size:13px}
+.flag.warn{background:var(--warn-bg);color:var(--warn)}
+.flag.bad{background:var(--bad-bg);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:10px}
+.stat{background:var(--soft);border-radius:10px;padding:8px 10px}
+.stat span{display:block;font-size:12px;color:var(--mut)}
+.stat b{font-size:17px;font-variant-numeric:tabular-nums}
+/* tabs below stage */
+.tabs{display:flex;gap:4px;padding:0 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:11px 10px;cursor:pointer;color:var(--mut);border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.panel{padding:16px 18px 20px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.shot{border:0;padding:0;background:none;cursor:zoom-in;text-align:left}
+.shot img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:9px;border:1px solid var(--line);display:block}
+.shot span{display:block;font-size:12px;color:var(--mut);margin-top:4px}
+.shotgroup + .shotgroup{margin-top:18px}
+.shotgroup h4{margin:0 0 8px;font-size:13px;font-weight:600;color:var(--mut)}
+dl.kv{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 16px;margin:0;font-size:14px}
+dl.kv dt{color:var(--mut)}
+dl.kv dd{margin:0;overflow-wrap:anywhere}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:800px){.cols2{grid-template-columns:1fr}}
+.cols2 h4{margin:0 0 8px;font-size:14px}
+code,.mono{font-family:var(--mono);font-size:13px}
+/* run list */
+aside.list{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);position:sticky;top:12px;max-height:calc(100vh - 24px);display:flex;flex-direction:column}
+@media (max-width:1100px){aside.list{position:static;max-height:none}}
+.listhead{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.listhead h3{margin:0;font-size:14px;flex:1}
+.listhead select{font:inherit;font-size:13px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 6px}
+.items{overflow:auto;padding:8px}
+.group{font-size:12px;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;margin:10px 6px 6px}
+.item{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;width:100%;border:1px solid transparent;background:transparent;border-radius:11px;padding:7px;cursor:pointer;text-align:left}
+.item:hover{background:var(--soft)}
+.item[aria-current="true"]{border-color:var(--acc);background:var(--soft)}
+.item img{width:96px;aspect-ratio:16/10;object-fit:cover;border-radius:7px;display:block;background:var(--stage)}
+.item .m{font-weight:600;font-size:14px;line-height:1.25}
+.item .q{font-size:12px;color:var(--ink);margin-top:2px}
+.item .q b{font-weight:600}
+.item .w{font-size:12px;color:var(--mut)}
+.item .n{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.item .slotbadge{float:right;background:var(--acc);color:var(--acc-ink);font-size:11px;font-weight:700;border-radius:5px;padding:0 6px}
+/* table */
+section.all{padding:6px 0 48px}
+section.all h2{font-size:18px;margin:6px 0 10px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--mut);font-weight:500;cursor:pointer;user-select:none;position:sticky;top:0;background:var(--panel)}
+th[aria-sort] .arr{opacity:1}
+th .arr{opacity:.25;font-size:11px;margin-left:3px}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr{cursor:pointer}
+tbody tr:hover{background:var(--soft)}
+tbody tr[aria-current="true"]{background:var(--soft);box-shadow:inset 3px 0 0 var(--acc)}
+.note{color:var(--mut);font-size:13px;margin:10px 2px 0}
+/* modal + lightbox */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.open{display:flex}
+.lb-fig{margin:0;max-width:min(1600px,100%);max-height:100%;display:flex;flex-direction:column;align-items:center;gap:10px}
+.lb-fig img{max-width:100%;max-height:calc(100vh - 120px);border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.lb-fig figcaption{color:#e8e8ea;font-size:14px;text-align:center}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);border:0;background:rgba(255,255,255,.12);color:#fff;width:48px;height:64px;border-radius:12px;cursor:pointer;font-size:26px}
+.lb-nav:hover{background:rgba(255,255,255,.22)}
+.lb-prev{left:16px}.lb-next{right:16px}
+.lb-close,.md-close{position:fixed;top:14px;right:16px;border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:6px 12px;cursor:pointer;font-size:14px}
+.md-box{background:var(--panel);color:var(--ink);border-radius:var(--r);max-width:900px;width:100%;max-height:calc(100vh - 48px);overflow:auto;padding:22px 24px}
+.md-box h2{margin:0 0 4px;font-size:20px}
+.md-box pre{white-space:pre-wrap;font-family:var(--mono);font-size:13px;background:var(--soft);border-radius:10px;padding:14px;line-height:1.55}
+.md-box.wide{max-width:1200px;height:calc(100vh - 48px);padding:0;display:flex;flex-direction:column}
+.md-box.wide iframe{flex:1;border:0;width:100%;border-radius:0 0 var(--r) var(--r);background:#fff}
+.md-box.wide .mdh{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.md-box.wide .mdh b{flex:1}
+footer{color:var(--faint);font-size:13px;padding:18px 0 36px;border-top:1px solid var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../../" style="color:inherit;text-decoration:none">Weightclass<small>All tasks and setups</small></a>
+  <div class="seg" id="promptSeg" role="group" aria-label="Prompt"></div>
+  <div class="spacer"></div>
+  <button class="linkbtn" id="showPrompt">Read the prompt</button>
+  <a class="linkbtn" href="https://github.com/rdbell/weightclass">Method &amp; code</a>
+</div></header>
+
+<main class="wrap">
+  <p class="intro" id="intro"></p>
+  <div class="layout">
+    <section>
+      <div class="stagecard">
+        <div class="stages" id="stages"></div>
+        <div class="toolbar">
+          <span class="label" id="modeLabel">Scene mode</span>
+          <div class="seg" id="modeSeg" role="group" aria-label="Scene mode"></div>
+          <div class="spacer"></div>
+          <button class="iconbtn" id="compareBtn" aria-pressed="false" title="Show two runs side by side">⇆ Compare</button>
+          <button class="iconbtn" id="reloadBtn" title="Restart the scene">↻ Restart</button>
+          <button class="iconbtn" id="fullBtn" title="Full screen">⛶ Full screen</button>
+        </div>
+        <div class="runhead" id="runhead"></div>
+        <div class="tabs" role="tablist" id="tabs">
+          <button role="tab" data-tab="shots" aria-selected="true">Screenshots</button>
+          <button role="tab" data-tab="details" aria-selected="false">Run details</button>
+          <button role="tab" data-tab="setup" aria-selected="false">Pack &amp; engine</button>
+        </div>
+        <div class="panel" id="panel"></div>
+      </div>
+    </section>
+    <aside class="list" aria-label="Runs">
+      <div class="listhead"><h3 id="listTitle">Runs</h3>
+        <label class="sr" for="sortSel">Sort</label>
+        <select id="sortSel">
+          <option value="model">Group by model</option>
+          <option value="generated">Fewest tokens</option>
+          <option value="energy">Least energy</option>
+          <option value="where">Hosted vs local</option>
+        </select>
+      </div>
+      <div class="items" id="items"></div>
+    </aside>
+  </div>
+
+  <section class="all">
+    <h2>All runs for this prompt</h2>
+    <div class="tablewrap"><table id="table"></table></div>
+    <p class="note">Generated = output + reasoning tokens. * Reasoning estimated from the raw stream where the engine reports one combined count. Energy is CPU+GPU+ANE from powermetrics on the M3 Ultra (local runs; not wall power). Wall time depends on hardware and on the other run sharing the engine, so it is shown but never ranked. One sample per setup so far; no votes yet.</p>
+  </section>
+</main>
+<footer><div class="wrap">Scenes are the models' own pages, run in sandboxed frames. Only the scenes on stage run; everything else is a judged screenshot. <a href="https://github.com/rdbell/weightclass">Source, spec and run format</a>.</div></footer>
+
+<div class="modal" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lb-close" id="lbClose">Close ✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+</div>
+<div class="modal" id="docmodal" role="dialog" aria-modal="true">
+  <button class="md-close" id="mdClose">Close ✕</button>
+  <div class="md-box" id="mdBox"></div>
+</div>
+
+<script>
+const BASE = "../../";
+const DATA = [{"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "4-bit MLX", "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter", "pack_link": true, "pack_extras": ["nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)", "MTP head from Qwen/Qwen3.8-27B"], "pack_revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)", "pack_bytes": 20169260357, "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261111T231206Z-eiffel-open-m3-qwen27-kapitsa-s1", "prompt": "eiffel-open", "prompt_title": "Eiffel Tower", "variant": "open", "setup": "m3-qwen27-kapitsa", "model": "Qwen3.8-27B", "where": "local", "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)", "pack": "lmstudio-community/Qwen3.8-27B-MLX-4bit", "engine": "kapitsa", "engine_version": "0.2.34", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 122, "session_steps": 121, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 157, "tool_errors": 3, "generated": 204583, "output": 53502, "reasoning": 151081, "token_note": "reported", "input": 59514, "cached": 14388356, "energy_wh": 118.28, "avg_watts": 65.8, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 6558.1, "concurrent": 1, "decode_tps_p50": 38.9, "ttft_ms_p50": 1874.3, "checks": {"check_version": 2, "canvases": 1, "fps": 19, "draw_calls_per_frame": 85, "primitives_per_frame": 74231, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "day", "blank": false, "errors": 0, "diff": 0.0126}, {"mode": "dusk", "blank": false, "errors": 0, "diff": 0.9869}, {"mode": "night", "blank": false, "errors": 0, "diff": 0.9873}], "clicks": [{"mode": "day", "found": true, "diff": 0.0082}, {"mode": "dusk", "found": true, "diff": 0.9818}, {"mode": "night", "found": true, "diff": 0.8941}], "shots": ["default", "click-day", "click-dusk", "click-night", "default-later", "default-second-load", "mode-day", "mode-dusk", "mode-night"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-11T23:12:08.035167+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41", "pack_bytes": 107693772821, "engine_settings": "speculative=MTP", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T011520Z-eiffel-open-m3-qwenflash-omlx-s1", "prompt": "eiffel-open", "prompt_title": "Eiffel Tower", "variant": "open", "setup": "m3-qwenflash-omlx", "model": "Qwen3.8-Flash-Next", "where": "local", "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)", "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 20, "session_steps": 20, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 26, "tool_errors": 2, "generated": 41535, "output": 13320, "reasoning": 28215, "token_note": "reported", "input": 37939, "cached": 614090, "energy_wh": 18.47, "avg_watts": 67.5, "thermal": ["Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 996.3, "concurrent": 1, "decode_tps_p50": 37.1, "ttft_ms_p50": 1498.4, "checks": {"check_version": 2, "canvases": 0, "fps": 0, "draw_calls_per_frame": null, "primitives_per_frame": null, "animated": false, "page_errors": [], "console_errors": ["Failed to load resource: the server responded with a status of 404 (Not Found)"], "missing_files": ["/src/main.js"], "blank": false}, "modes": [{"mode": "day", "blank": false, "errors": 0, "diff": 0}, {"mode": "dusk", "blank": false, "errors": 0, "diff": 0}, {"mode": "night", "blank": false, "errors": 0, "diff": 0}], "clicks": [{"mode": "day", "found": true, "diff": null}, {"mode": "dusk", "found": true, "diff": null}, {"mode": "night", "found": true, "diff": null}], "shots": ["default", "default-later", "default-second-load", "mode-day", "mode-dusk", "mode-night"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T01:15:22.803381+00:00", "run_no": 1, "runs_of_setup": 2, "superseded": true}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74", "pack_bytes": 186423200125, "engine_settings": "speculative=MTP", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T015357Z-eiffel-open-m3-glm53flash-omlx-s1", "prompt": "eiffel-open", "prompt_title": "Eiffel Tower", "variant": "open", "setup": "m3-glm53flash-omlx", "model": "GLM-5.3-Flash", "where": "local", "label": "GLM-5.3-Flash oQ4e (oMLX, M3 Ultra)", "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 29, "session_steps": 29, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 38, "tool_errors": 2, "generated": 61248, "output": 19424, "reasoning": 41824, "token_note": "reported", "input": 82085, "cached": 1663053, "energy_wh": 70.45, "avg_watts": 76.9, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 3340.8, "concurrent": 1, "decode_tps_p50": 12.9, "ttft_ms_p50": 2204.8, "checks": {"check_version": 2, "canvases": 1, "fps": 17.5, "draw_calls_per_frame": 206, "primitives_per_frame": 43634, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "day", "blank": false, "errors": 0, "diff": 0.0019}, {"mode": "dusk", "blank": false, "errors": 0, "diff": 0.9736}, {"mode": "night", "blank": false, "errors": 0, "diff": 0.993}], "clicks": [{"mode": "day", "found": true, "diff": 0.1769}, {"mode": "dusk", "found": true, "diff": 0.9141}, {"mode": "night", "found": true, "diff": 0.8525}], "shots": ["default", "click-day", "click-dusk", "click-night", "default-later", "default-second-load", "mode-day", "mode-dusk", "mode-night"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T01:53:59.162557+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "iQ-MLX 3.0 bpw", "pack_label": "ddalcu iQ-MLX 3.0 bpw", "pack_link": true, "pack_extras": null, "pack_revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045", "pack_bytes": 427295062169, "engine_settings": "max_concurrent=8, prefix_cache_mem=16GB, prefix_cache_disk=64GB, prefill_chunk=2048", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T041640Z-eiffel-open-m3-ds1017-mlxserve-s1", "prompt": "eiffel-open", "prompt_title": "Eiffel Tower", "variant": "open", "setup": "m3-ds1017-mlxserve", "model": "DeepSeek V4.1 Flash 1017", "where": "local", "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)", "pack": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw", "engine": "mlx-serve", "engine_version": "26.11.2", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 132, "session_steps": 131, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 190, "tool_errors": 5, "generated": 213965, "output": 47008, "reasoning": 166957, "token_note": "estimated from reasoning character share", "input": 337432, "cached": 14171476, "energy_wh": 148.34, "avg_watts": 61.6, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 8768.5, "concurrent": 1, "decode_tps_p50": 28.5, "ttft_ms_p50": 2752.6, "checks": {"check_version": 2, "canvases": 1, "fps": 17.2, "draw_calls_per_frame": 116, "primitives_per_frame": 119762, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "day", "blank": false, "errors": 0, "diff": 0.007}, {"mode": "dusk", "blank": false, "errors": 0, "diff": 0.9449}, {"mode": "night", "blank": false, "errors": 0, "diff": 0.9848}], "clicks": [{"mode": "day", "found": true, "diff": 0.014}, {"mode": "dusk", "found": true, "diff": 0.9449}, {"mode": "night", "found": true, "diff": 0.9875}], "shots": ["default", "click-day", "click-dusk", "click-night", "default-later", "default-second-load", "mode-day", "mode-dusk", "mode-night"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T04:16:42.760070+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "4-bit MLX", "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter", "pack_link": true, "pack_extras": ["nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)", "MTP head from Qwen/Qwen3.8-27B"], "pack_revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)", "pack_bytes": 20169260357, "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T093032Z-room-open-m3-qwen27-kapitsa-s1", "prompt": "room-open", "prompt_title": "Reading room", "variant": "open", "setup": "m3-qwen27-kapitsa", "model": "Qwen3.8-27B", "where": "local", "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)", "pack": "lmstudio-community/Qwen3.8-27B-MLX-4bit", "engine": "kapitsa", "engine_version": "0.2.34", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 64, "session_steps": 64, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 99, "tool_errors": 0, "generated": 169238, "output": 43913, "reasoning": 125325, "token_note": "reported", "input": 26203, "cached": 9613787, "energy_wh": 72.98, "avg_watts": 74.2, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 3585.4, "concurrent": 0, "decode_tps_p50": 39.6, "ttft_ms_p50": 2309.8, "checks": {"check_version": 2, "canvases": 1, "fps": 15.1, "draw_calls_per_frame": 484, "primitives_per_frame": 20856, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "top", "blank": false, "errors": 0, "diff": 0.9454}, {"mode": "door", "blank": false, "errors": 0, "diff": 0.0046}], "clicks": [{"mode": "top", "found": false, "diff": null}, {"mode": "door", "found": false, "diff": null}], "shots": ["default", "default-later", "default-second-load", "mode-door", "mode-top"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T09:30:34.376262+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74", "pack_bytes": 186423200125, "engine_settings": "speculative=MTP", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T103627Z-room-open-m3-glm53flash-omlx-s1", "prompt": "room-open", "prompt_title": "Reading room", "variant": "open", "setup": "m3-glm53flash-omlx", "model": "GLM-5.3-Flash", "where": "local", "label": "GLM-5.3-Flash oQ4e (oMLX, M3 Ultra)", "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 23, "session_steps": 23, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 27, "tool_errors": 0, "generated": 44703, "output": 15301, "reasoning": 29402, "token_note": "reported", "input": 56874, "cached": 1105399, "energy_wh": 21.48, "avg_watts": 63.1, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 1240.4, "concurrent": 0, "decode_tps_p50": 13.4, "ttft_ms_p50": 2112.8, "checks": {"check_version": 2, "canvases": 1, "fps": 15.5, "draw_calls_per_frame": 449, "primitives_per_frame": 64374, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "top", "blank": false, "errors": 0, "diff": 0.9907}, {"mode": "door", "blank": false, "errors": 0, "diff": 0.0657}], "clicks": [{"mode": "top", "found": false, "diff": null}, {"mode": "door", "found": false, "diff": null}], "shots": ["default", "default-later", "default-second-load", "mode-door", "mode-top"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T10:36:29.348876+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "iQ-MLX 3.0 bpw", "pack_label": "ddalcu iQ-MLX 3.0 bpw", "pack_link": true, "pack_extras": null, "pack_revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045", "pack_bytes": 427295062169, "engine_settings": "max_concurrent=8, prefix_cache_mem=16GB, prefix_cache_disk=64GB, prefill_chunk=2048", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T113102Z-room-open-m3-ds1017-mlxserve-s1", "prompt": "room-open", "prompt_title": "Reading room", "variant": "open", "setup": "m3-ds1017-mlxserve", "model": "DeepSeek V4.1 Flash 1017", "where": "local", "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)", "pack": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw", "engine": "mlx-serve", "engine_version": "26.11.2", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 100, "session_steps": 100, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 99, "tool_errors": 1, "generated": 132688, "output": 37982, "reasoning": 94706, "token_note": "estimated from reasoning character share", "input": 157085, "cached": 10473292, "energy_wh": 68.24, "avg_watts": 49.4, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 5033.9, "concurrent": 0, "decode_tps_p50": 33.8, "ttft_ms_p50": 2835.8, "checks": {"check_version": 2, "canvases": 1, "fps": 15.8, "draw_calls_per_frame": 379, "primitives_per_frame": 42271, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "top", "blank": false, "errors": 0, "diff": 0.9257}, {"mode": "door", "blank": false, "errors": 0, "diff": 0.0068}], "clicks": [{"mode": "top", "found": true, "diff": 0.9247}, {"mode": "door", "found": true, "diff": 0.9243}], "shots": ["default", "click-door", "click-top", "default-later", "default-second-load", "mode-door", "mode-top"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T11:31:04.800419+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41", "pack_bytes": 107693772821, "engine_settings": "speculative=MTP", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T132242Z-eiffel-open-m3-qwenflash-omlx-s1", "prompt": "eiffel-open", "prompt_title": "Eiffel Tower", "variant": "open", "setup": "m3-qwenflash-omlx", "model": "Qwen3.8-Flash-Next", "where": "local", "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)", "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 334, "session_steps": 333, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 338, "tool_errors": 5, "generated": 284213, "output": 110800, "reasoning": 173413, "token_note": "reported", "input": 278052, "cached": 39866141, "energy_wh": 76.72, "avg_watts": 22.4, "thermal": ["Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 12495.1, "concurrent": 0, "decode_tps_p50": 52.4, "ttft_ms_p50": 5238.4, "checks": {"check_version": 2, "canvases": 1, "fps": 12.5, "draw_calls_per_frame": 141, "primitives_per_frame": 313359, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [{"mode": "day", "blank": false, "errors": 0, "diff": 0.0158}, {"mode": "dusk", "blank": false, "errors": 0, "diff": 0.9968}, {"mode": "night", "blank": false, "errors": 0, "diff": 0.9975}], "clicks": [{"mode": "day", "found": true, "diff": 0.2706}, {"mode": "dusk", "found": true, "diff": 0.2946}, {"mode": "night", "found": true, "diff": 0.4109}], "shots": ["default", "click-day", "click-dusk", "click-night", "default-later", "default-second-load", "mode-day", "mode-dusk", "mode-night"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T13:22:44.398196+00:00", "run_no": 2, "runs_of_setup": 2, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": null, "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown", "max_output_tokens": 65536, "review": {"validation_failures": []}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41", "pack_bytes": 107693772821, "engine_settings": "speculative=MTP", "request": "{\"reasoning_effort\": \"high\"}", "model_id": null, "id": "20261112T185929Z-room-open-m3-qwenflash-omlx-s1", "prompt": "room-open", "prompt_title": "Reading room", "variant": "open", "setup": "m3-qwenflash-omlx", "model": "Qwen3.8-Flash-Next", "where": "local", "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)", "pack": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent finished", "steps": 377, "session_steps": 375, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 377, "tool_errors": 8, "generated": 347750, "output": 145657, "reasoning": 202093, "token_note": "reported", "input": 339154, "cached": 52163563, "energy_wh": 94.53, "avg_watts": 12.9, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 26634.5, "concurrent": 0, "decode_tps_p50": 51.5, "ttft_ms_p50": 8959.7, "checks": {"check_version": 2, "canvases": 1, "fps": 13.5, "draw_calls_per_frame": 716, "primitives_per_frame": 92819, "animated": true, "page_errors": [], "console_errors": ["THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The \"position\" attribute is likely to have NaN values. BufferGeometry"], "missing_files": [], "blank": false}, "modes": [{"mode": "top", "blank": false, "errors": 0, "diff": 0.9883}, {"mode": "door", "blank": false, "errors": 0, "diff": 0.0066}], "clicks": [{"mode": "top", "found": true, "diff": 0.9867}, {"mode": "door", "found": true, "diff": 0.9885}], "shots": ["default", "click-door", "click-top", "default-later", "default-second-load", "mode-door", "mode-top"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-12T18:59:31.560746+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}, {"reasoning_effort": "high", "thinking_budget": 2048, "thinking_budget_label": "2,048 tokens per response (request)", "max_output_tokens": 16384, "review": {"status": "generated_scene_with_failures", "end": "Coordinator stopped agent after1272.6s because it repeatedly took/read screenshots without fixing known issues; not a natural model completion.", "chess_conclusion": "All seven supplied moves legal; sequential move animation reaches exact checkmate. Seeking directly to final move fails.", "additional_issues": ["Square colors inverted: h1 dark and a1 light.", "Caption calls f7 undefended although Black king defends it.", "Caption says the g8 knight abandoned f7, which it did not defend.", "Move-list overlay obscures part of board at728px width."], "validation_failures": ["play is not defined", "Seeking to ply 7 leaves a board that differs from the legal reference."]}, "quant": "oQ4e", "pack_label": "Jundot oQ4e + MTP", "pack_link": true, "pack_extras": null, "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74", "pack_bytes": 186423200125, "engine_settings": "speculative=MTP, concurrent_requests=1, ssd_cache=16GB, hot_cache=0, trial_isolation=exclusive GPU; production stopped after verified DigitalOcean cutover, thinking_budget=2048", "request": "{\"reasoning_effort\": \"high\", \"thinking_budget\": 2048}", "model_id": null, "id": "20261113T071216Z-scholars-mate-m3-glm53flash-omlx-budget2k-s1", "prompt": "scholars-mate", "prompt_title": "", "variant": "open", "setup": "m3-glm53flash-omlx-budget2k", "model": "GLM-5.3-Flash", "where": "local", "label": "GLM-5.3-Flash oQ4e + MTP, 2K thinking budget", "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp", "engine": "omlx", "engine_version": "0.7.4.dev1", "hardware": "M3 Ultra 60c / 256 GB", "providers": [], "end": "agent exited 137", "steps": 38, "session_steps": 38, "subagent_calls": 0, "token_source": "all model requests (relay)", "tool_calls": 39, "tool_errors": 0, "generated": 32331, "output": 19066, "reasoning": 13265, "token_note": "reported", "input": 55390, "cached": 1303554, "energy_wh": 17.5, "avg_watts": 50.2, "thermal": ["Heavy", "Moderate", "Nominal"], "cost_usd": null, "wall_seconds": 1272.6, "concurrent": 0, "decode_tps_p50": 25.3, "ttft_ms_p50": 6159.1, "checks": {"check_version": 2, "canvases": 1, "fps": 22.5, "draw_calls_per_frame": 33, "primitives_per_frame": 67, "animated": true, "page_errors": [], "console_errors": [], "missing_files": [], "blank": false}, "modes": [], "clicks": [], "shots": ["default", "default-later", "default-second-load"], "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))", "harness": {"opencode": "2.2.7", "playwright": "1.65.0", "three": "0.187.0", "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"}, "started": "2026-11-13T07:12:18.361908+00:00", "run_no": 1, "runs_of_setup": 1, "superseded": false}];
+const PROMPTS = {"eiffel-open": {"title": "Eiffel Tower", "variant": "open", "mode_param": "tod", "modes": ["day", "dusk", "night"], "text": "Build a stylized, cel-shaded scene of the Eiffel Tower, in the bright, toon-shaded look of a cartoon adventure game.\n\nRequirements:\n\n- The tower should be recognizable: its curved, tapering profile, open iron lattice, platforms and antenna.\n- Cel shading with hard light bands, not smooth gradients, and ink-style outlines.\n- Real cast shadows that fit the style.\n- A Day / Dusk / Night toggle that changes the lighting and colours of the whole scene. Make the night scene readable, not a silhouette. The page also opens directly in a mode via `?tod=day`, `?tod=dusk` or `?tod=night`, defaulting to day.\n- The viewer can orbit and zoom around the tower.\n\nEverything else is your call: the tower's surroundings, the palette, the camera, how you build the shading, and any extra detail or life you think makes the scene better. Aim for something you would be proud to show.", "url": "https://github.com/rdbell/weightclass/blob/main/prompts/lab/eiffel-open.md"}, "room-open": {"title": "Reading room", "variant": "open", "mode_param": "view", "modes": ["top", "door"], "text": "A cosy reading room, built from this plan. North is \u2212z, east is +x, units are metres, y is up, and the origin is the centre of the floor.\n\nThe room\n- 6 m east\u2013west, 4.5 m north\u2013south, ceiling 2.7 m.\n- Door: south wall, 0.9 m wide, its centre 1.2 m from the west wall.\n- Window: north wall, 1.6 m wide, centred, sill 0.9 m above the floor.\n- Fireplace: centred on the east wall, firebox opening 1 m wide.\n\nFurniture (place it by these relations)\n- A three-seat sofa faces the fireplace, its back 2.5 m from the east wall.\n- A low coffee table sits between the sofa and the fireplace, leaving at least 0.45 m of walkway on each side.\n- An armchair angled 45\u00b0 toward the fireplace, in the north-east corner, not blocking the window.\n- A bookshelf, floor to ceiling, covering the west wall except the door's swing.\n- A rug centred under the coffee table, extending under the sofa's front legs.\n- A floor lamp beside the armchair, on its west side (away from the fireplace).\n\nNothing may overlap, float or pass through a wall. The door is hinged on its west side and opens into the room; keep its swing arc clear.\n\nViews (required)\n- Default, and ?view=door: the view from the doorway, standing just inside the door at eye height (1.6 m), looking north-east into the room.\n- ?view=top: an orthographic top-down view of the whole room, north up, framing all four walls. Hide the ceiling so the furniture layout is visible.\n- Orbit controls may start from these views.\n\nEverything else (style, lighting, materials, decoration) is your choice.", "url": "https://github.com/rdbell/weightclass/blob/main/prompts/room-open.md"}, "scholars-mate": {"title": "Scholar\u2019s Mate \u2014 a guided lesson", "variant": "open", "mode_param": null, "modes": [], "text": "Create a polished, 2D animated chess lesson explaining Scholar\u2019s Mate.\n\nAim for the clarity and feel of a chess.com-style lesson: a flat, top-down green\nand cream chessboard, crisp readable pieces, a restrained dark interface, move\nnotation and concise coaching captions. Make your own design and piece artwork;\nno logos or external assets. This must look like a 2D chess interface, not a 3D\nboard or a perspective scene. With the supplied three.js environment, an\northographic flat board is appropriate; HTML overlays are welcome.\n\nShow the entire lesson from Black's perspective: Black's pieces start at the\nbottom and White's at the top. Rotate the board 180 degrees, including its square\nlabels: files run h to a from left to right, and ranks run 1 to 8 from top to\nbottom. Keep this orientation throughout playback, seeking and replay. Piece\nmovement, arrows and highlights must follow the rotated coordinates; keep the\npieces, labels and coaching text upright and readable. Standard algebraic\nnotation retains its usual meaning.\n\nStart from the standard chess position and animate exactly this supplied line:\n\n1. e4 e5 2. Bc4 Nc6 3. Qh5 Nf6 4. Qxf7#\n\nThe move order is supplied and verified. Do not search for or reconstruct a\nsequence, and do not enumerate alternative games. Build the lesson directly\nfrom these seven half-moves, with correct notation, turns, the capture on f7,\nand final checkmate. Every displayed position must follow the supplied moves.\nVerify the final position and that Black is checkmated.\n\nExplain White\u2019s bishop-and-queen attack on f7, why 3...Nf6 fails to stop the\nimmediate mate, and why the final king cannot capture the protected queen or\nescape. Use well-timed arrows and square highlights to make these ideas clear.\nExplain that this is an avoidable beginner trap, not a forced win; emphasize\nnoticing the threat, defending f7 and developing safely. Do not invent engine\nevaluations or animate extra variations.\n\nThe lesson should start playing automatically, with smooth piece movement and\nenough pauses to read the explanations. Include play/pause, replay and previous /\nnext move controls, a progress indicator, and a move list with the current move\nhighlighted. Seeking backwards and replaying must restore the exact board state,\nincluding captures. Keep each caption short and tied to the position on screen.\n\nFinish with a useful takeaway rather than an endless loop of moves: develop,\nprotect f7 and check the opponent\u2019s threats before chasing the queen.\nThe board and lesson controls must remain legible on desktop and mobile. You\nchoose the composition, visual details and pacing. Deliver the complete working\nlesson, not a static mockup.", "url": "https://github.com/rdbell/weightclass/blob/main/prompts/lab/scholars-mate.md"}};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const k = n => n == null ? "–" : n >= 1e6 ? (n/1e6).toFixed(2) + "M" : n >= 1000 ? (n/1000).toFixed(1) + "K" : String(n);
+const mins = s => s ? (s >= 3600 ? Math.floor(s/3600) + " h " + Math.round((s%3600)/60) + " min" : Math.round(s/60) + " min") : "–";
+const runTag = r => r.runs_of_setup > 1 ? ` · attempt ${r.run_no} of ${r.runs_of_setup}` : "";
+const attemptsOf = r => DATA.filter(x => x.prompt === r.prompt && x.setup === r.setup).sort((a, b) => a.run_no - b.run_no);
+const where = r => r.where === "local" ? `${r.engine} ${r.engine_version || ""} · M3 Ultra` : "OpenRouter" + (r.providers.length ? " · " + r.providers.join(", ") : "");
+const est = r => r.token_note !== "reported" ? "*" : "";
+const facts = r => { const c = r.checks || {}; const m = (c.missing_files||[]).length, e = (c.page_errors||[]).length;
+  return { canvas: c.canvases ?? 0, missing: m, errors: e, text: `${c.canvases ?? 0} canvas · ${m} missing file${m===1?"":"s"} · ${e} page error${e===1?"":"s"}` }; };
+const ended = r => String(r.end || "");
+const flagOf = r => { const f = facts(r);
+  if (!f.canvas || f.missing || f.errors) return ["bad", "Page did not draw a scene: " + f.text];
+  if (ended(r).startsWith("step cap") || ended(r).startsWith("guard")) return ["warn", "Run ended at " + ended(r)];
+  return null; };
+
+/* ---------- state (URL hash) ---------- */
+const S = { showAll: false, prompt: "scholars-mate", a: null, b: null, compare: false, mode: null, tab: "shots", slot: "a", sort: "model", tsort: null };
+function readHash(){
+  const h = new URLSearchParams(location.hash.slice(1));
+
+  S.a = h.get("a"); S.b = h.get("b"); S.compare = !!h.get("b"); S.mode = h.get("m");
+}
+function writeHash(){
+  const h = new URLSearchParams();
+  if (S.a) h.set("a", S.a); if (S.compare && S.b) h.set("b", S.b); if (S.mode) h.set("m", S.mode);
+  history.replaceState(null, "", "#" + h.toString());
+}
+const runs = () => DATA.filter(r => r.prompt === S.prompt && (S.showAll || !r.superseded || r.id === S.a || r.id === S.b))
+  .sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+const byId = id => DATA.find(r => r.id === id);
+const P = () => PROMPTS[S.prompt];
+
+/* ---------- header ---------- */
+function renderPrompts(){
+  $("#promptSeg").innerHTML = Object.entries(PROMPTS).map(([id, p]) =>
+    `<a aria-current="${id === S.prompt}" href="${BASE}tasks/${esc(id)}/">${esc(p.title)}</a>`).join("");
+  document.title = P().title + " · Weightclass";
+  const p = P();
+  $("#intro").textContent = "The prompt states outcomes, not steps; each model decides the scene. Every result below is one run, one shot, no follow-up turns.";
+}
+
+/* ---------- stage ---------- */
+function sceneSrc(r){ const m = S.mode && P().mode_param ? `?${encodeURIComponent(P().mode_param)}=${encodeURIComponent(S.mode)}` : ""; return `${BASE}runs/${r.id}/scene/index.html${m}`; }
+function posterOf(r){ return `${BASE}runs/${r.id}/shots/${S.mode && r.shots.includes("mode-" + S.mode) ? "mode-" + S.mode : "default"}.png`; }
+function stageHTML(r, slot){
+  return `<div class="stage" data-id="${esc(r.id)}">
+    <img class="poster" alt="" src="${posterOf(r)}">
+    <iframe sandbox="allow-scripts" title="${esc(r.model)} scene" src="${sceneSrc(r)}"></iframe>
+    ${S.compare ? `<span class="tag">${slot.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</span>` : ""}
+  </div>`;
+}
+function renderStage(){
+  const list = runs();
+  if (!byId(S.a) || byId(S.a).prompt !== S.prompt) S.a = list[0]?.id;
+  if (S.compare && (!byId(S.b) || byId(S.b).prompt !== S.prompt || S.b === S.a)) S.b = list.find(r => r.id !== S.a)?.id;
+  const st = $("#stages"); st.className = "stages" + (S.compare ? " two" : "");
+  st.innerHTML = stageHTML(byId(S.a), "a") + (S.compare ? stageHTML(byId(S.b), "b") : "");
+  const modes = P().modes || [];
+  const modeLabel = P().mode_param === "view" ? "View" : "Time of day";
+  $("#modeLabel").textContent = modeLabel;
+  $("#modeSeg").setAttribute("aria-label", modeLabel);
+  $("#modeSeg").innerHTML = [`<button aria-pressed="${!S.mode}" data-m="">Default</button>`]
+    .concat(modes.map(m => `<button aria-pressed="${S.mode === m}" data-m="${esc(m)}">${esc(m[0].toUpperCase() + m.slice(1))}</button>`)).join("");
+  $("#modeSeg").parentElement.style.display = modes.length ? "" : "none";
+  $("#modeSeg").querySelectorAll("button").forEach(b => b.onclick = () => { S.mode = b.dataset.m || null; renderStage(); writeHash(); });
+  $("#compareBtn").setAttribute("aria-pressed", S.compare);
+}
+
+/* ---------- run header + panels ---------- */
+function headCol(r, slot){
+  const fl = flagOf(r);
+  return `<div>
+    <div class="rh-model">${S.compare ? `<span class="slotmark">${slot.toUpperCase()}</span>` : ""}${esc(r.model)}<span style="font-size:15px;font-weight:400;color:var(--mut)">${esc(runTag(r))}</span></div>
+    <div class="chips">
+      ${r.where === "local" ? `<span class="chip quant">${esc(r.quant)}</span><span class="chip">${esc(r.pack_label)}</span>` : `<span class="chip hosted">Hosted · provider-served</span>`}
+      <span class="chip">${esc(where(r))}</span>
+      <a class="chip" style="text-decoration:none" href="${BASE}setups/${esc(r.setup)}/">All results for this setup →</a>
+    </div>
+    ${fl ? `<span class="flag ${fl[0]}">${esc(fl[1])}</span>` : ""}
+    ${r.review?.status === "generated_scene_with_failures" ? `<div class="note"><b>Known validation failures</b><p>${esc(r.review.chess_conclusion)}</p><ul>${[...(r.review.validation_failures || []), ...(r.review.additional_issues || [])].map(x => `<li>${esc(x)}</li>`).join("")}</ul><p>${esc(r.review.end)}</p></div>` : ""}
+    ${r.runs_of_setup > 1 ? `<div class="attempts">Attempts: ${attemptsOf(r).map(x => `<button class="att" data-pick="${esc(x.id)}" aria-current="${x.id === r.id}">${x.run_no}${flagOf(x) && flagOf(x)[0] === "bad" ? " · failed" : ""}${!x.superseded ? " · result" : ""}</button>`).join("")}</div>` : ""}
+    <div class="stats">
+      <div class="stat"><span>Generated</span><b>${k(r.generated)}</b></div>
+      <div class="stat"><span>Reasoning${est(r)}</span><b>${k(r.reasoning)}</b></div>
+      <div class="stat"><span>Output</span><b>${k(r.output)}</b></div>
+      <div class="stat"><span>Model calls</span><b>${r.steps ?? "–"}</b></div>
+      <div class="stat"><span>Tool errors</span><b>${r.tool_errors ?? "–"}</b></div>
+      ${r.energy_wh != null ? `<div class="stat"><span>Energy</span><b>${r.energy_wh} Wh</b></div>` : ""}
+      ${r.cost_usd != null ? `<div class="stat"><span>Cost</span><b>$${r.cost_usd.toFixed(3)}</b></div>` : ""}
+      <div class="stat"><span>Wall time</span><b>${mins(r.wall_seconds)}</b></div>
+    </div>
+  </div>`;
+}
+function renderHead(){
+  const rh = $("#runhead"); rh.className = "runhead" + (S.compare ? " two" : "");
+  rh.innerHTML = headCol(byId(S.a), "a") + (S.compare ? headCol(byId(S.b), "b") : "");
+  rh.querySelectorAll(".att").forEach((b, i) => b.onclick = () => {
+    const slot = S.compare && b.closest(".runhead > div") === rh.children[1] ? "b" : "a";
+    S[slot] = b.dataset.pick; renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash(); });
+}
+const shotLabel = s => s === "default" ? "Judged screenshot" : s.startsWith("mode-") ? s.slice(5)[0].toUpperCase() + s.slice(6) + " (URL mode)" : s.startsWith("click-") ? s.slice(6)[0].toUpperCase() + s.slice(7) + " (button click)" : s === "default-later" ? "3 s later" : s === "default-second-load" ? "Second load" : s;
+function shotsFor(r){
+  const order = ["default", ...r.shots.filter(s => s.startsWith("mode-")), ...r.shots.filter(s => s.startsWith("click-")), "default-later", "default-second-load"];
+  return order.filter((s, i) => r.shots.includes(s) && order.indexOf(s) === i).map(s => ({ src: `${BASE}runs/${r.id}/shots/${s}.png`, cap: `${r.model} · ${r.quant || "hosted"} — ${shotLabel(s)}` }));
+}
+function shotsPanel(r, slot){
+  const items = shotsFor(r);
+  return `<div class="shotgroup">${S.compare ? `<h4>${slot.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</h4>` : ""}
+    <div class="shots">${items.map((it, i) => `<button class="shot" data-run="${esc(r.id)}" data-i="${i}"><img loading="lazy" alt="${esc(it.cap)}" src="${it.src}"><span>${esc(it.cap.split(" — ")[1])}</span></button>`).join("")}</div></div>`;
+}
+function detailsPanel(r){
+  const c = r.checks || {}; const f = facts(r);
+  return `<div class="cols2">
+    <div><h4>Tokens and steps</h4><dl class="kv">
+      <dt>Generated</dt><dd>${k(r.generated)} = output ${k(r.output)} + reasoning ${k(r.reasoning)}${est(r) ? " (reasoning estimated from the raw stream)" : ""}</dd>
+      <dt>Reasoning effort</dt><dd>${esc(r.reasoning_effort)}</dd>
+      <dt>Thinking budget</dt><dd>${esc(r.thinking_budget_label)}</dd>
+      <dt>Output limit</dt><dd>${k(r.max_output_tokens)} tokens per response, including reasoning</dd>
+      <dt>Input</dt><dd>${k(r.input)} fresh · ${k(r.cached)} read from cache</dd>
+      <dt>Model calls</dt><dd>${r.steps ?? "–"}${r.subagent_calls ? ` (incl. ${r.subagent_calls} sub-agent task${r.subagent_calls === 1 ? "" : "s"}; main session ${r.session_steps} steps)` : ""} · ${r.tool_calls ?? "–"} tool calls · ${r.tool_errors ?? "–"} tool errors</dd>
+      <dt>Counted from</dt><dd>${esc(r.token_source)}</dd>
+      <dt>Run ended</dt><dd>${esc(r.end)}</dd>
+      <dt>Wall time</dt><dd>${mins(r.wall_seconds)}${r.concurrent ? ` (engine shared with ${r.concurrent} other run)` : ""}</dd>
+      ${r.decode_tps_p50 ? `<dt>Speed</dt><dd>decode p50 ${r.decode_tps_p50} tok/s · first token p50 ${(r.ttft_ms_p50/1000).toFixed(1)} s</dd>` : ""}
+      ${r.energy_wh != null ? `<dt>Energy</dt><dd>${r.energy_wh} Wh · average ${r.avg_watts} W · thermal ${esc((r.thermal || []).join(", "))}</dd>` : ""}
+      ${r.cost_usd != null ? `<dt>Cost</dt><dd>$${r.cost_usd.toFixed(4)} (OpenRouter)</dd>` : ""}
+    </dl></div>
+    <div><h4>Judged page</h4><dl class="kv">
+      <dt>Drew</dt><dd>${f.text}</dd>
+      <dt>Rendering</dt><dd>${c.fps ?? "–"} fps in software WebGL · ${c.draw_calls_per_frame ?? "–"} draw calls and ${k(c.primitives_per_frame)} triangles per frame · animated: ${c.animated ?? "–"}</dd>
+      <dt>Modes</dt><dd>${(r.modes || []).map(m => `${esc(m.mode)} ${m.blank ? "blank" : "drew"}`).join(" · ") || "–"}</dd>
+      <dt>Mode buttons</dt><dd>${(r.clicks || []).map(c => `${esc(c.mode)} ${c.found ? "found" : "not found"}`).join(" · ") || "–"}</dd>
+      ${(c.console_errors || []).length ? `<dt>Console</dt><dd class="mono">${esc(c.console_errors.slice(0, 3).join("\n"))}</dd>` : ""}
+    </dl>
+    <h4 style="margin-top:16px">Files</h4><dl class="kv">
+      <dt>Transcript</dt><dd><a href="#" data-transcript="${esc(r.id)}">Open in page</a></dd>
+      <dt>Scene</dt><dd><a href="${sceneSrc(r)}" target="_blank" rel="noopener">Open alone</a> · its files are the model's own except the three.js path</dd>
+      <dt>Records</dt><dd><a href="${BASE}runs/${r.id}/meta.json">meta.json</a> · <a href="${BASE}runs/${r.id}/checks.json">checks.json</a></dd>
+    </dl></div></div>`;
+}
+function setupPanel(r){
+  return `<dl class="kv">
+    <dt>Model</dt><dd>${esc(r.model)}</dd>
+    <dt>Quant</dt><dd>${esc(r.quant || "Provider-served; precision not recorded")}</dd>
+    <dt>Pack</dt><dd>${r.pack ? (r.pack_link ? `<a href="https://huggingface.co/${esc(r.pack)}">${esc(r.pack)}</a>` : esc(r.pack)) + ` · ${esc(r.pack_label)}` : esc(r.pack_label)}</dd>
+    ${r.pack_extras ? `<dt>Also loaded</dt><dd>${r.pack_extras.map(esc).join(" · ")}</dd>` : ""}
+    ${r.pack_revision ? `<dt>Revision</dt><dd class="mono">${esc(r.pack_revision)}</dd>` : ""}
+    ${r.pack_bytes ? `<dt>Size on disk</dt><dd>${(r.pack_bytes/1e9).toFixed(1)} GB</dd>` : ""}
+    <dt>Engine</dt><dd>${r.where === "local" ? esc(`${r.engine} ${r.engine_version || ""}`) : "OpenRouter" + (r.providers.length ? " (served by " + esc(r.providers.join(", ")) + ")" : "")}</dd>
+    ${r.engine_settings ? `<dt>Engine settings</dt><dd class="mono">${esc(r.engine_settings)}</dd>` : ""}
+    ${r.hardware ? `<dt>Hardware</dt><dd>${esc(r.hardware)}</dd>` : ""}
+    <dt>Request</dt><dd class="mono">${esc(r.request)}</dd>
+    <dt>Harness</dt><dd>OpenCode ${esc(r.harness.opencode)} · three.js ${esc(r.harness.three)} · Playwright ${esc(r.harness.playwright)}</dd>
+    <dt>Started</dt><dd>${esc((r.started || "").replace("T", " ").slice(0, 16))} UTC</dd>
+  </dl>`;
+}
+function renderPanel(){
+  $("#tabs").querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === S.tab));
+  const sel = [["a", byId(S.a)]].concat(S.compare ? [["b", byId(S.b)]] : []);
+  const pn = $("#panel");
+  if (S.tab === "shots") pn.innerHTML = sel.map(([s, r]) => shotsPanel(r, s)).join("");
+  else if (S.tab === "details") pn.innerHTML = sel.map(([s, r]) => (S.compare ? `<h4 style="margin:0 0 10px">${s.toUpperCase()} · ${esc(r.model)} · ${esc(r.quant || "hosted")}</h4>` : "") + detailsPanel(r)).join('<hr style="border:0;border-top:1px solid var(--line);margin:18px 0">');
+  else pn.innerHTML = S.compare ? `<div class="cols2">${sel.map(([s, r]) => `<div><h4>${s.toUpperCase()}</h4>${setupPanel(r)}</div>`).join("")}</div>` : setupPanel(sel[0][1]);
+  pn.querySelectorAll(".shot").forEach(b => b.onclick = () => openLightbox(shotsFor(byId(b.dataset.run)), +b.dataset.i));
+  pn.querySelectorAll("[data-transcript]").forEach(a => a.onclick = e => { e.preventDefault(); openTranscript(byId(a.dataset.transcript)); });
+}
+
+/* ---------- run list ---------- */
+function renderList(){
+  let list = runs().slice();
+  const s = S.sort;
+  if (s === "generated") list.sort((a, b) => (a.generated ?? 1e12) - (b.generated ?? 1e12));
+  else if (s === "energy") list.sort((a, b) => (a.energy_wh ?? 1e12) - (b.energy_wh ?? 1e12));
+  else if (s === "where") list.sort((a, b) => a.where.localeCompare(b.where) || a.model.localeCompare(b.model));
+  else list.sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+  let html = "", last = null;
+  for (const r of list) {
+    const g = s === "model" ? r.model : s === "where" ? (r.where === "local" ? "Local · M3 Ultra" : "Hosted · OpenRouter") : null;
+    if (g && g !== last) { html += `<div class="group">${esc(g)}</div>`; last = g; }
+    const fl = flagOf(r);
+    const slot = r.id === S.a ? "A" : (S.compare && r.id === S.b ? "B" : "");
+    html += `<button class="item" data-id="${esc(r.id)}" aria-current="${!!slot}">
+      <img loading="lazy" alt="" src="${BASE}runs/${r.id}/shots/default.png">
+      <div>${slot && S.compare ? `<span class="slotbadge">${slot}</span>` : ""}
+        <div class="m">${esc(r.model)}<span style="font-weight:400;color:var(--mut)">${esc(runTag(r))}</span></div>
+        <div class="q">${r.where === "local" ? `<b>${esc(r.quant)}</b> · ${esc(r.engine)}` : "Hosted · OpenRouter"}</div>
+        <div class="n">${k(r.generated)} tokens${r.energy_wh != null ? " · " + r.energy_wh + " Wh" : ""}${fl ? (fl[0] === "bad" ? " · <span style='color:var(--bad)'>no scene</span>" : " · <span style='color:var(--warn)'>" + esc(ended(r)) + "</span>") : ""}</div>
+      </div></button>`;
+  }
+  $("#items").innerHTML = html;
+  const hidden = DATA.filter(r => r.prompt === S.prompt && r.superseded).length;
+  if (hidden) html += `<button class="moreatt" id="moreAtt">${S.showAll ? "Hide" : "Show"} ${hidden} earlier attempt${hidden === 1 ? "" : "s"}</button>`;
+  $("#items").innerHTML = html;
+  $("#listTitle").textContent = `${list.filter(r => !r.superseded).length} results`;
+  if (hidden) $("#moreAtt").onclick = () => { S.showAll = !S.showAll; renderList(); renderTable(); };
+  $("#items").querySelectorAll(".item").forEach(b => b.onclick = () => pick(b.dataset.id));
+}
+function pick(id){
+  if (S.compare) { if (id === S.a || id === S.b) return; S[S.slot] = id; S.slot = S.slot === "a" ? "b" : "a"; }
+  else S.a = id;
+  renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash();
+  if (window.innerWidth < 1100) $("#stages").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+/* ---------- table ---------- */
+const COLS = [
+  ["model", "Model", r => r.model, false], ["quant", "Quant / pack", r => r.where === "local" ? r.quant : "hosted", false],
+  ["where", "Engine", r => where(r), false], ["end", "Run ended", r => ended(r), false], ["page", "Judged page", r => facts(r).text, false],
+  ["generated", "Generated", r => r.generated, true], ["output", "Output", r => r.output, true], ["reasoning", "Reasoning", r => r.reasoning, true],
+  ["steps", "Model calls", r => r.steps, true], ["tool_errors", "Tool errors", r => r.tool_errors, true],
+  ["energy", "Energy (Wh)", r => r.energy_wh, true], ["wall", "Wall", r => r.wall_seconds, true],
+];
+function renderTable(){
+  let list = runs().slice();
+  if (S.tsort) { const [key, dir] = S.tsort; const col = COLS.find(c => c[0] === key);
+    list.sort((a, b) => { const x = col[2](a), y = col[2](b); if (x == null) return 1; if (y == null) return -1; return (x > y ? 1 : x < y ? -1 : 0) * dir; }); }
+  else list.sort((a, b) => a.model.localeCompare(b.model) || b.where.localeCompare(a.where));
+  const t = $("#table");
+  t.innerHTML = `<thead><tr>${COLS.map(([key, label, , num]) => `<th class="${num ? "num" : ""}" data-k="${key}" ${S.tsort && S.tsort[0] === key ? `aria-sort="${S.tsort[1] > 0 ? "ascending" : "descending"}"` : ""}>${label}<span class="arr">${S.tsort && S.tsort[0] === key ? (S.tsort[1] > 0 ? "▲" : "▼") : "↕"}</span></th>`).join("")}</tr></thead><tbody>` +
+    list.map(r => `<tr data-id="${esc(r.id)}" aria-current="${r.id === S.a || (S.compare && r.id === S.b)}">
+      <td><b>${esc(r.model)}</b>${esc(runTag(r))}</td><td>${r.where === "local" ? `<b>${esc(r.quant)}</b> <span style="color:var(--mut)">${esc(r.pack || "")}</span>` : `<span style="color:var(--mut)">hosted</span>`}</td>
+      <td>${esc(where(r))}</td><td>${esc(ended(r))}</td><td style="color:${flagOf(r) && flagOf(r)[0] === "bad" ? "var(--bad)" : "inherit"}">${esc(facts(r).text)}</td>
+      <td class="num">${k(r.generated)}</td><td class="num">${k(r.output)}</td><td class="num">${k(r.reasoning)}${est(r)}</td>
+      <td class="num">${r.steps ?? "–"}</td><td class="num">${r.tool_errors ?? "–"}</td><td class="num">${r.energy_wh ?? "–"}</td><td class="num">${mins(r.wall_seconds)}</td></tr>`).join("") + "</tbody>";
+  t.querySelectorAll("th").forEach(th => th.onclick = () => { const key = th.dataset.k; S.tsort = S.tsort && S.tsort[0] === key ? [key, -S.tsort[1]] : [key, 1]; renderTable(); });
+  t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { pick(tr.dataset.id); $("#stages").scrollIntoView({ behavior: "smooth", block: "start" }); });
+}
+
+/* ---------- lightbox ---------- */
+let LB = { items: [], i: 0, back: null };
+function openLightbox(items, i){ LB = { items, i, back: document.activeElement }; showLB(); $("#lightbox").classList.add("open"); $("#lbClose").focus(); }
+function showLB(){ const it = LB.items[LB.i]; $("#lbImg").src = it.src; $("#lbImg").alt = it.cap; $("#lbCap").textContent = `${it.cap}  (${LB.i + 1} of ${LB.items.length})`; }
+function closeModal(id){ $(id).classList.remove("open"); if (id === "#docmodal") $("#mdBox").innerHTML = ""; (LB.back || document.body).focus?.(); }
+$("#lbPrev").onclick = () => { LB.i = (LB.i - 1 + LB.items.length) % LB.items.length; showLB(); };
+$("#lbNext").onclick = () => { LB.i = (LB.i + 1) % LB.items.length; showLB(); };
+$("#lbClose").onclick = () => closeModal("#lightbox");
+$("#lightbox").onclick = e => { if (e.target.id === "lightbox") closeModal("#lightbox"); };
+document.addEventListener("keydown", e => {
+  if ($("#lightbox").classList.contains("open")) {
+    if (e.key === "ArrowLeft") $("#lbPrev").click(); else if (e.key === "ArrowRight") $("#lbNext").click(); else if (e.key === "Escape") closeModal("#lightbox");
+  } else if ($("#docmodal").classList.contains("open") && e.key === "Escape") closeModal("#docmodal");
+});
+/* ---------- prompt / transcript modal ---------- */
+function openDoc(html, wide){ LB.back = document.activeElement; const b = $("#mdBox"); b.className = "md-box" + (wide ? " wide" : ""); b.innerHTML = html; $("#docmodal").classList.add("open"); $("#mdClose").focus(); }
+$("#mdClose").onclick = () => closeModal("#docmodal");
+$("#docmodal").onclick = e => { if (e.target.id === "docmodal") closeModal("#docmodal"); };
+$("#showPrompt").onclick = () => { const p = P(); openDoc(`<h2>${esc(p.title)}</h2><p style="color:var(--mut);margin:0 0 12px">${p.variant === "spec" ? "Spec variant" : "Open variant"} · sent as the only message, with the shared <a href="https://github.com/rdbell/weightclass/blob/main/harness/template/AGENTS.md">task file</a> in the workspace · <a href="${esc(p.url)}">source</a></p><pre>${esc(p.text)}</pre>`); };
+function openTranscript(r){ openDoc(`<div class="mdh"><b>${esc(r.model)} · ${esc(r.quant || "hosted")} — transcript</b><a class="linkbtn" href="${BASE}runs/${r.id}/transcript.html" target="_blank" rel="noopener">Open in new tab</a></div><iframe sandbox="" src="${BASE}runs/${r.id}/transcript.html" title="Transcript"></iframe>`, true); }
+
+/* ---------- controls ---------- */
+$("#tabs").querySelectorAll("button").forEach(b => b.onclick = () => { S.tab = b.dataset.tab; renderPanel(); });
+$("#compareBtn").onclick = () => { S.compare = !S.compare; S.slot = "b"; render(); };
+$("#reloadBtn").onclick = () => renderStage();
+$("#fullBtn").onclick = () => { const el = $("#stages"); (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el); };
+$("#sortSel").onchange = e => { S.sort = e.target.value; renderList(); };
+window.addEventListener("hashchange", () => { readHash(); render(); });
+
+function render(){ renderPrompts(); renderStage(); renderHead(); renderPanel(); renderList(); renderTable(); writeHash(); }
+readHash(); render();
+</script>
+</body>
+</html>

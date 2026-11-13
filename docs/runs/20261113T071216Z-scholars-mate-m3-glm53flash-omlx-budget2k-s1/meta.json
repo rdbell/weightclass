@@ -1,0 +1,160 @@
+{
+  "run": "20261113T071216Z-scholars-mate-m3-glm53flash-omlx-budget2k-s1",
+  "lab": true,
+  "prompt": {
+    "id": "scholars-mate",
+    "version": "1",
+    "variant": "open",
+    "subject": "chess-explainer",
+    "file": "/home/developer/Work/src/github.com/rdbell/weightclass/prompts/lab/scholars-mate.md",
+    "sha256": "d9d9f6f7dd92a8faed181332ec532818be7f3c355da1e028279c529c750288fb"
+  },
+  "setup_sha256": "f4366776dd1c99c54fc6e5586db7869f3ff8cfea86da146502beddb928594bd6",
+  "sample": 1,
+  "started": "2026-11-13T07:12:18.361908+00:00",
+  "ended": "2026-11-13T07:33:31.008255+00:00",
+  "end_reason": "agent exited 137",
+  "wall_seconds": 1272.6,
+  "concurrent_runs": [],
+  "tool_calls": 39,
+  "tokens_seen": 32331,
+  "tokens": {
+    "model_calls": 38,
+    "failed_calls": 0,
+    "input": 55390,
+    "cache_read": 1303554,
+    "output": 19066,
+    "reasoning": 13265,
+    "generated": 32331,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 38,
+    "input": 55390,
+    "cache_read": 1303554,
+    "cache_write": 0,
+    "output": 19066,
+    "reasoning": 13265,
+    "generated": 32331
+  },
+  "agent": {
+    "tool_counts": {
+      "read": 10,
+      "shell": 14,
+      "write": 1,
+      "edit": 14
+    },
+    "tool_errors": 0,
+    "preview_calls": 21,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 38
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 38,
+    "model_calls": 38,
+    "statuses": {
+      "200": 38
+    },
+    "relay_errors": 0,
+    "client_closed_early": 6,
+    "cached_prompt_tokens": 1303554,
+    "prompt_tokens": 1358944,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 38
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 6159.1,
+    "ttft_ms_p90": 24546.0,
+    "decode_tps_p50": 25.3,
+    "generation_ids": 38
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 251,
+    "avg_watts": 50.2,
+    "max_watts": 177.1,
+    "energy_wh": 17.5,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 40,
+  "code": {
+    "files": 4,
+    "bytes": 54330,
+    "lines": 1215
+  },
+  "workspace_sha256": "a8eed57fd572f61287a10e795db98577d66fd92d37ff5a78b5fdd24e17ca2550",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "fa7004580b6799f45650c15ccf6b9f9414f351638b0f3dc47fbc80e9fb960e7e",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "f44eccfa4621049bb9b066ee4dae69a69a1154cf68f5810beb90eb6a421a68d3",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 32768,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-glm53flash-omlx-budget2k",
+    "label": "GLM-5.3-Flash oQ4e + MTP, 2K thinking budget",
+    "model_id": "GLM-5.3-Flash-oQ4e-mtp",
+    "context": 262144,
+    "max_output": 16384,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "Jundot/GLM-5.3-Flash-oQ4e-mtp",
+      "revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
+      "manifest_sha256": "a5979899ba869684360dc34432d5ddc04fe6d01b8b195dd277c486dfe0cff993",
+      "total_bytes": 186423200125
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP",
+      "concurrent_requests": 1,
+      "ssd_cache": "16GB",
+      "hot_cache": "0",
+      "trial_isolation": "exclusive GPU; production stopped after verified DigitalOcean cutover",
+      "thinking_budget": 2048
+    },
+    "request_body": {
+      "reasoning_effort": "high",
+      "thinking_budget": 2048
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "Jundot oQ4e + MTP"
+  }
+}

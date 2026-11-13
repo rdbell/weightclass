@@ -37,6 +37,27 @@ def model_of(setup_id):
     return setup_id
 
 
+def reasoning_settings(setup):
+    """Describe recorded controls without guessing historical server defaults."""
+    body = setup.get("request_body") or {}
+    engine = setup.get("engine") or {}
+    reasoning = body.get("reasoning") or {}
+    thinking = body.get("thinking") or {}
+    effort = body.get("reasoning_effort", reasoning.get("effort"))
+    budget = body.get("thinking_budget")
+    source = "request"
+    if budget is None:
+        budget = thinking.get("budget_tokens", reasoning.get("max_tokens"))
+    if budget is None:
+        budget = engine.get("thinking_budget")
+        source = "engine"
+    budget_text = (f"{budget:,} tokens per response ({source})" if budget is not None
+                   else "Not explicitly recorded; engine/provider default unknown")
+    return {"reasoning_effort": effort or "Not explicitly recorded",
+            "thinking_budget": budget, "thinking_budget_label": budget_text,
+            "max_output_tokens": setup.get("max_output")}
+
+
 def copy_scene(src, dst):
     rewrites = 0
     for f in src.rglob("*"):
@@ -105,7 +126,18 @@ def run_record(run, out):
     cur = SETUPS.get(setup["id"], {})
     eng = setup.get("engine") or {}
     pack = cur.get("pack") or setup.get("pack") or {}
+    review_path = run / "trial-review.json"
+    review = json.loads(review_path.read_text()) if review_path.exists() else {}
+    public_review = {k: review[k] for k in ("status", "end", "chess_conclusion", "additional_issues")
+                     if k in review}
+    validation = review.get("validation") or {}
+    public_review["validation_failures"] = list(dict.fromkeys(validation.get("page_errors") or []))
+    public_review["validation_failures"] += [
+        f"Seeking to ply {p['ply']} leaves a board that differs from the legal reference."
+        for p in validation.get("positions") or [] if p.get("reference_match") is False]
     return {
+        **reasoning_settings(setup),
+        "review": public_review,
         "quant": cur.get("quant") or setup.get("quant"),
         "pack_label": cur.get("pack_label") or setup.get("pack_label"),
         "pack_link": bool(pack.get("repo")),

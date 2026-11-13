@@ -1,5 +1,12 @@
 [
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "4-bit MLX",
   "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
   "pack_link": true,
@@ -123,6 +130,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -243,6 +257,13 @@
   "superseded": true
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -363,6 +384,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "iQ-MLX 3.0 bpw",
   "pack_label": "ddalcu iQ-MLX 3.0 bpw",
   "pack_link": true,
@@ -483,6 +511,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "4-bit MLX",
   "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
   "pack_link": true,
@@ -591,6 +626,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -696,6 +738,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "iQ-MLX 3.0 bpw",
   "pack_label": "ddalcu iQ-MLX 3.0 bpw",
   "pack_link": true,
@@ -803,6 +852,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -922,6 +978,13 @@
   "superseded": false
  },
  {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "validation_failures": []
+  },
   "quant": "oQ4e",
   "pack_label": "Jundot oQ4e + MTP",
   "pack_link": true,
@@ -1026,6 +1089,104 @@
    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
   },
   "started": "2026-11-12T18:59:31.560746+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": 2048,
+  "thinking_budget_label": "2,048 tokens per response (request)",
+  "max_output_tokens": 16384,
+  "review": {
+   "status": "generated_scene_with_failures",
+   "end": "Coordinator stopped agent after1272.6s because it repeatedly took/read screenshots without fixing known issues; not a natural model completion.",
+   "chess_conclusion": "All seven supplied moves legal; sequential move animation reaches exact checkmate. Seeking directly to final move fails.",
+   "additional_issues": [
+    "Square colors inverted: h1 dark and a1 light.",
+    "Caption calls f7 undefended although Black king defends it.",
+    "Caption says the g8 knight abandoned f7, which it did not defend.",
+    "Move-list overlay obscures part of board at728px width."
+   ],
+   "validation_failures": [
+    "play is not defined",
+    "Seeking to ply 7 leaves a board that differs from the legal reference."
+   ]
+  },
+  "quant": "oQ4e",
+  "pack_label": "Jundot oQ4e + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "9e5c75a947f06d807ec55ea625b30613ad98da74",
+  "pack_bytes": 186423200125,
+  "engine_settings": "speculative=MTP, concurrent_requests=1, ssd_cache=16GB, hot_cache=0, trial_isolation=exclusive GPU; production stopped after verified DigitalOcean cutover, thinking_budget=2048",
+  "request": "{\"reasoning_effort\": \"high\", \"thinking_budget\": 2048}",
+  "model_id": null,
+  "id": "20261113T071216Z-scholars-mate-m3-glm53flash-omlx-budget2k-s1",
+  "prompt": "scholars-mate",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-glm53flash-omlx-budget2k",
+  "model": "GLM-5.3-Flash",
+  "where": "local",
+  "label": "GLM-5.3-Flash oQ4e + MTP, 2K thinking budget",
+  "pack": "Jundot/GLM-5.3-Flash-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent exited 137",
+  "steps": 38,
+  "session_steps": 38,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 39,
+  "tool_errors": 0,
+  "generated": 32331,
+  "output": 19066,
+  "reasoning": 13265,
+  "token_note": "reported",
+  "input": 55390,
+  "cached": 1303554,
+  "energy_wh": 17.5,
+  "avg_watts": 50.2,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 1272.6,
+  "concurrent": 0,
+  "decode_tps_p50": 25.3,
+  "ttft_ms_p50": 6159.1,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 22.5,
+   "draw_calls_per_frame": 33,
+   "primitives_per_frame": 67,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [],
+  "clicks": [],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-13T07:12:18.361908+00:00",
   "run_no": 1,
   "runs_of_setup": 1,
   "superseded": false

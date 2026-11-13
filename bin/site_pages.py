@@ -208,6 +208,9 @@ def build_setup(sid, data, prompts):
     if s.get("hardware"):
         kv.append(("Hardware", esc(s["hardware"])))
     kv.append(("Request", f'<span class="mono">{esc(s["request"])}</span>'))
+    kv.append(("Reasoning effort", esc(s["reasoning_effort"])))
+    kv.append(("Thinking budget", esc(s["thinking_budget_label"])))
+    kv.append(("Output limit", f"{k(s['max_output_tokens'])} tokens per response, including reasoning"))
     title = f"{s['model']} · {s['quant'] if local else 'hosted'}"
     return head(f"{title} · Weightclass", "../../", "results", f"{title}: every task this setup has run on Weightclass.") + f"""
 <div class="crumbs"><a href="../../">Weightclass</a> / <a href="../../#results">Setups</a></div>

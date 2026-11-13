@@ -90,6 +90,15 @@ the original record.
 
 ### Local packs
 
+Local scene trials require exclusive GPU access. Before stopping production,
+route CPA's local alias to the authorized OpenRouter/DigitalOcean DeepSeek 1017
+fallback and verify fresh shared and restricted-gateway inference. Use
+command-center's managed exclusive probe; do not serve a second model alongside
+production for these runs. Keep restoration credentials available until the
+original service and CPA route have both been restored and verified. Capture
+host telemetry and confirm that only the tested inference engine is running.
+
+
 `packs/` holds each pack's file manifest (`bin/pack_manifest.py`, from the
 hashes command-center pins). Local setups (`setups/m3-*.json`) name the pack
 and manifest hash, the engine and its settings, and the machine to sample
@@ -103,3 +112,12 @@ the key in `WC_M3_KEY`).
 The image uses the latest releases of OpenCode (`@opencode/cli`), Playwright
 and three.js at build time, overriding the fleet's 20-day npm release-age
 rule for this image only. Every result records the exact versions.
+
+### Reasoning controls in run records
+
+Record reasoning effort, any numerical thinking budget (tokens per response),
+and the combined output-token limit separately in each setup snapshot. Record
+engine defaults explicitly when known; an absent budget in a historical record
+means the effective engine/provider default is unknown, not unlimited.
+Changed budgets are different experimental settings. Coordinator interventions
+and incomplete attempts must remain visible in the trial review.

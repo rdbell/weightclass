@@ -303,6 +303,7 @@ function headCol(r, slot){
       <a class="chip" style="text-decoration:none" href="${BASE}setups/${esc(r.setup)}/">All results for this setup →</a>
     </div>
     ${fl ? `<span class="flag ${fl[0]}">${esc(fl[1])}</span>` : ""}
+    ${r.review?.status === "generated_scene_with_failures" ? `<div class="note"><b>Known validation failures</b><p>${esc(r.review.chess_conclusion)}</p><ul>${[...(r.review.validation_failures || []), ...(r.review.additional_issues || [])].map(x => `<li>${esc(x)}</li>`).join("")}</ul><p>${esc(r.review.end)}</p></div>` : ""}
     ${r.runs_of_setup > 1 ? `<div class="attempts">Attempts: ${attemptsOf(r).map(x => `<button class="att" data-pick="${esc(x.id)}" aria-current="${x.id === r.id}">${x.run_no}${flagOf(x) && flagOf(x)[0] === "bad" ? " · failed" : ""}${!x.superseded ? " · result" : ""}</button>`).join("")}</div>` : ""}
     <div class="stats">
       <div class="stat"><span>Generated</span><b>${k(r.generated)}</b></div>
@@ -338,6 +339,9 @@ function detailsPanel(r){
   return `<div class="cols2">
     <div><h4>Tokens and steps</h4><dl class="kv">
       <dt>Generated</dt><dd>${k(r.generated)} = output ${k(r.output)} + reasoning ${k(r.reasoning)}${est(r) ? " (reasoning estimated from the raw stream)" : ""}</dd>
+      <dt>Reasoning effort</dt><dd>${esc(r.reasoning_effort)}</dd>
+      <dt>Thinking budget</dt><dd>${esc(r.thinking_budget_label)}</dd>
+      <dt>Output limit</dt><dd>${k(r.max_output_tokens)} tokens per response, including reasoning</dd>
       <dt>Input</dt><dd>${k(r.input)} fresh · ${k(r.cached)} read from cache</dd>
       <dt>Model calls</dt><dd>${r.steps ?? "–"}${r.subagent_calls ? ` (incl. ${r.subagent_calls} sub-agent task${r.subagent_calls === 1 ? "" : "s"}; main session ${r.session_steps} steps)` : ""} · ${r.tool_calls ?? "–"} tool calls · ${r.tool_errors ?? "–"} tool errors</dd>
       <dt>Counted from</dt><dd>${esc(r.token_source)}</dd>
