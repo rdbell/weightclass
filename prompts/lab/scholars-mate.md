@@ -1,6 +1,6 @@
 ---
 id: scholars-mate
-title: Scholar’s Mate — a guided lesson
+title: Scholar's Mate
 category: animation
 variant: open
 subject: chess-explainer
