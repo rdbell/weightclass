@@ -1279,8 +1279,8 @@
   },
   "started": "2026-11-13T09:53:34.891354+00:00",
   "run_no": 1,
-  "runs_of_setup": 1,
-  "superseded": false
+  "runs_of_setup": 2,
+  "superseded": true
  },
  {
   "reasoning_effort": "high",
@@ -1460,6 +1460,103 @@
   "started": "2026-11-13T13:15:03.868927+00:00",
   "run_no": 1,
   "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed (one canvas, no page or console errors, no missing files, animated). Unlike the other published Scholar's Mate results, chess positions, captions, orientation and controls were not independently checked for this attempt.",
+   "additional_issues": [
+    "Retry (attempt 2): the first attempt ended mid-reasoning with an end-of-turn token in its only response and produced no page.",
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Model finished naturally (exit 0). The controller was killed by a T3 server restart before post-processing; the render check and metadata were produced afterwards from the saved record. Host energy covers 2,747 of 3,785 seconds, so it undercounts."
+   ],
+   "validation_failures": []
+  },
+  "quant": "4-bit MLX",
+  "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
+  "pack_link": true,
+  "pack_extras": [
+   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)",
+   "MTP head from Qwen/Qwen3.8-27B"
+  ],
+  "pack_revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)",
+  "pack_bytes": 20169260357,
+  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=8",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261113T184234Z-scholars-mate-m3-qwen27-kapitsa-s1",
+  "prompt": "scholars-mate",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-qwen27-kapitsa",
+  "model": "Qwen3.8-27B",
+  "where": "local",
+  "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)",
+  "pack": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+  "engine": "kapitsa",
+  "engine_version": "0.2.34",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 98,
+  "session_steps": 98,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 106,
+  "tool_errors": 0,
+  "generated": 167360,
+  "output": 39079,
+  "reasoning": 128281,
+  "token_note": "reported",
+  "input": 108248,
+  "cached": 13600609,
+  "energy_wh": 65.12,
+  "avg_watts": 86.2,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 3785.0,
+  "concurrent": 0,
+  "decode_tps_p50": 45.3,
+  "ttft_ms_p50": 2356.1,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 10.5,
+   "draw_calls_per_frame": 68,
+   "primitives_per_frame": 136,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [],
+  "clicks": [],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-13T18:42:37.527042+00:00",
+  "run_no": 2,
+  "runs_of_setup": 2,
   "superseded": false
  }
 ]

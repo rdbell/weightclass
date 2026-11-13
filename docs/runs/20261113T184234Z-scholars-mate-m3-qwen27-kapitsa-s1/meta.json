@@ -1,0 +1,171 @@
+{
+  "run": "20261113T184234Z-scholars-mate-m3-qwen27-kapitsa-s1",
+  "lab": true,
+  "prompt": {
+    "id": "scholars-mate",
+    "version": "1",
+    "variant": "open",
+    "subject": "chess-explainer",
+    "file": "prompts/lab/scholars-mate.md",
+    "sha256": "d9d9f6f7dd92a8faed181332ec532818be7f3c355da1e028279c529c750288fb"
+  },
+  "sample": 1,
+  "started": "2026-11-13T18:42:37.527042+00:00",
+  "ended": "2026-11-13T19:45:42.527042+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 3785.0,
+  "concurrent_runs": [],
+  "tool_calls": 106,
+  "tokens": {
+    "model_calls": 98,
+    "failed_calls": 0,
+    "input": 108248,
+    "cache_read": 13600609,
+    "output": 39079,
+    "reasoning": 128281,
+    "generated": 167360,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 98,
+    "input": 108248,
+    "cache_read": 13600609,
+    "cache_write": 0,
+    "output": 39079,
+    "reasoning": 128281,
+    "generated": 167360
+  },
+  "agent": {
+    "tool_counts": {
+      "skill": 1,
+      "shell": 38,
+      "write": 13,
+      "edit": 29,
+      "grep": 1,
+      "read": 24
+    },
+    "tool_errors": 0,
+    "preview_calls": 13,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 97,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 98,
+    "model_calls": 98,
+    "statuses": {
+      "200": 98
+    },
+    "relay_errors": 0,
+    "client_closed_early": 50,
+    "cached_prompt_tokens": 13600609,
+    "prompt_tokens": 13708857,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 97,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 2356.1,
+    "ttft_ms_p90": 3949.6,
+    "decode_tps_p50": 45.3,
+    "generation_ids": 98
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 544,
+    "avg_watts": 86.2,
+    "max_watts": 121.6,
+    "energy_wh": 65.12,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ],
+    "covered_seconds": 2747,
+    "note": "power stream truncated when the controller was killed; read to the last complete record"
+  },
+  "snapshots": 83,
+  "code": {
+    "files": 8,
+    "bytes": 60439,
+    "lines": 1631
+  },
+  "workspace_sha256": "24d15ab674b628abb88b31d44108c89159e93d807f9be56d3619111f0c5df3fb",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    },
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181"
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "retry_of": "20261113T095332Z-scholars-mate-m3-qwen27-kapitsa-s1",
+  "controller_interruption": {
+    "what": "The T3 server restarted after the agent had finished (OpenCode exit 0, final step reason stop); the runner process was killed before its post-processing.",
+    "effect": "None on the model run. checks.json and meta.json were produced afterwards from the saved record with the same bin/run.py functions; the power stream was truncated, so energy covers the run up to the restart.",
+    "finalized": "2026-11-13T20:06:28.433269+00:00"
+  },
+  "setup": {
+    "id": "m3-qwen27-kapitsa",
+    "label": "Qwen3.8-27B 4-bit (Kapitsa 0.2.34, M3 Ultra)",
+    "model_id": "qwen3.8-27b-4bit",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "lmstudio-community/Qwen3.8-27B-MLX-4bit",
+      "revision": "pinned by the Kapitsa 0.2.34 catalog (qwen3.8-27b:4bit)",
+      "manifest_sha256": "cc2f18135da88678408e511278963228725f91b1ed8ac08aee7f566f6a95f02a",
+      "total_bytes": 20169260357,
+      "extras": [
+        "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa (drafter)",
+        "MTP head from Qwen/Qwen3.8-27B"
+      ]
+    },
+    "engine": {
+      "name": "kapitsa",
+      "version": "0.2.34",
+      "context": 262144,
+      "slots": 8,
+      "prefill_chunk": 2048,
+      "disk_cache": "32G",
+      "speculative": "MTP head + DFlash2 drafter",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 8
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "4-bit MLX",
+    "pack_label": "LM Studio MLX 4-bit, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter"
+  }
+}
