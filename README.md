@@ -6,6 +6,12 @@ OpenCode the way people actually use them. Design: [SPEC.md](SPEC.md).
 let the model choose the implementation and visual details. Historical hard-spec
 runs stay in the lab archive and are excluded from the website.
 
+## Run policy
+
+Before launching or resuming model runs, read [AGENTS.md](AGENTS.md) and
+[RUN_PROTOCOL.md](RUN_PROTOCOL.md). The protocol is grounded in the published
+run records and preserves the established experimental settings.
+
 ## Setup (once)
 
 ```sh

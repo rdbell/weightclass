@@ -1,0 +1,162 @@
+{
+  "run": "20261113T131502Z-scholars-mate-m3-ds1017-mlxserve-s1",
+  "lab": true,
+  "prompt": {
+    "id": "scholars-mate",
+    "version": "1",
+    "variant": "open",
+    "subject": "chess-explainer",
+    "file": "/home/developer/Work/src/github.com/rdbell/weightclass/prompts/lab/scholars-mate.md",
+    "sha256": "d9d9f6f7dd92a8faed181332ec532818be7f3c355da1e028279c529c750288fb"
+  },
+  "setup_sha256": "81bf21a10850fb928f299d54dc61dce7cc1b24610518e7f19c740c642eaa3432",
+  "sample": 1,
+  "started": "2026-11-13T13:15:03.868927+00:00",
+  "ended": "2026-11-13T15:04:17.475223+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 6553.6,
+  "concurrent_runs": [],
+  "tool_calls": 136,
+  "tokens_seen": 165054,
+  "tokens": {
+    "model_calls": 127,
+    "failed_calls": 0,
+    "input": 204085,
+    "cache_read": 17499966,
+    "output": 37473,
+    "reasoning": 127581,
+    "generated": 165054,
+    "reasoning_method": [
+      "estimated from reasoning character share"
+    ]
+  },
+  "tokens_session": {
+    "steps": 127,
+    "input": 204085,
+    "cache_read": 17499966,
+    "cache_write": 0,
+    "output": 165054,
+    "reasoning": 0,
+    "generated": 165054
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 49,
+      "write": 9,
+      "edit": 35,
+      "read": 43
+    },
+    "tool_errors": 0,
+    "preview_calls": 19,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 126,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 127,
+    "model_calls": 127,
+    "statuses": {
+      "200": 127
+    },
+    "relay_errors": 0,
+    "client_closed_early": 36,
+    "cached_prompt_tokens": 17499966,
+    "prompt_tokens": 17704051,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 126,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 7356.6,
+    "ttft_ms_p90": 31769.9,
+    "decode_tps_p50": 34.0,
+    "generation_ids": 127
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": null,
+    "telemetry_status": "Final host summary unavailable after local controller loss; raw telemetry retained."
+  },
+  "snapshots": 40,
+  "code": {
+    "files": 6,
+    "bytes": 65928,
+    "lines": 2525
+  },
+  "workspace_sha256": "9737ba1602a87bb3d3c6e46c3c4eb56bc44a301bf6d7c55b8668dbc1a1697ad4",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "35dd6c296bf9d2b0bcd05a557ae33ddc04551dcc044e31425f234ba6d5480a63",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "recovery": {
+    "reason": "Local controller vanished after model natural completion; finalization recovered without another inference run.",
+    "timing": "Start from active-interval record, end from harness exit_code file mtime; wall time reconstructed.",
+    "host_summary": "Unavailable; no energy estimate published.",
+    "concurrency": "Sequential managed campaign; preceding trials had completed.",
+    "harness": "Hashes checked against unchanged current files and preceding run image metadata.",
+    "recovered_utc": "2026-11-13T17:38:15.135070+00:00"
+  },
+  "setup": {
+    "id": "m3-ds1017-mlxserve",
+    "label": "DeepSeek-V4.1-Flash-1017 iQ-MLX 3.0 (mlx-serve 26.11.2, M3 Ultra)",
+    "model_id": "m3-ultra-local",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "ddalcu/DeepSeek-V4.1-Flash-1017-MLX-Serve-iQ-MLX-3.0bpw",
+      "revision": "6da9c4e4b3db7dabf5669af8dbee989c35a9f045",
+      "manifest_sha256": "3c6fa21d53c9363adcafbd502b7aad590200529eb72abb28d746fe64495a6315",
+      "total_bytes": 427295062169
+    },
+    "engine": {
+      "name": "mlx-serve",
+      "version": "26.11.2",
+      "max_concurrent": 8,
+      "prefix_cache_mem": "16GB",
+      "prefix_cache_disk": "64GB",
+      "prefill_chunk": 2048,
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 8
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "iQ-MLX 3.0 bpw",
+    "pack_label": "ddalcu iQ-MLX 3.0 bpw"
+  }
+}

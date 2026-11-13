@@ -51,7 +51,7 @@ IMAGE = os.environ.get("WC_IMAGE", "weightclass/harness:dev")
 THREE_VERSION = "0.187.0"
 NETWORK = "weightclass-internal"
 RELAY_IMAGE = "python:3.13-alpine"
-ACTIVE = Path.home() / ".local/state/weightclass/runs"   # one interval file per run
+ACTIVE = Path(os.environ.get("WC_ACTIVE_DIR", str(Path.home() / ".local/state/weightclass/runs")))
 
 # Runaway guard: hardware-independent limits only.
 # No step cap by default: steps are not a runaway signal (long tasks need

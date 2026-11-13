@@ -1,0 +1,175 @@
+{
+  "run": "20261113T095920Z-scholars-mate-m3-qwenflash-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "scholars-mate",
+    "version": "1",
+    "variant": "open",
+    "subject": "chess-explainer",
+    "file": "/home/developer/Work/src/github.com/rdbell/weightclass/prompts/lab/scholars-mate.md",
+    "sha256": "d9d9f6f7dd92a8faed181332ec532818be7f3c355da1e028279c529c750288fb"
+  },
+  "setup_sha256": "288c5a858612eb72c4e6d64f838d2424391a0566290c7329dc06181bb95e76eb",
+  "sample": 1,
+  "started": "2026-11-13T09:59:22.918773+00:00",
+  "ended": "2026-11-13T13:13:22.940686+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 11640.0,
+  "concurrent_runs": [],
+  "tool_calls": 373,
+  "tokens_seen": 403937,
+  "tokens": {
+    "model_calls": 374,
+    "failed_calls": 0,
+    "input": 407511,
+    "cache_read": 39583113,
+    "output": 131895,
+    "reasoning": 272042,
+    "generated": 403937,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 372,
+    "input": 402673,
+    "cache_read": 39137776,
+    "cache_write": 0,
+    "output": 127533,
+    "reasoning": 268799,
+    "generated": 396332
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 188,
+      "write": 44,
+      "edit": 79,
+      "read": 62
+    },
+    "tool_errors": 3,
+    "preview_calls": 12,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 371,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 374,
+    "model_calls": 374,
+    "statuses": {
+      "200": 374
+    },
+    "relay_errors": 0,
+    "client_closed_early": 77,
+    "cached_prompt_tokens": 39583113,
+    "prompt_tokens": 39990624,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 371,
+      "stop": 3
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 3607.3,
+    "ttft_ms_p90": 34957.4,
+    "decode_tps_p50": 60.3,
+    "generation_ids": 374
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 2299,
+    "avg_watts": 34.6,
+    "max_watts": 146.5,
+    "energy_wh": 110.39,
+    "thermal_levels": [
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 376,
+  "code": {
+    "files": 8,
+    "bytes": 86523,
+    "lines": 2433
+  },
+  "workspace_sha256": "2c31c19b2084e790bab46ad7927d9afc9665688a89fd2152e1881e8576ddf1e6",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "8f26d35ff06f4b891a68f300b6bf33a1fc8610027b58d6ce891ccf28f01235f1",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-qwenflash-omlx",
+    "label": "Qwen3.8-Flash-Next oQ4e (oMLX, M3 Ultra)",
+    "model_id": "Qwen3.8-Flash-Next-oQ4e-mtp",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "Jundot/Qwen3.8-Flash-Next-oQ4e-mtp",
+      "revision": "2322c888c2c314d4eceddf0159dec5d821aa1e41",
+      "manifest_sha256": "98ec45b5fc35b05382966dabeb879ba675e155691f5e5029a328ff1165c03b8f",
+      "total_bytes": 107693772821
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 8,
+      "ssd_cache": "16GB",
+      "hot_cache": "0",
+      "model_settings": {
+        "max_tokens": 65536,
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": 20,
+        "min_p": 0.0,
+        "enable_thinking": true,
+        "chat_template_kwargs": {
+          "reasoning_effort": "xhigh"
+        },
+        "forced_ct_kwargs": [
+          "thinking_mode"
+        ],
+        "mtp_enabled": true,
+        "mtp_adaptive_max_depth": 3
+      }
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "Jundot oQ4e + MTP"
+  }
+}

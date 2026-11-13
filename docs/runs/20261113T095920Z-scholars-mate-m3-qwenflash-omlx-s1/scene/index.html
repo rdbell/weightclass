@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scholar’s Mate — an interactive lesson</title>
+<style>
+  :root {
+    --bg: #0e1216;
+    --bg-2: #141a21;
+    --panel: #161d25;
+    --panel-2: #1b232c;
+    --line: #263140;
+    --line-soft: #1f2835;
+    --ink: #e9eef4;
+    --ink-2: #a7b4c2;
+    --ink-3: #7b8794;
+    --gold: #e9c37a;
+    --attack: #f0b23c;
+    --protect: #4fbf95;
+    --blackmv: #9db8dd;
+    --danger: #e1564a;
+    --radius: 14px;
+    --sans: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; height: 100%; }
+
+  body {
+    background:
+      radial-gradient(120% 90% at 18% 0%, #172029 0%, rgba(23,32,41,0) 60%),
+      radial-gradient(90% 70% at 100% 100%, #131a22 0%, rgba(19,26,34,0) 55%),
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+  }
+
+  .app {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+    height: 100dvh;
+    gap: 0;
+  }
+
+  /* ---------- board column ---------- */
+
+  .board-col {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: clamp(8px, 1.6vw, 22px);
+  }
+
+  #stage { position: relative; width: 100%; height: 100%; }
+  #gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 11px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(15, 20, 26, 0.72);
+    backdrop-filter: blur(6px);
+    color: var(--ink-2);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .chip b { color: var(--ink); font-weight: 600; }
+  .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 3px rgba(233,195,122,0.16); }
+  .chip.mate { border-color: rgba(225,86,74,0.55); color: #ffd9d4; }
+  .chip.mate .dot { background: var(--danger); box-shadow: 0 0 0 3px rgba(225,86,74,0.2); }
+
+  .board-top {
+    position: absolute;
+    inset: clamp(2px, 1vw, 10px) clamp(2px, 1vw, 10px) auto clamp(2px, 1vw, 10px);
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  #square-chip { opacity: 0; transition: opacity 0.18s ease; font-variant-numeric: tabular-nums; }
+  #square-chip.on { opacity: 1; }
+
+  /* ---------- lesson panel ---------- */
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: clamp(16px, 2vw, 26px);
+    background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+    border-left: 1px solid var(--line-soft);
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .kicker {
+    margin: 0 0 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(24px, 2.4vw, 31px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .line {
+    margin: 9px 0 0;
+    font-size: 13px;
+    color: var(--ink-2);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+  .line .mate-mark { color: var(--danger); font-weight: 700; }
+
+  .status-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background:
+      linear-gradient(180deg, rgba(233,195,122,0.07), rgba(233,195,122,0)) padding-box,
+      var(--panel-2);
+    padding: 15px 16px 30px;
+    cursor: pointer;
+    position: relative;
+    min-height: 156px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover { border-color: #33404f; }
+  .card:active { transform: translateY(1px); }
+  .card-kicker { margin: 0 0 6px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; }
+  .card h2 { margin: 0 0 8px; font-size: 19px; line-height: 1.22; font-weight: 650; letter-spacing: -0.005em; }
+  .card p.body { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink-2); }
+  .card .hint {
+    position: absolute; right: 14px; bottom: 11px;
+    font-size: 11px; color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .card.in h2, .card.in p.body { animation: rise 0.42s cubic-bezier(0.22, 0.7, 0.2, 1) both; }
+  .card.in p.body { animation-delay: 0.05s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- move list ---------- */
+
+  .moves-wrap { min-height: 0; overflow: auto; }
+  table#moves { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+  table#moves td { padding: 2px 0; vertical-align: middle; }
+  table#moves td.no {
+    width: 30px; color: var(--ink-3); font-size: 13px; font-weight: 600;
+    text-align: right; padding-right: 8px;
+  }
+  button.mv {
+    width: 100%;
+    text-align: left;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 14px;
+    padding: 7px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    font-variant-numeric: tabular-nums;
+  }
+  button.mv:hover { background: rgba(255,255,255,0.05); }
+  button.mv.current {
+    background: rgba(233,195,122,0.16);
+    border-color: rgba(233,195,122,0.42);
+    color: #fbf3e3;
+    font-weight: 650;
+  }
+
+  /* ---------- legend ---------- */
+
+  .legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    font-size: 11.5px;
+    color: var(--ink-3);
+    border-top: 1px solid var(--line-soft);
+    padding-top: 11px;
+  }
+  .legend span { display: flex; align-items: center; gap: 7px; }
+  .legend svg { flex: none; }
+
+  /* ---------- controls ---------- */
+
+  .controls { margin-top: auto; display: flex; flex-direction: column; gap: 11px; }
+
+  .progress {
+    position: relative;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    overflow: hidden;
+  }
+  #fill {
+    position: absolute; inset: 0;
+    transform-origin: left center;
+    transform: scaleX(0);
+    background: linear-gradient(90deg, #b98b3c, var(--gold));
+    border-radius: 999px;
+  }
+  #ticks { position: absolute; inset: 0; display: flex; pointer-events: none; }
+  #ticks i { flex: 1; border-right: 1px solid rgba(10,14,18,0.75); }
+  #ticks i:last-child { border-right: 0; }
+
+  .buttons { display: flex; align-items: center; gap: 8px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--panel-2);
+    color: var(--ink);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    flex: none;
+  }
+  .btn:hover { background: #222c37; border-color: #34425299; }
+  .btn:active { transform: translateY(1px); }
+  .btn svg { width: 20px; height: 20px; fill: currentColor; }
+  .btn.primary {
+    width: 52px; height: 52px;
+    background: linear-gradient(180deg, #f0d3a0, #dcb471);
+    border-color: #b78c47;
+    color: #211a10;
+    box-shadow: 0 6px 18px rgba(233,195,122,0.18);
+  }
+  .btn.primary:hover { background: linear-gradient(180deg, #f6dcae, #e2bd7c); }
+  .btn.primary svg { width: 22px; height: 22px; }
+  #btn-play .i-pause, #btn-play .i-play, #btn-play .i-replay { display: none; }
+  #btn-play[data-icon="play"] .i-play,
+  #btn-play[data-icon="pause"] .i-pause,
+  #btn-play[data-icon="replay"] .i-replay { display: block; }
+  .step {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+  /* ---------- small screens ---------- */
+
+  @media (max-width: 940px), (max-height: 620px) and (max-width: 1100px) {
+    body { overflow: auto; }
+    .app {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      height: auto;
+      min-height: 100dvh;
+    }
+    .board-col { padding: 10px 10px 0; }
+    #stage { height: auto; aspect-ratio: 1 / 1; max-height: 56dvh; }
+    .board-top { top: 4px; left: 2px; right: 2px; }
+    .board-top .chip:first-child { display: none; }
+    .panel {
+      border-left: 0;
+      border-top: 1px solid var(--line-soft);
+      overflow: visible;
+      gap: 12px;
+    }
+    /* controls right under the caption: reachable without scrolling */
+    .panel .card { order: 2; }
+    .panel .controls { order: 3; margin-top: 4px; }
+    .panel .moves-wrap { order: 4; }
+    .panel .legend { order: 5; }
+    .card { min-height: 0; }
+    .card .hint { display: none; }
+    h1 { font-size: 24px; }
+  }
+
+  @media (max-width: 420px) {
+    .card h2 { font-size: 17px; }
+    .card p.body { font-size: 13.5px; }
+    .legend { grid-template-columns: 1fr; }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div class="app">
+  <div class="board-col">
+    <div id="stage">
+      <canvas id="gl"></canvas>
+      <div class="board-top">
+        <span class="chip"><span class="dot"></span>Black’s view<span class="wide"> &nbsp;·&nbsp; files <b>h→a</b>, ranks <b>1→8</b></span></span>
+        <span class="chip" id="square-chip"></span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="panel">
+    <header>
+      <p class="kicker">Lesson · Beginner traps</p>
+      <h1>Scholar’s Mate</h1>
+      <p class="line">1. e4 e5 &nbsp;2. Bc4 Nc6 &nbsp;3. Qh5 Nf6 &nbsp;4. Qxf7<span class="mate-mark">#</span></p>
+    </header>
+
+    <div class="status-row">
+      <span class="chip" id="turn"><span class="dot"></span><span id="turn-text">Ready</span></span>
+    </div>
+
+    <section class="card" id="caption" title="Click for the next step">
+      <p class="card-kicker" id="kicker"></p>
+      <h2 id="head"></h2>
+      <p class="body" id="body"></p>
+      <span class="hint">click the board or press →</span>
+    </section>
+
+    <div class="moves-wrap"><table id="moves"></table></div>
+
+    <div class="legend">
+      <span><svg width="20" height="12" viewBox="0 0 20 12"><path d="M2 6h11" stroke="#f0b23c" stroke-width="3" stroke-linecap="round"/><path d="M12 1.5 19 6l-7 4.5z" fill="#f0b23c"/></svg>attacking move</span>
+      <span><svg width="20" height="12" viewBox="0 0 20 12"><path d="M2 6h11" stroke="#4fbf95" stroke-width="3" stroke-linecap="round"/><path d="M12 1.5 19 6l-7 4.5z" fill="#4fbf95"/></svg>protected by</span>
+      <span><svg width="20" height="12" viewBox="0 0 20 12"><path d="M2 6h11" stroke="#9db8dd" stroke-width="3" stroke-linecap="round"/><path d="M12 1.5 19 6l-7 4.5z" fill="#9db8dd"/></svg>Black’s idea</span>
+      <span><svg width="20" height="12" viewBox="0 0 20 12"><circle cx="10" cy="6" r="5" fill="none" stroke="#e1564a" stroke-width="2.4"/><path d="M6.4 2.4 13.6 9.6" stroke="#e1564a" stroke-width="2.4"/></svg>illegal / impossible</span>
+    </div>
+
+    <div class="controls">
+      <div class="progress" role="progressbar" aria-label="Lesson progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress">
+        <div id="fill"></div>
+        <div id="ticks"></div>
+      </div>
+      <div class="buttons">
+        <button class="btn" id="btn-replay" title="Replay from the start (R)" aria-label="Replay from the start">
+          <svg viewBox="0 0 24 24"><path d="M12 5V2L7.5 6.5 12 11V8a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z"/></svg>
+        </button>
+        <button class="btn" id="btn-prev" title="Previous move (←)" aria-label="Previous move">
+          <svg viewBox="0 0 24 24"><path d="M7 5h2v14H7zM19 5l-9 7 9 7z"/></svg>
+        </button>
+        <button class="btn primary" id="btn-play" data-icon="pause" title="Play or pause (space)" aria-label="Pause">
+          <svg class="i-play" viewBox="0 0 24 24"><path d="M7 4.5 20 12 7 19.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24"><path d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z"/></svg>
+          <svg class="i-replay" viewBox="0 0 24 24"><path d="M12 5V2L7.5 6.5 12 11V8a5 5 0 1 1-5 5H5a7 7 0 1 0 7-8z"/></svg>
+        </button>
+        <button class="btn" id="btn-next" title="Next move (→)" aria-label="Next move">
+          <svg viewBox="0 0 24 24"><path d="M15 5h2v14h-2zM5 5l9 7-9 7z"/></svg>
+        </button>
+        <span class="step" id="step">1 / 13</span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div id="sheet"></div>
+<script type="module" src="./lesson.js"></script>
+</body>
+</html>

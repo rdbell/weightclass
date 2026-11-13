@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Scholar's Mate — Chess Lesson</title>
+<style>
+  :root{
+    --bg:#262421;
+    --panel:#302e2b;
+    --panel2:#3a3733;
+    --line:#454139;
+    --text:#eceae6;
+    --dim:#a9a49c;
+    --accent:#f0c14b;
+    --good:#81b64c;
+    --danger:#e0523f;
+    font-size:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+    height:100dvh;display:flex;flex-direction:column;overflow:hidden;
+    -webkit-user-select:none;user-select:none;
+  }
+
+  header{
+    display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
+    padding:.65rem 1rem .35rem;
+  }
+  header h1{font-size:1.02rem;font-weight:750;margin:0;letter-spacing:.2px}
+  header h1 .dot{color:var(--accent)}
+  header .sub{font-size:.74rem;color:var(--dim);letter-spacing:.4px}
+  header .badge{
+    margin-left:auto;font-size:.68rem;color:var(--dim);
+    border:1px solid var(--line);border-radius:999px;padding:.18rem .6rem;
+    letter-spacing:.5px;white-space:nowrap;
+  }
+
+  main{
+    flex:1;display:grid;grid-template-columns:minmax(0,1fr) 300px;
+    gap:.9rem;padding:.25rem 1rem .9rem;min-height:0;
+  }
+
+  /* ---- board column ---- */
+  #stage{display:flex;flex-direction:column;gap:.6rem;min-height:0;min-width:0}
+  #boardArea{
+    flex:1;position:relative;min-height:0;border-radius:12px;
+    background:radial-gradient(120% 120% at 50% 35%, #2d2b27 0%, #262421 68%, #22201d 100%);
+  }
+  #boardArea canvas{
+    position:absolute;inset:0;width:100% !important;height:100% !important;
+    filter:drop-shadow(0 16px 34px rgba(0,0,0,.5));
+  }
+  .playerTag{
+    position:absolute;left:.7rem;font-size:.72rem;font-weight:650;letter-spacing:.6px;
+    background:rgba(20,19,17,.62);border:1px solid rgba(255,255,255,.07);
+    padding:.22rem .6rem;border-radius:999px;color:#d8d5cf;pointer-events:none;
+  }
+  #tagWhite{top:.7rem}
+  #tagBlack{bottom:.7rem}
+  #viewTag{
+    position:absolute;right:.7rem;top:.7rem;font-size:.66rem;letter-spacing:.6px;
+    color:var(--dim);background:rgba(20,19,17,.5);border:1px solid rgba(255,255,255,.06);
+    padding:.22rem .6rem;border-radius:999px;pointer-events:none;
+  }
+
+  /* ---- caption ---- */
+  #caption{
+    background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:10px;padding:.6rem .85rem;min-height:3.4rem;
+    display:flex;flex-direction:column;gap:.22rem;justify-content:center;
+  }
+  #capTag{
+    font-size:.66rem;font-weight:800;letter-spacing:1.6px;color:var(--accent);
+  }
+  #capText{margin:0;font-size:.92rem;line-height:1.38;color:var(--text)}
+  #caption.flash #capText,#caption.flash #capTag{animation:capIn .45s ease both}
+  @keyframes capIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+  /* ---- controls ---- */
+  #controls{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:.55rem .75rem;display:flex;flex-direction:column;gap:.5rem;
+  }
+  #progressRow{display:flex;align-items:center;gap:.7rem}
+  #track{
+    flex:1;height:14px;display:flex;align-items:center;cursor:pointer;touch-action:none;
+  }
+  #track .rail{position:relative;height:5px;border-radius:3px;background:#454139;width:100%}
+  #fill{
+    position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--accent);
+    width:0%;
+  }
+  #fill::after{
+    content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%);
+    width:12px;height:12px;border-radius:50%;background:var(--accent);
+    box-shadow:0 1px 4px rgba(0,0,0,.5);
+  }
+  #stepLabel{font-size:.7rem;color:var(--dim);font-variant-numeric:tabular-nums;white-space:nowrap}
+  #btnRow{display:flex;align-items:center;gap:.5rem}
+  button.ctl{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:2.7rem;height:2.35rem;padding:0 .7rem;
+    background:var(--panel2);color:var(--text);
+    border:1px solid var(--line);border-radius:8px;cursor:pointer;
+  }
+  button.ctl:hover{background:#454139}
+  button.ctl:active{transform:translateY(1px)}
+  button.ctl svg{width:1.05rem;height:1.05rem;fill:currentColor;display:block}
+  #playBtn{background:var(--good);border-color:var(--good);color:#1d2413;min-width:3.4rem}
+  #playBtn:hover{background:#8fc657}
+  #stepLabel{margin-left:auto}
+  .spacer{flex:1}
+
+  /* ---- sidebar ---- */
+  #side{display:flex;flex-direction:column;gap:.8rem;min-height:0;overflow:auto}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.7rem .8rem;
+  }
+  .card h2{
+    margin:0 0 .5rem;font-size:.68rem;letter-spacing:1.6px;color:var(--dim);font-weight:800;
+  }
+  .mvrow{
+    display:grid;grid-template-columns:1.7rem 1fr 1fr;align-items:center;gap:.3rem;
+    padding:.18rem 0;font-variant-numeric:tabular-nums;
+  }
+  .mvrow .num{color:var(--dim);font-size:.8rem;text-align:right;padding-right:.35rem}
+  .chip{
+    text-align:center;font-weight:650;font-size:.9rem;padding:.32rem .2rem;border-radius:6px;
+    cursor:pointer;color:var(--text);
+  }
+  .chip:hover{background:var(--panel2)}
+  .chip.current{background:var(--accent);color:#24200f}
+  .result{margin-top:.45rem;color:var(--dim);font-weight:700;font-size:.85rem;text-align:center;
+    border-top:1px solid var(--line);padding-top:.45rem}
+  #ideaCard p{margin:.15rem 0;font-size:.82rem;line-height:1.4;color:#d5d1ca}
+  #ideaCard b{color:var(--accent);font-weight:700}
+  .keyrow{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:#d5d1ca;margin:.3rem 0}
+  .swatch{width:.95rem;height:.95rem;border-radius:4px;flex:none;border:1px solid rgba(0,0,0,.35)}
+
+  /* mobile move strip */
+  #moveStrip{display:none;gap:.4rem;overflow-x:auto;padding:.15rem .1rem;scrollbar-width:none}
+  #moveStrip::-webkit-scrollbar{display:none}
+  #moveStrip .num{display:none}
+  #moveStrip .mvrow{display:flex;grid-template-columns:none}
+  #moveStrip .chip{flex:none;padding:.3rem .65rem;background:var(--panel);border:1px solid var(--line)}
+  #moveStrip .chip.current{border-color:var(--accent)}
+
+  @media (max-width:880px){
+    main{grid-template-columns:1fr;padding:.15rem .6rem .7rem;gap:.55rem}
+    #side{display:none}
+    #moveStrip{display:flex}
+    header{padding:.5rem .8rem .25rem}
+    header .sub{display:none}
+    #capText{font-size:.86rem}
+    button.ctl{min-width:2.5rem;height:2.5rem}
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1><span class="dot">◆</span> Scholar's Mate</h1>
+  <span class="sub">A four-move attack every beginner should know — and how to stop it</span>
+  <span class="badge">VIEWING FROM BLACK'S SIDE</span>
+</header>
+
+<main>
+  <section id="stage">
+    <div id="boardArea">
+      <div class="playerTag" id="tagWhite">WHITE</div>
+      <div class="playerTag" id="tagBlack">BLACK</div>
+      <div id="viewTag">files h → a &nbsp;·&nbsp; ranks 1 → 8</div>
+    </div>
+    <div id="moveStrip"></div>
+    <div id="caption">
+      <div id="capTag">INTRO</div>
+      <p id="capText"></p>
+    </div>
+    <div id="controls">
+      <div id="progressRow">
+        <div id="track"><div class="rail"><div id="fill"></div></div></div>
+      </div>
+      <div id="btnRow">
+        <button class="ctl" id="replayBtn" aria-label="Replay lesson" title="Replay">
+          <svg viewBox="0 0 24 24"><path d="M12 5V2L7 6l5 4V7a5.5 5.5 0 1 1-5.5 5.5H4.5A7.5 7.5 0 1 0 12 5z"/></svg>
+        </button>
+        <button class="ctl" id="prevBtn" aria-label="Previous move" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M6 5h2.4v14H6zM19 5v14l-9-7z"/></svg>
+        </button>
+        <button class="ctl" id="playBtn" aria-label="Play or pause" title="Play / pause (space)">
+          <svg id="iconPlay" viewBox="0 0 24 24" style="display:none"><path d="M7 4.5v15l13-7.5z"/></svg>
+          <svg id="iconReplay" viewBox="0 0 24 24" style="display:none"><path d="M12 5V2L7 6l5 4V7a5.5 5.5 0 1 1-5.5 5.5H4.5A7.5 7.5 0 1 0 12 5z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24"><path d="M6.5 5h3.6v14H6.5zM13.9 5h3.6v14h-3.6z"/></svg>
+        </button>
+        <button class="ctl" id="nextBtn" aria-label="Next move" title="Next">
+          <svg viewBox="0 0 24 24"><path d="M15.6 5H18v14h-2.4zM5 5v14l9-7z"/></svg>
+        </button>
+        <span class="spacer"></span>
+        <span id="stepLabel">Step 1 / 1</span>
+      </div>
+    </div>
+  </section>
+
+  <aside id="side">
+    <div class="card">
+      <h2>MOVES</h2>
+      <div id="moveList"></div>
+      <div class="result">1–0 &nbsp;·&nbsp; checkmate</div>
+    </div>
+    <div class="card" id="ideaCard">
+      <h2>THE IDEA</h2>
+      <p>White's <b>bishop</b> and <b>queen</b> both aim at <b>f7</b> — the weakest square in the starting position, guarded only by the king.</p>
+      <p style="margin-top:.5rem">Reading the highlights:</p>
+      <div class="keyrow"><span class="swatch" style="background:#e0523f"></span> attack / danger</div>
+      <div class="keyrow"><span class="swatch" style="background:#59b14e"></span> protection</div>
+      <div class="keyrow"><span class="swatch" style="background:#5aa7d6"></span> key square</div>
+      <div class="keyrow"><span class="swatch" style="background:#f0c14b"></span> current move (from / to)</div>
+    </div>
+  </aside>
+</main>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

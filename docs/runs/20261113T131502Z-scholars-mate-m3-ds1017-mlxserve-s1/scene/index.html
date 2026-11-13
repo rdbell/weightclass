@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111617">
+  <title>Scholar’s Mate · Opening Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "../../../vendor/three/build/three.module.js",
+        "three/addons/": "../../../vendor/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="25" height="25">
+            <rect x="1.5" y="1.5" width="9.5" height="9.5" rx="2.2" fill="#93c47d"/>
+            <rect x="13" y="1.5" width="9.5" height="9.5" rx="2.2" fill="#efe9d8"/>
+            <rect x="1.5" y="13" width="9.5" height="9.5" rx="2.2" fill="#efe9d8"/>
+            <rect x="13" y="13" width="9.5" height="9.5" rx="2.2" fill="#93c47d"/>
+          </svg>
+        </span>
+        <span class="brand-name">Opening Lab</span>
+      </div>
+      <span class="top-divider" aria-hidden="true"></span>
+      <div class="lesson-heading">
+        <h1>Scholar’s Mate</h1>
+        <p>An avoidable beginner trap · played from Black’s side</p>
+      </div>
+      <div class="top-tag">
+        <span class="tag-dot" aria-hidden="true"></span>
+        <span>Lesson 01</span>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="board-column" aria-label="Chessboard, Black's perspective">
+        <div class="board-frame" id="boardFrame">
+          <div class="board-canvas-wrap" id="boardWrap"></div>
+          <div class="coord-files" aria-hidden="true">
+            <span>h</span><span>g</span><span>f</span><span>e</span><span>d</span><span>c</span><span>b</span><span>a</span>
+          </div>
+          <div class="coord-ranks" aria-hidden="true">
+            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+          </div>
+        </div>
+        <div class="board-meta" id="boardMeta">
+          <span class="view-pill">Black’s view</span>
+          <span class="meta-text">files h → a</span>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span class="meta-text">ranks 1 → 8</span>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="Lesson coaching and controls">
+        <div class="coach-card" id="coachCard">
+          <div class="coach-head">
+            <div class="coach-label">
+              <span class="coach-avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <circle cx="12" cy="6.8" r="3.1" fill="#f4eedf"/>
+                  <path d="M8.7 11.2c-.5 2.3-1.3 5.4-1.9 7.4h10.4c-.6-2-1.4-5.1-1.9-7.4z" fill="#f4eedf"/>
+                  <rect x="6.4" y="18.7" width="11.2" height="2.5" rx="1.2" fill="#f4eedf"/>
+                </svg>
+              </span>
+              <span>Coach</span>
+            </div>
+            <span class="step-chip" id="beatKicker">The trap</span>
+          </div>
+          <div class="beat-title-row" id="beatTitleRow">
+            <h2 id="beatTitle">Scholar’s Mate</h2>
+            <span class="beat-badge" id="beatBadge" hidden></span>
+          </div>
+          <p class="caption" id="beatCaption" aria-live="polite"></p>
+        </div>
+
+        <div class="progress-card">
+          <div class="progress-top">
+            <span class="progress-label">Lesson progress</span>
+            <span class="progress-count" id="progressCount">Starting position</span>
+          </div>
+          <div class="progress-track" id="progressTrack" role="progressbar"
+               aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"
+               aria-label="Lesson progress in half-moves">
+            <span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span>
+            <span class="seg"></span><span class="seg"></span><span class="seg"></span>
+          </div>
+        </div>
+
+        <div class="controls-card">
+          <div class="controls-row">
+            <button class="ctrl-btn" id="prevBtn" type="button" aria-label="Previous move" title="Previous move (←)">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M7 5v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M18 5.5 9.5 12 18 18.5z" fill="currentColor"/>
+              </svg>
+            </button>
+            <button class="ctrl-btn play-btn" id="playBtn" type="button" aria-label="Pause lesson" title="Play / pause (Space)">
+              <svg class="play-icon" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+                <path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/>
+              </svg>
+              <svg class="pause-icon" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+                <rect x="7" y="5" width="3.6" height="14" rx="1.1" fill="currentColor"/>
+                <rect x="13.4" y="5" width="3.6" height="14" rx="1.1" fill="currentColor"/>
+              </svg>
+            </button>
+            <button class="ctrl-btn" id="nextBtn" type="button" aria-label="Next move" title="Next move (→)">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M17 5v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M6 5.5 14.5 12 6 18.5z" fill="currentColor"/>
+              </svg>
+            </button>
+            <span class="ctrl-spacer" aria-hidden="true"></span>
+            <button class="ctrl-btn replay-btn" id="replayBtn" type="button" aria-label="Replay lesson" title="Replay lesson (R)">
+              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+                <path d="M19 12a7 7 0 1 1-2.2-5.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+                <path d="M18.8 3.2v4.6h-4.6" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="key-hint">Space play/pause · ← → moves · R replay</div>
+        </div>
+
+        <div class="moves-card">
+          <div class="moves-head">
+            <span>Moves</span>
+            <span>White · Black</span>
+          </div>
+          <div class="moves-grid" id="moveList">
+            <div class="move-row">
+              <span class="move-num">1.</span>
+              <button class="move-ply" type="button" data-ply="1" data-san="e4" aria-label="Go to move 1, e4">e4</button>
+              <button class="move-ply" type="button" data-ply="2" data-san="e5" aria-label="Go to move 1, e5">e5</button>
+            </div>
+            <div class="move-row">
+              <span class="move-num">2.</span>
+              <button class="move-ply" type="button" data-ply="3" data-san="Bc4" aria-label="Go to move 2, Bc4">Bc4</button>
+              <button class="move-ply" type="button" data-ply="4" data-san="Nc6" aria-label="Go to move 2, Nc6">Nc6</button>
+            </div>
+            <div class="move-row">
+              <span class="move-num">3.</span>
+              <button class="move-ply" type="button" data-ply="5" data-san="Qh5" aria-label="Go to move 3, Qh5">Qh5</button>
+              <button class="move-ply" type="button" data-ply="6" data-san="Nf6" aria-label="Go to move 3, Nf6">Nf6</button>
+            </div>
+            <div class="move-row">
+              <span class="move-num">4.</span>
+              <button class="move-ply" type="button" data-ply="7" data-san="Qxf7#" aria-label="Go to move 4, Qxf7 checkmate">Qxf7#</button>
+              <span class="move-empty" aria-hidden="true">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notes-card" id="notesCard">
+          <div class="notes-head">Remember</div>
+          <ul>
+            <li><span class="note-num">01</span><span>Develop before you chase the queen.</span></li>
+            <li><span class="note-num">02</span><span>Watch f7 beside your king and defend it early.</span></li>
+            <li><span class="note-num">03</span><span>Check your opponent’s threats every move.</span></li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

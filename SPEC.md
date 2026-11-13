@@ -110,6 +110,9 @@ A setup is the exact tuple: model, pack repo and revision, engine and version,
 engine flags, sampling settings, effort/thinking setting. Any change makes a
 new setup.
 
+Operational procedure and published-run evidence: [RUN_PROTOCOL.md](RUN_PROTOCOL.md).
+Changes to experimental limits require explicit user agreement before launch.
+
 ## Generation: OpenCode in a sandbox
 
 For each (prompt, setup, sample), 2 samples per pair, one fresh run:

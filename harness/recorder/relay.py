@@ -16,6 +16,7 @@ Streaming responses are passed through chunk by chunk, so the agent sees
 the same timing as without the relay.
 """
 import gzip
+import socket
 import http.client
 import itertools
 import json
@@ -159,6 +160,14 @@ class Relay(BaseHTTPRequestHandler):
                     self.end_headers()
                 except Exception:
                     pass
+            # A streamed 200 has already committed its headers. Do not leave
+            # the client waiting forever for the missing chunk terminator, or
+            # send a success terminator for a truncated model response.
+            self.close_connection = True
+            try:
+                self.connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
         rec["t_end_ms"] = round((time.time() - t0) * 1000, 1)
         rec.update(summarise(chunks))
         with lock, open(f"{RAW}/calls.jsonl", "a") as f:

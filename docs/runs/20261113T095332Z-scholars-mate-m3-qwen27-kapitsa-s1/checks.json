@@ -1,0 +1,20 @@
+{
+  "check_version": 2,
+  "index_exists": false,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "luma_stddev": 0,
+  "distinct_colours": 1,
+  "blank": true,
+  "animation_diff": 0,
+  "animated": false,
+  "clicks": [],
+  "second_load_diff": 0,
+  "modes": [],
+  "rendered": false,
+  "modes_rendered": true
+}
