@@ -1,0 +1,50 @@
+{
+  "id": "m3-glm53flash-tensorfold",
+  "label": "GLM-5.3-Flash MLX 4-bit (TensorFold 1.2.8 --vision, M3 Ultra)",
+  "api_key_env": "WC_M3_KEY",
+  "model_id": "GLM-5.3-Flash-MLX-4bit-MTP",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "local",
+  "hardware": {
+    "machine": "m3ultra256",
+    "chip": "Apple M3 Ultra",
+    "gpu_cores": 60,
+    "memory_gib": 256
+  },
+  "pack": {
+    "repo": "TensorFold/GLM-5.3-Flash-MLX-4bit-MTP",
+    "revision": "d2b17f5253440224422b150705c1109a9a3a0368",
+    "manifest_sha256": "f118133da33c51170509403f448d44e8f5666a3db3c71c0de4fe2236b982f360",
+    "total_bytes": 181741757659
+  },
+  "engine": {
+    "name": "tensorfold",
+    "version": "1.2.8",
+    "context": 262144,
+    "slots": 4,
+    "load_limit_gb": 233.646221,
+    "prefill": "engine defaults (16,384-token prompt chunks, share 1)",
+    "speculative": "MTP + copy drafts",
+    "flags": "--vision --vision-max-images 64",
+    "vision": "enabled (--vision, up to 64 images per request; PNG built in, JPEG via libjpeg-turbo 3.1.4.1)"
+  },
+  "request_body": {
+    "reasoning_effort": "high"
+  },
+  "host": {
+    "engine_match": "tensorfold-native",
+    "engine_log": "/tmp/weightclass-stafford-glm-20261115T190601Z/server.log",
+    "ssh_env": "WC_M3_SSH"
+  },
+  "verify_before_runs": [
+    "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+    "engine flags in record/host/start.txt match engine block",
+    "prefix cache hits visible in raw usage"
+  ],
+  "notes": "Sampling: engine/pack defaults (TensorFold reports temperature 1.0, top_p 0.95); the exact request and response are in record/raw. GLM on one Mac is outside TensorFold's qualified two-Mac setup and needs GLM_LOAD_LIMIT_GB above its 70%-of-RAM default to load this 181.7 GB pack. The 2026-11-14 attempt ran without --vision and failed on the first preview screenshot (HTTP 400); this setup adds --vision, --vision-max-images 64 and the pinned JPEG decoder (the 2026-11-15 first retry failed on a JPEG preview and on a 5-image request).",
+  "base_url_env": "WC_M3_BASE_URL",
+  "host_header_env": "WC_M3_HOST_HEADER",
+  "quant": "MLX 4-bit",
+  "pack_label": "TensorFold MLX 4-bit + MTP"
+}

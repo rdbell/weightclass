@@ -1558,5 +1558,350 @@
   "run_no": 2,
   "runs_of_setup": 2,
   "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and the day, dusk and night modes all render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Engine: TensorFold 1.2.8 with --vision (the default limit of 4 images per request; this run never exceeded it). An earlier attempt on 2026-11-14 ran without --vision and ended on an HTTP 400 at the first preview screenshot. That was an infrastructure failure, not a model result, so it is not counted."
+   ],
+   "validation_failures": []
+  },
+  "quant": "MLX 4-bit",
+  "pack_label": "TensorFold MLX 4-bit + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "d2b17f5253440224422b150705c1109a9a3a0368",
+  "pack_bytes": 181741757659,
+  "engine_settings": "context=262144, slots=4, load_limit_gb=233.646221, prefill=engine defaults (16,384-token prompt chunks, share 1), speculative=MTP + copy drafts, flags=--vision, vision=enabled (--vision; PNG decode built in), trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=4",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261115T101857Z-eiffel-open-m3-glm53flash-tensorfold-s1",
+  "prompt": "eiffel-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-glm53flash-tensorfold",
+  "model": "GLM-5.3-Flash",
+  "where": "local",
+  "label": "GLM-5.3-Flash MLX 4-bit (TensorFold 1.2.8 --vision, M3 Ultra)",
+  "pack": "TensorFold/GLM-5.3-Flash-MLX-4bit-MTP",
+  "engine": "tensorfold",
+  "engine_version": "1.2.8",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 20,
+  "session_steps": 20,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 30,
+  "tool_errors": 1,
+  "generated": 32092,
+  "output": 11962,
+  "reasoning": 20130,
+  "token_note": "reported",
+  "input": 89419,
+  "cached": 626390,
+  "energy_wh": 18.26,
+  "avg_watts": 72.2,
+  "thermal": [
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 922.4,
+  "concurrent": 0,
+  "decode_tps_p50": 55.5,
+  "ttft_ms_p50": 5387.4,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 20,
+   "draw_calls_per_frame": 48,
+   "primitives_per_frame": 60840,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "day",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0085
+   },
+   {
+    "mode": "dusk",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9848
+   },
+   {
+    "mode": "night",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9867
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "day",
+    "found": true,
+    "diff": 0.1342
+   },
+   {
+    "mode": "dusk",
+    "found": true,
+    "diff": 0.9907
+   },
+   {
+    "mode": "night",
+    "found": true,
+    "diff": 0.9747
+   }
+  ],
+  "shots": [
+   "default",
+   "click-day",
+   "click-dusk",
+   "click-night",
+   "default-later",
+   "default-second-load",
+   "mode-day",
+   "mode-dusk",
+   "mode-night"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-15T10:18:59.438406+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks found one canvas, no page or console errors and no missing files, and both the top and door views render. The animation check found no frame-to-frame change.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Engine: TensorFold 1.2.8 with --vision --vision-max-images 64 and libjpeg-turbo 3.1.4.1 for JPEG. An earlier attempt on 2026-11-15 ended on an HTTP 400 when the agent sent a JPEG screenshot, because the engine's JPEG decoder was not installed. That was an infrastructure failure, not a model result, so it is not counted."
+   ],
+   "validation_failures": []
+  },
+  "quant": "MLX 4-bit",
+  "pack_label": "TensorFold MLX 4-bit + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "d2b17f5253440224422b150705c1109a9a3a0368",
+  "pack_bytes": 181741757659,
+  "engine_settings": "context=262144, slots=4, load_limit_gb=233.646221, prefill=engine defaults (16,384-token prompt chunks, share 1), speculative=MTP + copy drafts, flags=--vision --vision-max-images 64, vision=enabled (--vision, up to 64 images per request; PNG built in, JPEG via libjpeg-turbo 3.1.4.1), trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=4",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261115T174032Z-room-open-m3-glm53flash-tensorfold-s1",
+  "prompt": "room-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-glm53flash-tensorfold",
+  "model": "GLM-5.3-Flash",
+  "where": "local",
+  "label": "GLM-5.3-Flash MLX 4-bit (TensorFold 1.2.8 --vision, M3 Ultra)",
+  "pack": "TensorFold/GLM-5.3-Flash-MLX-4bit-MTP",
+  "engine": "tensorfold",
+  "engine_version": "1.2.8",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 74,
+  "session_steps": 74,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 89,
+  "tool_errors": 3,
+  "generated": 79577,
+  "output": 21030,
+  "reasoning": 58547,
+  "token_note": "reported",
+  "input": 824022,
+  "cached": 4876293,
+  "energy_wh": 99.83,
+  "avg_watts": 74.1,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 4910.0,
+  "concurrent": 0,
+  "decode_tps_p50": 56.5,
+  "ttft_ms_p50": 4685.6,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 14,
+   "draw_calls_per_frame": 553,
+   "primitives_per_frame": 114742,
+   "animated": false,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9524
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0008
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": false,
+    "diff": null
+   },
+   {
+    "mode": "door",
+    "found": false,
+    "diff": null
+   }
+  ],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-15T17:40:35.520792+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Independent checks matched all seven legal reference positions, including the checkmate position, with every visible piece on its square; they also checked stepping through every move, capture restoration when seeking backwards, previous, autoplay, replay, pause and mobile overflow. The board is shown from Black's side as the prompt requires. Full caption review remains unverified.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Engine: TensorFold 1.2.8 with --vision --vision-max-images 64 and libjpeg-turbo 3.1.4.1 for JPEG. An earlier attempt on 2026-11-15 ended on an HTTP 400 when the agent sent more images in one request than TensorFold's default limit of 4. That was an infrastructure failure, not a model result, so it is not counted."
+   ],
+   "validation_failures": []
+  },
+  "quant": "MLX 4-bit",
+  "pack_label": "TensorFold MLX 4-bit + MTP",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "d2b17f5253440224422b150705c1109a9a3a0368",
+  "pack_bytes": 181741757659,
+  "engine_settings": "context=262144, slots=4, load_limit_gb=233.646221, prefill=engine defaults (16,384-token prompt chunks, share 1), speculative=MTP + copy drafts, flags=--vision --vision-max-images 64, vision=enabled (--vision, up to 64 images per request; PNG built in, JPEG via libjpeg-turbo 3.1.4.1), trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=4",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261115T190659Z-scholars-mate-m3-glm53flash-tensorfold-s1",
+  "prompt": "scholars-mate",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-glm53flash-tensorfold",
+  "model": "GLM-5.3-Flash",
+  "where": "local",
+  "label": "GLM-5.3-Flash MLX 4-bit (TensorFold 1.2.8 --vision, M3 Ultra)",
+  "pack": "TensorFold/GLM-5.3-Flash-MLX-4bit-MTP",
+  "engine": "tensorfold",
+  "engine_version": "1.2.8",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 55,
+  "session_steps": 55,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 54,
+  "tool_errors": 1,
+  "generated": 77839,
+  "output": 21862,
+  "reasoning": 55977,
+  "token_note": "reported",
+  "input": 443274,
+  "cached": 3676575,
+  "energy_wh": 65.49,
+  "avg_watts": 78.2,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 3051.0,
+  "concurrent": 0,
+  "decode_tps_p50": 60.6,
+  "ttft_ms_p50": 5136.6,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 57,
+   "draw_calls_per_frame": 116,
+   "primitives_per_frame": 232,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [],
+  "clicks": [],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (3 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-15T19:07:01.664724+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
  }
 ]

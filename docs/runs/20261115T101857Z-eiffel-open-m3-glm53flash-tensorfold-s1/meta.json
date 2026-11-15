@@ -1,0 +1,165 @@
+{
+  "run": "20261115T101857Z-eiffel-open-m3-glm53flash-tensorfold-s1",
+  "lab": true,
+  "prompt": {
+    "id": "eiffel-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "eiffel",
+    "file": "prompts/lab/eiffel-open.md",
+    "sha256": "a121a69a7f957e1a38782b19841010fafc8d3325b545b7818c034f8848738b1b"
+  },
+  "setup_sha256": "9d617ba5f41d7dffcbffdacfeebdfac44bf703db0a3a0b5a7d87e0fd451a647a",
+  "sample": 1,
+  "started": "2026-11-15T10:18:59.438406+00:00",
+  "ended": "2026-11-15T10:34:21.826077+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 922.4,
+  "concurrent_runs": [],
+  "tool_calls": 30,
+  "tokens_seen": 30942,
+  "tokens": {
+    "model_calls": 20,
+    "failed_calls": 0,
+    "input": 89419,
+    "cache_read": 626390,
+    "output": 11962,
+    "reasoning": 20130,
+    "generated": 32092,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 20,
+    "input": 89419,
+    "cache_read": 626390,
+    "cache_write": 0,
+    "output": 11962,
+    "reasoning": 20130,
+    "generated": 32092
+  },
+  "agent": {
+    "tool_counts": {
+      "glob": 3,
+      "grep": 1,
+      "read": 6,
+      "write": 1,
+      "edit": 14,
+      "shell": 5
+    },
+    "tool_errors": 1,
+    "preview_calls": 9,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 19,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 20,
+    "model_calls": 20,
+    "statuses": {
+      "200": 20
+    },
+    "relay_errors": 0,
+    "client_closed_early": 9,
+    "cached_prompt_tokens": 626390,
+    "prompt_tokens": 715809,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 19,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 5387.4,
+    "ttft_ms_p90": 48518.2,
+    "decode_tps_p50": 55.5,
+    "generation_ids": 20
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 182,
+    "avg_watts": 72.2,
+    "max_watts": 120.3,
+    "energy_wh": 18.26,
+    "thermal_levels": [
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 21,
+  "code": {
+    "files": 3,
+    "bytes": 34003,
+    "lines": 781
+  },
+  "workspace_sha256": "c581f1322fa9302cffe8f102c99703ab5ec689005262145d4dc7ae4cebef8a6e",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "76ae9dde953450bf831ac44857b93dabc7e35a7befaf47924aa90286fe957e98",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-glm53flash-tensorfold",
+    "label": "GLM-5.3-Flash MLX 4-bit (TensorFold 1.2.8 --vision, M3 Ultra)",
+    "model_id": "GLM-5.3-Flash-MLX-4bit-MTP",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "TensorFold/GLM-5.3-Flash-MLX-4bit-MTP",
+      "revision": "d2b17f5253440224422b150705c1109a9a3a0368",
+      "manifest_sha256": "f118133da33c51170509403f448d44e8f5666a3db3c71c0de4fe2236b982f360",
+      "total_bytes": 181741757659
+    },
+    "engine": {
+      "name": "tensorfold",
+      "version": "1.2.8",
+      "context": 262144,
+      "slots": 4,
+      "load_limit_gb": 233.646221,
+      "prefill": "engine defaults (16,384-token prompt chunks, share 1)",
+      "speculative": "MTP + copy drafts",
+      "flags": "--vision",
+      "vision": "enabled (--vision; PNG decode built in)",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 4
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults (TensorFold reports temperature 1.0, top_p 0.95); the exact request and response are in record/raw. GLM on one Mac is outside TensorFold's qualified two-Mac setup and needs GLM_LOAD_LIMIT_GB above its 70%-of-RAM default to load this 181.7 GB pack. The 2026-11-14 attempt ran without --vision and failed on the first preview screenshot (HTTP 400); this setup adds only --vision.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "MLX 4-bit",
+    "pack_label": "TensorFold MLX 4-bit + MTP"
+  }
+}

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Scholar’s Mate — Animated Chess Lesson</title>
+<link rel="icon" href="data:," />
+<style>
+  :root{
+    --bg:#161310;
+    --panel:#211d18;
+    --panel2:#1a1712;
+    --line:#332c23;
+    --text:#f0e8d4;
+    --muted:#a79c85;
+    --accent:#e9a83e;
+    --accent-ink:#231c10;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);overflow:hidden;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{height:100vh;height:100dvh;display:flex;flex-direction:column}
+
+  header{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px 18px;background:var(--panel);border-bottom:1px solid var(--line);
+    flex:0 0 auto;
+  }
+  .titles h1{margin:0;font-size:17px;font-weight:800;letter-spacing:.2px}
+  .titles p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+  .pill{
+    font-size:12px;font-weight:600;color:#cfc4a8;background:#282219;border:1px solid #3d352a;
+    padding:6px 12px;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums;
+  }
+
+  #stage{flex:1 1 auto;min-height:120px;position:relative;background:radial-gradient(1200px 800px at 50% 32%, #1d1915, #14110e)}
+  #stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+  #caption{
+    flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:12px;
+    min-height:68px;padding:10px 20px;background:var(--panel2);border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .tag{
+    display:none;font-size:10px;font-weight:800;letter-spacing:1.4px;color:var(--accent);
+    border:1px solid #5c4a26;background:#251d10;border-radius:6px;padding:5px 9px;white-space:nowrap;
+  }
+  #caption.show-tag .tag{display:inline-block}
+  #captionText{font-size:16px;line-height:1.4;max-width:840px}
+  #captionText b{color:var(--accent);font-weight:800}
+  #caption.flash #captionText{animation:cap .35s ease}
+  @keyframes cap{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+  #moveList{
+    flex:0 0 auto;display:flex;gap:8px;align-items:center;
+    padding:8px 14px;background:var(--panel2);border-top:1px solid var(--line);
+    overflow-x:auto;scrollbar-width:none;
+  }
+  #moveList::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;font-size:13.5px;font-weight:600;line-height:1;color:var(--muted);
+    background:#262019;border:1px solid #382f24;border-radius:8px;padding:9px 11px;cursor:pointer;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .chip:hover{color:var(--text);border-color:#4a4133}
+  .chip.current{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:800}
+  .chip-divider{flex:0 0 auto;width:1px;height:18px;background:#382f24}
+
+  #controls{
+    flex:0 0 auto;display:flex;align-items:center;gap:14px;
+    padding:10px 16px;background:var(--panel);border-top:1px solid var(--line);
+  }
+  #buttons{display:flex;gap:8px;align-items:center}
+  button.ctl{
+    width:44px;height:44px;border-radius:50%;border:1px solid #3d352a;background:#2a241d;color:#efe6d0;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;
+  }
+  button.ctl:hover{background:#362e24}
+  button.ctl:active{transform:scale(.95)}
+  button.ctl.primary{width:52px;height:52px;background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+  button.ctl.primary:hover{background:#f6b850}
+  button.ctl svg{width:22px;height:22px;fill:currentColor;display:block}
+  #progressWrap{flex:1 1 auto;padding:10px 0;cursor:pointer;touch-action:none}
+  #progress{position:relative;height:8px;border-radius:4px;background:#39322a;overflow:visible}
+  #progressFill{height:100%;width:0%;background:var(--accent);border-radius:4px;position:relative}
+  #progressFill::after{
+    content:"";position:absolute;right:-7px;top:50%;transform:translateY(-50%);
+    width:15px;height:15px;border-radius:50%;background:#f3ead2;border:2px solid #8a6c2f;
+  }
+  #stepLabel{font-size:12px;color:var(--muted);min-width:56px;text-align:right;font-variant-numeric:tabular-nums}
+
+  @media (max-width:640px){
+    header{padding:8px 12px}
+    .titles p{display:none}
+    .titles h1{font-size:15px}
+    #caption{min-height:58px;padding:8px 12px}
+    #captionText{font-size:14px}
+    #stepLabel{display:none}
+    #controls{gap:10px;padding:8px 10px}
+    .chip{padding:8px 9px;font-size:12.5px}
+  }
+</style>
+<script type="importmap">
+{ "imports": { "three": "../../../vendor/three/build/three.module.js" } }
+</script>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="titles">
+        <h1>Scholar’s Mate</h1>
+        <p>The four-move attack on f7 — and how to stop it</p>
+      </div>
+      <div id="moveCounter" class="pill">Start</div>
+    </header>
+
+    <div id="stage" aria-label="Chess board"></div>
+
+    <div id="caption">
+      <span id="captionTag" class="tag"></span>
+      <span id="captionText"></span>
+    </div>
+
+    <nav id="moveList" aria-label="Move list"></nav>
+
+    <footer id="controls">
+      <div id="buttons">
+        <button id="btnPrev" class="ctl" title="Previous step" aria-label="Previous step">
+          <svg viewBox="0 0 24 24"><path d="M7 6h2.4v12H7z"/><path d="M18.5 6v12L10 12z"/></svg>
+        </button>
+        <button id="btnPlay" class="ctl primary" title="Play / Pause" aria-label="Play or pause">
+          <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8.5 5v14l11-7z"/></svg>
+          <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M7 5h3.4v14H7z"/><path d="M13.6 5H17v14h-3.4z"/></svg>
+        </button>
+        <button id="btnNext" class="ctl" title="Next step" aria-label="Next step">
+          <svg viewBox="0 0 24 24"><path d="M14.6 6H17v12h-2.4z"/><path d="M5.5 6v12L14 12z"/></svg>
+        </button>
+        <button id="btnReplay" class="ctl" title="Replay lesson" aria-label="Replay lesson">
+          <svg viewBox="0 0 24 24"><path d="M12 5V1.7L6.8 6 12 10.3V7a5.2 5.2 0 1 1-5.2 5.2H4.4A7.6 7.6 0 1 0 12 5z"/></svg>
+        </button>
+      </div>
+      <div id="progressWrap"><div id="progress"><div id="progressFill"></div></div></div>
+      <div id="stepLabel">1 / 15</div>
+    </footer>
+  </div>
+  <script type="module" src="./lesson.js"></script>
+</body>
+</html>
