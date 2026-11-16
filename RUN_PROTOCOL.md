@@ -139,7 +139,10 @@ continue the same run safely.
 Run the established independent render checks after termination. Add task-specific
 checks where necessary (for chess: legal supplied moves, board states, orientation,
 seeking, captures, mate and controls). A screenshot or correct source move list
-alone does not prove the interactive lesson works.
+alone does not prove the interactive lesson works. For chess lessons, run
+`bin/chess_check.py RUN_DIR ADAPTER` with an adapter from
+`harness/checks/chess/adapters/` (copy the closest for a new lesson): it
+reads the board as drawn after every move-list seek and through autoplay.
 
 Preserve the model's workspace. Keep editorial review and derived validation
 separate. Gallery publication may perform its documented shared-vendor path
