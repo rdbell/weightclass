@@ -1290,9 +1290,10 @@
   "review": {
    "status": "rendered_unverified",
    "end": "agent finished",
-   "chess_conclusion": "Independent checks matched all seven legal reference positions, including the checkmate position, and checked capture restoration, autoplay, replay, pause and mobile overflow. Full caption and visual-orientation review remains unverified.",
+   "chess_conclusion": "Independent checks matched all seven legal reference positions, including the checkmate position. A stricter re-check on 2026-11-16 (bin/chess_check.py) read the board as drawn after every move-list seek and through an uninterrupted autoplay: every one of the 13 lesson steps shows its correct position, with only mid-animation frames in between. Capture restoration, previous, replay, pause and mobile overflow pass; the board is shown from Black's side. Caption wording was not reviewed.",
    "additional_issues": [
-    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff."
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "The render check's \"not animated\" result is a timing artefact: its two screenshots both fall inside the lesson's 9.2-second opening step, which holds a still board (difference 0.0001 against a 0.002 threshold). Autoplay advances through every step."
    ],
    "validation_failures": []
   },
