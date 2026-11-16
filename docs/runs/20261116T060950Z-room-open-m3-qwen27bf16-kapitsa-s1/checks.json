@@ -1,0 +1,79 @@
+{
+  "check_version": 2,
+  "index_exists": true,
+  "query": "",
+  "console_errors": [],
+  "console_warnings": [
+    "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+    "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
+  ],
+  "page_errors": [],
+  "outside_requests": [],
+  "missing_files": [],
+  "fps": 13.8,
+  "draw_calls_per_frame": 737,
+  "primitives_per_frame": 91802,
+  "canvases": 1,
+  "luma_stddev": 57.56,
+  "distinct_colours": 443,
+  "blank": false,
+  "animation_diff": 0.0023,
+  "animated": true,
+  "clicks": [
+    {
+      "mode": "top",
+      "found": false,
+      "diff_vs_before": null
+    },
+    {
+      "mode": "door",
+      "found": false,
+      "diff_vs_before": null
+    }
+  ],
+  "second_load_diff": 0.0967,
+  "modes": [
+    {
+      "query": "?view=top",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+        "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 14,
+      "draw_calls_per_frame": 757,
+      "primitives_per_frame": 92956,
+      "canvases": 1,
+      "luma_stddev": 55.27,
+      "distinct_colours": 390,
+      "blank": false,
+      "mode": "top",
+      "diff_vs_default": 0.8684
+    },
+    {
+      "query": "?view=door",
+      "console_errors": [],
+      "console_warnings": [
+        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
+        "THREE.WebGLShadowMap: PCFSoftShadowMap has been removed. Using PCFShadowMap instead."
+      ],
+      "page_errors": [],
+      "outside_requests": [],
+      "missing_files": [],
+      "fps": 15.5,
+      "draw_calls_per_frame": 737,
+      "primitives_per_frame": 91802,
+      "canvases": 1,
+      "luma_stddev": 58.92,
+      "distinct_colours": 452,
+      "blank": false,
+      "mode": "door",
+      "diff_vs_default": 0.0282
+    }
+  ],
+  "rendered": true,
+  "modes_rendered": true
+}

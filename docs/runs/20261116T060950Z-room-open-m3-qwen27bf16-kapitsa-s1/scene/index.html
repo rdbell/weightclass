@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Reading Room</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0d0f14;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+  #app, #app canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 5;
+    background: radial-gradient(ellipse at center, transparent 52%, rgba(8,6,4,0.55) 100%); }
+  #hud { position: fixed; left: 14px; bottom: 14px; z-index: 10; display: flex; flex-direction: column; gap: 8px; }
+  #hud .title { color: #e8dcc8; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.9; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+  #hud .views { display: flex; gap: 6px; }
+  #hud .views button { appearance: none; border: 1px solid rgba(232,220,200,0.25);
+    background: rgba(18,14,10,0.55); color: #e8dcc8; padding: 6px 13px; border-radius: 999px;
+    font-size: 12px; cursor: pointer; backdrop-filter: blur(6px); transition: background 0.15s; }
+  #hud .views button:hover { background: rgba(70,50,30,0.6); }
+  #hud .views button.active { background: rgba(190,120,60,0.4); border-color: rgba(255,190,120,0.65); }
+  #hud .hint { color: rgba(232,220,200,0.45); font-size: 11px; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="vignette"></div>
+<div id="hud">
+  <div class="title">The Reading Room</div>
+  <div class="views">
+    <button data-view="door" class="active">Doorway</button>
+    <button data-view="top">Top view</button>
+  </div>
+  <div class="hint">drag to orbit &middot; scroll to zoom</div>
+</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>

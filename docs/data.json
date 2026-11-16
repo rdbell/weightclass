@@ -1903,5 +1903,371 @@
   "run_no": 1,
   "runs_of_setup": 1,
   "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and the day, dusk and night modes all render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Unquantized bf16 pack on the same engine and settings as the 4-bit Qwen3.8-27B setup (Kapitsa 0.2.34, 262K context, 8 slots). Kapitsa's catalog pins a different speculative drafter for bf16 (nace-ai's DFlash2 retrain, not incoai's); drafts are verified by the model, so this affects speed, not output.",
+    "About 85 minutes in, a restart of the operator's T3 server killed the trial controller and its supervisor. The agent and its request recorder kept running and nothing reached the model or the engine. Supervision (runaway guard, workspace snapshots, host telemetry) was reattached with the same limits after about 3 minutes, so that window was unguarded; about 15 minutes of power samples are missing, so energy undercounts. Details are in meta.json under supervisor_interruption."
+   ],
+   "validation_failures": []
+  },
+  "quant": "bf16 (unquantized)",
+  "pack_label": "mlx-community bf16, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
+  "pack_link": true,
+  "pack_extras": [
+   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa @ 4f95046 (drafter)",
+   "MTP head from Qwen/Qwen3.8-27B (Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed @ 1d5087d)"
+  ],
+  "pack_revision": "6f265714824f3c38d4452baa1628aef3d9b9aae9",
+  "pack_bytes": 58831565082,
+  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter, flags=--prefill-chunk 2048 --disk-cache 32G, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=8",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261116T040445Z-eiffel-open-m3-qwen27bf16-kapitsa-s1",
+  "prompt": "eiffel-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-qwen27bf16-kapitsa",
+  "model": "Qwen3.8-27B",
+  "where": "local",
+  "label": "Qwen3.8-27B bf16 (Kapitsa 0.2.34, M3 Ultra)",
+  "pack": "mlx-community/Qwen3.8-27B-bf16",
+  "engine": "kapitsa",
+  "engine_version": "0.2.34",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 69,
+  "session_steps": 68,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 89,
+  "tool_errors": 2,
+  "generated": 257448,
+  "output": 37286,
+  "reasoning": 220162,
+  "token_note": "reported",
+  "input": 83849,
+  "cached": 6014356,
+  "energy_wh": 113.85,
+  "avg_watts": 68.0,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 7262.6,
+  "concurrent": 0,
+  "decode_tps_p50": 37.2,
+  "ttft_ms_p50": 1646.5,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 16.5,
+   "draw_calls_per_frame": 745,
+   "primitives_per_frame": 52630,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "day",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0066
+   },
+   {
+    "mode": "dusk",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9705
+   },
+   {
+    "mode": "night",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9936
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "day",
+    "found": true,
+    "diff": 0.0389
+   },
+   {
+    "mode": "dusk",
+    "found": true,
+    "diff": 0.9538
+   },
+   {
+    "mode": "night",
+    "found": true,
+    "diff": 0.9737
+   }
+  ],
+  "shots": [
+   "default",
+   "click-day",
+   "click-dusk",
+   "click-night",
+   "default-later",
+   "default-second-load",
+   "mode-day",
+   "mode-dusk",
+   "mode-night"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-16T04:04:46.626102+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and both the top and door views render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Unquantized bf16 pack on the same engine and settings as the 4-bit Qwen3.8-27B setup (Kapitsa 0.2.34, 262K context, 8 slots). Kapitsa's catalog pins a different speculative drafter for bf16 (nace-ai's DFlash2 retrain, not incoai's); drafts are verified by the model, so this affects speed, not output."
+   ],
+   "validation_failures": []
+  },
+  "quant": "bf16 (unquantized)",
+  "pack_label": "mlx-community bf16, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
+  "pack_link": true,
+  "pack_extras": [
+   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa @ 4f95046 (drafter)",
+   "MTP head from Qwen/Qwen3.8-27B (Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed @ 1d5087d)"
+  ],
+  "pack_revision": "6f265714824f3c38d4452baa1628aef3d9b9aae9",
+  "pack_bytes": 58831565082,
+  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter, flags=--prefill-chunk 2048 --disk-cache 32G, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=8",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261116T060950Z-room-open-m3-qwen27bf16-kapitsa-s1",
+  "prompt": "room-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-qwen27bf16-kapitsa",
+  "model": "Qwen3.8-27B",
+  "where": "local",
+  "label": "Qwen3.8-27B bf16 (Kapitsa 0.2.34, M3 Ultra)",
+  "pack": "mlx-community/Qwen3.8-27B-bf16",
+  "engine": "kapitsa",
+  "engine_version": "0.2.34",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 51,
+  "session_steps": 51,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 50,
+  "tool_errors": 3,
+  "generated": 109412,
+  "output": 31172,
+  "reasoning": 78240,
+  "token_note": "reported",
+  "input": 21457,
+  "cached": 5294180,
+  "energy_wh": 53.07,
+  "avg_watts": 65.2,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 2967.0,
+  "concurrent": 0,
+  "decode_tps_p50": 40.1,
+  "ttft_ms_p50": 1904.7,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 13.8,
+   "draw_calls_per_frame": 737,
+   "primitives_per_frame": 91802,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.8684
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0282
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": false,
+    "diff": null
+   },
+   {
+    "mode": "door",
+    "found": false,
+    "diff": null
+   }
+  ],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-16T06:09:52.939788+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "known_validation_failures",
+   "end": "agent finished",
+   "chess_conclusion": "The supplied line is legal and the lesson is oriented for Black, but the board lags the lesson by one ply: each move step draws the position from before its move, so after the move animation the moved piece snaps back to its start square for the rest of that step (about 85% of each move step in autoplay). Seeking to any move from the move list shows the previous position; the checkmate step shows the queen back on h5 with f7 intact. Only the closing step shows the final mate position.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Unquantized bf16 pack on the same engine and settings as the 4-bit Qwen3.8-27B setup (Kapitsa 0.2.34, 262K context, 8 slots). Kapitsa's catalog pins a different speculative drafter for bf16 (nace-ai's DFlash2 retrain, not incoai's); drafts are verified by the model, so this affects speed, not output.",
+    "TOTAL (lesson length) is undefined, so the progress bar never fills.",
+    "Replay, pause, previous, autoplay to the final position and mobile layout pass."
+   ],
+   "validation_failures": [
+    "Seeking to ply 1 leaves a board that differs from the legal reference.",
+    "Seeking to ply 2 leaves a board that differs from the legal reference.",
+    "Seeking to ply 3 leaves a board that differs from the legal reference.",
+    "Seeking to ply 4 leaves a board that differs from the legal reference.",
+    "Seeking to ply 5 leaves a board that differs from the legal reference.",
+    "Seeking to ply 6 leaves a board that differs from the legal reference.",
+    "Seeking to ply 7 leaves a board that differs from the legal reference."
+   ]
+  },
+  "quant": "bf16 (unquantized)",
+  "pack_label": "mlx-community bf16, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter",
+  "pack_link": true,
+  "pack_extras": [
+   "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa @ 4f95046 (drafter)",
+   "MTP head from Qwen/Qwen3.8-27B (Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed @ 1d5087d)"
+  ],
+  "pack_revision": "6f265714824f3c38d4452baa1628aef3d9b9aae9",
+  "pack_bytes": 58831565082,
+  "engine_settings": "context=262144, slots=8, prefill_chunk=2048, disk_cache=32G, speculative=MTP head + DFlash2 drafter, flags=--prefill-chunk 2048 --disk-cache 32G, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback, max_concurrent_requests=8",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261116T070223Z-scholars-mate-m3-qwen27bf16-kapitsa-s1",
+  "prompt": "scholars-mate",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-qwen27bf16-kapitsa",
+  "model": "Qwen3.8-27B",
+  "where": "local",
+  "label": "Qwen3.8-27B bf16 (Kapitsa 0.2.34, M3 Ultra)",
+  "pack": "mlx-community/Qwen3.8-27B-bf16",
+  "engine": "kapitsa",
+  "engine_version": "0.2.34",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 80,
+  "session_steps": 80,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 80,
+  "tool_errors": 0,
+  "generated": 106826,
+  "output": 32044,
+  "reasoning": 74782,
+  "token_note": "reported",
+  "input": 63848,
+  "cached": 8015027,
+  "energy_wh": 59.46,
+  "avg_watts": 69.3,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 3127.2,
+  "concurrent": 0,
+  "decode_tps_p50": 34.7,
+  "ttft_ms_p50": 2470.9,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 43.5,
+   "draw_calls_per_frame": 67,
+   "primitives_per_frame": 134,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [],
+  "clicks": [],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-16T07:02:25.027922+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
  }
 ]

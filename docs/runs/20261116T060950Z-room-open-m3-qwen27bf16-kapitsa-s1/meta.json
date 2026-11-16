@@ -1,0 +1,167 @@
+{
+  "run": "20261116T060950Z-room-open-m3-qwen27bf16-kapitsa-s1",
+  "lab": true,
+  "prompt": {
+    "id": "room-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "reading-room",
+    "file": "prompts/room-open.md",
+    "sha256": "3999ad59c4177adcd96c8aa3a99c2fecceeec269869ce55e47a47880b797ca6e"
+  },
+  "setup_sha256": "cd7f04ffacd61b633d6671ab90f5cb7b69dff709a747adf4930417c5e8cdae76",
+  "sample": 1,
+  "started": "2026-11-16T06:09:52.939788+00:00",
+  "ended": "2026-11-16T06:59:19.905254+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 2967.0,
+  "concurrent_runs": [],
+  "tool_calls": 50,
+  "tokens_seen": 108229,
+  "tokens": {
+    "model_calls": 51,
+    "failed_calls": 0,
+    "input": 21457,
+    "cache_read": 5294180,
+    "output": 31172,
+    "reasoning": 78240,
+    "generated": 109412,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 51,
+    "input": 21457,
+    "cache_read": 5294180,
+    "cache_write": 0,
+    "output": 31172,
+    "reasoning": 78240,
+    "generated": 109412
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 11,
+      "write": 2,
+      "read": 9,
+      "edit": 28
+    },
+    "tool_errors": 3,
+    "preview_calls": 14,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 50,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 51,
+    "model_calls": 51,
+    "statuses": {
+      "200": 51
+    },
+    "relay_errors": 0,
+    "client_closed_early": 16,
+    "cached_prompt_tokens": 5294180,
+    "prompt_tokens": 5315637,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 50,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 1904.7,
+    "ttft_ms_p90": 2267.1,
+    "decode_tps_p50": 40.1,
+    "generation_ids": 51
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 586,
+    "avg_watts": 65.2,
+    "max_watts": 116.5,
+    "energy_wh": 53.07,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 52,
+  "code": {
+    "files": 4,
+    "bytes": 53625,
+    "lines": 1126
+  },
+  "workspace_sha256": "265bb4dac6d544a46a45381ec441cf93d6993d83e1a2e73f2e139363272dbddb",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "8cc524f3e83dc8bb97ebe1840c7668f2756c9b44d57a896d43b5ee564884b78a",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-qwen27bf16-kapitsa",
+    "label": "Qwen3.8-27B bf16 (Kapitsa 0.2.34, M3 Ultra)",
+    "model_id": "qwen3.8-27b-bf16",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "mlx-community/Qwen3.8-27B-bf16",
+      "revision": "6f265714824f3c38d4452baa1628aef3d9b9aae9",
+      "manifest_sha256": "1ef50d83dbdd04933b8b1d9024c814941a82bf85649590e2af16933dfe18088c",
+      "total_bytes": 58831565082,
+      "extras": [
+        "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa @ 4f95046 (drafter)",
+        "MTP head from Qwen/Qwen3.8-27B (Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed @ 1d5087d)"
+      ]
+    },
+    "engine": {
+      "name": "kapitsa",
+      "version": "0.2.34",
+      "context": 262144,
+      "slots": 8,
+      "prefill_chunk": 2048,
+      "disk_cache": "32G",
+      "speculative": "MTP head + DFlash2 drafter",
+      "flags": "--prefill-chunk 2048 --disk-cache 32G",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 8
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw. Unquantized reference for the 4-bit m3-qwen27-kapitsa setup: the same engine, settings, MTP head, chat template and tokenizer.json. The Kapitsa 0.2.34 catalog pins a different DFlash2 drafter for bf16 (nace-ai retrain) than the 4-bit store holds (incoai); speculative drafts are verified by the target, so this affects speed, not the output distribution. tokenizer_config.json is mlx-community's.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "bf16 (unquantized)",
+    "pack_label": "mlx-community bf16, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter"
+  }
+}

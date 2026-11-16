@@ -1,0 +1,168 @@
+{
+  "run": "20261116T070223Z-scholars-mate-m3-qwen27bf16-kapitsa-s1",
+  "lab": true,
+  "prompt": {
+    "id": "scholars-mate",
+    "version": "1",
+    "variant": "open",
+    "subject": "chess-explainer",
+    "file": "prompts/lab/scholars-mate.md",
+    "sha256": "d9d9f6f7dd92a8faed181332ec532818be7f3c355da1e028279c529c750288fb"
+  },
+  "setup_sha256": "7020dd78fcf49575dfb6228755e6c1f36c92a1ff218991b3cbe368962ce55ee3",
+  "sample": 1,
+  "started": "2026-11-16T07:02:25.027922+00:00",
+  "ended": "2026-11-16T07:54:32.242788+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 3127.2,
+  "concurrent_runs": [],
+  "tool_calls": 80,
+  "tokens_seen": 106826,
+  "tokens": {
+    "model_calls": 80,
+    "failed_calls": 0,
+    "input": 63848,
+    "cache_read": 8015027,
+    "output": 32044,
+    "reasoning": 74782,
+    "generated": 106826,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 80,
+    "input": 63848,
+    "cache_read": 8015027,
+    "cache_write": 0,
+    "output": 32044,
+    "reasoning": 74782,
+    "generated": 106826
+  },
+  "agent": {
+    "tool_counts": {
+      "read": 24,
+      "shell": 32,
+      "write": 7,
+      "edit": 16,
+      "grep": 1
+    },
+    "tool_errors": 0,
+    "preview_calls": 42,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 79,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 80,
+    "model_calls": 80,
+    "statuses": {
+      "200": 80
+    },
+    "relay_errors": 0,
+    "client_closed_early": 39,
+    "cached_prompt_tokens": 8015027,
+    "prompt_tokens": 8078875,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 79,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 2470.9,
+    "ttft_ms_p90": 3519.8,
+    "decode_tps_p50": 34.7,
+    "generation_ids": 80
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 618,
+    "avg_watts": 69.3,
+    "max_watts": 126.8,
+    "energy_wh": 59.46,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 82,
+  "code": {
+    "files": 5,
+    "bytes": 48332,
+    "lines": 1425
+  },
+  "workspace_sha256": "7bd14c948524b6315029bd3ec25f1f09db0b3504ffbee4a4e9134aa830df328f",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "ac453ae96f3f2b09c38d1743279006f18b60b3822752ba70dd43d7174c86f71c",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-qwen27bf16-kapitsa",
+    "label": "Qwen3.8-27B bf16 (Kapitsa 0.2.34, M3 Ultra)",
+    "model_id": "qwen3.8-27b-bf16",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "mlx-community/Qwen3.8-27B-bf16",
+      "revision": "6f265714824f3c38d4452baa1628aef3d9b9aae9",
+      "manifest_sha256": "1ef50d83dbdd04933b8b1d9024c814941a82bf85649590e2af16933dfe18088c",
+      "total_bytes": 58831565082,
+      "extras": [
+        "nace-ai/Qwen3.8-27B-DFlash2-Kapitsa @ 4f95046 (drafter)",
+        "MTP head from Qwen/Qwen3.8-27B (Youssofal/Qwen3.8-27B-MTPLX-Optimized-Speed @ 1d5087d)"
+      ]
+    },
+    "engine": {
+      "name": "kapitsa",
+      "version": "0.2.34",
+      "context": 262144,
+      "slots": 8,
+      "prefill_chunk": 2048,
+      "disk_cache": "32G",
+      "speculative": "MTP head + DFlash2 drafter",
+      "flags": "--prefill-chunk 2048 --disk-cache 32G",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback",
+      "max_concurrent_requests": 8
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sampling: engine/pack defaults; the exact request and response are in record/raw. Unquantized reference for the 4-bit m3-qwen27-kapitsa setup: the same engine, settings, MTP head, chat template and tokenizer.json. The Kapitsa 0.2.34 catalog pins a different DFlash2 drafter for bf16 (nace-ai retrain) than the 4-bit store holds (incoai); speculative drafts are verified by the target, so this affects speed, not the output distribution. tokenizer_config.json is mlx-community's.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "bf16 (unquantized)",
+    "pack_label": "mlx-community bf16, built by Kapitsa with Qwen's MTP head and nace-ai DFlash2 drafter"
+  }
+}
