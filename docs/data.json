@@ -1470,7 +1470,7 @@
   "review": {
    "status": "rendered_unverified",
    "end": "agent finished",
-   "chess_conclusion": "Automated render checks passed (one canvas, no page or console errors, no missing files, animated). Unlike the other published Scholar's Mate results, chess positions, captions, orientation and controls were not independently checked for this attempt.",
+   "chess_conclusion": "Independent checks (added 2026-11-16, same method as the bf16 run) read where each piece is drawn after every move-list seek and through an uninterrupted autoplay: all seven positions match the legal reference, including the checkmate; every lesson step, including the rewind to 3. Qh5, shows its correct position, with only mid-animation frames in between. Capture restoration, previous, replay, pause, autoplay and mobile overflow pass; the board is shown from Black's side. Caption wording was not reviewed.",
    "additional_issues": [
     "Retry (attempt 2): the first attempt ended mid-reasoning with an end-of-turn token in its only response and produced no page.",
     "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
