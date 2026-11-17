@@ -1,0 +1,161 @@
+{
+  "run": "20261117T013921Z-room-open-m3-sage21flash-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "room-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "reading-room",
+    "file": "prompts/room-open.md",
+    "sha256": "3999ad59c4177adcd96c8aa3a99c2fecceeec269869ce55e47a47880b797ca6e"
+  },
+  "setup_sha256": "b06f9d9d96a1110d9cbeae95b10af15974be1bcf13cc5c3cbb237d832e6c27d4",
+  "sample": 1,
+  "started": "2026-11-17T01:39:23.256454+00:00",
+  "ended": "2026-11-17T03:00:29.297766+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 4866.0,
+  "concurrent_runs": [],
+  "tool_calls": 94,
+  "tokens_seen": 126228,
+  "tokens": {
+    "model_calls": 82,
+    "failed_calls": 0,
+    "input": 182230,
+    "cache_read": 9485941,
+    "output": 25684,
+    "reasoning": 100544,
+    "generated": 126228,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 82,
+    "input": 182230,
+    "cache_read": 9485941,
+    "cache_write": 0,
+    "output": 25684,
+    "reasoning": 100544,
+    "generated": 126228
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 34,
+      "write": 9,
+      "edit": 29,
+      "read": 21,
+      "grep": 1
+    },
+    "tool_errors": 1,
+    "preview_calls": 35,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 81,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 82,
+    "model_calls": 82,
+    "statuses": {
+      "200": 82
+    },
+    "relay_errors": 0,
+    "client_closed_early": 12,
+    "cached_prompt_tokens": 9485941,
+    "prompt_tokens": 9668171,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 81,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 5977.9,
+    "ttft_ms_p90": 12690.4,
+    "decode_tps_p50": 23.8,
+    "generation_ids": 82
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 961,
+    "avg_watts": 49.6,
+    "max_watts": 183.0,
+    "energy_wh": 66.25,
+    "thermal_levels": [
+      "Heavy",
+      "Moderate",
+      "Nominal"
+    ]
+  },
+  "snapshots": 84,
+  "code": {
+    "files": 10,
+    "bytes": 44643,
+    "lines": 1259
+  },
+  "workspace_sha256": "3c59e3e0b3577b589db84d3a934ed5714bd05c653070e61788a4fa43d618497a",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "8d4b1a217468bbbf83a3ecb6dfd69eb2bfcb9dbfc13e5177fcfe32bc5e669908",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-sage21flash-omlx",
+    "label": "Sage-S2.1-Flash oQ4e (oMLX, M3 Ultra; our build)",
+    "model_id": "Sage-S2.1-Flash-oQ4e-mtp",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "local/Sage-S2.1-Flash-oQ4e-mtp",
+      "revision": "oQ4e-mtp built 2026-11-16 from internlm/Sage-S2.1-Flash-FP8 @ 716e643",
+      "manifest_sha256": "9665c2b1c02702451a52e59ab2ff66596855fd354c1b26e3e9af0046f3ef20b9",
+      "total_bytes": 186423225595
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.7.4.dev1",
+      "speculative": "MTP",
+      "context": 262144,
+      "max_concurrent_requests": 8,
+      "settings": "production GLM settings: temperature 1.0, top_p 0.95, thinking always (effort high), MTP, chunked prefill, aggressive burst decode",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback"
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block",
+      "prefix cache hits visible in raw usage"
+    ],
+    "notes": "Sage-S2.1-Flash (Shanghai AI Lab / InternLM, MIT) is a fine-tune of GLM-5.3-Flash with the same architecture. No MLX pack existed, so we built this one with oMLX 0.7.4.dev1's oQ from the official FP8 weights, using the recipe of the Jundot GLM-5.3-Flash oQ4e-mtp pack used by m3-glm53flash-omlx (oQ4e, imatrix 128 x 512, MTP kept; same bit layout and size). Calibration streamed the FP8 source layer by layer where Jundot's build used a 4-bit proxy. Sage's chat template keeps earlier reasoning in the history, unlike GLM's. Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "Our oQ4e + MTP build (oMLX oQ, GLM pack recipe)"
+  }
+}

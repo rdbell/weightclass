@@ -1,0 +1,47 @@
+{
+  "id": "m3-sage21flash-omlx",
+  "label": "Sage-S2.1-Flash oQ4e (oMLX, M3 Ultra; our build)",
+  "api_key_env": "WC_M3_KEY",
+  "model_id": "Sage-S2.1-Flash-oQ4e-mtp",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "local",
+  "hardware": {
+    "machine": "m3ultra256",
+    "chip": "Apple M3 Ultra",
+    "gpu_cores": 60,
+    "memory_gib": 256
+  },
+  "pack": {
+    "repo": "rdbell/Sage-S2.1-Flash-oQ4e-mtp",
+    "revision": "oQ4e-mtp built 2026-11-16 from internlm/Sage-S2.1-Flash-FP8 @ 716e643",
+    "manifest_sha256": "9665c2b1c02702451a52e59ab2ff66596855fd354c1b26e3e9af0046f3ef20b9",
+    "total_bytes": 186423225595
+  },
+  "engine": {
+    "name": "omlx",
+    "version": "0.7.4.dev1",
+    "speculative": "MTP",
+    "context": 262144,
+    "max_concurrent_requests": 8,
+    "settings": "production GLM settings: temperature 1.0, top_p 0.95, thinking always (effort high), MTP, chunked prefill, aggressive burst decode"
+  },
+  "request_body": {
+    "reasoning_effort": "high"
+  },
+  "host": {
+    "engine_match": "omlx",
+    "engine_log": "/tmp/weightclass-stafford-glm-<stamp>/server.log (per trial)",
+    "ssh_env": "WC_M3_SSH"
+  },
+  "verify_before_runs": [
+    "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+    "engine flags in record/host/start.txt match engine block",
+    "prefix cache hits visible in raw usage"
+  ],
+  "notes": "Sage-S2.1-Flash (Shanghai AI Lab / InternLM, MIT) is a fine-tune of GLM-5.3-Flash with the same architecture. No MLX pack existed, so we built this one with oMLX 0.7.4.dev1's oQ from the official FP8 weights, using the recipe of the Jundot GLM-5.3-Flash oQ4e-mtp pack used by m3-glm53flash-omlx (oQ4e, imatrix 128 x 512, MTP kept; same bit layout and size). Calibration streamed the FP8 source layer by layer where Jundot's build used a 4-bit proxy. Sage's chat template keeps earlier reasoning in the history, unlike GLM's. Sampling: engine/pack defaults; the exact request and response are in record/raw.",
+  "base_url_env": "WC_M3_BASE_URL",
+  "host_header_env": "WC_M3_HOST_HEADER",
+  "quant": "oQ4e",
+  "pack_label": "Our oQ4e + MTP build (oMLX oQ, the GLM pack recipe), from internlm/Sage-S2.1-Flash-FP8"
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Cosy Reading Room</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+  #vignette {
+    position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% 44%, transparent 52%, rgba(4, 3, 7, 0.55) 100%);
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="vignette"></div>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

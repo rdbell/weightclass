@@ -2270,5 +2270,351 @@
   "run_no": 1,
   "runs_of_setup": 1,
   "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and the day, dusk and night modes all render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Model: our own oQ4e + MTP build of Sage-S2.1-Flash (a GLM-5.3-Flash fine-tune with the same architecture), made with oMLX 0.7.4.dev1's oQ from the official FP8 weights using the recipe of the GLM pack this gallery uses (same bit layout and size); served with production's oMLX settings. Sage's chat template keeps earlier reasoning in the conversation history, unlike GLM's."
+   ],
+   "validation_failures": []
+  },
+  "quant": "oQ4e",
+  "pack_label": "Our oQ4e + MTP build (oMLX oQ, the GLM pack recipe), from internlm/Sage-S2.1-Flash-FP8",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "oQ4e-mtp built 2026-11-16 from internlm/Sage-S2.1-Flash-FP8 @ 716e643",
+  "pack_bytes": 186423225595,
+  "engine_settings": "speculative=MTP, context=262144, max_concurrent_requests=8, settings=production GLM settings: temperature 1.0, top_p 0.95, thinking always (effort high), MTP, chunked prefill, aggressive burst decode, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261117T000838Z-eiffel-open-m3-sage21flash-omlx-s1",
+  "prompt": "eiffel-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-sage21flash-omlx",
+  "model": "Sage-S2.1-Flash",
+  "where": "local",
+  "label": "Sage-S2.1-Flash oQ4e (oMLX, M3 Ultra; our build)",
+  "pack": "rdbell/Sage-S2.1-Flash-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 82,
+  "session_steps": 82,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 85,
+  "tool_errors": 6,
+  "generated": 112666,
+  "output": 40319,
+  "reasoning": 72347,
+  "token_note": "reported",
+  "input": 164314,
+  "cached": 8212081,
+  "energy_wh": 58.43,
+  "avg_watts": 42.1,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 5062.0,
+  "concurrent": 0,
+  "decode_tps_p50": 27.1,
+  "ttft_ms_p50": 4932.5,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 15.5,
+   "draw_calls_per_frame": 99,
+   "primitives_per_frame": 212269,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "day",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0098
+   },
+   {
+    "mode": "dusk",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9958
+   },
+   {
+    "mode": "night",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9989
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "day",
+    "found": true,
+    "diff": 0.0202
+   },
+   {
+    "mode": "dusk",
+    "found": true,
+    "diff": 0.9921
+   },
+   {
+    "mode": "night",
+    "found": true,
+    "diff": 0.9693
+   }
+  ],
+  "shots": [
+   "default",
+   "click-day",
+   "click-dusk",
+   "click-night",
+   "default-later",
+   "default-second-load",
+   "mode-day",
+   "mode-dusk",
+   "mode-night"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-17T00:08:40.940986+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and both the top and door views render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Model: our own oQ4e + MTP build of Sage-S2.1-Flash (a GLM-5.3-Flash fine-tune with the same architecture), made with oMLX 0.7.4.dev1's oQ from the official FP8 weights using the recipe of the GLM pack this gallery uses (same bit layout and size); served with production's oMLX settings. Sage's chat template keeps earlier reasoning in the conversation history, unlike GLM's."
+   ],
+   "validation_failures": []
+  },
+  "quant": "oQ4e",
+  "pack_label": "Our oQ4e + MTP build (oMLX oQ, the GLM pack recipe), from internlm/Sage-S2.1-Flash-FP8",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "oQ4e-mtp built 2026-11-16 from internlm/Sage-S2.1-Flash-FP8 @ 716e643",
+  "pack_bytes": 186423225595,
+  "engine_settings": "speculative=MTP, context=262144, max_concurrent_requests=8, settings=production GLM settings: temperature 1.0, top_p 0.95, thinking always (effort high), MTP, chunked prefill, aggressive burst decode, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261117T013921Z-room-open-m3-sage21flash-omlx-s1",
+  "prompt": "room-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-sage21flash-omlx",
+  "model": "Sage-S2.1-Flash",
+  "where": "local",
+  "label": "Sage-S2.1-Flash oQ4e (oMLX, M3 Ultra; our build)",
+  "pack": "rdbell/Sage-S2.1-Flash-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 82,
+  "session_steps": 82,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 94,
+  "tool_errors": 1,
+  "generated": 126228,
+  "output": 25684,
+  "reasoning": 100544,
+  "token_note": "reported",
+  "input": 182230,
+  "cached": 9485941,
+  "energy_wh": 66.25,
+  "avg_watts": 49.6,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 4866.0,
+  "concurrent": 0,
+  "decode_tps_p50": 23.8,
+  "ttft_ms_p50": 5977.9,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 14,
+   "draw_calls_per_frame": 662,
+   "primitives_per_frame": 39868,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "top",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9094
+   },
+   {
+    "mode": "door",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0035
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "top",
+    "found": false,
+    "diff": null
+   },
+   {
+    "mode": "door",
+    "found": false,
+    "diff": null
+   }
+  ],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load",
+   "mode-door",
+   "mode-top"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-17T01:39:23.256454+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Independent checks (bin/chess_check.py) read the board as drawn: all seven positions match the legal reference after each move-list seek, including the checkmate, and every lesson step in an uninterrupted autoplay shows its correct position. Capture restoration, previous, replay, pause and mobile overflow pass; the board is shown from Black's side. Caption wording was not reviewed.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Model: our own oQ4e + MTP build of Sage-S2.1-Flash (a GLM-5.3-Flash fine-tune with the same architecture), made with oMLX 0.7.4.dev1's oQ from the official FP8 weights using the recipe of the GLM pack this gallery uses (same bit layout and size); served with production's oMLX settings. Sage's chat template keeps earlier reasoning in the conversation history, unlike GLM's."
+   ],
+   "validation_failures": []
+  },
+  "quant": "oQ4e",
+  "pack_label": "Our oQ4e + MTP build (oMLX oQ, the GLM pack recipe), from internlm/Sage-S2.1-Flash-FP8",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "oQ4e-mtp built 2026-11-16 from internlm/Sage-S2.1-Flash-FP8 @ 716e643",
+  "pack_bytes": 186423225595,
+  "engine_settings": "speculative=MTP, context=262144, max_concurrent_requests=8, settings=production GLM settings: temperature 1.0, top_p 0.95, thinking always (effort high), MTP, chunked prefill, aggressive burst decode, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261117T030423Z-scholars-mate-m3-sage21flash-omlx-s1",
+  "prompt": "scholars-mate",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-sage21flash-omlx",
+  "model": "Sage-S2.1-Flash",
+  "where": "local",
+  "label": "Sage-S2.1-Flash oQ4e (oMLX, M3 Ultra; our build)",
+  "pack": "rdbell/Sage-S2.1-Flash-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.7.4.dev1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 123,
+  "session_steps": 123,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 122,
+  "tool_errors": 1,
+  "generated": 99128,
+  "output": 41198,
+  "reasoning": 57930,
+  "token_note": "reported",
+  "input": 157229,
+  "cached": 10653656,
+  "energy_wh": 55.02,
+  "avg_watts": 50.6,
+  "thermal": [
+   "Heavy",
+   "Moderate",
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 3965.6,
+  "concurrent": 0,
+  "decode_tps_p50": 28.8,
+  "ttft_ms_p50": 4738.7,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 49,
+   "draw_calls_per_frame": 34,
+   "primitives_per_frame": 68,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [],
+  "clicks": [],
+  "shots": [
+   "default",
+   "default-later",
+   "default-second-load"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-17T03:04:26.003095+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
  }
 ]

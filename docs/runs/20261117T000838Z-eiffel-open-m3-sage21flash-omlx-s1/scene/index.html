@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Tour Eiffel — Toon Adventure</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1734; }
+  canvas { display: block; }
+  #ui {
+    position: fixed; inset: 0; pointer-events: none;
+    font-family: "Avenir Next", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    color: #fff;
+    -webkit-user-select: none; user-select: none;
+  }
+  #title { position: absolute; top: 24px; left: 28px; text-shadow: 0 2px 10px rgba(10, 8, 24, 0.45); }
+  #title h1 {
+    margin: 0; font-size: 21px; font-weight: 800; letter-spacing: 0.34em;
+  }
+  #title p {
+    margin: 6px 0 0; font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; opacity: 0.85;
+  }
+  #modes {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 4px; padding: 5px; pointer-events: auto;
+    background: rgba(18, 14, 28, 0.55);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    box-shadow: 0 8px 30px rgba(10, 8, 24, 0.35);
+  }
+  #modes button {
+    appearance: none; border: 0; background: transparent; cursor: pointer;
+    display: flex; align-items: center; gap: 7px;
+    padding: 9px 16px; border-radius: 999px;
+    color: rgba(255, 255, 255, 0.85);
+    font: 700 12px/1 "Avenir Next", "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    transition: background 0.25s, color 0.25s, transform 0.15s;
+  }
+  #modes button:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+  #modes button:active { transform: scale(0.96); }
+  #modes button.active { background: #ffb84d; color: #241a08; }
+  #modes svg { width: 14px; height: 14px; }
+  #hint {
+    position: absolute; bottom: 32px; right: 28px;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.75; text-shadow: 0 1px 6px rgba(10, 8, 24, 0.4);
+  }
+  @media (max-width: 640px) {
+    #hint { display: none; }
+    #title h1 { font-size: 16px; }
+    #modes button { padding: 9px 11px; }
+    #modes button span { display: none; }
+  }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="ui">
+  <div id="title">
+    <h1>LA TOUR EIFFEL</h1>
+    <p>Paris · France</p>
+  </div>
+  <div id="modes">
+    <button data-mode="day" title="Day (1)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+        <circle cx="12" cy="12" r="4.4" fill="currentColor" stroke="none"/>
+        <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/>
+      </svg><span>Day</span>
+    </button>
+    <button data-mode="dusk" title="Dusk (2)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+        <path d="M6.6 15a5.4 5.4 0 0 1 10.8 0" fill="currentColor" stroke="none"/>
+        <path d="M2.5 15h3M18.5 15h3M12 4.5v3M5.2 7.9l2 2M18.8 7.9l-2 2M2.5 19.5h19"/>
+      </svg><span>Dusk</span>
+    </button>
+    <button data-mode="night" title="Night (3)">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z"/>
+      </svg><span>Night</span>
+    </button>
+  </div>
+  <div id="hint">drag to orbit · scroll to zoom</div>
+</div>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>

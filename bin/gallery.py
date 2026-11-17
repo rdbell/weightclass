@@ -27,7 +27,8 @@ THREE = ROOT / "harness" / "vendor" / "three-0.187.0"
 TEXT = {".html", ".htm", ".js", ".mjs", ".css", ".json", ".glsl", ".vert", ".frag", ".txt", ".md"}
 
 MODEL = {"ds1017": "DeepSeek V4.1 Flash 1017", "glm53flash": "GLM-5.3-Flash",
-         "qwen27": "Qwen3.8-27B", "qwenflash": "Qwen3.8-Flash-Next"}
+         "qwen27": "Qwen3.8-27B", "qwenflash": "Qwen3.8-Flash-Next",
+         "sage21flash": "Sage-S2.1-Flash"}
 
 
 def model_of(setup_id):
