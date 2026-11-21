@@ -1,0 +1,155 @@
+{
+  "run": "20261121T065943Z-eiffel-open-m3-inkling2mini-omlx-s1",
+  "lab": true,
+  "prompt": {
+    "id": "eiffel-open",
+    "version": "1",
+    "variant": "open",
+    "subject": "eiffel",
+    "file": "prompts/lab/eiffel-open.md",
+    "sha256": "a121a69a7f957e1a38782b19841010fafc8d3325b545b7818c034f8848738b1b"
+  },
+  "setup_sha256": "bce9eb6f3d8d3413999cf723b043b4d957139a0e3add9b9ee3c9488c7e24b0d2",
+  "sample": 1,
+  "started": "2026-11-21T06:59:45.782012+00:00",
+  "ended": "2026-11-21T09:00:24.197531+00:00",
+  "end_reason": "agent finished",
+  "wall_seconds": 7238.4,
+  "concurrent_runs": [],
+  "tool_calls": 109,
+  "tokens_seen": 166471,
+  "tokens": {
+    "model_calls": 110,
+    "failed_calls": 0,
+    "input": 101101,
+    "cache_read": 15538500,
+    "output": 64743,
+    "reasoning": 102529,
+    "generated": 167272,
+    "reasoning_method": [
+      "reported"
+    ]
+  },
+  "tokens_session": {
+    "steps": 110,
+    "input": 101101,
+    "cache_read": 15538500,
+    "cache_write": 0,
+    "output": 64743,
+    "reasoning": 102529,
+    "generated": 167272
+  },
+  "agent": {
+    "tool_counts": {
+      "shell": 71,
+      "write": 6,
+      "read": 32
+    },
+    "tool_errors": 0,
+    "preview_calls": 56,
+    "subagent_calls": 0,
+    "step_finish_reasons": {
+      "tool-calls": 109,
+      "stop": 1
+    },
+    "error_events": 0
+  },
+  "model_calls": {
+    "calls": 110,
+    "model_calls": 110,
+    "statuses": {
+      "200": 110
+    },
+    "relay_errors": 0,
+    "client_closed_early": 24,
+    "cached_prompt_tokens": 15538500,
+    "prompt_tokens": 15639601,
+    "upstream_errors": 0,
+    "finish_reasons": {
+      "tool_calls": 109,
+      "stop": 1
+    },
+    "truncated": 0,
+    "providers": [],
+    "ttft_ms_p50": 3640.6,
+    "ttft_ms_p90": 6420.3,
+    "decode_tps_p50": 18.3,
+    "generation_ids": 110
+  },
+  "openrouter": null,
+  "host": {
+    "power_samples": 1431,
+    "avg_watts": 39.7,
+    "max_watts": 126.9,
+    "energy_wh": 78.93,
+    "thermal_levels": [
+      "Nominal"
+    ]
+  },
+  "snapshots": 111,
+  "code": {
+    "files": 6,
+    "bytes": 56201,
+    "lines": 1501
+  },
+  "workspace_sha256": "fa633d684763ff85e04c66eaf3a04453a1245fa60f69dc305d7e9f4cee452880",
+  "harness": {
+    "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be",
+    "opencode": "2.2.7",
+    "playwright": "1.65.0",
+    "three": "0.187.0",
+    "opencode_reported": "opencode v2.2.7",
+    "config_sha256": "f5f53ef42b6abe74cebc6bf29717fda0dfcc7e2edcfe4493949a777a3f8e9eb1",
+    "template_sha256": "6afddf9db04b9eb49b853ddea019d215befb408d3ad23cb1b95bed1b4d4bd343",
+    "scene_tool_sha256": "4f6979158d44938ffb9e5d1ef87a94dc1b9d28982137d1d1f42c652826abcc04",
+    "relay_sha256": "5a5826a7ccdc244a9b5fc7f924899744645a88651402f19fe69ffac115830181",
+    "guard": {
+      "max_steps": 100000,
+      "max_tokens": 1000000,
+      "max_repeats": 8
+    }
+  },
+  "tier": "verified",
+  "submitter": null,
+  "rendered": true,
+  "setup": {
+    "id": "m3-inkling2mini-omlx",
+    "label": "Inkling 2 Mini oQ4e (oMLX 0.8.1, M3 Ultra)",
+    "model_id": "Inkling-2-Mini-oQ4e-mtp",
+    "context": 262144,
+    "max_output": 65536,
+    "kind": "local",
+    "hardware": {
+      "machine": "m3ultra256",
+      "chip": "Apple M3 Ultra",
+      "gpu_cores": 60,
+      "memory_gib": 256
+    },
+    "pack": {
+      "repo": "mlx-community/Inkling-2-Mini-oQ4e-mtp",
+      "revision": "3eea042751cd296b7266628a8342c1749242e1fe",
+      "total_bytes": 16873809944
+    },
+    "engine": {
+      "name": "omlx",
+      "version": "0.8.1",
+      "speculative": "MTP (bundled DSpark draft)",
+      "context": 262144,
+      "max_concurrent_requests": 8,
+      "settings": "temperature 1.0 (the pack's generation_config; no top_p/top_k advice, so top_p 1.0, top_k off, min_p 0), effort high, MTP, chunked prefill, aggressive burst decode",
+      "trial_isolation": "exclusive GPU; verified CPA DigitalOcean fallback"
+    },
+    "request_body": {
+      "reasoning_effort": "high"
+    },
+    "verify_before_runs": [
+      "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+      "engine flags in record/host/start.txt match engine block"
+    ],
+    "notes": "Thinking Machines' Inkling 2 Mini (Apache 2.0): a looped mixture-of-experts model, 26.4B total parameters, whose middle 12 of 24 layers run three times per token. oMLX 0.8.1 is the first oMLX release that loads it; production stayed on 0.8.0rc1, so this run used 0.8.1 installed beside it for probes. The chat template maps reasoning_effort high to its thinking-effort level 0.9, the template's default. mlx-community's oQ4e pack keeps the source NVFP4 experts for layers 0-19 and requantizes the rest. The exact request and response are in record/raw.",
+    "base_url_env": "WC_M3_BASE_URL",
+    "host_header_env": "WC_M3_HOST_HEADER",
+    "quant": "oQ4e",
+    "pack_label": "mlx-community oQ4e + DSpark MTP draft (oMLX oQ)"
+  }
+}

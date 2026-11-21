@@ -2616,5 +2616,138 @@
   "run_no": 1,
   "runs_of_setup": 1,
   "superseded": false
+ },
+ {
+  "reasoning_effort": "high",
+  "thinking_budget": null,
+  "thinking_budget_label": "Not explicitly recorded; engine/provider default unknown",
+  "max_output_tokens": 65536,
+  "review": {
+   "status": "rendered_unverified",
+   "end": "agent finished",
+   "chess_conclusion": "Automated render checks passed: one canvas, no page or console errors, no missing files, animated, and the day, dusk and night modes all render.",
+   "additional_issues": [
+    "Standard protocol: high effort, no added numerical thinking budget, 65,536 output tokens per response, 1M whole-run generated-token guard, no wall-time cutoff.",
+    "Model: mlx-community's oQ4e build of Thinking Machines' Inkling 2 Mini (a looped mixture-of-experts model whose middle 12 of 24 layers run three times per token), with its bundled DSpark draft for MTP, on oMLX 0.8.1, the first oMLX release that loads it. The chat template maps effort high to its thinking-effort level 0.9, its default.",
+    "A first attempt (started 2026-11-21 05:42Z) was cut off after 68 model calls when the machine running the harness crashed; the agent had not finished. It is an infrastructure failure, not a result, and is not listed. This is a fresh attempt with the same setup."
+   ],
+   "validation_failures": []
+  },
+  "quant": "oQ4e",
+  "pack_label": "mlx-community oQ4e + DSpark MTP draft (oMLX oQ)",
+  "pack_link": true,
+  "pack_extras": null,
+  "pack_revision": "3eea042751cd296b7266628a8342c1749242e1fe",
+  "pack_bytes": 16873809944,
+  "engine_settings": "speculative=MTP (bundled DSpark draft), context=262144, max_concurrent_requests=8, settings=temperature 1.0 (the pack's generation_config; no top_p/top_k advice, so top_p 1.0, top_k off, min_p 0), effort high, MTP, chunked prefill, aggressive burst decode, trial_isolation=exclusive GPU; verified CPA DigitalOcean fallback",
+  "request": "{\"reasoning_effort\": \"high\"}",
+  "model_id": null,
+  "id": "20261121T065943Z-eiffel-open-m3-inkling2mini-omlx-s1",
+  "prompt": "eiffel-open",
+  "prompt_title": "",
+  "variant": "open",
+  "setup": "m3-inkling2mini-omlx",
+  "model": "Inkling 2 Mini",
+  "where": "local",
+  "label": "Inkling 2 Mini oQ4e (oMLX 0.8.1, M3 Ultra)",
+  "pack": "mlx-community/Inkling-2-Mini-oQ4e-mtp",
+  "engine": "omlx",
+  "engine_version": "0.8.1",
+  "hardware": "M3 Ultra 60c / 256 GB",
+  "providers": [],
+  "end": "agent finished",
+  "steps": 110,
+  "session_steps": 110,
+  "subagent_calls": 0,
+  "token_source": "all model requests (relay)",
+  "tool_calls": 109,
+  "tool_errors": 0,
+  "generated": 167272,
+  "output": 64743,
+  "reasoning": 102529,
+  "token_note": "reported",
+  "input": 101101,
+  "cached": 15538500,
+  "energy_wh": 78.93,
+  "avg_watts": 39.7,
+  "thermal": [
+   "Nominal"
+  ],
+  "cost_usd": null,
+  "wall_seconds": 7238.4,
+  "concurrent": 0,
+  "decode_tps_p50": 18.3,
+  "ttft_ms_p50": 3640.6,
+  "checks": {
+   "check_version": 2,
+   "canvases": 1,
+   "fps": 17,
+   "draw_calls_per_frame": 81,
+   "primitives_per_frame": 47918,
+   "animated": true,
+   "page_errors": [],
+   "console_errors": [],
+   "missing_files": [],
+   "blank": false
+  },
+  "modes": [
+   {
+    "mode": "day",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.0004
+   },
+   {
+    "mode": "dusk",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9428
+   },
+   {
+    "mode": "night",
+    "blank": false,
+    "errors": 0,
+    "diff": 0.9417
+   }
+  ],
+  "clicks": [
+   {
+    "mode": "day",
+    "found": true,
+    "diff": 0.0247
+   },
+   {
+    "mode": "dusk",
+    "found": true,
+    "diff": 0.9427
+   },
+   {
+    "mode": "night",
+    "found": true,
+    "diff": 0.926
+   }
+  ],
+  "shots": [
+   "default",
+   "click-day",
+   "click-dusk",
+   "click-night",
+   "default-later",
+   "default-second-load",
+   "mode-day",
+   "mode-dusk",
+   "mode-night"
+  ],
+  "scene_rewrite": "\"./vendor/three/\" -> shared copy (4 occurrence(s))",
+  "harness": {
+   "opencode": "2.2.7",
+   "playwright": "1.65.0",
+   "three": "0.187.0",
+   "image_id": "sha256:9c0fe508c11c2371f131615ecf1646d47f944cea3e03ec4901360e520f8f41be"
+  },
+  "started": "2026-11-21T06:59:45.782012+00:00",
+  "run_no": 1,
+  "runs_of_setup": 1,
+  "superseded": false
  }
 ]

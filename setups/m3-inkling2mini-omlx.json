@@ -1,0 +1,46 @@
+{
+  "id": "m3-inkling2mini-omlx",
+  "label": "Inkling 2 Mini oQ4e (oMLX 0.8.1, M3 Ultra)",
+  "api_key_env": "WC_M3_KEY",
+  "model_id": "Inkling-2-Mini-oQ4e-mtp",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "local",
+  "hardware": {
+    "machine": "m3ultra256",
+    "chip": "Apple M3 Ultra",
+    "gpu_cores": 60,
+    "memory_gib": 256
+  },
+  "pack": {
+    "repo": "mlx-community/Inkling-2-Mini-oQ4e-mtp",
+    "revision": "3eea042751cd296b7266628a8342c1749242e1fe",
+    "manifest_sha256": "46b02216ebf453cc9c725ae5025aefb8b04dcfb899a5562155ac61870bb3f13d",
+    "total_bytes": 16873809944
+  },
+  "engine": {
+    "name": "omlx",
+    "version": "0.8.1",
+    "speculative": "MTP (bundled DSpark draft)",
+    "context": 262144,
+    "max_concurrent_requests": 8,
+    "settings": "temperature 1.0 (the pack's generation_config; no top_p/top_k advice, so top_p 1.0, top_k off, min_p 0), effort high, MTP, chunked prefill, aggressive burst decode"
+  },
+  "request_body": {
+    "reasoning_effort": "high"
+  },
+  "host": {
+    "engine_match": "omlx",
+    "engine_log": "/tmp/weightclass-stafford-glm-<stamp>/server.log (per trial)",
+    "ssh_env": "WC_M3_SSH"
+  },
+  "verify_before_runs": [
+    "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+    "engine flags in record/host/start.txt match engine block"
+  ],
+  "notes": "Thinking Machines' Inkling 2 Mini (Apache 2.0): a looped mixture-of-experts model, 26.4B total parameters, whose middle 12 of 24 layers run three times per token. oMLX 0.8.1 is the first oMLX release that loads it; production stayed on 0.8.0rc1, so this run used 0.8.1 installed beside it for probes. The chat template maps reasoning_effort high to its thinking-effort level 0.9, the template's default. mlx-community's oQ4e pack keeps the source NVFP4 experts for layers 0-19 and requantizes the rest. The exact request and response are in record/raw. Eiffel Tower: a first attempt (2026-11-21 05:42Z) was cut off after 68 model calls when the controller machine crashed; the agent had not finished, so it is not a result and is not listed. The published run is a fresh attempt with the same setup.",
+  "base_url_env": "WC_M3_BASE_URL",
+  "host_header_env": "WC_M3_HOST_HEADER",
+  "quant": "oQ4e",
+  "pack_label": "mlx-community oQ4e + DSpark MTP draft (oMLX oQ)"
+}

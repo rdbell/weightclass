@@ -1,0 +1,80 @@
+{
+ "repo": "mlx-community/Inkling-2-Mini-oQ4e-mtp",
+ "revision": "3eea042751cd296b7266628a8342c1749242e1fe",
+ "source": "host_vars rdbell/command-center:ansible/inventory/host_vars/m3ultra256.yml",
+ "files": [
+  {
+   "name": "README.md",
+   "size": 2258,
+   "sha256": "0169fca4308aea7d0a972b65d654e0859276a6ed84c30cb60127395728169163"
+  },
+  {
+   "name": "chat_template.jinja",
+   "size": 6868,
+   "sha256": "53a9035f3255945704b5857657cfb00c1165090c0641c4f782a0cbf268cc16dc"
+  },
+  {
+   "name": "config.json",
+   "size": 24033,
+   "sha256": "748bb4b83536f53a6088efa7c227a0ff33a0177214b306d46e6659d0ffa058a4"
+  },
+  {
+   "name": "generation_config.json",
+   "size": 98,
+   "sha256": "a08737c07a65a8fdf69f7cf086576210e5aad4b241437090b26d7b0c4f7905f7"
+  },
+  {
+   "name": "model-00001-of-00004.safetensors",
+   "size": 5077690550,
+   "sha256": "373cb3fc7ac7062b26c5e0b7076ababf0a1e30e645559a5459bb02bc04a9c52d"
+  },
+  {
+   "name": "model-00002-of-00004.safetensors",
+   "size": 5063799732,
+   "sha256": "707f7027e43c4c8fd44acc14a8809acbacea8096c13599461ab2df95367ed9fb"
+  },
+  {
+   "name": "model-00003-of-00004.safetensors",
+   "size": 5256611079,
+   "sha256": "913fd1e825cc296957c77ae05e0fac846ce8359dd343a36cd4bd069f87c748dc"
+  },
+  {
+   "name": "model-00004-of-00004.safetensors",
+   "size": 813590578,
+   "sha256": "fefe61b2e58b41aabc44e1113c8d903aac0fb2472322eaba0bba78fc75de1ada"
+  },
+  {
+   "name": "model.safetensors.index.json",
+   "size": 90429,
+   "sha256": "b4004624596ed521094a7b2c054e12687d91a85082d5cb73e8b4935b96488e7d"
+  },
+  {
+   "name": "mtp.safetensors",
+   "size": 635801416,
+   "sha256": "7c3b651317f01f73bcf4e1dceba66ef8b7e1a1eac6bc171e882e690a4b10a1d2"
+  },
+  {
+   "name": "processor_config.json",
+   "size": 461,
+   "sha256": "d7350adce18c8be4b607f261c8f0f7eabbf720bb7aaf648a43d4f8372bbacc2d"
+  },
+  {
+   "name": "special_tokens_map.json",
+   "size": 529,
+   "sha256": "c16f44b3594563d82743ddb0417a2be1bfe3e2000dfad2da4b8f32554593e1a0"
+  },
+  {
+   "name": "tokenizer.json",
+   "size": 26178678,
+   "sha256": "7f332727f9a3f093dd452a39cc978e6757627e5dad1b0673aa4e75174f236dd6"
+  },
+  {
+   "name": "tokenizer_config.json",
+   "size": 13235,
+   "sha256": "bf09342d285139fd37ce10c70878af1d52cb390e9901e10248654293a80ee636"
+  }
+ ],
+ "total_bytes": 16873809944,
+ "manifest_sha256": "46b02216ebf453cc9c725ae5025aefb8b04dcfb899a5562155ac61870bb3f13d",
+ "verified_on": null
+}
