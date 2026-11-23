@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Tour Eiffel — Toon Postcard</title>
+<style>
+  :root { --ink: #241a30; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #0b1130;
+    font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .modes { position: fixed; top: 18px; right: 18px; display: flex; gap: 8px; z-index: 10; }
+  .modes button {
+    appearance: none; border: 2px solid var(--ink); border-radius: 999px;
+    padding: 8px 18px 8px 14px; font: 700 13px/1 inherit; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink); background: rgba(255,255,255,.82);
+    cursor: pointer; box-shadow: 0 3px 0 var(--ink); transition: transform .12s ease, background .15s ease;
+  }
+  .modes button:hover { transform: translateY(-2px); }
+  .modes button:active { transform: translateY(1px); box-shadow: 0 1px 0 var(--ink); }
+  .modes button.active { background: #ffe9a8; }
+  .modes button span.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%;
+    border: 2px solid var(--ink); margin-right: 7px; vertical-align: -1px; }
+  .modes button[data-mode="day"]   span.dot { background: #7ec8f5; }
+  .modes button[data-mode="dusk"]  span.dot { background: #ff9e58; }
+  .modes button[data-mode="night"] span.dot { background: #2c3d8f; }
+
+  .card {
+    position: fixed; left: 20px; bottom: 20px; z-index: 10; color: #fff;
+    user-select: none; pointer-events: none;
+    text-shadow: 0 2px 0 rgba(20,10,40,.55), 0 0 18px rgba(20,10,40,.35);
+  }
+  .card h1 { margin: 0; font-size: 26px; letter-spacing: .14em; font-weight: 800; }
+  .card p  { margin: 4px 0 0; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; opacity: .85; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "../../../vendor/three/build/three.module.js",
+    "three/addons/": "../../../vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app"></div>
+
+<div class="modes" role="toolbar" aria-label="Time of day">
+  <button data-mode="day"><span class="dot"></span>Day</button>
+  <button data-mode="dusk"><span class="dot"></span>Dusk</button>
+  <button data-mode="night"><span class="dot"></span>Night</button>
+</div>
+
+<div class="card">
+  <h1>LA TOUR EIFFEL</h1>
+  <p>drag to orbit &nbsp;·&nbsp; scroll to zoom &nbsp;·&nbsp; keys 1 2 3</p>
+</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

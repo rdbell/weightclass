@@ -1,0 +1,50 @@
+{
+  "id": "m3-glm53flash-oq4-tensorfold",
+  "label": "GLM-5.3-Flash MLX oQ4 (TensorFold 1.3.3 --vision, M3 Ultra)",
+  "api_key_env": "WC_M3_KEY",
+  "model_id": "GLM-5.3-Flash-MLX-oQ4-MTP",
+  "context": 262144,
+  "max_output": 65536,
+  "kind": "local",
+  "hardware": {
+    "machine": "m3ultra256",
+    "chip": "Apple M3 Ultra",
+    "gpu_cores": 60,
+    "memory_gib": 256
+  },
+  "pack": {
+    "repo": "TensorFold/GLM-5.3-Flash-MLX-oQ4-MTP",
+    "revision": "98725463185746ffaacb19f1327d1d6814a219f0",
+    "manifest_sha256": "397d3aea2a672fca217db14dca75919a90cb4748151c2b8098cbb293dda24fd9",
+    "total_bytes": 185769339267
+  },
+  "engine": {
+    "name": "tensorfold",
+    "version": "1.3.3",
+    "context": 262144,
+    "slots": 4,
+    "load_limit_gb": 233.646221,
+    "prefill": "prompt time share 0.5 (TENSORFOLD_PREFILL_SHARE), other prefill settings at engine defaults",
+    "speculative": "MTP (the pack's native head; the default)",
+    "flags": "--vision --vision-max-images 64",
+    "vision": "enabled (--vision, up to 64 images per request; PNG built in, JPEG via libjpeg-turbo 3.1.4.1)"
+  },
+  "request_body": {
+    "reasoning_effort": "high"
+  },
+  "host": {
+    "engine_match": "tensorfold-native",
+    "engine_log": "/tmp/weightclass-stafford-glm-<stamp>/server.log (per trial)",
+    "ssh_env": "WC_M3_SSH"
+  },
+  "verify_before_runs": [
+    "model_id and reasoning parameter accepted (smoke run shows reasoning tokens)",
+    "engine flags in record/host/start.txt match engine block",
+    "prefix cache hits visible in raw usage"
+  ],
+  "notes": "TensorFold's own mixed-precision oQ4 conversion of GLM-5.3-Flash (oMLX's sensitivity-guided recipe, native MTP kept, MIT), run 2026-11-23 at the user's request after TensorFold's uniform 4-bit pack (setup m3-glm53flash-tensorfold) thought to its 32K cap on 8 taskbench replies. Same engine flags as the 2026-11-23 oQ4 probes and taskbench (--vision, prefill share 0.5, MTP). Sampling: engine/pack defaults (temperature 1.0, top_p 0.95 from the pack's generation_config); the exact request and response are in record/raw. GLM on one Mac needs GLM_LOAD_LIMIT_GB above TensorFold's 70%-of-RAM default.",
+  "base_url_env": "WC_M3_BASE_URL",
+  "host_header_env": "WC_M3_HOST_HEADER",
+  "quant": "MLX oQ4 (mixed precision)",
+  "pack_label": "TensorFold MLX oQ4 + MTP"
+}
